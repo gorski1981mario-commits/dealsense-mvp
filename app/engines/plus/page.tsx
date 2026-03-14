@@ -35,7 +35,7 @@ export default function EnginePlusPage() {
         border: '1px solid #fca5a5'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-          ⚡ Performance
+          Performance
         </div>
         <div style={{ fontSize: '13px', color: '#374151' }}>
           Deze engine is geoptimaliseerd voor plus pakket.

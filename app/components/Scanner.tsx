@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import jsQR from 'jsqr'
+import { BiometricAuth } from '../_lib/biometric'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance'
 
@@ -16,11 +17,25 @@ export default function Scanner({ type }: ScannerProps) {
   const [result, setResult] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [processing, setProcessing] = useState(false)
+  const [biometricRequired, setBiometricRequired] = useState(false)
   const animationFrameId = useRef<number | null>(null)
 
   const startCamera = async () => {
     try {
       setError(null)
+      
+      // Biometric auth required for PLUS/PRO/FINANCE
+      if (type !== 'free') {
+        setBiometricRequired(true)
+        const verified = await BiometricAuth.authenticate()
+        setBiometricRequired(false)
+        
+        if (!verified) {
+          setError('Biometrische verificatie vereist voor dit pakket')
+          return
+        }
+      }
+      
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' }
       })

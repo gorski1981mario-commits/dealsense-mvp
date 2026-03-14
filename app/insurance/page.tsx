@@ -24,7 +24,7 @@ export default function InsurancePage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#2563eb',
+          background: '#15803d',
           color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
@@ -33,7 +33,7 @@ export default function InsurancePage() {
       </div>
 
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        🛡️ Verzekeringen
+        Verzekeringen
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
@@ -97,7 +97,7 @@ export default function InsurancePage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading ? '#9ca3af' : '#2563eb',
+            background: loading ? '#9ca3af' : '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '10px',
@@ -106,7 +106,7 @@ export default function InsurancePage() {
             cursor: loading ? 'not-allowed' : 'pointer'
           }}
         >
-          {loading ? '🔍 Vergelijken...' : 'Vergelijk verzekeringen'}
+          {loading ? 'Vergelijken...' : 'Vergelijk verzekeringen'}
         </button>
       </form>
 

@@ -149,7 +149,7 @@ export default function DLSSPage() {
         border: '1px solid #86efac'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-          🔒 Privacy
+          Privacy
         </div>
         <div style={{ fontSize: '13px', color: '#374151' }}>
           Je scan data wordt alleen lokaal opgeslagen en nooit gedeeld. DLSS leert alleen van jouw gedrag.

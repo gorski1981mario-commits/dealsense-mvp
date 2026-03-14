@@ -47,14 +47,14 @@ export default function HoeHetWerktPage() {
           gap: '16px',
           marginBottom: '24px',
           padding: '20px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
           borderRadius: '12px',
-          border: '1px solid #3e8e41'
+          border: '1px solid #86efac'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#3e8e41',
+            color: '#15803d',
             minWidth: '40px'
           }}>
             2
@@ -75,14 +75,14 @@ export default function HoeHetWerktPage() {
           alignItems: 'flex-start',
           gap: '16px',
           padding: '20px',
-          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
           borderRadius: '12px',
-          border: '1px solid #fbbf24'
+          border: '1px solid #86efac'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#d97706',
+            color: '#15803d',
             minWidth: '40px'
           }}>
             3

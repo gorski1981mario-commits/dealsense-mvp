@@ -75,12 +75,12 @@ export default function PagesOverviewPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
         borderRadius: '12px',
-        border: '1px solid #93c5fd'
+        border: '1px solid #86efac'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-          📊 Statistieken
+          Statistieken
         </div>
         <div style={{ fontSize: '13px', color: '#374151' }}>
           Totaal aantal pagina's: {pages.length}

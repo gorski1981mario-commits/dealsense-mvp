@@ -2,17 +2,17 @@ export const revalidate = 60
 
 export default function EnginesOverviewPage() {
   const engines = [
-    { name: 'FREE', path: '/engines/free', speed: '3s', accuracy: '85%', color: '#2563eb' },
-    { name: 'PLUS', path: '/engines/plus', speed: '5s', accuracy: '90%', color: '#fbbf24' },
-    { name: 'PREMIUM', path: '/engines/premium', speed: '8s', accuracy: '95%', color: '#7c3aed' },
-    { name: 'PRO', path: '/engines/pro', speed: '10s', accuracy: '97%', color: '#dc2626' },
-    { name: 'PRO-FINANCE', path: '/engines/pro-finance', speed: '15s', accuracy: '99%', color: '#059669' }
+    { name: 'FREE', path: '/engines/free', speed: '3s', accuracy: '85%', color: '#258b52' },
+    { name: 'PLUS', path: '/engines/plus', speed: '5s', accuracy: '90%', color: '#15803d' },
+    { name: 'PREMIUM', path: '/engines/premium', speed: '8s', accuracy: '95%', color: '#166534' },
+    { name: 'PRO', path: '/engines/pro', speed: '10s', accuracy: '97%', color: '#14532d' },
+    { name: 'PRO-FINANCE', path: '/engines/pro-finance', speed: '15s', accuracy: '99%', color: '#052e16' }
   ]
 
   return (
     <div>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        ⚙️ Scan Engines
+        Scan Engines
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
@@ -49,7 +49,7 @@ export default function EnginesOverviewPage() {
                 Speed: {engine.speed} • Accuracy: {engine.accuracy}
               </div>
             </div>
-            <div style={{ fontSize: '24px' }}>⚙️</div>
+            <div style={{ fontSize: '24px' }}>→</div>
           </a>
         ))}
       </div>
@@ -57,9 +57,9 @@ export default function EnginesOverviewPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
         borderRadius: '12px',
-        border: '1px solid #93c5fd'
+        border: '1px solid #86efac'
       }}>
         <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px' }}>
           Hoe werken de engines?
