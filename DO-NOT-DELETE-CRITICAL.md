@@ -355,8 +355,64 @@ Jeśli nie jesteś pewien:
 
 ---
 
+## ✅ TEST ZGODNOŚCI - ZADAJ SOBIE TE PYTANIA PRZED KAŻDĄ ZMIANĄ
+
+**PRZED ROZPOCZĘCIEM PRACY:**
+
+1. ❓ **Czy przeczytałem OBOWIĄZKOWY CHECKLIST na początku pliku?**
+   - Jeśli NIE → Wróć i przeczytaj!
+
+2. ❓ **Czy przeczytałem CZERWONE OSTRZEŻENIE?**
+   - Jeśli NIE → Wróć i przeczytaj!
+
+3. ❓ **Czy rozumiem co oznacza "kasowanie kodu"?**
+   - Jeśli NIE → Przeczytaj sekcję "CO OZNACZA KASOWANIE/USUWANIE"
+
+4. ❓ **Czy zamierzam coś usunąć/przepisać/zamienić?**
+   - Jeśli TAK → ZATRZYMAJ SIĘ i ZAPYTAJ użytkownika!
+   - Jeśli NIE → Możesz kontynuować
+
+5. ❓ **Czy mam PISEMNĄ ZGODĘ użytkownika na kasowanie?**
+   - Jeśli TAK → Możesz kasować (napisz w commit: "za zgodą")
+   - Jeśli NIE → NIE KASUJ!
+
+6. ❓ **Czy tylko POPRAWIAM wartości/kolory/style (bez kasowania)?**
+   - Jeśli TAK → OK, możesz to zrobić
+   - Jeśli NIE → Sprawdź pytanie 4 i 5
+
+7. ❓ **Czy tylko DODAJĘ nowy kod (bez kasowania starego)?**
+   - Jeśli TAK → OK, możesz to zrobić
+   - Jeśli NIE → Sprawdź pytanie 4 i 5
+
+**JEŚLI MASZ WĄTPLIWOŚCI - ZAPYTAJ UŻYTKOWNIKA!**
+
+---
+
+## 🎯 DLACZEGO TA ZASADA JEST TAK WAŻNA?
+
+**DLA UŻYTKOWNIKA:**
+- ✅ Chroni jego kod przed przypadkowym usunięciem
+- ✅ Daje mu kontrolę nad zmianami
+- ✅ Pozwala mu być świadomym co się dzieje
+
+**DLA AGENTA (CIEBIE):**
+- ✅ Chroni przed popełnieniem błędu
+- ✅ Zapobiega tworzeniu problemów
+- ✅ Zapewnia bezpieczną współpracę
+
+**DLA PROJEKTU:**
+- ✅ Zachowuje stabilność kodu
+- ✅ Zapobiega regresji
+- ✅ Utrzymuje jakość
+
+**TO JEST DLA OBOPÓLNEGO BEZPIECZEŃSTWA!**
+
+---
+
 **⚠️ TEN PLIK JEST SOURCE OF TRUTH DLA WSZYSTKICH AGENTÓW AI**
 
 **NIE USUWAJ! NIE MODYFIKUJ BEZ ZGODY UŻYTKOWNIKA!**
 
-**WERSJA: 4 | DATA: 2026-03-14 | STATUS: PRODUKCJA**
+**WERSJA: 4.1 | DATA: 2026-03-14 | STATUS: PRODUKCJA**
+
+**OSTATNIA AKTUALIZACJA: Dodano OBOWIĄZKOWY CHECKLIST, CZERWONE OSTRZEŻENIE, TEST ZGODNOŚCI**
