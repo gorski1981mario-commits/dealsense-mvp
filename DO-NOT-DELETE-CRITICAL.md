@@ -47,11 +47,21 @@ c:\dealsense-100\
 
 ### **STRONY (NIE KASOWAĆ!):**
 10. `app/layout.tsx` - Root layout (hamburger + bottom nav)
-11. `app/page.tsx` - FREE page
+11. `app/page.tsx` - **LANDING PAGE / FREE** ⚠️ KRYTYCZNE!
 12. `app/plus/page.tsx` - PLUS page
 13. `app/pro/page.tsx` - PRO page
 14. `app/finance/page.tsx` - FINANCE page
 15. `app/globals.css` - Style globalne
+
+**⚠️ UWAGA KRYTYCZNA - LANDING PAGE:**
+- `app/page.tsx` to LANDING PAGE (strona główna FREE)
+- **WSZYSTKIE zmiany muszą być stosowane RÓWNIEŻ na landing page!**
+- Landing page ma inną strukturę niż PLUS/PRO/FINANCE ale MUSI mieć te same:
+  - Kolory (zielone #15803d przyciski, #258b52 tekst)
+  - Ikony SVG (NIE emoji!)
+  - Gradienty (zielone)
+  - Style (spójne z resztą)
+- **NIE POMIJAJ landing page podczas zmian globalnych!**
 
 ### **API ROUTES (NIE KASOWAĆ!):**
 16. `app/api/agent-echo/savings/route.ts`

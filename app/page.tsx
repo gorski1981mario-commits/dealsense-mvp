@@ -244,13 +244,13 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #93c5fd',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
-          boxShadow: '0 2px 8px rgba(59,130,246,0.1)'
+          boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#2563eb', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#258b52', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>Veilig & betrouwbaar</span>
         </div>
         <div style={{
@@ -258,13 +258,13 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-          border: '1px solid #fbbf24',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
-          boxShadow: '0 2px 8px rgba(251,191,36,0.1)'
+          boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#d97706', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#258b52', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>3 gratis scans</span>
         </div>
       </div>
@@ -291,31 +291,31 @@ export default function HomePage() {
           }}
         >
           <optgroup label="Shopping (FREE)">
-            <option value="electronics">📱 Elektronika</option>
-            <option value="home">🏡 Dom i ogród</option>
-            <option value="fashion">👕 Moda</option>
-            <option value="health">💄 Zdrowie i uroda</option>
-            <option value="sports">⚽ Sport i fitness</option>
-            <option value="auto">🚗 Auto i akcesoria</option>
-            <option value="toys">🧸 Zabawki i edukacja</option>
-            <option value="furniture">🪑 Meble</option>
-            <option value="pets">🐕 Zwierzęta</option>
-            <option value="tools">🔨 Narzędzia - DIY</option>
+            <option value="electronics">Elektronika</option>
+            <option value="home">Dom i ogród</option>
+            <option value="fashion">Moda</option>
+            <option value="health">Zdrowie i uroda</option>
+            <option value="sports">Sport i fitness</option>
+            <option value="auto">Auto i akcesoria</option>
+            <option value="toys">Zabawki i edukacja</option>
+            <option value="furniture">Meble</option>
+            <option value="pets">Zwierzęta</option>
+            <option value="tools">Narzędzia - DIY</option>
           </optgroup>
           <optgroup label="Services (PRO)">
-            <option value="vacations">✈️ Vacations</option>
-            <option value="insurance">🛡️ Insurance</option>
-            <option value="energy">⚡ Energy</option>
-            <option value="mobile">📞 Mobile</option>
-            <option value="internet">🌐 Internet</option>
-            <option value="tv">📺 TV</option>
+            <option value="vacations">Vacations</option>
+            <option value="insurance">Insurance</option>
+            <option value="energy">Energy</option>
+            <option value="mobile">Mobile</option>
+            <option value="internet">Internet</option>
+            <option value="tv">TV</option>
           </optgroup>
           <optgroup label="Finance (FINANCE)">
-            <option value="mortgage">🏠 Mortgage</option>
-            <option value="loans">💳 Loans</option>
-            <option value="leasing">🚙 Leasing</option>
-            <option value="cards">💳 Cards</option>
-            <option value="subscriptions">📋 Subscriptions</option>
+            <option value="mortgage">Mortgage</option>
+            <option value="loans">Loans</option>
+            <option value="leasing">Leasing</option>
+            <option value="cards">Cards</option>
+            <option value="subscriptions">Subscriptions</option>
           </optgroup>
         </select>
 
