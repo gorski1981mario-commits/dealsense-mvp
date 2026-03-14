@@ -41,6 +41,14 @@ c:\dealsense-100\
 6. `app/components/BiometricAuth.tsx` - Biometria (WebAuthn)
 7. `app/components/AgentEcho.tsx` - Agent Echo z 5 funkcjami
 
+### **WSPÓLNE KOMPONENTY (KRYTYCZNE - NIE KASOWAĆ!):**
+8. `app/components/shared/PackageBadge.tsx` - Badge dla wszystkich pakietów
+9. `app/components/shared/ActionButton.tsx` - Ciemnozielony przycisk akcji
+10. `app/components/shared/GreenGradientBox.tsx` - Zielony gradient box
+
+**⚠️ UWAGA:** Te komponenty są używane we WSZYSTKICH 4 pakietach + hamburger!
+**Zmiana w komponencie = automatyczny update wszędzie!**
+
 ### **LOGIKA (NIE KASOWAĆ!):**
 8. `app/_lib/biometric.ts` - WebAuthn logic
 9. `app/_lib/agentEcho.ts` - Agent Echo business logic
