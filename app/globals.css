@@ -246,6 +246,12 @@ body {
   border-color: #86efac;
 }
 
+/* Active state dla package cards w hamburgerze */
+.package-card.active {
+  border: 2px solid #15803d;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+}
+
 .package-header {
   display: flex;
   justify-content: space-between;

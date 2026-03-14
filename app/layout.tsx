@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="menu-section">
               <div className="menu-section-title">PAKIETY</div>
 
-              <a href="/" className="package-card" onClick={() => setMenuOpen(false)}>
+              <a href="/" className={`package-card ${pathname === '/' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
                 <div className="package-header">
                   <div className="package-name">FREE</div>
                   <div className="package-price">€0</div>
@@ -90,7 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </a>
 
-              <a href="/plus" className="package-card plus" onClick={() => setMenuOpen(false)}>
+              <a href="/plus" className={`package-card plus ${pathname === '/plus' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
                 <div className="package-header">
                   <div className="package-name">PLUS</div>
                   <div className="package-price">€19,99</div>
@@ -104,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </a>
 
-              <a href="/pro" className="package-card pro" onClick={() => setMenuOpen(false)}>
+              <a href="/pro" className={`package-card pro ${pathname === '/pro' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
                 <div className="package-header">
                   <div className="package-name">PRO</div>
                   <div className="package-price">€29,99</div>
@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </a>
 
-              <a href="/finance" className="package-card finance" onClick={() => setMenuOpen(false)}>
+              <a href="/finance" className={`package-card finance ${pathname === '/finance' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
                 <div className="package-header">
                   <div className="package-name">FINANCE</div>
                   <div className="package-price">€39,99</div>
