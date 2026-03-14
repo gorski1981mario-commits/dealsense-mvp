@@ -1,0 +1,34 @@
+### SMOKE TEST - 4 STRONY PAKIETÓW
+
+## TEST 1: FREE (/)
+
+'use client'
+import { useState, useEffect } from 'react'
+import Scanner from './components/Scanner'
+      {/* QR Scanner */}
+      <Scanner type="free" />
+
+
+## TEST 2: PLUS (/plus)
+
+'use client'
+import Scanner from '../components/Scanner'
+      {/* QR Scanner */}
+      <Scanner type="plus" />
+
+
+## TEST 3: PRO (/pro)
+
+'use client'
+import Scanner from '../components/Scanner'
+      {/* QR Scanner */}
+      <Scanner type="pro" />
+
+
+## TEST 4: FINANCE (/finance)
+
+'use client'
+import Scanner from '../components/Scanner'
+      {/* QR Scanner */}
+      <Scanner type="finance" />
+

@@ -129,9 +129,9 @@ export default function Scanner({ type }: ScannerProps) {
     <div style={{
       marginTop: '24px',
       padding: '20px',
-      background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
       borderRadius: '12px',
-      border: '1px solid #93c5fd'
+      border: '1px solid #86efac'
     }}>
       <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px' }}>
         QR Code Scanner
@@ -143,13 +143,14 @@ export default function Scanner({ type }: ScannerProps) {
           style={{
             width: '100%',
             padding: '12px',
-            background: '#258b52',
+            background: '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
             fontSize: '14px',
             fontWeight: 600,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
           }}
         >
           Start Camera

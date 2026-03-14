@@ -1,16 +1,19 @@
 'use client'
 
 import Scanner from '../components/Scanner'
+import AgentEcho from '../components/AgentEcho'
 
 export default function FinancePage() {
+  const userId = typeof window !== 'undefined' ? (localStorage.getItem('dealsense_device_id') || 'user_demo') : 'user_demo'
+
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#7c3aed',
-          color: 'white',
+          background: 'rgba(37,139,82,0.12)',
+          color: '#258b52',
           borderRadius: '6px',
           fontSize: '12px',
           fontWeight: 700
@@ -20,6 +23,9 @@ export default function FinancePage() {
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
         Voor complete financiële controle. Alle tools, geen commissie.
       </p>
+
+      {/* Agent Echo */}
+      <AgentEcho packageType="finance" userId={userId} />
 
       {/* QR Scanner */}
       <Scanner type="finance" />
