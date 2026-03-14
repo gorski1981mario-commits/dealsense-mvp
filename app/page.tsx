@@ -31,7 +31,7 @@ function showToast(message: string) {
 
 // Confetti animation
 function createConfetti() {
-  const colors = ['#258b52', '#fbbf24', '#2563eb', '#7c3aed']
+  const colors = ['#258b52', '#15803d', '#166534', '#14532d']
   for (let i = 0; i < 50; i++) {
     const confetti = document.createElement('div')
     confetti.className = 'confetti'
@@ -203,7 +203,7 @@ export default function HomePage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#2563eb',
+          background: '#15803d',
           color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
@@ -399,7 +399,7 @@ export default function HomePage() {
             style={{ width: '20px', height: '20px', cursor: 'pointer' }}
           />
           <label htmlFor="ghostMode" style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
-            👻 Ghost Mode (24/7 monitoring)
+            Ghost Mode (24/7 monitoring)
           </label>
         </div>
 
@@ -418,7 +418,7 @@ export default function HomePage() {
             cursor: loading || scansRemaining === 0 ? 'not-allowed' : 'pointer'
           }}
         >
-          {loading ? '🔍 Scannen...' : scansRemaining === 0 ? 'Upgrade voor meer scans' : 'Vergelijk prijzen'}
+          {loading ? 'Scannen...' : scansRemaining === 0 ? 'Upgrade voor meer scans' : 'Vergelijk prijzen'}
         </button>
       </form>
 
@@ -635,7 +635,11 @@ export default function HomePage() {
           <div className="onboarding-modal">
             {onboardingStep === 1 && (
               <>
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎯</div>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
                 <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
                   Welkom bij DealSense!
                 </h2>
@@ -661,7 +665,10 @@ export default function HomePage() {
             )}
             {onboardingStep === 2 && (
               <>
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
                 <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
                   Hoe het werkt
                 </h2>
@@ -689,7 +696,13 @@ export default function HomePage() {
             )}
             {onboardingStep === 3 && (
               <>
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎁</div>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
+                  <polyline points="20 12 20 22 4 22 4 12"/>
+                  <rect x="2" y="7" width="20" height="5"/>
+                  <line x1="12" y1="22" x2="12" y2="7"/>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                </svg>
                 <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
                   3 gratis scans!
                 </h2>
@@ -724,8 +737,8 @@ export default function HomePage() {
         <details style={{
           marginBottom: '16px',
           padding: '16px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #93c5fd',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px'
         }}>
           <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Hoeveel scans krijg ik gratis?</summary>
@@ -737,8 +750,8 @@ export default function HomePage() {
         <details style={{
           marginBottom: '16px',
           padding: '16px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #93c5fd',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px'
         }}>
           <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Is er een prijslimiet?</summary>
@@ -750,8 +763,8 @@ export default function HomePage() {
         <details style={{
           marginBottom: '16px',
           padding: '16px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #93c5fd',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px'
         }}>
           <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Wat is de commissie?</summary>
@@ -763,8 +776,8 @@ export default function HomePage() {
         <details style={{
           marginBottom: '16px',
           padding: '16px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #93c5fd',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          border: '1px solid #86efac',
           borderRadius: '10px'
         }}>
           <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Hoe werkt het?</summary>

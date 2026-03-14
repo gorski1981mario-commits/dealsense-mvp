@@ -19,7 +19,7 @@ export default function DLSSPage() {
   return (
     <div>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        🎯 DLSS - Deep Learning Smart Scan
+        DLSS - Deep Learning Smart Scan
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
@@ -59,16 +59,16 @@ export default function DLSSPage() {
               background: 'white'
             }}
           >
-            <option value="electronics">📱 Elektronika</option>
-            <option value="home">🏡 Dom i ogród</option>
-            <option value="fashion">👕 Moda</option>
-            <option value="health">💄 Zdrowie i uroda</option>
-            <option value="sports">⚽ Sport i fitness</option>
-            <option value="auto">🚗 Auto</option>
-            <option value="toys">🧸 Zabawki</option>
-            <option value="furniture">🪑 Meble</option>
-            <option value="pets">🐕 Zwierzęta</option>
-            <option value="tools">🔨 Narzędzia</option>
+            <option value="electronics">Elektronika</option>
+            <option value="home">Dom i ogród</option>
+            <option value="fashion">Moda</option>
+            <option value="health">Zdrowie i uroda</option>
+            <option value="sports">Sport i fitness</option>
+            <option value="auto">Auto</option>
+            <option value="toys">Zabawki</option>
+            <option value="furniture">Meble</option>
+            <option value="pets">Zwierzęta</option>
+            <option value="tools">Narzędzia</option>
           </select>
         </div>
 
@@ -78,7 +78,7 @@ export default function DLSSPage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading ? '#9ca3af' : '#7c3aed',
+            background: loading ? '#9ca3af' : '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '10px',
@@ -87,7 +87,7 @@ export default function DLSSPage() {
             cursor: loading ? 'not-allowed' : 'pointer'
           }}
         >
-          {loading ? '🧠 AI Scannen...' : '🎯 Start DLSS Scan'}
+          {loading ? 'AI Scannen...' : 'Start DLSS Scan'}
         </button>
       </form>
 
@@ -144,9 +144,9 @@ export default function DLSSPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
         borderRadius: '12px',
-        border: '1px solid #93c5fd'
+        border: '1px solid #86efac'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
           🔒 Privacy

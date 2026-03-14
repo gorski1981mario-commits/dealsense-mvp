@@ -23,7 +23,7 @@ export default function GoldPage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#fbbf24',
+          background: '#15803d',
           color: '#92400e',
           borderRadius: '6px',
           fontSize: '12px',
@@ -32,7 +32,7 @@ export default function GoldPage() {
       </div>
 
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        🏆 Goud & Edelmetalen
+        Goud & Edelmetalen
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
@@ -41,15 +41,15 @@ export default function GoldPage() {
 
       <div style={{
         padding: '20px',
-        background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
         borderRadius: '12px',
-        border: '1px solid #fbbf24',
+        border: '1px solid #86efac',
         marginBottom: '32px'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
           💰 Huidige goudprijs
         </div>
-        <div style={{ fontSize: '24px', fontWeight: 900, color: '#d97706', marginBottom: '8px' }}>
+        <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '8px' }}>
           €65,50/gram
         </div>
         <div style={{ fontSize: '12px', color: '#64748b' }}>
@@ -118,7 +118,7 @@ export default function GoldPage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading || !amount ? '#9ca3af' : '#fbbf24',
+            background: loading || !amount ? '#9ca3af' : '#15803d',
             color: '#92400e',
             border: 'none',
             borderRadius: '10px',
@@ -127,7 +127,7 @@ export default function GoldPage() {
             cursor: loading || !amount ? 'not-allowed' : 'pointer'
           }}
         >
-          {loading ? '🔍 Vergelijken...' : 'Vergelijk prijzen'}
+          {loading ? 'Vergelijken...' : 'Vergelijk prijzen'}
         </button>
       </form>
 
@@ -158,7 +158,7 @@ export default function GoldPage() {
                 <div style={{ fontSize: '14px', fontWeight: 600 }}>{item.name}</div>
                 <div style={{ fontSize: '12px', color: '#64748b' }}>Premium: {item.premium}</div>
               </div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#d97706' }}>{item.price}</div>
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#15803d' }}>{item.price}</div>
             </div>
           ))}
         </div>
@@ -167,12 +167,12 @@ export default function GoldPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
         borderRadius: '12px',
-        border: '1px solid #93c5fd'
+        border: '1px solid #86efac'
       }}>
         <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px' }}>
-          💡 Tips voor goud kopen
+          Tips voor goud kopen
         </h3>
         <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', margin: 0 }}>
           <li>Let op de premium (opslag boven goudprijs)</li>

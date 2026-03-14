@@ -49,12 +49,12 @@ export default function HoeHetWerktPage() {
           padding: '20px',
           background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
           borderRadius: '12px',
-          border: '1px solid #93c5fd'
+          border: '1px solid #3e8e41'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#2563eb',
+            color: '#3e8e41',
             minWidth: '40px'
           }}>
             2
@@ -112,7 +112,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '10px'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              ⚡ Supersnel
+              Supersnel
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>
               Resultaten in 3-15 seconden. Geen eindeloos wachten.
@@ -126,7 +126,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '10px'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              🎯 Altijd de beste deal
+              Altijd de beste deal
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>
               Onze AI filtert automatisch slechte aanbiedingen en scams.
@@ -140,7 +140,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '10px'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              👻 Ghost Mode
+              Ghost Mode
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>
               Laat ons 24/7 monitoren. Je krijgt een melding zodra de prijs daalt.

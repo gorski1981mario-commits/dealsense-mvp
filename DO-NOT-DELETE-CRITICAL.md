@@ -268,15 +268,20 @@ git push origin main
 5. ✅ Rób zmiany TYLKO w `c:\dealsense-100`
 6. ✅ Testuj na telefonie przed deploy
 7. ✅ Commit + push po każdej zmianie
+8. ✅ **UŻYWAJ CHECKLISTY PONIŻEJ dla zmian globalnych!**
+9. ✅ **CZEKAJ na pisemną zgodę przed kasowaniem kodu!**
 
 ### **NIGDY:**
-1. ❌ NIE usuwaj plików bez pytania
-2. ❌ NIE zmieniaj kolorów na niebieski/żółty/fioletowy
-3. ❌ NIE używaj emoji w bottom nav
-4. ❌ NIE dodawaj funkcji które user odrzucił
-5. ❌ NIE rób zmian poza `c:\dealsense-100`
-6. ❌ NIE kasuj Agent Echo CONFIG
-7. ❌ NIE zmieniaj brandingu E-CH-O
+1. ❌ **NIE KASUJ KODU BEZ PISEMNEJ ZGODY UŻYTKOWNIKA!**
+2. ❌ NIE usuwaj plików bez pytania
+3. ❌ NIE zmieniaj kolorów na niebieski/żółty/fioletowy
+4. ❌ NIE używaj emoji w bottom nav
+5. ❌ NIE dodawaj funkcji które user odrzucił
+6. ❌ NIE rób zmian poza `c:\dealsense-100`
+7. ❌ NIE kasuj Agent Echo CONFIG
+8. ❌ NIE zmieniaj brandingu E-CH-O
+9. ❌ **NIGDY nie mów "PLUS/PRO/FINANCE" - zawsze "4 PAKIETY"!**
+10. ❌ **NIE PRZEPISUJ plików bez zgody - tylko EDYTUJ!**
 
 ---
 
