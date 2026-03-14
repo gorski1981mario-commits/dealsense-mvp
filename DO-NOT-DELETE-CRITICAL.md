@@ -285,13 +285,62 @@ git push origin main
 
 ---
 
-## 🆘 JEŚLI COKOLWIEK PÓJDZIE ŹLE
+## 🚨 ŻELAZNA ZASADA - ABSOLUTNY PRIORYTET
 
-1. **STOP** - nie rób więcej zmian
-2. **PRZECZYTAJ** ten plik od początku
-3. **SPRAWDŹ** `ANALIZA-KODU.md`
-4. **ZAPYTAJ** użytkownika co robić
-5. **NIE ZGADUJ** - lepiej zapytać niż zepsuć
+### **KASOWANIE KODU - BEZWZGLĘDNY ZAKAZ BEZ ZGODY:**
+
+**⚠️ KASOWANIE/USUWANIE CZEGOKOLWIEK W KODZIE JEST DOZWOLONE TYLKO I WYŁĄCZNIE:**
+
+1. ✅ Za **PISEMNĄ ZGODĄ** użytkownika w konsoli
+2. ✅ Z **WYRAŹNYM POTWIERDZENIEM** użytkownika PRZED wykonaniem
+3. ✅ **NIGDY** bez pytania użytkownika
+4. ✅ **ZAWSZE PYTAJ** - nawet jeśli wydaje Ci się oczywiste
+
+**CO OZNACZA "KASOWANIE/USUWANIE":**
+- ❌ Usuwanie linii kodu
+- ❌ Usuwanie funkcji
+- ❌ Usuwanie komponentów
+- ❌ Usuwanie ikon
+- ❌ Usuwanie emoji
+- ❌ Usuwanie elementów UI
+- ❌ Usuwanie plików
+- ❌ Przepisywanie plików (to też kasowanie!)
+- ❌ Zamiana kodu na inny (to też kasowanie!)
+
+**PRZYKŁADY ZŁAMANIA ZASADY (NIE RÓB TEGO!):**
+```bash
+❌ ŹLE: "Usuwam stary kod..." (bez pytania)
+❌ ŹLE: "Przepisuję plik..." (bez zgody)
+❌ ŹLE: "Kasuje niepotrzebne funkcje..." (bez potwierdzenia)
+❌ ŹLE: "Usuwam ikony SVG z bottom nav" (bez pytania - ZŁAMANIE!)
+❌ ŹLE: "Zamieniam emoji na ikony" (bez zgody - to też kasowanie!)
+❌ ŹLE: "Upraszczam kod" (bez pytania - to kasowanie!)
+```
+
+**PRZYKŁADY POPRAWNE:**
+```bash
+✅ DOBRZE: "Widzę ikony SVG w bottom nav. Czy mogę je usunąć? [CZEKAM NA ODPOWIEDŹ]"
+✅ DOBRZE: "Znalazłem emoji. Czy mogę je zamienić na ikony SVG? [CZEKAM NA ZGODĘ]"
+✅ DOBRZE: "Czy mogę usunąć ten plik? [CZEKAM NA POTWIERDZENIE]"
+✅ DOBRZE: "POPRAWIAM kolory (nie kasuję kodu - tylko zmieniam wartości)"
+✅ DOBRZE: "EDYTUJĘ istniejący kod (nie kasuję - tylko poprawiam)"
+```
+
+**PROCEDURA PRZED KASOWANIEM:**
+1. **ZATRZYMAJ SIĘ** - nie kasuj od razu
+2. **ZAPYTAJ** użytkownika: "Czy mogę usunąć [co]?"
+3. **CZEKAJ** na wyraźną odpowiedź: "tak", "usuń", "masz zgodę"
+4. **DOPIERO WTEDY** kasuj kod
+5. **W COMMIT MESSAGE** napisz: "za pisemną zgodą użytkownika"
+
+**JEŚLI NIE MASZ ZGODY:**
+- ✅ Poprawiaj istniejący kod (kolory, style, wartości)
+- ✅ Dodawaj nowe funkcje
+- ✅ Edytuj zawartość (zmiana tekstu, wartości)
+- ✅ Twórz nowe pliki
+- ❌ **ALE NIE KASUJ NICZEGO!**
+- ❌ **NIE USUWAJ NICZEGO!**
+- ❌ **NIE PRZEPISUJ PLIKÓW!**
 
 ---
 
