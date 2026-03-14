@@ -44,13 +44,14 @@ export default function PlusPage() {
         </div>
         <button style={{
           padding: '10px 20px',
-          background: '#258b52',
+          background: '#15803d',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
           fontSize: '14px',
           fontWeight: 600,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
         }}>Upgrade nu</button>
       </div>
 

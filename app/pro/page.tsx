@@ -39,18 +39,19 @@ export default function ProPage() {
         borderBottom: '1px solid #E2E8F0'
       }}>
         <div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: '#1e40af' }}>€29,99</div>
+          <div style={{ fontSize: '28px', fontWeight: 900, color: '#258b52' }}>€29,99</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>Eenmalige betaling</div>
         </div>
         <button style={{
           padding: '10px 20px',
-          background: '#258b52',
+          background: '#15803d',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
           fontSize: '14px',
           fontWeight: 600,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
         }}>Upgrade nu</button>
       </div>
 

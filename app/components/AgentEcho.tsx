@@ -86,9 +86,15 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
         marginBottom: '16px',
         padding: '8px 12px',
         background: 'rgba(255,255,255,0.5)',
-        borderRadius: '6px'
+        borderRadius: '6px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px'
       }}>
-        📦 Toegang tot: {hasAccessTo.finance ? 'FREE + PLUS + PRO + FINANCE' : hasAccessTo.pro ? 'FREE + PLUS + PRO' : 'FREE + PLUS'}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        </svg>
+        <span>Toegang tot: {hasAccessTo.finance ? 'FREE + PLUS + PRO + FINANCE' : hasAccessTo.pro ? 'FREE + PLUS + PRO' : 'FREE + PLUS'}</span>
       </div>
 
       {/* Main Feature: Savings */}
@@ -108,7 +114,10 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
           alignItems: 'center',
           gap: '6px'
         }}>
-          <span>💰</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
           <span>Jouw besparingen</span>
         </div>
 
@@ -146,9 +155,16 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
           color: '#166534',
           cursor: 'pointer',
           padding: '8px 0',
-          listStyle: 'none'
+          listStyle: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px'
         }}>
-          📊 Meer functies →
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          <span>Meer functies →</span>
         </summary>
         
         <div style={{ 
@@ -164,7 +180,12 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px' }}>📦 Voorraadstatus</div>
+            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+              <span>Voorraadstatus</span>
+            </div>
             <div>Realtime voorraad bij winkels</div>
           </div>
 
@@ -176,7 +197,13 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px' }}>⏱️ Levertijd</div>
+            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>Levertijd</span>
+            </div>
             <div>Exacte levertijd per winkel</div>
           </div>
 
@@ -188,7 +215,12 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px' }}>🛡️ Garantie & Service</div>
+            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>Garantie & Service</span>
+            </div>
             <div>Retourvoorwaarden en garantie</div>
           </div>
 
@@ -200,7 +232,16 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px' }}>🎁 Extra voordelen</div>
+            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 12 20 22 4 22 4 12"/>
+                <rect x="2" y="7" width="20" height="5"/>
+                <line x1="12" y1="22" x2="12" y2="7"/>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+              </svg>
+              <span>Extra voordelen</span>
+            </div>
             <div>Cashback, cadeaus, bankacties</div>
           </div>
         </div>
@@ -215,10 +256,26 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
         fontSize: '11px',
         color: '#166534',
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        gap: '12px'
       }}>
-        <div>📊 Scans: {Math.floor(Math.random() * 50) + 10}</div>
-        <div>🎯 Nauwkeurigheid: 89%</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span>Scans: {Math.floor(Math.random() * 50) + 10}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="16 12 12 8 8 12"/>
+            <line x1="12" y1="16" x2="12" y2="8"/>
+          </svg>
+          <span>Nauwkeurigheid: 89%</span>
+        </div>
       </div>
     </div>
   )
