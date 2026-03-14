@@ -1,3 +1,7 @@
+'use client'
+
+import Scanner from '../components/Scanner'
+
 export default function ProPage() {
   return (
     <div>
@@ -16,6 +20,9 @@ export default function ProPage() {
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
         Voor professionals. Maximale features, minimale commissie.
       </p>
+
+      {/* QR Scanner */}
+      <Scanner type="pro" />
 
       <div style={{
         display: 'flex',

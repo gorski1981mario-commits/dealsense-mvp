@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Scanner from './components/Scanner'
 
 // Device fingerprint - generates unique ID for session tracking
 function getDeviceId(): string {
@@ -218,6 +219,9 @@ export default function HomePage() {
       </div>
       
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>Vind de beste deal</p>
+
+      {/* QR Scanner */}
+      <Scanner type="free" />
 
       {/* Badges */}
       <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>

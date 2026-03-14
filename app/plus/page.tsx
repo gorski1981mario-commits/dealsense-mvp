@@ -1,3 +1,7 @@
+'use client'
+
+import Scanner from '../components/Scanner'
+
 export default function PlusPage() {
   return (
     <div>
@@ -16,6 +20,9 @@ export default function PlusPage() {
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
+
+      {/* QR Scanner */}
+      <Scanner type="plus" />
 
       <div style={{
         display: 'flex',

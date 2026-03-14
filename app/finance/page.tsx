@@ -1,3 +1,7 @@
+'use client'
+
+import Scanner from '../components/Scanner'
+
 export default function FinancePage() {
   return (
     <div>
@@ -16,6 +20,9 @@ export default function FinancePage() {
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
         Voor complete financiële controle. Alle tools, geen commissie.
       </p>
+
+      {/* QR Scanner */}
+      <Scanner type="finance" />
 
       <div style={{
         display: 'flex',
