@@ -2,9 +2,11 @@
 
 import './globals.css'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   // Close menu on escape key
   useEffect(() => {
@@ -83,9 +85,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>Altijd gratis</div>
                 <div className="package-features">
                   <div className="package-feature">✓ 3 gratis scans</div>
-                  <div className="package-feature">✓ Shopping</div>
-                  <div className="package-feature">✓ Geen prijslimiet</div>
-                  <div className="package-feature">✓ 10% commissie</div>
+                  <div className="package-feature">✓ 10 categorieën</div>
+                  <div className="package-feature">✓ Teaser resultaten</div>
                 </div>
               </a>
 
@@ -97,8 +98,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>Eenmalige betaling</div>
                 <div className="package-features">
                   <div className="package-feature">✓ Onbeperkt scans</div>
-                  <div className="package-feature">✓ Shopping</div>
-                  <div className="package-feature">✓ 5% commissie</div>
+                  <div className="package-feature">✓ 10 categorieën</div>
+                  <div className="package-feature">✓ 10% commissie</div>
                   <div className="package-feature">✓ Ghost Mode (24h)</div>
                 </div>
               </a>
@@ -111,9 +112,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>Eenmalige betaling</div>
                 <div className="package-features">
                   <div className="package-feature">✓ Onbeperkt scans</div>
-                  <div className="package-feature">✓ Shopping + Services</div>
+                  <div className="package-feature">✓ 16 categorieën</div>
                   <div className="package-feature">✓ Vakanties, Verzekeringen</div>
-                  <div className="package-feature">✓ 3% commissie</div>
+                  <div className="package-feature">✓ 5% commissie</div>
                 </div>
               </a>
 
@@ -136,14 +137,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="menu-section">
               <div className="menu-section-title">FUNCTIES</div>
 
-              <a href="/dashboard" className="menu-item" onClick={() => setMenuOpen(false)}>
+              <a href="/vaste-lasten" className="menu-item" onClick={() => setMenuOpen(false)}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
                   <polyline points="17 6 23 6 23 12"/>
                 </svg>
                 <div className="menu-item-content">
-                  <div className="menu-item-title">Mijn Besparingen</div>
-                  <div className="menu-item-desc">Bekijk je totale besparingen</div>
+                  <div className="menu-item-title">Mijn vaste lasten</div>
+                  <div className="menu-item-desc">Bespaar op energie, internet, etc</div>
+                </div>
+              </a>
+
+              <a href="/vacations" className="menu-item" onClick={() => setMenuOpen(false)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2v20M2 12h20"/>
+                </svg>
+                <div className="menu-item-content">
+                  <div className="menu-item-title">Vakanties</div>
+                  <div className="menu-item-desc">Vergelijk vakantieaanbiedingen</div>
+                </div>
+              </a>
+
+              <a href="/insurance" className="menu-item" onClick={() => setMenuOpen(false)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <div className="menu-item-content">
+                  <div className="menu-item-title">Verzekeringen</div>
+                  <div className="menu-item-desc">Vergelijk verzekeringen</div>
                 </div>
               </a>
 
@@ -169,14 +191,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </a>
 
-              <a href="/contact" className="menu-item" onClick={() => setMenuOpen(false)}>
+              <a href="/waarom-geen-partnerschappen" className="menu-item" onClick={() => setMenuOpen(false)}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="15" y1="9" x2="9" y2="15"/>
+                  <line x1="9" y1="9" x2="15" y2="15"/>
                 </svg>
                 <div className="menu-item-content">
-                  <div className="menu-item-title">Contact</div>
-                  <div className="menu-item-desc">Neem contact met ons op</div>
+                  <div className="menu-item-title">Waarom geen partnerschappen</div>
+                  <div className="menu-item-desc">Onze filosofie</div>
+                </div>
+              </a>
+
+              <a href="/voorwaarden" className="menu-item" onClick={() => setMenuOpen(false)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <div className="menu-item-content">
+                  <div className="menu-item-title">Algemene voorwaarden</div>
+                  <div className="menu-item-desc">Terms & conditions</div>
                 </div>
               </a>
             </div>
@@ -188,19 +222,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Bottom Navigation */}
         <nav className="bottom-nav">
-          <a href="/" className="nav-item active">
+          <a href="/" className={`nav-item ${pathname === '/' ? 'active' : ''}`}>
             <span style={{ fontSize: '20px' }}>🆓</span>
             <span>Free</span>
           </a>
-          <a href="/plus" className="nav-item">
+          <a href="/plus" className={`nav-item ${pathname === '/plus' ? 'active' : ''}`}>
             <span style={{ fontSize: '20px' }}>➕</span>
             <span>Plus</span>
           </a>
-          <a href="/pro" className="nav-item">
+          <a href="/pro" className={`nav-item ${pathname === '/pro' ? 'active' : ''}`}>
             <span style={{ fontSize: '20px' }}>⭐</span>
             <span>Pro</span>
           </a>
-          <a href="/finance" className="nav-item">
+          <a href="/finance" className={`nav-item ${pathname === '/finance' ? 'active' : ''}`}>
             <span style={{ fontSize: '20px' }}>💰</span>
             <span>Finance</span>
           </a>
