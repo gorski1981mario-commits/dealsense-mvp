@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const Redis = require('ioredis');
 const DynamicPricingEngine = require('./pricing-dynamic');
+const GoogleShoppingAPI = require('./google-shopping');
 require('dotenv').config();
 
 const app = express();
@@ -28,6 +29,14 @@ if (process.env.REDIS_URL) {
 }
 
 const dynamicPricing = new DynamicPricingEngine(redisClient);
+
+let googleShopping = null;
+if (process.env.GOOGLE_SHOPPING_API_KEY) {
+  googleShopping = new GoogleShoppingAPI(process.env.GOOGLE_SHOPPING_API_KEY);
+  console.log('Google Shopping API initialized');
+} else {
+  console.warn('Google Shopping API key not found - /api/search will not work');
+}
 
 app.use(cors());
 app.use(express.json());
@@ -205,6 +214,76 @@ app.post('/api/test', (req, res) => {
       averageSavings: (totalSavings / results.length).toFixed(2)
     }
   });
+});
+
+app.post('/api/search', async (req, res) => {
+  try {
+    const { query, basePrice } = req.body;
+    
+    if (!query) {
+      return res.status(400).json({ error: 'Missing required field: query' });
+    }
+    
+    if (!googleShopping) {
+      return res.status(503).json({ 
+        error: 'Google Shopping API not configured',
+        message: 'GOOGLE_SHOPPING_API_KEY environment variable is missing'
+      });
+    }
+    
+    console.log(`Searching Google Shopping for: ${query}`);
+    
+    const offers = await googleShopping.searchProduct(query, {
+      country: 'nl',
+      language: 'nl',
+      limit: 20
+    });
+    
+    console.log(`Found ${offers.length} offers from Google Shopping`);
+    
+    if (offers.length === 0) {
+      return res.json({
+        query,
+        basePrice: basePrice || null,
+        totalOffers: 0,
+        filteredOffers: 0,
+        topOffers: [],
+        savings: { amount: 0, percent: 0 },
+        message: 'No offers found for this product',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    const calculatedBasePrice = basePrice || (offers.length > 0 ? Math.max(...offers.map(o => o.price)) : 0);
+    
+    const pid = query.replace(/\s+/g, '-').toLowerCase();
+    const filteredOffers = await filterOffersByPricingRules(offers, calculatedBasePrice, pid);
+    const topOffers = getTopOffers(filteredOffers, 3);
+    
+    const savings = topOffers.length > 0 ? calculatedBasePrice - topOffers[0].price : 0;
+    const savingsPercent = topOffers.length > 0 ? ((savings / calculatedBasePrice) * 100).toFixed(1) : 0;
+    
+    res.json({
+      query,
+      basePrice: calculatedBasePrice,
+      totalOffers: offers.length,
+      filteredOffers: filteredOffers.length,
+      topOffers,
+      savings: {
+        amount: savings,
+        percent: savingsPercent
+      },
+      usedDynamicPricing: ENV.USE_DYNAMIC_PRICING && redisClient !== null,
+      apiCalled: true,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error processing search request:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
+  }
 });
 
 app.use((req, res) => {
