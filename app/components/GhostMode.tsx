@@ -13,8 +13,26 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
   const [monitoredProducts, setMonitoredProducts] = useState<any[]>([])
 
   // Duration based on package
-  const duration = packageType === 'finance' ? 5 * 60 : 24 * 60 * 60 // 5 min vs 24h in seconds
-  const durationLabel = packageType === 'finance' ? '5 minuten' : '24 uur'
+  const getDuration = () => {
+    switch (packageType) {
+      case 'plus': return 24 * 60 * 60 // 24 hours
+      case 'pro': return 7 * 24 * 60 * 60 // 7 days
+      case 'finance': return 30 * 24 * 60 * 60 // 30 days
+      default: return 24 * 60 * 60
+    }
+  }
+  
+  const getDurationLabel = () => {
+    switch (packageType) {
+      case 'plus': return '24 uur'
+      case 'pro': return '7 dagen'
+      case 'finance': return '30 dagen'
+      default: return '24 uur'
+    }
+  }
+  
+  const duration = getDuration()
+  const durationLabel = getDurationLabel()
 
   useEffect(() => {
     loadGhostModeStatus()
@@ -68,13 +86,18 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
   }
 
   const formatTime = (seconds: number) => {
-    if (packageType === 'finance') {
-      const mins = Math.floor(seconds / 60)
-      const secs = seconds % 60
-      return `${mins}:${secs.toString().padStart(2, '0')}`
+    const days = Math.floor(seconds / (24 * 60 * 60))
+    const hours = Math.floor((seconds % (24 * 60 * 60)) / 3600)
+    const mins = Math.floor((seconds % 3600) / 60)
+    
+    if (packageType === 'finance' || packageType === 'pro') {
+      // Show days for PRO (7d) and FINANCE (30d)
+      if (days > 0) {
+        return `${days}d ${hours}u ${mins}m`
+      }
+      return `${hours}u ${mins}m`
     } else {
-      const hours = Math.floor(seconds / 3600)
-      const mins = Math.floor((seconds % 3600) / 60)
+      // PLUS: show only hours and minutes
       return `${hours}u ${mins}m`
     }
   }
@@ -102,7 +125,9 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
             Ghost Mode
           </div>
           <div style={{ fontSize: '12px', opacity: 0.8 }}>
-            {packageType === 'finance' ? 'Ultra-snelle monitoring (5 min)' : 'Automatische prijsbewaking (24u)'}
+            {packageType === 'plus' && 'Automatische prijsbewaking (24u)'}
+            {packageType === 'pro' && 'Geavanceerde monitoring (7 dagen)'}
+            {packageType === 'finance' && 'Premium monitoring (30 dagen)'}
           </div>
         </div>
       </div>
@@ -161,7 +186,10 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
             <div style={{ marginBottom: '6px' }}>✓ Notificaties bij prijsdalingen</div>
             <div style={{ marginBottom: '6px' }}>✓ Realtime voorraadstatus</div>
             {packageType === 'finance' && (
-              <div>⚡ Ultra-snelle 5-minuten monitoring</div>
+              <div>⚡ Premium 30-dagen monitoring</div>
+            )}
+            {packageType === 'pro' && (
+              <div>⭐ Geavanceerde 7-dagen monitoring</div>
             )}
           </div>
 

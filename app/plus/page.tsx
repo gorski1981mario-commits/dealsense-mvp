@@ -6,6 +6,7 @@ import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
+import PaymentButton from '../components/PaymentButton'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 
@@ -94,28 +95,15 @@ export default function PlusPage() {
       <Scanner type="plus" />
 
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         marginBottom: '24px',
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'
       }}>
-        <div>
+        <div style={{ marginBottom: '16px' }}>
           <div style={{ fontSize: '28px', fontWeight: 900, color: '#258b52' }}>€19,99</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>Eenmalige betaling</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>Per maand - annuleer wanneer je wilt</div>
         </div>
-        <button style={{
-          padding: '10px 20px',
-          background: '#15803d',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: 600,
-          cursor: 'pointer',
-          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
-        }}>Upgrade nu</button>
+        <PaymentButton packageType="plus" userId={userId} price={19.99} />
       </div>
 
       <div style={{ marginBottom: '24px' }}>

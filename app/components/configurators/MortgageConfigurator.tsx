@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
+interface MortgageConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
 interface MortgageConfig {
   amount: number
   duration: number
@@ -11,7 +16,7 @@ interface MortgageConfig {
   interestOnly: number
 }
 
-export default function MortgageConfigurator() {
+export default function MortgageConfigurator({ packageType = 'finance', userId }: MortgageConfiguratorProps = {}) {
   const [config, setConfig] = useState<MortgageConfig>({
     amount: 300000,
     duration: 30,

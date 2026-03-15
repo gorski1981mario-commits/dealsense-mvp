@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
+interface TelecomConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
 interface TelecomConfig {
   type: string
   data: number
@@ -11,7 +16,7 @@ interface TelecomConfig {
   lines: number
 }
 
-export default function TelecomConfigurator() {
+export default function TelecomConfigurator({ packageType = 'pro', userId }: TelecomConfiguratorProps = {}) {
   const [config, setConfig] = useState<TelecomConfig>({
     type: 'Bundel',
     data: 10,

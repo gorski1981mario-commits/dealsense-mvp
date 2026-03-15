@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
+interface LeasingConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
 interface LeasingConfig {
   type: string
   amount: number
@@ -11,7 +16,7 @@ interface LeasingConfig {
   leasingType: string
 }
 
-export default function LeasingConfigurator() {
+export default function LeasingConfigurator({ packageType = 'finance', userId }: LeasingConfiguratorProps = {}) {
   const [config, setConfig] = useState<LeasingConfig>({
     type: 'Auto',
     amount: 30000,

@@ -3,6 +3,10 @@
 import { useState } from 'react'
 import AgentEchoLogo from './AgentEchoLogo'
 
+interface BillsOptimizerProps {
+  userId?: string
+}
+
 interface Bill {
   id: string
   type: string
@@ -18,7 +22,7 @@ interface OptimizationResult {
   penalty: number
 }
 
-export default function BillsOptimizer() {
+export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
   const [bills, setBills] = useState<Bill[]>([])
   const [analyzing, setAnalyzing] = useState(false)
   const [results, setResults] = useState<OptimizationResult[]>([])

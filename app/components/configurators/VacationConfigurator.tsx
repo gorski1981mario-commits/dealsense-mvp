@@ -12,7 +12,12 @@ interface VacationConfig {
   duration: number
 }
 
-export default function VacationConfigurator() {
+interface VacationConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
+export default function VacationConfigurator({ packageType = 'pro', userId }: VacationConfiguratorProps = {}) {
   const [config, setConfig] = useState<VacationConfig>({
     destination: 'Europa',
     departureDate: '',

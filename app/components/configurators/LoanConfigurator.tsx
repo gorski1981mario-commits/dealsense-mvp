@@ -3,8 +3,21 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
-export default function LoanConfigurator() {
-  const [config, setConfig] = useState({
+interface LoanConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
+interface LoanConfig {
+  amount: number
+  duration: number
+  purpose: string
+  income: number
+  bkr: boolean
+}
+
+export default function LoanConfigurator({ packageType = 'finance', userId }: LoanConfiguratorProps = {}) {
+  const [config, setConfig] = useState<LoanConfig>({
     amount: 10000,
     duration: 60,
     purpose: 'Vrij',

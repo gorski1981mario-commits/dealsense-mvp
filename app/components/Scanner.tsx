@@ -93,11 +93,19 @@ export default function Scanner({ type }: ScannerProps) {
     setProcessing(true)
     setResult(data)
 
+    // Determine max offers based on package type
+    const maxOffers = (type === 'pro' || type === 'finance') ? 10 : 3
+
     try {
-      const response = await fetch('/api/scan-qr', {
+      const response = await fetch('/api/kwant/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data, type })
+        body: JSON.stringify({ 
+          url: data,
+          product_name: 'Scanned Product',
+          packageType: type,
+          maxOffers // TOP 10 for PRO/FINANCE, TOP 3 for FREE/PLUS
+        })
       })
 
       const result = await response.json()

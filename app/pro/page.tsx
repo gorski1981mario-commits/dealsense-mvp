@@ -6,6 +6,11 @@ import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
+import PaymentButton from '../components/PaymentButton'
+import VacationConfigurator from '../components/configurators/VacationConfigurator'
+import InsuranceConfigurator from '../components/configurators/InsuranceConfigurator'
+import EnergyConfigurator from '../components/configurators/EnergyConfigurator'
+import TelecomConfigurator from '../components/configurators/TelecomConfigurator'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 
@@ -93,28 +98,15 @@ export default function ProPage() {
       <Scanner type="pro" />
 
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         marginBottom: '24px',
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'
       }}>
-        <div>
+        <div style={{ marginBottom: '16px' }}>
           <div style={{ fontSize: '28px', fontWeight: 900, color: '#258b52' }}>€29,99</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>Eenmalige betaling</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>Per maand - annuleer wanneer je wilt</div>
         </div>
-        <button style={{
-          padding: '10px 20px',
-          background: '#15803d',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: 600,
-          cursor: 'pointer',
-          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
-        }}>Upgrade nu</button>
+        <PaymentButton packageType="pro" userId={userId} price={29.99} />
       </div>
 
       <div style={{ marginBottom: '24px' }}>
@@ -127,6 +119,28 @@ export default function ProPage() {
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Energie</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ 3% commissie</div>
         </div>
+      </div>
+
+      {/* PRO Configurators - 4 Services */}
+      <div style={{ marginTop: '32px', marginBottom: '32px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#15803d' }}>
+          🎯 Services Configurators (PRO)
+        </h3>
+        <p style={{ fontSize: '14px', color: '#374151', marginBottom: '24px' }}>
+          Configureer je ideale pakket voor vakanties, verzekeringen, energie en telecom.
+        </p>
+
+        {/* Vacation Configurator */}
+        <VacationConfigurator packageType="pro" userId={userId} />
+
+        {/* Insurance Configurator */}
+        <InsuranceConfigurator packageType="pro" userId={userId} />
+
+        {/* Energy Configurator */}
+        <EnergyConfigurator packageType="pro" userId={userId} />
+
+        {/* Telecom Configurator */}
+        <TelecomConfigurator packageType="pro" userId={userId} />
       </div>
 
       {/* Scan History */}

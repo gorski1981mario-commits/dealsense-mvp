@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
+interface InsuranceConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
 interface InsuranceConfig {
   type: string
   coverage: string
@@ -11,7 +16,7 @@ interface InsuranceConfig {
   bonusMalus: number
 }
 
-export default function InsuranceConfigurator() {
+export default function InsuranceConfigurator({ packageType = 'pro', userId }: InsuranceConfiguratorProps = {}) {
   const [config, setConfig] = useState<InsuranceConfig>({
     type: 'Auto',
     coverage: 'WA',

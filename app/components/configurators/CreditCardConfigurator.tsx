@@ -3,7 +3,12 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
-export default function CreditCardConfigurator() {
+interface CreditCardConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
+export default function CreditCardConfigurator({ packageType = 'finance', userId }: CreditCardConfiguratorProps = {}) {
   const [config, setConfig] = useState({
     type: 'Visa',
     limit: 2000,

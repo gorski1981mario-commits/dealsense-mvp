@@ -6,6 +6,16 @@ import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
+import PaymentButton from '../components/PaymentButton'
+import BillsOptimizer from '../components/BillsOptimizer'
+import VacationConfigurator from '../components/configurators/VacationConfigurator'
+import InsuranceConfigurator from '../components/configurators/InsuranceConfigurator'
+import EnergyConfigurator from '../components/configurators/EnergyConfigurator'
+import TelecomConfigurator from '../components/configurators/TelecomConfigurator'
+import MortgageConfigurator from '../components/configurators/MortgageConfigurator'
+import LeasingConfigurator from '../components/configurators/LeasingConfigurator'
+import LoanConfigurator from '../components/configurators/LoanConfigurator'
+import CreditCardConfigurator from '../components/configurators/CreditCardConfigurator'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 
@@ -93,28 +103,15 @@ export default function FinancePage() {
       <Scanner type="finance" />
 
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         marginBottom: '24px',
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'
       }}>
-        <div>
+        <div style={{ marginBottom: '16px' }}>
           <div style={{ fontSize: '28px', fontWeight: 900, color: '#258b52' }}>€39,99</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>Eenmalige betaling</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>Per maand - annuleer wanneer je wilt</div>
         </div>
-        <button style={{
-          padding: '10px 20px',
-          background: '#15803d',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: 600,
-          cursor: 'pointer',
-          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
-        }}>Upgrade nu</button>
+        <PaymentButton packageType="finance" userId={userId} price={39.99} />
       </div>
 
       <div style={{ marginBottom: '24px' }}>
@@ -126,6 +123,41 @@ export default function FinancePage() {
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leningen</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leasing</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ 0% commissie</div>
+        </div>
+      </div>
+
+      {/* Bills Optimizer - FINANCE Exclusive */}
+      <BillsOptimizer userId={userId} />
+
+      {/* FINANCE Configurators - All 8 (4 PRO + 4 FINANCE) */}
+      <div style={{ marginTop: '32px', marginBottom: '32px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#15803d' }}>
+          💰 Finance Configurators (FINANCE)
+        </h3>
+        <p style={{ fontSize: '14px', color: '#374151', marginBottom: '24px' }}>
+          Alle configurators: services (4) + finance (4). Volledige financiële controle.
+        </p>
+
+        {/* PRO Configurators (4) */}
+        <div style={{ marginBottom: '24px' }}>
+          <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#374151' }}>
+            Services (van PRO)
+          </h4>
+          <VacationConfigurator packageType="finance" userId={userId} />
+          <InsuranceConfigurator packageType="finance" userId={userId} />
+          <EnergyConfigurator packageType="finance" userId={userId} />
+          <TelecomConfigurator packageType="finance" userId={userId} />
+        </div>
+
+        {/* FINANCE Configurators (4) */}
+        <div>
+          <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#374151' }}>
+            Finance (exclusief)
+          </h4>
+          <MortgageConfigurator packageType="finance" userId={userId} />
+          <LeasingConfigurator packageType="finance" userId={userId} />
+          <LoanConfigurator packageType="finance" userId={userId} />
+          <CreditCardConfigurator packageType="finance" userId={userId} />
         </div>
       </div>
 

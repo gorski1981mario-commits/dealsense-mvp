@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Scanner from './components/Scanner'
 import SocialShare from './components/SocialShare'
+import PaymentButton from './components/PaymentButton'
 import { getDeviceId, showToast, createConfetti } from './_lib/utils'
 
 export default function HomePage() {
@@ -141,7 +142,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Badge + Usage Counter */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
@@ -152,13 +153,35 @@ export default function HomePage() {
           fontWeight: 700
         }}>FREE</span>
         <span style={{ 
-          fontSize: '12px', 
-          color: scansRemaining === 0 ? '#ef4444' : '#374151', 
-          fontWeight: 600 
+          fontSize: '14px', 
+          color: scansRemaining === 0 ? '#ef4444' : '#15803d', 
+          fontWeight: 700,
+          padding: '4px 12px',
+          background: scansRemaining === 0 ? '#fee2e2' : '#f0fdf4',
+          borderRadius: '6px'
         }}>
-          {scansRemaining}/3 scans remaining
+          {3 - scansRemaining}/3 scans gebruikt
         </span>
       </div>
+      
+      {/* Paywall Warning - Show when 0 scans remaining */}
+      {scansRemaining === 0 && (
+        <div style={{
+          padding: '16px',
+          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+          border: '2px solid #fbbf24',
+          borderRadius: '12px',
+          marginBottom: '24px'
+        }}>
+          <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px', color: '#92400e' }}>
+            ⚠️ Gratis scans op
+          </div>
+          <div style={{ fontSize: '14px', color: '#78350f', marginBottom: '12px' }}>
+            Je hebt alle 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen!
+          </div>
+          <PaymentButton packageType="plus" userId={getDeviceId()} price={19.99} />
+        </div>
+      )}
       
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>Vind de beste deal</p>
 
@@ -422,42 +445,37 @@ export default function HomePage() {
             <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
               Upgrade naar Plus
             </h3>
-            <p style={{ fontSize: '14px', color: '#374151', marginBottom: '20px' }}>
+            <p style={{ fontSize: '14px', color: '#374151', marginBottom: '16px' }}>
               Je hebt 3 gratis scans gebruikt. Upgrade naar Plus voor onbeperkt scannen!
             </p>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <button
-                onClick={() => setShowUpgradePrompt(false)}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  background: '#f1f3f5',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
-              >
-                Annuleren
-              </button>
-              <button
-                onClick={() => window.location.href = '/plus'}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  background: '#258b52',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
-              >
-                Upgrade nu
-              </button>
+            
+            <div style={{ marginBottom: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px' }}>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '4px' }}>
+                €19,99/maand
+              </div>
+              <div style={{ fontSize: '12px', color: '#374151' }}>
+                Annuleer wanneer je wilt
+              </div>
             </div>
+
+            <PaymentButton packageType="plus" userId={getDeviceId()} price={19.99} />
+            
+            <button
+              onClick={() => setShowUpgradePrompt(false)}
+              style={{
+                width: '100%',
+                marginTop: '12px',
+                padding: '12px',
+                background: '#f1f3f5',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Annuleren
+            </button>
           </div>
         </div>
       )}

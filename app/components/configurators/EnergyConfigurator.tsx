@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import AgentEchoLogo from '../AgentEchoLogo'
 
+interface EnergyConfiguratorProps {
+  packageType?: 'plus' | 'pro' | 'finance'
+  userId?: string
+}
+
 interface EnergyConfig {
   type: string
   consumption: number
@@ -11,7 +16,7 @@ interface EnergyConfig {
   greenEnergy: boolean
 }
 
-export default function EnergyConfigurator() {
+export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
   const [config, setConfig] = useState<EnergyConfig>({
     type: 'Stroom+Gas',
     consumption: 3000,
