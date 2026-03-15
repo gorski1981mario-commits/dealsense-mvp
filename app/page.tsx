@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Scanner from './components/Scanner'
+import SocialShare from './components/SocialShare'
 import { getDeviceId, showToast, createConfetti } from './_lib/utils'
 
 export default function HomePage() {
@@ -386,63 +387,13 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Social Sharing Buttons */}
+          {/* Social Sharing */}
           {result.savings && result.savings > 0 && (
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #E2E8F0' }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', textAlign: 'center' }}>
-                Deel deze deal:
-              </div>
-              <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a 
-                  href={`https://wa.me/?text=${encodeURIComponent(`Ik heb €${result.savings.toFixed(2)} bespaard met DealSense! 🎉 ${window.location.href}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: '8px 16px',
-                    background: '#25D366',
-                    color: 'white',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontSize: '13px',
-                    fontWeight: 600
-                  }}
-                >
-                  WhatsApp
-                </a>
-                <a 
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: '8px 16px',
-                    background: '#1877F2',
-                    color: 'white',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontSize: '13px',
-                    fontWeight: 600
-                  }}
-                >
-                  Facebook
-                </a>
-                <a 
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Ik heb €${result.savings.toFixed(2)} bespaard met DealSense! 🎉`)}&url=${encodeURIComponent(window.location.href)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: '8px 16px',
-                    background: '#1DA1F2',
-                    color: 'white',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontSize: '13px',
-                    fontWeight: 600
-                  }}
-                >
-                  Twitter
-                </a>
-              </div>
-            </div>
+            <SocialShare 
+              savings={result.savings}
+              productName={result.product_name || 'dit product'}
+              userPackage="free"
+            />
           )}
         </div>
       )}
