@@ -70,6 +70,7 @@ app.get('/health', (req, res) => {
     env: ENV.NODE_ENV,
     config: {
       niche_exception_enabled: ENV.PRICING_NICHE_EXCEPTION_ENABLED,
+      niche_excl: ENV.PRICING_NICHE_EXCL,
       niche_min_rating: ENV.PRICING_NICHE_MIN_RATING,
       niche_min_reviews: ENV.PRICING_NICHE_MIN_REVIEWS,
       scam_min_rating: ENV.PRICING_SCAM_MIN_R,
