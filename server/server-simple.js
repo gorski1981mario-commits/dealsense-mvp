@@ -93,7 +93,7 @@ app.post('/api/top3', async (req, res) => {
   }
 });
 
-// Market Offers Endpoint
+// Market Offers Endpoint (with anti-scam filtering)
 app.post('/api/market', async (req, res) => {
   try {
     const { product_name, ean } = req.body;
@@ -104,14 +104,43 @@ app.post('/api/market', async (req, res) => {
 
     console.log(`[MARKET] Request: ${product_name}, ean: ${ean}`);
 
-    const offers = await fetchMarketOffers(product_name, ean || null);
+    const rawOffers = await fetchMarketOffers(product_name, ean || null);
+
+    // Apply anti-scam filtering
+    const { isScam } = require('./scoring/isScam');
+    
+    // Calculate market average for price validation
+    const validPrices = rawOffers
+      .map(o => o.price)
+      .filter(p => typeof p === 'number' && p > 0);
+    const marketAvg = validPrices.length > 0 
+      ? validPrices.reduce((a, b) => a + b, 0) / validPrices.length 
+      : 0;
+
+    // Filter out scam offers
+    const cleanOffers = rawOffers.filter(offer => {
+      try {
+        return !isScam(offer, marketAvg);
+      } catch (err) {
+        console.error('[MARKET] isScam error:', err);
+        return true; // Keep offer if filtering fails
+      }
+    });
+
+    console.log(`[MARKET] Filtered: ${rawOffers.length} → ${cleanOffers.length} offers (removed ${rawOffers.length - cleanOffers.length} scam)`);
 
     res.json({
       success: true,
       product_name,
       ean,
-      offers,
-      count: offers.length
+      offers: cleanOffers,
+      count: cleanOffers.length,
+      meta: {
+        rawCount: rawOffers.length,
+        filteredCount: cleanOffers.length,
+        scamRemoved: rawOffers.length - cleanOffers.length,
+        marketAvg: Math.round(marketAvg * 100) / 100
+      }
     });
 
   } catch (error) {
