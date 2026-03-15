@@ -55,7 +55,27 @@ const nicheExcl = process.env.PRICING_NICHE_EXCL
   ? parseFloat(process.env.PRICING_NICHE_EXCL) 
   : (isProduction ? 0.3 : 4.0);
 
+const nicheMinRating = process.env.PRICING_NICHE_MIN_RATING 
+  ? parseFloat(process.env.PRICING_NICHE_MIN_RATING)
+  : (isProduction ? 3.8 : 4.0);
+
+const nicheMinReviews = process.env.PRICING_NICHE_MIN_REVIEWS
+  ? parseInt(process.env.PRICING_NICHE_MIN_REVIEWS)
+  : (isProduction ? 15 : 30);
+
+const v2MinRat = process.env.PRICING_V2_MIN_RAT
+  ? parseFloat(process.env.PRICING_V2_MIN_RAT)
+  : (isProduction ? 3.8 : 4.0);
+
+const v2MinRev = process.env.PRICING_V2_MIN_REV
+  ? parseInt(process.env.PRICING_V2_MIN_REV)
+  : (isProduction ? 15 : 30);
+
 console.log('DEBUG: Final nicheExcl =', nicheExcl);
+console.log('DEBUG: Final nicheMinRating =', nicheMinRating);
+console.log('DEBUG: Final nicheMinReviews =', nicheMinReviews);
+console.log('DEBUG: Final v2MinRat =', v2MinRat);
+console.log('DEBUG: Final v2MinRev =', v2MinRev);
 
 const ENV = {
   NODE_ENV: process.env.NODE_ENV || 'development',
@@ -65,13 +85,13 @@ const ENV = {
   
   PRICING_NICHE_EXCEPTION_ENABLED: process.env.PRICING_NICHE_EXCEPTION_ENABLED === 'true',
   PRICING_NICHE_EXCL: nicheExcl,
-  PRICING_NICHE_MIN_RATING: parseFloat(process.env.PRICING_NICHE_MIN_RATING) || 4.0,
-  PRICING_NICHE_MIN_REVIEWS: parseInt(process.env.PRICING_NICHE_MIN_REVIEWS) || 30,
+  PRICING_NICHE_MIN_RATING: nicheMinRating,
+  PRICING_NICHE_MIN_REVIEWS: nicheMinReviews,
   
   PRICING_SCAM_MIN_R: parseFloat(process.env.PRICING_SCAM_MIN_R) || 4.0,
   PRICING_V2_MAX_RAT: parseFloat(process.env.PRICING_V2_MAX_RAT) || 4.6,
-  PRICING_V2_MIN_RAT: parseFloat(process.env.PRICING_V2_MIN_RAT) || 4.0,
-  PRICING_V2_MIN_REV: parseInt(process.env.PRICING_V2_MIN_REV) || 30,
+  PRICING_V2_MIN_RAT: v2MinRat,
+  PRICING_V2_MIN_REV: v2MinRev,
   
   MARKET_DISK_CACHE: process.env.MARKET_DISK_CACHE === '1',
   MARKET_LOG_SILENT: process.env.MARKET_LOG_SILENT === '1'
