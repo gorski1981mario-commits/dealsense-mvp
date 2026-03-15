@@ -70,6 +70,15 @@ class GoogleShoppingAPI {
       return [];
     }
 
+    const blacklistedStores = [
+      'marktplaats',
+      '2dehands',
+      'ebay',
+      'facebook marketplace',
+      'vinted',
+      'united wardrobe'
+    ];
+
     return data.shopping_results.map(item => ({
       store: item.seller || item.source || item.merchant || 'Unknown',
       price: item.extracted_price || this.parsePrice(item.price),
@@ -78,7 +87,14 @@ class GoogleShoppingAPI {
       link: item.product_link || item.link || '',
       title: item.title || '',
       thumbnail: item.thumbnail || ''
-    })).filter(offer => offer.price > 0);
+    })).filter(offer => {
+      if (offer.price <= 0) return false;
+      
+      const storeLower = (offer.store || '').toLowerCase();
+      const isBlacklisted = blacklistedStores.some(blocked => storeLower.includes(blocked));
+      
+      return !isBlacklisted;
+    });
   }
 
   parsePrice(priceString) {
