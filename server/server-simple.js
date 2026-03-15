@@ -3,6 +3,7 @@ const cors = require('cors');
 const Redis = require('ioredis');
 const DynamicPricingEngine = require('./pricing-dynamic');
 const GoogleShoppingAPI = require('./google-shopping');
+const APICache = require('./api-cache');
 require('dotenv').config();
 
 const app = express();
@@ -29,6 +30,10 @@ if (process.env.REDIS_URL) {
 }
 
 const dynamicPricing = new DynamicPricingEngine(redisClient);
+
+const apiCache = new APICache(redisClient, {
+  defaultTTL: 21600 // 6 hours cache
+});
 
 let googleShopping = null;
 if (process.env.GOOGLE_SHOPPING_API_KEY) {
@@ -231,6 +236,32 @@ app.post('/api/search', async (req, res) => {
       });
     }
     
+    const cacheKey = apiCache.generateKey('shopping', { query, country: 'nl' });
+    
+    const cached = await apiCache.get(cacheKey);
+    if (cached) {
+      console.log(`Returning cached results for: ${query}`);
+      return res.json({
+        ...cached,
+        fromCache: true,
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    const rateLimitKey = `ratelimit:shopping:${query.toLowerCase().replace(/\s+/g, '-')}`;
+    const rateLimit = await apiCache.checkRateLimit(rateLimitKey, 2, 86400);
+    
+    if (!rateLimit.allowed) {
+      console.log(`Rate limit exceeded for: ${query}`);
+      return res.status(429).json({
+        error: 'Rate limit exceeded',
+        message: 'Maximum 2 API calls per product per day',
+        query,
+        retryAfter: '24 hours'
+      });
+    }
+    
+    console.log(`API call ${rateLimit.current}/2 for: ${query}`);
     console.log(`Searching Google Shopping for: ${query}`);
     
     const offers = await googleShopping.searchProduct(query, {
@@ -263,7 +294,7 @@ app.post('/api/search', async (req, res) => {
     const savings = topOffers.length > 0 ? calculatedBasePrice - topOffers[0].price : 0;
     const savingsPercent = topOffers.length > 0 ? ((savings / calculatedBasePrice) * 100).toFixed(1) : 0;
     
-    res.json({
+    const result = {
       query,
       basePrice: calculatedBasePrice,
       totalOffers: offers.length,
@@ -275,6 +306,14 @@ app.post('/api/search', async (req, res) => {
       },
       usedDynamicPricing: ENV.USE_DYNAMIC_PRICING && redisClient !== null,
       apiCalled: true,
+      apiCallsRemaining: rateLimit.remaining - 1
+    };
+    
+    await apiCache.set(cacheKey, result, 21600);
+    
+    res.json({
+      ...result,
+      fromCache: false,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
