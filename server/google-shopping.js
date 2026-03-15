@@ -71,11 +71,11 @@ class GoogleShoppingAPI {
     }
 
     return data.shopping_results.map(item => ({
-      store: item.source || item.merchant || 'Unknown',
-      price: this.parsePrice(item.price || item.extracted_price),
+      store: item.seller || item.source || item.merchant || 'Unknown',
+      price: item.extracted_price || this.parsePrice(item.price),
       rating: parseFloat(item.rating) || 0,
       reviews: parseInt(item.reviews || item.reviews_count) || 0,
-      link: item.link || item.product_link || '',
+      link: item.product_link || item.link || '',
       title: item.title || '',
       thumbnail: item.thumbnail || ''
     })).filter(offer => offer.price > 0);
