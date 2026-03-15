@@ -84,13 +84,27 @@ export async function POST(request: NextRequest) {
 
     console.log('[QR Scan]', scanData)
 
-    return NextResponse.json({
+    // Fast response - don't wait for backend
+    // Backend processing happens async
+    const response = NextResponse.json({
       success: true,
       action,
       message,
       data: scanData,
       remaining: rateLimit.remaining
     })
+
+    // Optional: Send to backend async (fire and forget)
+    // This prevents blocking the response
+    if (process.env.BACKEND_URL) {
+      fetch(`${process.env.BACKEND_URL}/api/qr-scan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(scanData)
+      }).catch(err => console.error('[Backend QR Sync Error]', err))
+    }
+
+    return response
 
   } catch (error) {
     console.error('[QR Scan Error]', error)

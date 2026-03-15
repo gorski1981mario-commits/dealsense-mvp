@@ -268,7 +268,7 @@ export default function HomePage() {
         }}>Product URL</label>
         <input
           type="url"
-          placeholder="Wypełniane automatycznie door QR scan"
+          placeholder="Automatisch ingevuld via QR-scan"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           readOnly
@@ -293,7 +293,7 @@ export default function HomePage() {
         }}>Prijs (€)</label>
         <input
           type="text"
-          placeholder="Wypełniane automatycznie door QR scan"
+          placeholder="Automatisch ingevuld via QR-scan"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           readOnly
@@ -677,9 +677,8 @@ export default function HomePage() {
             transition: 'all 0.2s ease'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
-            <span>▸ Hoeveel scans krijg ik gratis?</span>
-            <span style={{ transform: faqOpen === 0 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          <div style={{ fontWeight: 600 }}>
+            Hoeveel scans krijg ik gratis?
           </div>
           {faqOpen === 0 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
@@ -702,9 +701,8 @@ export default function HomePage() {
             transition: 'all 0.2s ease'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
-            <span>▸ Is er een prijslimiet?</span>
-            <span style={{ transform: faqOpen === 1 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          <div style={{ fontWeight: 600 }}>
+            Is er een prijslimiet?
           </div>
           {faqOpen === 1 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
@@ -727,9 +725,8 @@ export default function HomePage() {
             transition: 'all 0.2s ease'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
-            <span>▸ Wat is de commissie?</span>
-            <span style={{ transform: faqOpen === 2 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          <div style={{ fontWeight: 600 }}>
+            Wat is de commissie?
           </div>
           {faqOpen === 2 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
@@ -752,9 +749,8 @@ export default function HomePage() {
             transition: 'all 0.2s ease'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
-            <span>▸ Hoe werkt het?</span>
-            <span style={{ transform: faqOpen === 3 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          <div style={{ fontWeight: 600 }}>
+            Hoe werkt het?
           </div>
           {faqOpen === 3 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
