@@ -1,0 +1,20 @@
+{
+  "title": "Frozen modules manifest (SHA256)",
+  "createdAt": "2026-02-17",
+  "files": {
+    "engine/offerEngine.js": "6857d81a83dce7495d7c6e9804bbacdd526cea27f21ce9e22d42bedfe126d846",
+    "scoring/delivery.js": "58c78d04f49574e6ef48146746a7edeb62efdb42a5eb679523f0ecaae996c6eb",
+    "scoring/isScam.js": "22f770134ad20e86e9cff57976d8dc3032004a0e193e6637f878081c1968f2c6",
+    "scoring/match.js": "e037732183d2f40632d6a5899df6409ff8c1b9c616037316a26fc220a9afbe94",
+    "scoring/selection.js": "4b6ad1c951bdb4ed488d0fb621ec8a81246f303c75e8ffff69a85b495d017b92",
+    "scoring/seller.js": "0b1d4b3a12deac47a8457c5eafc4dac5f7e2f5411d4c0ab3707e8b4cef5cd3fb",
+    "connectors/offer-format.js": "c708f1871a4da74e469e94c67931924ac2cd773240abcd3b101f153245bbe5b9",
+    "connectors/registry.js": "f6314d7c4f9e9a2c48cf043b6cb0da6d17ac49f817266e62175940a368846e61",
+    "connectors/rate-limit.js": "2e37395b90591e29c4bf3d4c853f85f9cad11eb4e99715fdb2be248a39a51146",
+    "market-api.js": "90c8b0b9d76f1da2c82059323a647010f3fe8acd55f6a7a2f082f686c946fe07",
+    "category-detector.js": "a78cc5119d5288996984921cf55a1a621c6313ebe0f013e73e51a0d7a2167fca",
+    "ean-extractor.js": "e55d549de8754551b052373faec8090d019b0a7f6fa459a640bce0e8a4286e66",
+    "guardrails.js": "23afb2b8e7456d97daccc8e0459fb8d5a78897870601bff0bed5657e47353436",
+    "price-normalizer.js": "dc5a8a3bc0ebf3a764db36ab1c164f5d73161804ec32ba84c31e2b0a4d2a5919"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "title": "V3 reference table (base vs price1/2/3)",
+  "createdAt": "2026-02-17",
+  "source": {
+    "script": "tools/test-v3-engine-5.js",
+    "engineFile": "pricing/v3-test-engine.js",
+    "engineSha256": "7abc894c77fab92e5a3cc9a4a70357944ba1d0a1f8af53c0a2097c00f6797d2d"
+  },
+  "table": [
+    {
+      "product": "Apple iPhone 13 128GB",
+      "base_price": 699,
+      "price_1": 350,
+      "price_2": 389.99,
+      "price_3": 549
+    },
+    {
+      "product": "Sony WH-1000XM5",
+      "base_price": 299,
+      "price_1": null,
+      "price_2": null,
+      "price_3": null
+    },
+    {
+      "product": "Samsung QE55 4K TV",
+      "base_price": 799,
+      "price_1": 489,
+      "price_2": 699,
+      "price_3": 549
+    },
+    {
+      "product": "Bosch accuboormachine 18V",
+      "base_price": 129,
+      "price_1": 92.99,
+      "price_2": 113,
+      "price_3": 119.99
+    },
+    {
+      "product": "Nike Air Max 90",
+      "base_price": 149,
+      "price_1": 120,
+      "price_2": 134.99,
+      "price_3": 148
+    }
+  ],
+  "sums": {
+    "base_sum_all_products": 2075,
+    "price1_sum_products_with_price1": 1051.99,
+    "price2_sum_products_with_price2": 1336.98,
+    "price3_sum_products_with_price3": 1365.99,
+    "count_with_price1": 4,
+    "count_with_price2": 4,
+    "count_with_price3": 4
+  }
+}
