@@ -1,9 +1,33 @@
 const express = require('express');
 const cors = require('cors');
+const Redis = require('ioredis');
+const DynamicPricingEngine = require('./pricing-dynamic');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+let redisClient = null;
+if (process.env.REDIS_URL) {
+  redisClient = new Redis(process.env.REDIS_URL, {
+    maxRetriesPerRequest: 3,
+    enableReadyCheck: true,
+    retryStrategy(times) {
+      const delay = Math.min(times * 50, 2000);
+      return delay;
+    }
+  });
+  
+  redisClient.on('error', (err) => {
+    console.error('Redis error:', err);
+  });
+  
+  redisClient.on('connect', () => {
+    console.log('Redis connected');
+  });
+}
+
+const dynamicPricing = new DynamicPricingEngine(redisClient);
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +36,7 @@ const ENV = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   GOOGLE_SHOPPING_API_KEY: process.env.GOOGLE_SHOPPING_API_KEY,
   USE_MOCK_FALLBACK: process.env.USE_MOCK_FALLBACK === 'true',
+  USE_DYNAMIC_PRICING: process.env.USE_DYNAMIC_PRICING === 'true',
   
   PRICING_NICHE_EXCEPTION_ENABLED: process.env.PRICING_NICHE_EXCEPTION_ENABLED === 'true',
   PRICING_NICHE_EXCL: parseFloat(process.env.PRICING_NICHE_EXCL) || 4.0,
@@ -27,31 +52,46 @@ const ENV = {
   MARKET_LOG_SILENT: process.env.MARKET_LOG_SILENT === '1'
 };
 
-function filterOffersByPricingRules(offers, basePrice) {
+async function filterOffersByPricingRules(offers, basePrice, productId) {
   if (!offers || offers.length === 0) return [];
   
-  return offers.filter(offer => {
-    if (!offer.price || offer.price <= 0) return false;
+  const filtered = [];
+  
+  for (const offer of offers) {
+    if (!offer.price || offer.price <= 0) continue;
     
     const rating = parseFloat(offer.rating) || 0;
     const reviews = parseInt(offer.reviews) || 0;
     
     if (ENV.PRICING_NICHE_EXCEPTION_ENABLED) {
-      if (rating < ENV.PRICING_NICHE_MIN_RATING) return false;
-      if (reviews < ENV.PRICING_NICHE_MIN_REVIEWS) return false;
+      if (rating < ENV.PRICING_NICHE_MIN_RATING) continue;
+      if (reviews < ENV.PRICING_NICHE_MIN_REVIEWS) continue;
     }
     
-    if (rating < ENV.PRICING_SCAM_MIN_R) return false;
+    if (rating < ENV.PRICING_SCAM_MIN_R) continue;
     
-    if (rating > ENV.PRICING_V2_MAX_RAT) return false;
-    if (rating < ENV.PRICING_V2_MIN_RAT) return false;
-    if (reviews < ENV.PRICING_V2_MIN_REV) return false;
+    if (rating > ENV.PRICING_V2_MAX_RAT) continue;
+    if (rating < ENV.PRICING_V2_MIN_RAT) continue;
+    if (reviews < ENV.PRICING_V2_MIN_REV) continue;
     
-    const priceRatio = offer.price / basePrice;
-    if (priceRatio < ENV.PRICING_NICHE_EXCL) return false;
+    if (ENV.USE_DYNAMIC_PRICING && redisClient) {
+      const dealId = `${productId}:${offer.store}:${offer.price}`;
+      const decision = await dynamicPricing.shouldAcceptOffer(offer, basePrice, dealId);
+      
+      if (!decision.accept) {
+        continue;
+      }
+      
+      offer.dynamicDecision = decision;
+    } else {
+      const priceRatio = offer.price / basePrice;
+      if (priceRatio < ENV.PRICING_NICHE_EXCL) continue;
+    }
     
-    return true;
-  });
+    filtered.push(offer);
+  }
+  
+  return filtered;
 }
 
 function sortOffersByPrice(offers) {
@@ -68,7 +108,9 @@ app.get('/health', (req, res) => {
     status: 'ok',
     timestamp: new Date().toISOString(),
     env: ENV.NODE_ENV,
+    redis: redisClient ? 'connected' : 'disabled',
     config: {
+      use_dynamic_pricing: ENV.USE_DYNAMIC_PRICING,
       niche_exception_enabled: ENV.PRICING_NICHE_EXCEPTION_ENABLED,
       niche_excl: ENV.PRICING_NICHE_EXCL,
       niche_min_rating: ENV.PRICING_NICHE_MIN_RATING,
@@ -77,13 +119,14 @@ app.get('/health', (req, res) => {
       v2_max_rating: ENV.PRICING_V2_MAX_RAT,
       v2_min_rating: ENV.PRICING_V2_MIN_RAT,
       v2_min_reviews: ENV.PRICING_V2_MIN_REV
-    }
+    },
+    dynamic_pricing: ENV.USE_DYNAMIC_PRICING ? dynamicPricing.getStats() : null
   });
 });
 
-app.post('/api/compare', (req, res) => {
+app.post('/api/compare', async (req, res) => {
   try {
-    const { product, basePrice, offers } = req.body;
+    const { product, basePrice, offers, productId } = req.body;
     
     if (!product || !basePrice || !offers) {
       return res.status(400).json({ 
@@ -91,7 +134,9 @@ app.post('/api/compare', (req, res) => {
       });
     }
     
-    const filteredOffers = filterOffersByPricingRules(offers, basePrice);
+    const pid = productId || product.replace(/\s+/g, '-').toLowerCase();
+    
+    const filteredOffers = await filterOffersByPricingRules(offers, basePrice, pid);
     const topOffers = getTopOffers(filteredOffers, 3);
     
     const savings = topOffers.length > 0 
@@ -112,6 +157,7 @@ app.post('/api/compare', (req, res) => {
         amount: savings,
         percent: savingsPercent
       },
+      usedDynamicPricing: ENV.USE_DYNAMIC_PRICING && redisClient !== null,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
