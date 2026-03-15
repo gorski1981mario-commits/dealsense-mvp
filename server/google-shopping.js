@@ -3,7 +3,7 @@ const https = require('https');
 class GoogleShoppingAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.baseUrl = 'serpapi.com';
+    this.baseUrl = 'www.searchapi.io';
   }
 
   async searchProduct(query, options = {}) {
@@ -13,12 +13,11 @@ class GoogleShoppingAPI {
       api_key: this.apiKey,
       gl: options.country || 'nl',
       hl: options.language || 'nl',
-      num: options.limit || 20,
-      ...options
+      num: options.limit || 20
     });
 
     return new Promise((resolve, reject) => {
-      const path = `/search?${params.toString()}`;
+      const path = `/api/v1/search?${params.toString()}`;
       
       const reqOptions = {
         hostname: this.baseUrl,
@@ -26,7 +25,8 @@ class GoogleShoppingAPI {
         path: path,
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`
         }
       };
 
@@ -65,11 +65,11 @@ class GoogleShoppingAPI {
     }
 
     return data.shopping_results.map(item => ({
-      store: item.source || 'Unknown',
-      price: this.parsePrice(item.price),
+      store: item.source || item.merchant || 'Unknown',
+      price: this.parsePrice(item.price || item.extracted_price),
       rating: parseFloat(item.rating) || 0,
-      reviews: parseInt(item.reviews) || 0,
-      link: item.link || '',
+      reviews: parseInt(item.reviews || item.reviews_count) || 0,
+      link: item.link || item.product_link || '',
       title: item.title || '',
       thumbnail: item.thumbnail || ''
     })).filter(offer => offer.price > 0);
