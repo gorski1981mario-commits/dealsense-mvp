@@ -9,19 +9,43 @@ interface AgentEchoProps {
 
 export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
   const [savings, setSavings] = useState({ week: 0, month: 0, total: 0 })
+  const [stockData, setStockData] = useState<any>(null)
+  const [deliveryData, setDeliveryData] = useState<any>(null)
+  const [warrantyData, setWarrantyData] = useState<any>(null)
+  const [benefitsData, setBenefitsData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [detailsOpen, setDetailsOpen] = useState(false)
 
   useEffect(() => {
-    loadSavings()
+    loadAllData()
   }, [userId])
 
-  const loadSavings = async () => {
+  const loadAllData = async () => {
     try {
-      const res = await fetch(`/api/agent-echo/savings?userId=${userId}`)
-      const data = await res.json()
-      setSavings(data)
+      // Load all Agent Echo data in parallel
+      const [savingsRes, stockRes, deliveryRes, warrantyRes, benefitsRes] = await Promise.all([
+        fetch(`/api/agent-echo/savings?userId=${userId}`),
+        fetch(`/api/agent-echo/stock`),
+        fetch(`/api/agent-echo/delivery`),
+        fetch(`/api/agent-echo/warranty`),
+        fetch(`/api/agent-echo/benefits`)
+      ])
+
+      const [savingsData, stock, delivery, warranty, benefits] = await Promise.all([
+        savingsRes.json(),
+        stockRes.json(),
+        deliveryRes.json(),
+        warrantyRes.json(),
+        benefitsRes.json()
+      ])
+
+      setSavings(savingsData)
+      setStockData(stock)
+      setDeliveryData(delivery)
+      setWarrantyData(warranty)
+      setBenefitsData(benefits)
     } catch (error) {
-      console.error('Failed to load savings:', error)
+      console.error('Failed to load Agent Echo data:', error)
     } finally {
       setLoading(false)
     }
@@ -148,7 +172,7 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
       </div>
 
       {/* Additional Features (collapsed by default) */}
-      <details style={{ marginTop: '12px' }}>
+      <details style={{ marginTop: '12px' }} open={detailsOpen} onToggle={(e: any) => setDetailsOpen(e.target.open)}>
         <summary style={{
           fontSize: '13px',
           fontWeight: 600,
@@ -180,13 +204,22 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
               </svg>
               <span>Voorraadstatus</span>
             </div>
-            <div>Realtime voorraad bij winkels</div>
+            {stockData?.stores && (
+              <div style={{ display: 'grid', gap: '4px' }}>
+                {stockData.stores.slice(0, 3).map((store: any, i: number) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span>{store.icon} {store.store}:</span>
+                    <span style={{ color: store.color, fontWeight: 600 }}>{store.status}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Delivery Time */}
@@ -197,14 +230,23 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
               <span>Levertijd</span>
             </div>
-            <div>Exacte levertijd per winkel</div>
+            {deliveryData?.stores && (
+              <div style={{ display: 'grid', gap: '4px' }}>
+                {deliveryData.stores.slice(0, 3).map((store: any, i: number) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span>{store.icon} {store.store}:</span>
+                    <span style={{ fontWeight: 600 }}>{store.delivery}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Warranty */}
@@ -215,13 +257,27 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
               <span>Garantie & Service</span>
             </div>
-            <div>Retourvoorwaarden en garantie</div>
+            {warrantyData?.stores && (
+              <div style={{ display: 'grid', gap: '4px' }}>
+                {warrantyData.stores.slice(0, 3).map((store: any, i: number) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span>{store.icon} {store.store}:</span>
+                    <span style={{ fontWeight: 600 }}>{store.warranty} + {store.returnDays}d retour</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {warrantyData?.bestWarranty && (
+              <div style={{ marginTop: '6px', fontSize: '11px', color: '#15803d', fontWeight: 600 }}>
+                💡 Best: {warrantyData.bestWarranty}
+              </div>
+            )}
           </div>
 
           {/* Benefits */}
@@ -232,7 +288,7 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
             fontSize: '12px',
             color: '#374151'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="20 12 20 22 4 22 4 12"/>
                 <rect x="2" y="7" width="20" height="5"/>
@@ -242,7 +298,26 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
               </svg>
               <span>Extra voordelen</span>
             </div>
-            <div>Cashback, cadeaus, bankacties</div>
+            {benefitsData?.stores && (
+              <div style={{ display: 'grid', gap: '4px' }}>
+                {benefitsData.stores.slice(0, 3).map((store: any, i: number) => (
+                  <div key={i} style={{ fontSize: '11px' }}>
+                    <div style={{ fontWeight: 600, marginBottom: '2px' }}>{store.icon} {store.store}:</div>
+                    <div style={{ paddingLeft: '18px', color: '#64748b' }}>
+                      {store.cashback && <div>• {store.cashback}</div>}
+                      {store.freeGifts?.length > 0 && <div>• {store.freeGifts[0]}</div>}
+                      {store.bankOffers?.length > 0 && <div>• {store.bankOffers[0]}</div>}
+                      <div style={{ color: '#15803d', fontWeight: 600 }}>Totaal: {store.totalValue}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {benefitsData?.maxSavings && (
+              <div style={{ marginTop: '6px', fontSize: '11px', color: '#15803d', fontWeight: 600 }}>
+                🎉 Max besparing: {benefitsData.maxSavings} bij {benefitsData.bestDeal}
+              </div>
+            )}
           </div>
         </div>
       </details>
