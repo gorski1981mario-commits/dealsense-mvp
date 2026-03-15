@@ -36,6 +36,13 @@ console.log('DEBUG: process.env.PRICING_NICHE_EXCL =', process.env.PRICING_NICHE
 console.log('DEBUG: typeof =', typeof process.env.PRICING_NICHE_EXCL);
 console.log('DEBUG: parseFloat =', parseFloat(process.env.PRICING_NICHE_EXCL));
 
+const isProduction = process.env.NODE_ENV === 'production';
+const nicheExcl = process.env.PRICING_NICHE_EXCL 
+  ? parseFloat(process.env.PRICING_NICHE_EXCL) 
+  : (isProduction ? 0.3 : 4.0);
+
+console.log('DEBUG: Final nicheExcl =', nicheExcl);
+
 const ENV = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   GOOGLE_SHOPPING_API_KEY: process.env.GOOGLE_SHOPPING_API_KEY,
@@ -43,7 +50,7 @@ const ENV = {
   USE_DYNAMIC_PRICING: process.env.USE_DYNAMIC_PRICING === 'true',
   
   PRICING_NICHE_EXCEPTION_ENABLED: process.env.PRICING_NICHE_EXCEPTION_ENABLED === 'true',
-  PRICING_NICHE_EXCL: parseFloat(process.env.PRICING_NICHE_EXCL) || 4.0,
+  PRICING_NICHE_EXCL: nicheExcl,
   PRICING_NICHE_MIN_RATING: parseFloat(process.env.PRICING_NICHE_MIN_RATING) || 4.0,
   PRICING_NICHE_MIN_REVIEWS: parseInt(process.env.PRICING_NICHE_MIN_REVIEWS) || 30,
   
