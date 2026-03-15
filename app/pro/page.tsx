@@ -7,11 +7,12 @@ import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
+import { getDeviceId } from '../_lib/utils'
 
 export default function ProPage() {
   const [biometricRegistered, setBiometricRegistered] = useState(false)
   const [showBiometricSetup, setShowBiometricSetup] = useState(false)
-  const userId = typeof window !== 'undefined' ? (localStorage.getItem('dealsense_device_id') || 'user_demo') : 'user_demo'
+  const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
