@@ -13,12 +13,14 @@ export default function HomePage() {
   const [result, setResult] = useState<any>(null)
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
   
-  // NEW: Ghost Mode, Price Slider, Cookie Consent, Onboarding
+  // NEW: Ghost Mode, Cookie Consent, Onboarding
   const [ghostMode, setGhostMode] = useState(false)
-  const [maxPrice, setMaxPrice] = useState(5000)
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [onboardingStep, setOnboardingStep] = useState(1)
+  
+  // FAQ accordion state
+  const [faqOpen, setFaqOpen] = useState<number | null>(null)
 
   // Load usage count on mount
   useEffect(() => {
@@ -81,8 +83,7 @@ export default function HomePage() {
           session_id: getDeviceId(),
           fingerprint: getDeviceId(),
           category: category,
-          ghost_mode: ghostMode,
-          max_price: maxPrice
+          ghost_mode: ghostMode
         })
       })
 
@@ -138,25 +139,6 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Savings Tracker */}
-      <div style={{
-        background: 'linear-gradient(135deg, #258b52 0%, #1e7043 100%)',
-        borderRadius: '16px',
-        padding: '20px',
-        marginBottom: '24px',
-        color: 'white',
-        boxShadow: '0 4px 12px rgba(37,139,82,0.2)'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-          <span style={{ fontSize: '14px', opacity: 0.9 }}>Je besparingen deze maand</span>
-        </div>
-        <div style={{ fontSize: '32px', fontWeight: 900, marginBottom: '12px' }}>€0</div>
-        <div style={{ background: 'rgba(255,255,255,0.2)', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
-          <div style={{ background: 'white', height: '100%', width: '0%', borderRadius: '4px' }}></div>
-        </div>
-        <div style={{ fontSize: '12px', marginTop: '6px', opacity: 0.8 }}>🔥 Geweldig gedaan!</div>
-      </div>
-
       {/* Badge + Usage Counter */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
         <span style={{
@@ -286,17 +268,20 @@ export default function HomePage() {
         }}>Product URL</label>
         <input
           type="url"
-          placeholder="https://www.bol.com/..."
+          placeholder="Wypełniane automatycznie door QR scan"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          required
+          readOnly
           style={{
             width: '100%',
             padding: '12px',
             border: '1px solid #E2E8F0',
             borderRadius: '10px',
             fontSize: '16px',
-            marginBottom: '16px'
+            marginBottom: '16px',
+            background: '#f1f5f9',
+            cursor: 'not-allowed',
+            color: '#64748b'
           }}
         />
 
@@ -308,36 +293,21 @@ export default function HomePage() {
         }}>Prijs (€)</label>
         <input
           type="text"
-          placeholder="74.95"
+          placeholder="Wypełniane automatycznie door QR scan"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          required
+          readOnly
           style={{
             width: '100%',
             padding: '12px',
             border: '1px solid #E2E8F0',
             borderRadius: '10px',
             fontSize: '16px',
-            marginBottom: '16px'
+            marginBottom: '16px',
+            background: '#f1f5f9',
+            cursor: 'not-allowed',
+            color: '#64748b'
           }}
-        />
-
-        {/* Price Slider */}
-        <label style={{
-          display: 'block',
-          fontSize: '14px',
-          fontWeight: 600,
-          marginBottom: '6px'
-        }}>Max prijs: €{maxPrice}</label>
-        <input
-          type="range"
-          min="0"
-          max="5000"
-          step="50"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-          className="price-slider"
-          style={{ marginBottom: '16px' }}
         />
 
         {/* Ghost Mode Toggle */}
@@ -693,57 +663,105 @@ export default function HomePage() {
       <div style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid #E2E8F0' }}>
         <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '24px' }}>Veelgestelde vragen</h3>
         
-        <details style={{
-          marginBottom: '16px',
-          padding: '16px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-          border: '1px solid #86efac',
-          borderRadius: '10px'
-        }}>
-          <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Hoeveel scans krijg ik gratis?</summary>
-          <p style={{ marginTop: '12px', color: '#374151' }}>
-            Je krijgt 3 gratis scans. Daarna kun je upgraden naar Plus, Pro of Finance voor onbeperkt scannen.
-          </p>
-        </details>
+        <div 
+          onClick={() => setFaqOpen(faqOpen === 0 ? null : 0)}
+          style={{
+            marginBottom: '16px',
+            padding: '16px',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            border: '1px solid #86efac',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
+            <span>▸ Hoeveel scans krijg ik gratis?</span>
+            <span style={{ transform: faqOpen === 0 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          </div>
+          {faqOpen === 0 && (
+            <p style={{ marginTop: '12px', color: '#374151' }}>
+              Je krijgt 3 gratis scans. Daarna kun je upgraden naar Plus, Pro of Finance voor onbeperkt scannen.
+            </p>
+          )}
+        </div>
 
-        <details style={{
-          marginBottom: '16px',
-          padding: '16px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-          border: '1px solid #86efac',
-          borderRadius: '10px'
-        }}>
-          <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Is er een prijslimiet?</summary>
-          <p style={{ marginTop: '12px', color: '#374151' }}>
-            Nee! Je kunt producten van elke prijs scannen, zelfs tot €3000-4000, zolang ze een EAN code hebben.
-          </p>
-        </details>
+        <div 
+          onClick={() => setFaqOpen(faqOpen === 1 ? null : 1)}
+          style={{
+            marginBottom: '16px',
+            padding: '16px',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            border: '1px solid #86efac',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
+            <span>▸ Is er een prijslimiet?</span>
+            <span style={{ transform: faqOpen === 1 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          </div>
+          {faqOpen === 1 && (
+            <p style={{ marginTop: '12px', color: '#374151' }}>
+              Nee! Je kunt producten van elke prijs scannen, zelfs tot €3000-4000, zolang ze een EAN code hebben.
+            </p>
+          )}
+        </div>
 
-        <details style={{
-          marginBottom: '16px',
-          padding: '16px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-          border: '1px solid #86efac',
-          borderRadius: '10px'
-        }}>
-          <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Wat is de commissie?</summary>
-          <p style={{ marginTop: '12px', color: '#374151' }}>
-            We rekenen 10% commissie op de besparingen die je maakt. Als je €50 bespaart, betaal je €5.
-          </p>
-        </details>
+        <div 
+          onClick={() => setFaqOpen(faqOpen === 2 ? null : 2)}
+          style={{
+            marginBottom: '16px',
+            padding: '16px',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            border: '1px solid #86efac',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
+            <span>▸ Wat is de commissie?</span>
+            <span style={{ transform: faqOpen === 2 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          </div>
+          {faqOpen === 2 && (
+            <p style={{ marginTop: '12px', color: '#374151' }}>
+              We rekenen 10% commissie op de besparingen die je maakt. Als je €50 bespaart, betaal je €5.
+            </p>
+          )}
+        </div>
 
-        <details style={{
-          marginBottom: '16px',
-          padding: '16px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-          border: '1px solid #86efac',
-          borderRadius: '10px'
-        }}>
-          <summary style={{ fontWeight: 600, cursor: 'pointer' }}>Hoe werkt het?</summary>
-          <p style={{ marginTop: '12px', color: '#374151' }}>
-            1. Plak de product URL en prijs. 2. We scannen 100+ winkels. 3. Je ziet de beste 3 deals. Simpel!
-          </p>
-        </details>
+        <div 
+          onClick={() => setFaqOpen(faqOpen === 3 ? null : 3)}
+          style={{
+            marginBottom: '16px',
+            padding: '16px',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            border: '1px solid #86efac',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 600 }}>
+            <span>▸ Hoe werkt het?</span>
+            <span style={{ transform: faqOpen === 3 ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▸</span>
+          </div>
+          {faqOpen === 3 && (
+            <p style={{ marginTop: '12px', color: '#374151' }}>
+              1. Scan QR code op product. 2. We scannen 100+ winkels. 3. Je ziet de beste 3 deals. Simpel!
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Footer */}
