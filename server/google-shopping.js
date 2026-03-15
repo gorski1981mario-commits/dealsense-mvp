@@ -41,6 +41,12 @@ class GoogleShoppingAPI {
               return reject(new Error(data.error));
             }
 
+            // DEBUG: Log first result to see structure
+            if (data.shopping_results && data.shopping_results.length > 0) {
+              console.log('DEBUG: First shopping result structure:');
+              console.log(JSON.stringify(data.shopping_results[0], null, 2));
+            }
+
             const offers = this.parseResults(data);
             resolve(offers);
           } catch (error) {
