@@ -32,6 +32,10 @@ const dynamicPricing = new DynamicPricingEngine(redisClient);
 app.use(cors());
 app.use(express.json());
 
+console.log('DEBUG: process.env.PRICING_NICHE_EXCL =', process.env.PRICING_NICHE_EXCL);
+console.log('DEBUG: typeof =', typeof process.env.PRICING_NICHE_EXCL);
+console.log('DEBUG: parseFloat =', parseFloat(process.env.PRICING_NICHE_EXCL));
+
 const ENV = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   GOOGLE_SHOPPING_API_KEY: process.env.GOOGLE_SHOPPING_API_KEY,
