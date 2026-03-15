@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Echo - Demo Logo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f9fafb;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #111827;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        
+        /* BETONOWY BRANDING AGENT ECHO */
+        .agent-echo-brand {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .agent-echo-logo {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+        
+        .echo-e {
+            color: #15803d;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 1;
+        }
+        
+        .echo-ch {
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .echo-o {
+            color: #000;
+            font-size: 12px;
+            line-height: 1;
+            position: relative;
+            top: 2px;
+        }
+        
+        .agent-echo-tagline {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        /* Demo sections */
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-section h2 {
+            color: #111827;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #15803d;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .task-list {
+            margin: 16px 0;
+        }
+        
+        .task-item {
+            padding: 8px 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #15803d;
+            width: 65%;
+            transition: width 0.3s ease;
+        }
+        
+        .info-box {
+            background: #f0fdf4;
+            border-left: 4px solid #15803d;
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        
+        .info-box h3 {
+            color: #15803d;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .info-box p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .color-spec {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 0 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Agent Echo - Oficjalny Branding</h1>
+        
+        <!-- Przykład 1: Podstawowy -->
+        <div class="demo-section">
+            <h2>1. Podstawowe logo</h2>
+            <div class="agent-echo-brand">
+                <div class="agent-echo-logo">
+                    <span class="echo-e">E</span><span class="echo-ch">ch</span><span class="echo-o">●</span>
+                </div>
+                <span class="agent-echo-tagline">Je persoonlijke AI agent</span>
+            </div>
+        </div>
+        
+        <!-- Przykład 2: Z spinnerem -->
+        <div class="demo-section">
+            <h2>2. Agent Echo - Wyszukiwanie</h2>
+            <div class="agent-echo-brand">
+                <div class="agent-echo-logo">
+                    <span class="echo-e">E</span><span class="echo-ch">ch</span><span class="echo-o">●</span>
+                </div>
+                <span class="agent-echo-tagline">Je persoonlijke AI agent</span>
+            </div>
+            
+            <div class="spinner"></div>
+            <p style="text-align: center; color: #374151; margin-top: 16px;">
+                Zoekt beste aanbiedingen...
+            </p>
+            
+            <div class="task-list">
+                <div class="task-item">✓ Energie - contract analyseren</div>
+                <div class="task-item">✓ Telefoon - contract analyseren</div>
+                <div class="task-item">⏳ Internet - aanbiedingen zoeken...</div>
+                <div class="task-item">⏳ Verzekering - aanbiedingen zoeken...</div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <!-- Przykład 3: Wyniki -->
+        <div class="demo-section">
+            <h2>3. Agent Echo - Wyniki</h2>
+            <div class="agent-echo-brand">
+                <div class="agent-echo-logo">
+                    <span class="echo-e">E</span><span class="echo-ch">ch</span><span class="echo-o">●</span>
+                </div>
+                <span class="agent-echo-tagline">Je persoonlijke AI agent</span>
+            </div>
+            
+            <p style="color: #15803d; font-size: 18px; font-weight: 600; margin-top: 16px;">
+                ✅ Alle taken voltooid!
+            </p>
+            <p style="color: #374151; font-size: 14px; margin-top: 8px;">
+                Je bespaart €730/jaar
+            </p>
+        </div>
+        
+        <!-- Specyfikacja -->
+        <div class="info-box">
+            <h3>📋 Betonowa specyfikacja</h3>
+            <p>
+                <strong>E:</strong> <span class="color-spec">#15803d</span> (ciemna zieleń), 24px, bold<br>
+                <strong>ch:</strong> <span class="color-spec">#3b82f6</span> (niebieskie), 20px, bold<br>
+                <strong>●:</strong> <span class="color-spec">#000</span> (czarne), 12px<br>
+                <strong>Tagline:</strong> <span class="color-spec">#374151</span> (szary), 14px<br>
+                <strong>Tło:</strong> gradient <span class="color-spec">#f0fdf4</span> → <span class="color-spec">#dcfce7</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
