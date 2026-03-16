@@ -162,7 +162,7 @@ export default function HamburgerMenu() {
         overflowY: 'auto',
         boxShadow: '-4px 0 16px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ padding: '80px 24px 24px 24px' }}>
+        <div style={{ padding: '80px 24px 48px 24px' }}>
           {/* Menu Title */}
           <h2 style={{
             fontSize: '24px',
