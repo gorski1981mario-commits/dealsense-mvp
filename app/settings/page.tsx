@@ -141,7 +141,10 @@ export default function SettingsPage() {
   const packagePrices = { free: '€0', plus: '€19,99/mnd', pro: '€29,99/mnd', finance: '€39,99/mnd' }
 
   return (
-    <div>
+    <div style={{
+      minHeight: '100vh',
+      background: '#F7F9F8'
+    }}>
       <h1 style={{
         fontSize: '24px',
         fontWeight: 600,
@@ -173,7 +176,8 @@ export default function SettingsPage() {
               gap: '12px',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <Mail size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
@@ -197,7 +201,8 @@ export default function SettingsPage() {
               gap: '12px',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <Lock size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
@@ -222,7 +227,7 @@ export default function SettingsPage() {
               padding: '12px',
               borderRadius: '8px',
               border: '1px solid #FEE2E2',
-              background: '#FEF2F2'
+              background: 'transparent'
             }}>
               <Trash2 size={18} color="#DC2626" />
               <div style={{ flex: 1 }}>
@@ -263,7 +268,8 @@ export default function SettingsPage() {
               justifyContent: 'space-between',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Bell size={18} color="#6B7280" />
@@ -303,7 +309,8 @@ export default function SettingsPage() {
               justifyContent: 'space-between',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Bell size={18} color="#6B7280" />
@@ -343,7 +350,8 @@ export default function SettingsPage() {
               justifyContent: 'space-between',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Bell size={18} color="#6B7280" />
@@ -383,7 +391,8 @@ export default function SettingsPage() {
               justifyContent: 'space-between',
               padding: '12px',
               borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Bell size={18} color="#6B7280" />
@@ -439,7 +448,8 @@ export default function SettingsPage() {
             padding: '16px',
             borderRadius: '8px',
             border: '1px solid #E5E7EB',
-            marginBottom: '12px'
+            marginBottom: '12px',
+            background: 'transparent'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '8px' }}>
               Huidig pakket: <span style={{ color: '#1E7F5C' }}>{packageNames[userPackage]}</span>
@@ -759,7 +769,8 @@ export default function SettingsPage() {
                 <div style={{
                   padding: '12px',
                   borderRadius: '8px',
-                  border: '1px solid #E5E7EB'
+                  border: '1px solid #E5E7EB',
+                  background: 'transparent'
                 }}>
                   <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '8px' }}>
                     Dagelijks limiet
