@@ -292,19 +292,15 @@ export default function PricingAccordion() {
       <div style={{
         marginTop: '48px',
         paddingTop: '24px',
+        paddingBottom: '32px',
         borderTop: '1px solid #E5E7EB',
         textAlign: 'center',
         fontSize: '13px',
         color: '#64748b'
       }}>
-        <div style={{ marginBottom: '8px' }}>
-          <a href="/voorwaarden" style={{ color: '#1E7F5C', textDecoration: 'none', marginRight: '16px' }}>
-            Algemene Voorwaarden
-          </a>
-          <a href="/veiligheid" style={{ color: '#1E7F5C', textDecoration: 'none' }}>
-            Privacy & Veiligheid
-          </a>
-        </div>
+        <a href="/voorwaarden" style={{ color: '#1E7F5C', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
+          Algemene Voorwaarden
+        </a>
         <div>
           © 2026 DealSense.nl
         </div>
