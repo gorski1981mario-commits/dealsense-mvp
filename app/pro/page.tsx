@@ -96,10 +96,6 @@ export default function ProPage() {
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'
       }}>
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: '#258b52' }}>€29,99</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>Per maand - annuleer wanneer je wilt</div>
-        </div>
         <PaymentButton packageType="pro" userId={userId} price={29.99} />
       </div>
 
