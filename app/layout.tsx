@@ -2,11 +2,36 @@
 
 import './globals.css'
 import { usePathname } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const [currentPackage, setCurrentPackage] = useState<string>('free')
+
+  useEffect(() => {
+    // Zapisz aktualny pakiet gdy użytkownik wchodzi na stronę pakietu
+    if (pathname === '/') {
+      localStorage.setItem('dealsense_current_package', 'free')
+      setCurrentPackage('free')
+    } else if (pathname === '/plus') {
+      localStorage.setItem('dealsense_current_package', 'plus')
+      setCurrentPackage('plus')
+    } else if (pathname === '/pro') {
+      localStorage.setItem('dealsense_current_package', 'pro')
+      setCurrentPackage('pro')
+    } else if (pathname === '/finance') {
+      localStorage.setItem('dealsense_current_package', 'finance')
+      setCurrentPackage('finance')
+    } else {
+      // Na innych stronach (statystyki, configuratory) - załaduj zapisany pakiet
+      const saved = localStorage.getItem('dealsense_current_package')
+      if (saved) {
+        setCurrentPackage(saved)
+      }
+    }
+  }, [pathname])
 
   return (
     <html lang="nl">
@@ -62,16 +87,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Bottom Navigation */}
         <nav className="bottom-nav">
-          <a href="/" className={`nav-item ${pathname === '/' ? 'active' : ''}`}>
+          <a href="/" className={`nav-item ${currentPackage === 'free' ? 'active' : ''}`}>
             <span>FREE</span>
           </a>
-          <a href="/plus" className={`nav-item ${pathname === '/plus' ? 'active' : ''}`}>
+          <a href="/plus" className={`nav-item ${currentPackage === 'plus' ? 'active' : ''}`}>
             <span>PLUS</span>
           </a>
-          <a href="/pro" className={`nav-item ${pathname === '/pro' ? 'active' : ''}`}>
+          <a href="/pro" className={`nav-item ${currentPackage === 'pro' ? 'active' : ''}`}>
             <span>PRO</span>
           </a>
-          <a href="/finance" className={`nav-item ${pathname === '/finance' ? 'active' : ''}`}>
+          <a href="/finance" className={`nav-item ${currentPackage === 'finance' ? 'active' : ''}`}>
             <span>FINANCE</span>
           </a>
         </nav>
