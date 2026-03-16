@@ -23,8 +23,7 @@ export default function StatisticsPage() {
 
   return (
     <div style={{
-      minHeight: '100vh',
-      background: '#F7F9F8'
+      minHeight: '100vh'
     }}>
       <h1 style={{
         fontSize: '24px',
