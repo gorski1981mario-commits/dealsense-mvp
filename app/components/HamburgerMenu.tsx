@@ -21,52 +21,43 @@ interface MenuItem {
   path: string
 }
 
-const menuItems: MenuItem[] = [
-  {
-    icon: Wallet,
-    title: 'Mijn vaste lasten',
-    path: '/vaste-lasten'
-  },
-  {
-    icon: Plane,
-    title: 'Vakanties',
-    path: '/vacations'
-  },
-  {
-    icon: Shield,
-    title: 'Verzekeringen',
-    path: '/insurance'
-  },
-  {
-    icon: BarChart3,
-    title: 'Mijn statistieken',
-    path: '/statistics'
-  },
-  {
-    icon: Mail,
-    title: 'Contact',
-    path: 'mailto:info@dealsense.nl'
-  },
-  {
-    icon: Settings,
-    title: 'Instellingen',
-    path: '/settings'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Veiligheid & Vertrouwen',
-    path: '/veiligheid'
-  },
-  {
-    icon: HelpCircle,
-    title: 'Hoe het werkt',
-    path: '/hoe-het-werkt'
-  },
-  {
-    icon: Users,
-    title: 'Waarom geen partnerschappen',
-    path: '/waarom-geen-partnerschappen'
-  }
+// PRODUKTY - Skanowanie EAN/URL
+const productCategories: MenuItem[] = [
+  { icon: Wallet, title: 'Elektronika', path: '/category/elektronika' },
+  { icon: Wallet, title: 'Dom i ogród', path: '/category/dom-ogrod' },
+  { icon: Wallet, title: 'Moda', path: '/category/moda' },
+  { icon: Wallet, title: 'Zdrowie i uroda', path: '/category/zdrowie' },
+  { icon: Wallet, title: 'Sport i fitnes', path: '/category/sport' },
+  { icon: Wallet, title: 'Auto i akcesoria', path: '/category/auto' },
+  { icon: Wallet, title: 'Zabawki i edukacja', path: '/category/zabawki' },
+  { icon: Wallet, title: 'Meble', path: '/category/meble' },
+  { icon: Wallet, title: 'Zwierzęta', path: '/category/zwierzeta' },
+  { icon: Wallet, title: 'Narzędzia - DIY', path: '/category/narzedzia' }
+]
+
+// USŁUGI - Porównanie ofert
+const serviceCategories: MenuItem[] = [
+  { icon: Plane, title: 'Vacations', path: '/vacations' },
+  { icon: Shield, title: 'Insurance', path: '/insurance' },
+  { icon: Wallet, title: 'Energy', path: '/energy' },
+  { icon: Wallet, title: 'Mobile', path: '/mobile' },
+  { icon: Wallet, title: 'Internet', path: '/internet' },
+  { icon: Wallet, title: 'TV', path: '/tv' },
+  { icon: Wallet, title: 'Mortgage', path: '/mortgage' },
+  { icon: Wallet, title: 'Loans', path: '/loans' },
+  { icon: Wallet, title: 'Leasing', path: '/leasing' },
+  { icon: Wallet, title: 'Cards', path: '/cards' },
+  { icon: Wallet, title: 'Subscriptions', path: '/subscriptions' }
+]
+
+// INNE FUNKCJE
+const otherItems: MenuItem[] = [
+  { icon: BarChart3, title: 'Mijn statistieken', path: '/statistics' },
+  { icon: Mail, title: 'Contact', path: 'mailto:info@dealsense.nl' },
+  { icon: Settings, title: 'Instellingen', path: '/settings' },
+  { icon: ShieldCheck, title: 'Veiligheid & Vertrouwen', path: '/veiligheid' },
+  { icon: HelpCircle, title: 'Hoe het werkt', path: '/hoe-het-werkt' },
+  { icon: Users, title: 'Waarom geen partnerschappen', path: '/waarom-geen-partnerschappen' }
 ]
 
 export default function HamburgerMenu() {
@@ -225,44 +216,139 @@ export default function HamburgerMenu() {
               FUNCTIES
             </h3>
 
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px'
-            }}>
-              {menuItems.map((item, idx) => {
-                const IconComponent = item.icon
-                return (
-                  <div
-                    key={idx}
-                    onClick={() => handleItemClick(item.path)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'background 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#E6F4EE'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
-                    }}
-                  >
-                    <IconComponent size={20} color="#111827" strokeWidth={2} />
-                    <div style={{
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      color: '#111827'
-                    }}>
-                      {item.title}
+            {/* PRODUKTY */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#6B7280',
+                letterSpacing: '0.5px',
+                marginBottom: '12px',
+                textTransform: 'uppercase'
+              }}>
+                PRODUKTY (Skanowanie)
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {productCategories.map((item, idx) => {
+                  const IconComponent = item.icon
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => handleItemClick(item.path)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'background 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#E6F4EE'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <IconComponent size={18} color="#111827" strokeWidth={2} />
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                        {item.title}
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* USŁUGI */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#6B7280',
+                letterSpacing: '0.5px',
+                marginBottom: '12px',
+                textTransform: 'uppercase'
+              }}>
+                USŁUGI (Porównanie)
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {serviceCategories.map((item, idx) => {
+                  const IconComponent = item.icon
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => handleItemClick(item.path)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'background 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#E6F4EE'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <IconComponent size={18} color="#111827" strokeWidth={2} />
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                        {item.title}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* INNE FUNCTIES */}
+            <div>
+              <div style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#6B7280',
+                letterSpacing: '0.5px',
+                marginBottom: '12px',
+                textTransform: 'uppercase'
+              }}>
+                FUNCTIES
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {otherItems.map((item, idx) => {
+                  const IconComponent = item.icon
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => handleItemClick(item.path)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'background 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#E6F4EE'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <IconComponent size={18} color="#111827" strokeWidth={2} />
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                        {item.title}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
