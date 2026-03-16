@@ -24,21 +24,6 @@ export default function VasteLastenPage() {
         Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.
       </p>
 
-      <div style={{
-        padding: '20px',
-        background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-        borderRadius: '12px',
-        border: '1px solid #fbbf24',
-        marginBottom: '32px'
-      }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-          💡 Gemiddelde besparing: €150-300 per jaar
-        </div>
-        <div style={{ fontSize: '13px', color: '#374151' }}>
-          De meeste mensen kunnen 15-25% besparen op hun vaste lasten door over te stappen.
-        </div>
-      </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
         {configurators.map((config) => (
           <Link

@@ -86,7 +86,7 @@ export default function HamburgerMenu() {
         onClick={() => setIsOpen(!isOpen)}
         style={{
           position: 'fixed',
-          top: '10px',
+          top: '8px',
           right: '20px',
           zIndex: 1001,
           background: 'white',
