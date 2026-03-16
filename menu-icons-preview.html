@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealSense Menu - Ikony i Funkcje Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F7F9F8;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .menu-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 2px solid #E5E7EB;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            background: #E6F4EE;
+            border-color: #1E7F5C;
+        }
+        
+        .icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+        
+        .description {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .route {
+            font-size: 13px;
+            color: #1E7F5C;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .echo-branding {
+            background: linear-gradient(135deg, #E6F4EE 0%, #F7F9F8 100%);
+            border: 2px solid #1E7F5C;
+        }
+        
+        .echo-logo {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            margin-bottom: 8px;
+        }
+        
+        .echo-e {
+            color: #15803d;
+            font-weight: 700;
+            font-size: 28px;
+        }
+        
+        .echo-ch {
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 24px;
+        }
+        
+        .echo-o {
+            width: 16px;
+            height: 16px;
+            background: #111827;
+            border-radius: 50%;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DealSense Menu - Preview</h1>
+        <p class="subtitle">Biznesowe ikony (czarne linie) + pełne opisy funkcji</p>
+        
+        <!-- AGENT ECHO -->
+        <div class="section">
+            <div class="section-title">AGENT ECHO</div>
+            <div class="menu-item echo-branding">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1E7F5C" stroke-width="2">
+                        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="echo-logo">
+                        <span class="echo-e">E</span>
+                        <span class="echo-ch">ch</span>
+                        <div class="echo-o"></div>
+                    </div>
+                    <div class="title">Je persoonlijke AI agent</div>
+                    <div class="description">
+                        Echo helpt je slimme deals vinden door automatisch prijzen te vergelijken, 
+                        aanbiedingen te analyseren en de beste opties te selecteren. Geen handmatig 
+                        zoeken meer - Echo doet het werk voor jou.
+                    </div>
+                    <div class="route">→ Klik voor meer info over Echo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAKIETY -->
+        <div class="section">
+            <div class="section-title">PAKIETY</div>
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M9 3v18"/>
+                        <path d="M15 3v18"/>
+                        <path d="M3 9h18"/>
+                        <path d="M3 15h18"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Bekijk paketten</div>
+                    <div class="description">
+                        Kies uit FREE (3 gratis scans), PLUS (€19,99 - onbeperkt scans), 
+                        PRO (€29,99 - inclusief vakanties & verzekeringen), of FINANCE 
+                        (€39,99 - alles inclusief hypotheken & leningen).
+                    </div>
+                    <div class="route">→ /packages</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FUNCTIES -->
+        <div class="section">
+            <div class="section-title">FUNCTIES</div>
+            
+            <!-- 1. Mijn vaste lasten -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                        <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Mijn vaste lasten</div>
+                    <div class="description">
+                        Optimaliseer je maandelijkse kosten. Vergelijk energie, internet, telefonie 
+                        en andere vaste lasten. Vul je huidige verbruik in en zie direct hoeveel 
+                        je kunt besparen door over te stappen naar een betere aanbieder.
+                    </div>
+                    <div class="route">→ /vaste-lasten</div>
+                </div>
+            </div>
+
+            <!-- 2. Vakanties -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Vakanties</div>
+                    <div class="description">
+                        Vergelijk vakantieaanbiedingen van verschillende reisbureaus. Vind de beste 
+                        deals voor vliegtickets, hotels en all-inclusive pakketten. Geen verborgen 
+                        kosten - zie direct de totaalprijs inclusief alle toeslagen.
+                    </div>
+                    <div class="route">→ /vacations</div>
+                </div>
+            </div>
+
+            <!-- 3. Verzekeringen -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Verzekeringen</div>
+                    <div class="description">
+                        Vergelijk zorgverzekeringen, autoverzekeringen, inboedelverzekeringen en meer. 
+                        Vul je gegevens in en krijg direct een overzicht van de beste opties op basis 
+                        van dekking en prijs. Bespaar tot €500 per jaar.
+                    </div>
+                    <div class="route">→ /insurance</div>
+                </div>
+            </div>
+
+            <!-- 4. Mijn statistieken -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18 17V9"/>
+                        <path d="M13 17V5"/>
+                        <path d="M8 17v-3"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Mijn statistieken</div>
+                    <div class="description">
+                        Bekijk je persoonlijke dashboard met totale besparingen, aantal scans, 
+                        beste deals en gebruiksgeschiedenis. Zie hoeveel je hebt bespaard per 
+                        categorie en krijg inzicht in je zoekgedrag.
+                    </div>
+                    <div class="route">→ /statistics</div>
+                </div>
+            </div>
+
+            <!-- 5. Contact -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Contact</div>
+                    <div class="description">
+                        Heb je vragen of feedback? Neem contact met ons op via email. 
+                        We reageren binnen 24 uur op alle berichten. Voor dringende zaken 
+                        kun je ook onze FAQ raadplegen.
+                    </div>
+                    <div class="route">→ mailto:info@dealsense.nl</div>
+                </div>
+            </div>
+
+            <!-- 6. Instellingen -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Instellingen</div>
+                    <div class="description">
+                        Beheer je account, notificaties en voorkeuren. Wijzig je email, 
+                        wachtwoord, of verwijder je account. Stel in welke categorieën je 
+                        wilt volgen en ontvang alerts voor nieuwe deals.
+                    </div>
+                    <div class="route">→ /settings</div>
+                </div>
+            </div>
+
+            <!-- 7. Veiligheid & Vertrouwen -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Veiligheid & Vertrouwen</div>
+                    <div class="description">
+                        Lees hoe we je gegevens beschermen met SSL-encryptie, GDPR-compliance 
+                        en veilige betalingen. We delen nooit je data met derden en je kunt 
+                        altijd je gegevens inzien of verwijderen.
+                    </div>
+                    <div class="route">→ /veiligheid</div>
+                </div>
+            </div>
+
+            <!-- 8. Hoe het werkt -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Hoe het werkt</div>
+                    <div class="description">
+                        Ontdek hoe DealSense werkt in 3 stappen: 1) Scan product of vul gegevens in, 
+                        2) Echo vergelijkt automatisch honderden aanbieders, 3) Krijg direct de beste 
+                        deals zonder verborgen kosten. Simpel, snel en betrouwbaar.
+                    </div>
+                    <div class="route">→ /hoe-het-werkt</div>
+                </div>
+            </div>
+
+            <!-- 9. Waarom geen partnerschappen -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Waarom geen partnerschappen</div>
+                    <div class="description">
+                        We werken niet samen met aanbieders en ontvangen geen commissies. 
+                        Dit garandeert 100% onafhankelijke resultaten. Jouw voordeel is onze 
+                        enige prioriteit - geen gesponsorde plaatsingen of verborgen agenda's.
+                    </div>
+                    <div class="route">→ /waarom-geen-partnerschappen</div>
+                </div>
+            </div>
+
+            <!-- 10. Algemene voorwaarden -->
+            <div class="menu-item">
+                <div class="icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <line x1="10" y1="9" x2="8" y2="9"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="title">Algemene voorwaarden</div>
+                    <div class="description">
+                        Lees onze algemene voorwaarden, privacybeleid en gebruiksvoorwaarden. 
+                        Hier vind je informatie over je rechten, onze aansprakelijkheid, 
+                        betalingsvoorwaarden en hoe we omgaan met je gegevens.
+                    </div>
+                    <div class="route">→ /voorwaarden</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #F7F9F8; border-radius: 12px; text-align: center;">
+            <p style="font-size: 14px; color: #6B7280;">
+                <strong>Preview voor zatwierdzenie</strong><br>
+                Wszystkie ikony: czarne linie (stroke-width: 2), bez wypełnienia<br>
+                Wszystkie funkcje: klikalne z pełnymi opisami<br>
+                Agent Echo: dodany na górze z brandingiem
+            </p>
+        </div>
+    </div>
+</body>
+</html>

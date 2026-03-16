@@ -1,0 +1,112 @@
+{
+  "category": "diensten",
+  "description": "Service comparison sites (Energie, Internet, Verzekeringen)",
+  "subcategories": {
+    "energie": {
+      "domains": [
+        {
+          "domain": "gaslicht.com",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 15
+        },
+        {
+          "domain": "energievergelijk.nl",
+          "priority": 1,
+          "hasParser": false,
+          "rateLimit": 15
+        },
+        {
+          "domain": "independer.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 15,
+          "notes": "Also covers verzekeringen"
+        },
+        {
+          "domain": "pricewise.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 15
+        }
+      ]
+    },
+    "telecom": {
+      "domains": [
+        {
+          "domain": "belsimpel.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 25
+        },
+        {
+          "domain": "mobiel.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 20
+        },
+        {
+          "domain": "kpn.com",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 20
+        },
+        {
+          "domain": "ziggo.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 20
+        }
+      ]
+    },
+    "verzekeringen": {
+      "domains": [
+        {
+          "domain": "independer.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 15,
+          "covers": ["auto", "zorg", "woning"]
+        },
+        {
+          "domain": "pricewise.nl",
+          "priority": 1,
+          "hasParser": false,
+          "rateLimit": 15
+        },
+        {
+          "domain": "zorgwijzer.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 15,
+          "covers": ["zorg"]
+        }
+      ]
+    },
+    "vakanties": {
+      "domains": [
+        {
+          "domain": "booking.com",
+          "priority": 1,
+          "hasParser": true,
+          "useAPI": true,
+          "rateLimit": 50
+        },
+        {
+          "domain": "tui.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 20
+        },
+        {
+          "domain": "corendon.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 20
+        }
+      ]
+    }
+  },
+  "totalDomains": 15,
+  "coverage": "Complete for main categories"
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Zmian - DealSense</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F7F9F8;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #111827;
+            margin-bottom: 32px;
+        }
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1E7F5C;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+        .change-item {
+            padding: 12px;
+            background: #f0fdf4;
+            border-left: 4px solid #15803d;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .before, .after {
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .before {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
+        .after {
+            background: #dcfce7;
+            border: 2px solid #15803d;
+        }
+        .label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .code {
+            font-family: monospace;
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        
+        /* Preview pakietów */
+        .package-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .package-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #86efac;
+            color: #111827;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .package-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 127, 92, 0.3);
+        }
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .package-name {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #111827;
+        }
+        .package-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .package-features {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .feature-item {
+            margin-bottom: 6px;
+        }
+        
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .feature-box {
+            font-size: 13px;
+            color: #374151;
+            padding: 8px;
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Preview Zmian - DealSense</h1>
+        
+        <!-- Zmiana 1: Referral Code z ikonką -->
+        <div class="section">
+            <h2>1. Dodanie Referral Code (2%) z ikonką 🎁</h2>
+            <div class="change-item">
+                <strong>Gdzie:</strong> PLUS, PRO, FINANCE - sekcja "Wat krijg je"
+            </div>
+            
+            <div class="before-after">
+                <div class="before">
+                    <div class="label">❌ PRZED (brak Referral)</div>
+                    <div class="features-grid">
+                        <div class="feature-box">✓ Onbeperkt scans</div>
+                        <div class="feature-box">✓ Shopping</div>
+                        <div class="feature-box">✓ Ghost Mode (10 dagen)</div>
+                        <div class="feature-box">✓ 9% commissie</div>
+                    </div>
+                </div>
+                <div class="after">
+                    <div class="label">✅ PO (z Referral 2%)</div>
+                    <div class="features-grid">
+                        <div class="feature-box">✓ Onbeperkt scans</div>
+                        <div class="feature-box">✓ Shopping</div>
+                        <div class="feature-box">✓ Ghost Mode (10 dagen)</div>
+                        <div class="feature-box">✓ 9% commissie</div>
+                        <div class="feature-box">🎁 Referral: -2% korting</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zmiana 2: Zielone tło pakietów -->
+        <div class="section">
+            <h2>2. Zielone tło pakietów w PricingAccordion</h2>
+            <div class="change-item">
+                <strong>Zmiana:</strong> Tło pakietu na jasny zielony gradient (taki sam jak "Podsumowanie")<br>
+                <strong>Gradient:</strong> linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)<br>
+                <strong>Border:</strong> 2px solid #86efac<br>
+                <strong>Efekt:</strong> JEDNA jasna zielona chmura (nie kontener w kontenerze), czarny tekst
+            </div>
+            
+            <div class="before-after">
+                <div class="before">
+                    <div class="label">❌ PRZED (białe tło)</div>
+                    <div style="background: white; padding: 16px; border-radius: 12px; border: 1px solid #E5E7EB;">
+                        <div style="display: flex; justify-content: space-between; color: #111827;">
+                            <span style="font-size: 12px; font-weight: 600;">PLUS</span>
+                            <span style="font-size: 20px; font-weight: 700;">€19,99/mnd</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="after">
+                    <div class="label">✅ PO (JEDNA chmura - jasny zielony gradient)</div>
+                    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #86efac; padding: 16px; border-radius: 12px;">
+                        <div style="display: flex; justify-content: space-between; color: #111827;">
+                            <span style="font-size: 12px; font-weight: 600;">PLUS</span>
+                            <span style="font-size: 20px; font-weight: 700;">€19,99/mnd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 24px;">
+                <div class="label">Preview wszystkich pakietów:</div>
+                <div class="package-preview">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <span class="package-name">FREE</span>
+                            <span class="package-price">€0</span>
+                        </div>
+                        <div class="package-features">
+                            <div class="feature-item">✓ 3 Gratis scans</div>
+                            <div class="feature-item">✓ 10 productcategorieën</div>
+                            <div class="feature-item">⚠️ Na 3 scans: 10% commissie</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="package-header">
+                            <span class="package-name">PLUS</span>
+                            <span class="package-price">€19,99/mnd</span>
+                        </div>
+                        <div class="package-features">
+                            <div class="feature-item">✓ Onbeperkt scans</div>
+                            <div class="feature-item">✓ Ghost Mode (10 dagen)</div>
+                            <div class="feature-item">✓ 9% commissie</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="package-header">
+                            <span class="package-name">PRO</span>
+                            <span class="package-price">€29,99/mnd</span>
+                        </div>
+                        <div class="package-features">
+                            <div class="feature-item">✓ 16 categorieën</div>
+                            <div class="feature-item">✓ Ghost Mode (20 dagen)</div>
+                            <div class="feature-item">✓ 9% commissie</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="package-header">
+                            <span class="package-name">FINANCE</span>
+                            <span class="package-price">€39,99/mnd</span>
+                        </div>
+                        <div class="package-features">
+                            <div class="feature-item">✓ Alles inclusief - 20+ categorieën</div>
+                            <div class="feature-item">✓ Ghost Mode (30 dagen)</div>
+                            <div class="feature-item">✓ 9% commissie</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zmiana 3: Cookie banner tylko przy onboarding -->
+        <div class="section">
+            <h2>3. Cookie banner - tylko przy onboarding</h2>
+            <div class="change-item">
+                <strong>Problem:</strong> Cookie banner pokazuje się cały czas<br>
+                <strong>Rozwiązanie:</strong> Pokazywać tylko raz, razem z onboarding popup
+            </div>
+            
+            <div class="code" style="margin-top: 12px; padding: 12px; background: #f1f5f9; border-radius: 8px;">
+                <strong>Zmiana w logice:</strong><br>
+                - Cookie consent będzie częścią onboarding flow<br>
+                - Po zaakceptowaniu Terms, od razu zapisujemy cookie consent<br>
+                - Nie pokazujemy osobnego bannera później
+            </div>
+        </div>
+
+        <!-- Zmiana 4: "24 godziny" → "24 uur" -->
+        <div class="section">
+            <h2>4. Poprawka języka: "24 godziny" → "24 uur"</h2>
+            <div class="change-item">
+                <strong>Gdzie:</strong> FREE package - Ghost Mode label
+            </div>
+            
+            <div class="before-after">
+                <div class="before">
+                    <div class="label">❌ PRZED (polski)</div>
+                    <div class="code">
+                        Ghost Mode (24 godziny)
+                    </div>
+                </div>
+                <div class="after">
+                    <div class="label">✅ PO (holenderski)</div>
+                    <div class="code">
+                        Ghost Mode (24 uur)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Podsumowanie -->
+        <div class="section" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #15803d;">
+            <h2 style="color: #15803d;">📋 Podsumowanie wszystkich zmian</h2>
+            <div style="font-size: 14px; color: #374151; line-height: 1.8;">
+                <strong>1.</strong> Dodanie 🎁 Referral Code (2%) w PLUS, PRO, FINANCE<br>
+                <strong>2.</strong> Zmiana tła pakietów na jasny zielony gradient (jak "Podsumowanie")<br>
+                <strong>3.</strong> Cookie banner tylko przy onboarding (nie cały czas)<br>
+                <strong>4.</strong> "24 godziny" → "24 uur" (holenderski)<br>
+                <br>
+                <strong>Pliki do zmiany:</strong><br>
+                - app/plus/page.tsx<br>
+                - app/pro/page.tsx<br>
+                - app/finance/page.tsx<br>
+                - app/components/PricingAccordion.tsx<br>
+                - app/page.tsx (FREE - cookie logic + Ghost Mode label)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottom Navigation - Zielone Linie Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F7F9F8;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #111827;
+            margin-bottom: 32px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .preview-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .preview-box h2 {
+            font-size: 16px;
+            color: #1E7F5C;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        /* Bottom Nav */
+        .bottom-nav {
+            height: 70px;
+            background: white;
+            border-top: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 8px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        /* WSZYSTKIE linie są ZIELONE */
+        .nav-item::before {
+            content: '';
+            width: 20px;
+            height: 3px;
+            background: #258b52;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Aktywny przycisk: zielone tło + grubsza linia */
+        .nav-item.active {
+            color: #258b52;
+            background: rgba(37,139,82,0.08);
+        }
+        
+        .nav-item.active::before {
+            height: 4px;
+        }
+        
+        .note {
+            margin-top: 24px;
+            padding: 16px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #86efac;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        
+        .note strong {
+            color: #15803d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Bottom Navigation - Zielone Linie</h1>
+        
+        <!-- Przykład 1: FREE aktywny -->
+        <div class="preview-box">
+            <h2>Przykład 1: FREE aktywny</h2>
+            <div class="description">
+                Wszystkie linie są zielone, FREE ma zielone tło + grubszą linię
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item active">
+                    <span>FREE</span>
+                </div>
+                <div class="nav-item">
+                    <span>PLUS</span>
+                </div>
+                <div class="nav-item">
+                    <span>PRO</span>
+                </div>
+                <div class="nav-item">
+                    <span>FINANCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Przykład 2: PLUS aktywny -->
+        <div class="preview-box">
+            <h2>Przykład 2: PLUS aktywny</h2>
+            <div class="description">
+                Wszystkie linie są zielone, PLUS ma zielone tło + grubszą linię
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span>FREE</span>
+                </div>
+                <div class="nav-item active">
+                    <span>PLUS</span>
+                </div>
+                <div class="nav-item">
+                    <span>PRO</span>
+                </div>
+                <div class="nav-item">
+                    <span>FINANCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Przykład 3: PRO aktywny -->
+        <div class="preview-box">
+            <h2>Przykład 3: PRO aktywny</h2>
+            <div class="description">
+                Wszystkie linie są zielone, PRO ma zielone tło + grubszą linię
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span>FREE</span>
+                </div>
+                <div class="nav-item">
+                    <span>PLUS</span>
+                </div>
+                <div class="nav-item active">
+                    <span>PRO</span>
+                </div>
+                <div class="nav-item">
+                    <span>FINANCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Przykład 4: FINANCE aktywny -->
+        <div class="preview-box">
+            <h2>Przykład 4: FINANCE aktywny</h2>
+            <div class="description">
+                Wszystkie linie są zielone, FINANCE ma zielone tło + grubszą linię
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span>FREE</span>
+                </div>
+                <div class="nav-item">
+                    <span>PLUS</span>
+                </div>
+                <div class="nav-item">
+                    <span>PRO</span>
+                </div>
+                <div class="nav-item active">
+                    <span>FINANCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notatka -->
+        <div class="note">
+            <strong>✅ Efekt:</strong><br>
+            • Wszystkie 4 przyciski mają <strong>zielone linie</strong> nad tekstem (3px wysokości)<br>
+            • Aktywny przycisk ma:<br>
+            &nbsp;&nbsp;- Zielone tło (rgba(37,139,82,0.08))<br>
+            &nbsp;&nbsp;- Zielony tekst (#258b52)<br>
+            &nbsp;&nbsp;- <strong>Grubszą linię</strong> (4px zamiast 3px)<br><br>
+            <strong>💡 Wizualnie:</strong> Cały kontener (tło + grubsza linia) przenosi się z jednego przycisku na drugi przy kliknięciu.
+        </div>
+    </div>
+</body>
+</html>

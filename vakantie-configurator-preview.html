@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vakantie Configurator - DealSense Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #F7F9F8;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .emoji {
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        /* STEPPER dla Aantal Personen */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #F3F4F6;
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: fit-content;
+        }
+
+        .stepper-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: #111827;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stepper-btn:hover {
+            background: #1E7F5C;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .stepper-btn:active {
+            transform: scale(0.95);
+        }
+
+        .stepper-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .stepper-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* SLIDER z FINKĄ dla Budget */
+        .slider-container {
+            position: relative;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .slider-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E7F5C;
+        }
+
+        .lock-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid #E5E7EB;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .lock-btn:hover {
+            border-color: #1E7F5C;
+            background: #E6F4EE;
+        }
+
+        .lock-btn.locked {
+            background: #1E7F5C;
+            border-color: #1E7F5C;
+        }
+
+        .lock-icon {
+            font-size: 18px;
+        }
+
+        .lock-btn.locked .lock-icon {
+            color: white;
+        }
+
+        .slider-track {
+            position: relative;
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+
+        .slider-fill {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #1E7F5C 0%, #15803d 100%);
+            border-radius: 4px;
+            transition: width 0.1s ease;
+        }
+
+        .slider-input {
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .slider-input:disabled {
+            cursor: not-allowed;
+        }
+
+        .slider-thumb {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 3px solid #1E7F5C;
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(30, 127, 92, 0.3);
+            transition: transform 0.1s ease;
+            pointer-events: none;
+        }
+
+        .slider-input:active + .slider-fill .slider-thumb {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 8px;
+        }
+
+        /* DATE RANGE PICKER */
+        .date-range {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .date-input-wrapper {
+            position: relative;
+        }
+
+        .date-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #111827;
+            background: white;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .date-input:hover {
+            border-color: #1E7F5C;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #1E7F5C;
+            box-shadow: 0 0 0 3px rgba(30, 127, 92, 0.1);
+        }
+
+        .date-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .duration {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 14px;
+            color: #6B7280;
+            padding: 8px;
+            background: #F3F4F6;
+            border-radius: 8px;
+        }
+
+        .duration strong {
+            color: #1E7F5C;
+            font-weight: 600;
+        }
+
+        /* SUBMIT BUTTON */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1E7F5C 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-top: 32px;
+            box-shadow: 0 4px 12px rgba(30, 127, 92, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 127, 92, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* INFO BOX */
+        .info-box {
+            background: #E6F4EE;
+            border-left: 4px solid #1E7F5C;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 24px;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        .info-box strong {
+            color: #1E7F5C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="emoji">🏖️</span>
+            Vakantie Configurator
+        </h1>
+
+        <form id="vacationForm">
+            <!-- AANTAL PERSONEN - STEPPER -->
+            <div class="form-group">
+                <label>Aantal personen</label>
+                <div class="stepper">
+                    <button type="button" class="stepper-btn" id="decrementBtn">−</button>
+                    <div class="stepper-value" id="personenValue">2</div>
+                    <button type="button" class="stepper-btn" id="incrementBtn">+</button>
+                </div>
+            </div>
+
+            <!-- BUDGET - SLIDER met FINKA -->
+            <div class="form-group">
+                <div class="slider-header">
+                    <label style="margin: 0;">Budget</label>
+                    <button type="button" class="lock-btn" id="lockBtn" title="Klik om budget te vergrendelen">
+                        <span class="lock-icon">✓</span>
+                    </button>
+                </div>
+                <div class="slider-value" id="budgetValue">€2000</div>
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <div class="slider-fill" id="sliderFill">
+                            <div class="slider-thumb"></div>
+                        </div>
+                    </div>
+                    <input 
+                        type="range" 
+                        class="slider-input" 
+                        id="budgetSlider"
+                        min="500" 
+                        max="5000" 
+                        step="100" 
+                        value="2000"
+                    >
+                </div>
+                <div class="slider-labels">
+                    <span>€500</span>
+                    <span>€5000</span>
+                </div>
+            </div>
+
+            <!-- PERIODE - DATE RANGE -->
+            <div class="form-group">
+                <label>Periode</label>
+                <div class="date-range">
+                    <div class="date-input-wrapper">
+                        <input 
+                            type="date" 
+                            class="date-input" 
+                            id="startDate"
+                            value=""
+                        >
+                        <span class="date-icon">📅</span>
+                    </div>
+                    <div class="date-input-wrapper">
+                        <input 
+                            type="date" 
+                            class="date-input" 
+                            id="endDate"
+                            value=""
+                        >
+                        <span class="date-icon">📅</span>
+                    </div>
+                    <div class="duration" id="duration">
+                        Selecteer datums
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Zoek beste vakantie →
+            </button>
+        </form>
+
+        <div class="info-box">
+            <strong>💡 Tip:</strong> Gebruik de ✓ knop om je budget te vergrendelen. Zo voorkom je dat je per ongeluk de slider beweegt tijdens het scrollen.
+        </div>
+    </div>
+
+    <script>
+        // STEPPER LOGIC
+        let personen = 2;
+        const decrementBtn = document.getElementById('decrementBtn');
+        const incrementBtn = document.getElementById('incrementBtn');
+        const personenValue = document.getElementById('personenValue');
+
+        function updateStepper() {
+            personenValue.textContent = personen;
+            decrementBtn.disabled = personen <= 1;
+            incrementBtn.disabled = personen >= 10;
+        }
+
+        decrementBtn.addEventListener('click', () => {
+            if (personen > 1) {
+                personen--;
+                updateStepper();
+            }
+        });
+
+        incrementBtn.addEventListener('click', () => {
+            if (personen < 10) {
+                personen++;
+                updateStepper();
+            }
+        });
+
+        updateStepper();
+
+        // SLIDER met FINKA LOGIC
+        const budgetSlider = document.getElementById('budgetSlider');
+        const budgetValue = document.getElementById('budgetValue');
+        const sliderFill = document.getElementById('sliderFill');
+        const lockBtn = document.getElementById('lockBtn');
+        let isLocked = false;
+
+        function updateSlider() {
+            const value = budgetSlider.value;
+            const min = budgetSlider.min;
+            const max = budgetSlider.max;
+            const percentage = ((value - min) / (max - min)) * 100;
+            
+            budgetValue.textContent = `€${value}`;
+            sliderFill.style.width = `${percentage}%`;
+        }
+
+        budgetSlider.addEventListener('input', updateSlider);
+
+        lockBtn.addEventListener('click', () => {
+            isLocked = !isLocked;
+            lockBtn.classList.toggle('locked', isLocked);
+            budgetSlider.disabled = isLocked;
+            
+            if (isLocked) {
+                lockBtn.title = 'Klik om budget te ontgrendelen';
+            } else {
+                lockBtn.title = 'Klik om budget te vergrendelen';
+            }
+        });
+
+        updateSlider();
+
+        // DATE RANGE LOGIC
+        const startDate = document.getElementById('startDate');
+        const endDate = document.getElementById('endDate');
+        const duration = document.getElementById('duration');
+
+        // Set default dates (today + 7 days)
+        const today = new Date();
+        const nextWeek = new Date(today);
+        nextWeek.setDate(today.getDate() + 7);
+
+        startDate.value = today.toISOString().split('T')[0];
+        endDate.value = nextWeek.toISOString().split('T')[0];
+
+        function calculateDuration() {
+            if (startDate.value && endDate.value) {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 0) {
+                    duration.innerHTML = '<strong>1 dag</strong>';
+                } else {
+                    duration.innerHTML = `<strong>${diffDays} dagen</strong>`;
+                }
+            } else {
+                duration.textContent = 'Selecteer datums';
+            }
+        }
+
+        startDate.addEventListener('change', () => {
+            if (startDate.value && endDate.value && new Date(startDate.value) > new Date(endDate.value)) {
+                endDate.value = startDate.value;
+            }
+            calculateDuration();
+        });
+
+        endDate.addEventListener('change', () => {
+            if (startDate.value && endDate.value && new Date(endDate.value) < new Date(startDate.value)) {
+                startDate.value = endDate.value;
+            }
+            calculateDuration();
+        });
+
+        calculateDuration();
+
+        // FORM SUBMIT
+        document.getElementById('vacationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(`✅ Configuratie:\n\nPersonen: ${personen}\nBudget: €${budgetSlider.value}\nVan: ${startDate.value}\nTot: ${endDate.value}\n\nZoeken naar beste vakantie...`);
+        });
+    </script>
+</body>
+</html>

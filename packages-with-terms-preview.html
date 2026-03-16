@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakiety z Terms & Conditions - Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F7F9F8;
+            color: #111827;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+            color: #111827;
+        }
+        
+        /* Pakiety */
+        .package {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .package:hover {
+            border-color: #1E7F5C;
+        }
+        
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .package-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            letter-spacing: 0.5px;
+        }
+        
+        .package-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            margin-top: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, #1E7F5C 0%, #15803d 100%);
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #1E7F5C;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* NOWE: Terms & Conditions Section */
+        .terms-section {
+            margin-top: 48px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .terms-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111827;
+        }
+        
+        .terms-list {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        
+        .terms-list li {
+            margin-bottom: 8px;
+        }
+        
+        .terms-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #1E7F5C;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .terms-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 32px;
+            padding: 20px;
+            background: #F7F9F8;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .footer strong {
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kies je pakket</h1>
+        
+        <!-- Pakiety (przykładowo) -->
+        <div class="package">
+            <div class="package-header">
+                <div style="display: flex; align-items: baseline; gap: 12px;">
+                    <div class="package-name">FREE</div>
+                    <div class="package-price">€0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="package">
+            <div class="package-header">
+                <div style="display: flex; align-items: baseline; gap: 12px;">
+                    <div class="package-name">PLUS</div>
+                    <div class="package-price">€19,99/mnd</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="package">
+            <div class="package-header">
+                <div style="display: flex; align-items: baseline; gap: 12px;">
+                    <div class="package-name">PRO</div>
+                    <div class="package-price">€29,99/mnd</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="package">
+            <div class="package-header">
+                <div style="display: flex; align-items: baseline; gap: 12px;">
+                    <div class="package-name">FINANCE</div>
+                    <div class="package-price">€39,99/mnd</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section (istniejący) -->
+        <div class="cta-section">
+            <h3>Upgrade en begin vandaag met besparen</h3>
+            <button class="cta-button">Start Besparen Direct →</button>
+        </div>
+        
+        <!-- NOWE: Terms & Conditions Section -->
+        <div class="terms-section">
+            <h3>Belangrijke informatie</h3>
+            <ul class="terms-list">
+                <li><strong>Gratis scans:</strong> 3 gratis scans om DealSense te proberen</li>
+                <li><strong>Commissie:</strong> Alleen bij besparing (9-10% van besparing)</li>
+                <li><strong>Opzegging:</strong> Altijd mogelijk via account instellingen</li>
+                <li><strong>Privacy:</strong> Jouw gegevens zijn veilig en beschermd</li>
+            </ul>
+            <a href="/voorwaarden" class="terms-link">Lees volledige Algemene Voorwaarden →</a>
+        </div>
+        
+        <!-- Footer met bedrijfsgegevens -->
+        <div class="footer">
+            <strong>DealSense B.V.</strong><br>
+            KVK: [in aanvraag] | BTW: [in aanvraag]<br>
+            Amsterdam, Nederland<br>
+            <a href="mailto:info@dealsense.nl" style="color: #1E7F5C; text-decoration: none;">info@dealsense.nl</a>
+        </div>
+    </div>
+</body>
+</html>

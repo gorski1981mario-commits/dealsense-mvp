@@ -1,0 +1,80 @@
+{
+  "category": "products",
+  "description": "E-commerce sites for physical products",
+  "domains": [
+    {
+      "domain": "bol.com",
+      "priority": 1,
+      "categories": ["electronics", "books", "toys", "home", "sports"],
+      "hasParser": true,
+      "rateLimit": 50
+    },
+    {
+      "domain": "coolblue.nl",
+      "priority": 1,
+      "categories": ["electronics", "appliances", "computers"],
+      "hasParser": true,
+      "rateLimit": 40
+    },
+    {
+      "domain": "mediamarkt.nl",
+      "priority": 1,
+      "categories": ["electronics", "appliances", "computers"],
+      "hasParser": true,
+      "rateLimit": 40
+    },
+    {
+      "domain": "amazon.nl",
+      "priority": 2,
+      "categories": ["all"],
+      "hasParser": true,
+      "rateLimit": 30,
+      "notes": "Requires careful anti-bot handling"
+    },
+    {
+      "domain": "wehkamp.nl",
+      "priority": 2,
+      "categories": ["fashion", "home", "electronics"],
+      "hasParser": false,
+      "rateLimit": 30
+    },
+    {
+      "domain": "alternate.nl",
+      "priority": 2,
+      "categories": ["computers", "electronics"],
+      "hasParser": false,
+      "rateLimit": 30
+    },
+    {
+      "domain": "azerty.nl",
+      "priority": 2,
+      "categories": ["computers", "electronics"],
+      "hasParser": false,
+      "rateLimit": 30
+    },
+    {
+      "domain": "paradigit.nl",
+      "priority": 2,
+      "categories": ["computers", "electronics"],
+      "hasParser": false,
+      "rateLimit": 30
+    },
+    {
+      "domain": "gamma.nl",
+      "priority": 3,
+      "categories": ["tools", "garden", "home-improvement"],
+      "hasParser": false,
+      "rateLimit": 25
+    },
+    {
+      "domain": "praxis.nl",
+      "priority": 3,
+      "categories": ["tools", "garden", "home-improvement"],
+      "hasParser": false,
+      "rateLimit": 25
+    }
+  ],
+  "totalDomains": 10,
+  "targetDomains": 400,
+  "coverage": "2.5%"
+}
