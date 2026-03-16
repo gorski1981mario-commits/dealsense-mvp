@@ -20,7 +20,8 @@ const packages: Package[] = [
       '✓ Scan tot 3 producten zonder kosten',
       '✓ Toegang tot 10 productcategorieën',
       '✓ Basis prijsvergelijking',
-      '⚠️ Na 3 scans: 10% commissie op besparingen'
+      '⚠️ Na 3 scans: 10% commissie op besparingen',
+      '🎁 Referral code: FREE2026'
     ],
     color: '#6B7280'
   },
@@ -34,7 +35,8 @@ const packages: Package[] = [
       '✓ Toegang tot 10 productcategorieën',
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - resultaten binnen 24 uur',
-      '✓ Prioriteit support'
+      '✓ Prioriteit support',
+      '🎁 Referral code: PLUS2026'
     ],
     color: '#1E7F5C'
   },
@@ -49,7 +51,8 @@ const packages: Package[] = [
       '✓ Vergelijk energie, internet, mobiel, TV',
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - resultaten binnen 24 uur',
-      '✓ Prioriteit support'
+      '✓ Prioriteit support',
+      '🎁 Referral code: PRO2026'
     ],
     color: '#1E7F5C'
   },
@@ -65,7 +68,8 @@ const packages: Package[] = [
       '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - resultaten binnen 24 uur',
-      '✓ VIP support - directe hulp'
+      '✓ VIP support - directe hulp',
+      '🎁 Referral code: FINANCE2026'
     ],
     color: '#1E7F5C'
   }
