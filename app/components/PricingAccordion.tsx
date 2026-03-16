@@ -33,7 +33,7 @@ const packages: Package[] = [
       '✓ Onbeperkt producten scannen',
       '✓ Toegang tot 10 productcategorieën',
       '✓ Slechts 10% commissie op besparingen',
-      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ Ghost Mode - resultaten binnen 24 uur',
       '✓ Prioriteit support'
     ],
     color: '#1E7F5C'
@@ -48,7 +48,7 @@ const packages: Package[] = [
       '✓ 16 categorieën inclusief Vakanties & Verzekeringen',
       '✓ Vergelijk energie, internet, mobiel, TV',
       '✓ Slechts 10% commissie op besparingen',
-      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ Ghost Mode - resultaten binnen 24 uur',
       '✓ Prioriteit support'
     ],
     color: '#1E7F5C'
@@ -64,7 +64,7 @@ const packages: Package[] = [
       '✓ Vergelijk alle financiële producten',
       '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ Slechts 10% commissie op besparingen',
-      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ Ghost Mode - resultaten binnen 24 uur',
       '✓ VIP support - directe hulp'
     ],
     color: '#D97706'

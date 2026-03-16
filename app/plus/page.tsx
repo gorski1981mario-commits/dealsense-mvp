@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Scanner from '../components/Scanner'
-import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'

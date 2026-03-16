@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Scanner from '../components/Scanner'
-import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
@@ -88,8 +87,6 @@ export default function ProPage() {
         Voor professionals. Maximale features, minimale commissie.
       </p>
 
-      {/* Agent Echo */}
-      <AgentEcho packageType="pro" userId={userId} />
 
       {/* Ghost Mode */}
       <GhostMode packageType="pro" userId={userId} />
