@@ -15,7 +15,7 @@ const packages: Package[] = [
   {
     id: 'free',
     name: 'FREE',
-    price: '',
+    price: '€0',
     features: [
       '✓ 3 Gratis scans om DealSense te proberen',
       '✓ Toegang tot 10 productcategorieën',
@@ -26,7 +26,7 @@ const packages: Package[] = [
   {
     id: 'plus',
     name: 'PLUS',
-    price: '',
+    price: '€19,99/mnd',
     features: [
       '✓ Onbeperkt producten scannen',
       '✓ 10 productcategorieën',
@@ -38,7 +38,7 @@ const packages: Package[] = [
   {
     id: 'pro',
     name: 'PRO',
-    price: '',
+    price: '€29,99/mnd',
     features: [
       '✓ Onbeperkt scans - producten én diensten',
       '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
@@ -50,7 +50,7 @@ const packages: Package[] = [
   {
     id: 'finance',
     name: 'FINANCE',
-    price: '',
+    price: '€39,99/mnd',
     features: [
       '✓ Alles inclusief - alle 20+ categorieën',
       '✓ Hypotheken, Leningen, Leasing, Creditcards',
@@ -123,13 +123,22 @@ export default function PricingAccordion() {
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <div style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#111827',
-                letterSpacing: '0.5px'
-              }}>
-                {pkg.name}
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
+                <div style={{
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: '#6B7280',
+                  letterSpacing: '0.5px'
+                }}>
+                  {pkg.name}
+                </div>
+                <div style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#111827'
+                }}>
+                  {pkg.price}
+                </div>
               </div>
             </div>
 
