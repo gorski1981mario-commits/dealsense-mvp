@@ -67,7 +67,7 @@ const packages: Package[] = [
       '✓ Ghost Mode - resultaten binnen 24 uur',
       '✓ VIP support - directe hulp'
     ],
-    color: '#D97706'
+    color: '#1E7F5C'
   }
 ]
 
