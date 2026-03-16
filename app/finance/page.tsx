@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Scanner from '../components/Scanner'
-import AgentEcho from '../components/AgentEcho'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
@@ -92,9 +91,6 @@ export default function FinancePage() {
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
         Voor complete financiële controle. Alle tools, geen commissie.
       </p>
-
-      {/* Agent Echo */}
-      <AgentEcho packageType="finance" userId={userId} />
 
       {/* Ghost Mode */}
       <GhostMode packageType="finance" userId={userId} />

@@ -84,9 +84,6 @@ export default function PlusPage() {
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
 
-      {/* Agent Echo */}
-      <AgentEcho packageType="plus" userId={userId} />
-
       {/* Ghost Mode */}
       <GhostMode packageType="plus" userId={userId} />
 
