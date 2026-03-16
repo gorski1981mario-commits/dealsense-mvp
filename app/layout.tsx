@@ -3,6 +3,7 @@
 import './globals.css'
 import { usePathname } from 'next/navigation'
 import HamburgerMenu from './components/HamburgerMenu'
+import EchoChat from './components/EchoChat'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -27,6 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Hamburger Menu */}
         <HamburgerMenu />
+
+        {/* Echo Chat */}
+        <EchoChat />
 
         {/* Main Content */}
         <main className="container">{children}</main>
