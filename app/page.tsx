@@ -138,6 +138,7 @@ export default function HomePage() {
     }
     localStorage.setItem('dealsense_visited', 'true')
     localStorage.setItem('dealsense_terms_accepted', 'true')
+    localStorage.setItem('dealsense_cookies', 'accepted')
     setShowOnboarding(false)
     showToast('✓ Welkom bij DealSense!')
   }
@@ -334,7 +335,7 @@ export default function HomePage() {
             style={{ width: '20px', height: '20px', cursor: 'pointer' }}
           />
           <label htmlFor="ghostMode" style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
-            Ghost Mode (24 godziny)
+            Ghost Mode (24 uur)
           </label>
         </div>
 

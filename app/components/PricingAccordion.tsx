@@ -161,13 +161,17 @@ export default function PricingAccordion() {
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center'
+              alignItems: 'center',
+              background: '#1E7F5C',
+              padding: '16px',
+              borderRadius: '12px',
+              marginBottom: openPackage === pkg.id ? '12px' : '0'
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
                 <div style={{
                   fontSize: '12px',
                   fontWeight: 600,
-                  color: '#6B7280',
+                  color: 'white',
                   letterSpacing: '0.5px'
                 }}>
                   {pkg.name}
@@ -175,7 +179,7 @@ export default function PricingAccordion() {
                 <div style={{
                   fontSize: '20px',
                   fontWeight: 700,
-                  color: '#111827'
+                  color: 'white'
                 }}>
                   {pkg.price}
                 </div>

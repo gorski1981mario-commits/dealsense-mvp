@@ -110,6 +110,7 @@ export default function FinancePage() {
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leasing</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (30 dagen)</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>🎁 Referral: -2% korting</div>
         </div>
       </div>
 
