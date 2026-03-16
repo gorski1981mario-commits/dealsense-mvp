@@ -159,11 +159,7 @@ export default function SettingsPage() {
 
         {/* ACCOUNT */}
         <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '20px',
-          marginBottom: '16px',
-          border: '1px solid #E5E7EB'
+          marginBottom: '16px'
         }}>
           <div style={{
             fontSize: '14px',
@@ -253,11 +249,7 @@ export default function SettingsPage() {
 
         {/* NOTIFICATIES */}
         <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '20px',
-          marginBottom: '16px',
-          border: '1px solid #E5E7EB'
+          marginBottom: '16px'
         }}>
           <div style={{
             fontSize: '14px',
@@ -436,11 +428,7 @@ export default function SettingsPage() {
 
         {/* PAKIET */}
         <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '20px',
-          marginBottom: '16px',
-          border: '1px solid #E5E7EB'
+          marginBottom: '16px'
         }}>
           <div style={{
             fontSize: '14px',
@@ -496,11 +484,7 @@ export default function SettingsPage() {
 
         {/* BEVEILIGING */}
         <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '20px',
-          marginBottom: '16px',
-          border: '1px solid #E5E7EB'
+          marginBottom: '16px'
         }}>
           <div style={{
             fontSize: '14px',
@@ -711,12 +695,7 @@ export default function SettingsPage() {
         </div>
 
         {/* ECHO */}
-        <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '20px',
-          border: '1px solid #E5E7EB'
-        }}>
+        <div>
           <div style={{
             fontSize: '14px',
             fontWeight: 600,

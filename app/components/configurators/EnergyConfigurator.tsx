@@ -31,7 +31,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
       <AgentEchoLogo />
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>⚡ Energie Configurator</h2>
 
-      <form onSubmit={handleSubmit} style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+      <form onSubmit={handleSubmit}>
         
         {/* 1. TYPE ENERGIE */}
         <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>

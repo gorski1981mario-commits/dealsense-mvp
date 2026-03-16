@@ -61,7 +61,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
           🏖️ Vakantie Configurator
         </h2>
 
-        <form onSubmit={handleSubmit} style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+        <form onSubmit={handleSubmit}>
           
           {/* 1. REIZIGERS */}
           <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>

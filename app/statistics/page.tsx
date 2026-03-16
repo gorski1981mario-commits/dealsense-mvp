@@ -47,10 +47,7 @@ export default function StatisticsPage() {
         }}>
           {/* Total Savings */}
           <div style={{
-            background: 'white',
-            borderRadius: '12px',
-            padding: '20px',
-            border: '1px solid #E5E7EB'
+            padding: '20px'
           }}>
             <div style={{
               display: 'flex',
@@ -68,10 +65,7 @@ export default function StatisticsPage() {
 
           {/* Total Scans */}
           <div style={{
-            background: 'white',
-            borderRadius: '12px',
-            padding: '20px',
-            border: '1px solid #E5E7EB'
+            padding: '20px'
           }}>
             <div style={{
               display: 'flex',
@@ -87,10 +81,7 @@ export default function StatisticsPage() {
 
           {/* Avg Savings */}
           <div style={{
-            background: 'white',
-            borderRadius: '12px',
-            padding: '20px',
-            border: '1px solid #E5E7EB'
+            padding: '20px'
           }}>
             <div style={{
               display: 'flex',
