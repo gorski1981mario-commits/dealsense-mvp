@@ -53,13 +53,12 @@ export default function HomePage() {
     // Check if first visit and terms accepted (show onboarding)
     const hasVisited = localStorage.getItem('dealsense_visited')
     const termsAcceptedStorage = localStorage.getItem('dealsense_terms_accepted')
+    const cookieConsent = localStorage.getItem('dealsense_cookies')
+    
     if (!hasVisited || !termsAcceptedStorage) {
       setShowOnboarding(true)
-    }
-
-    // Check cookie consent
-    const cookieConsent = localStorage.getItem('dealsense_cookies')
-    if (!cookieConsent) {
+    } else if (!cookieConsent) {
+      // Show cookie banner only if onboarding is NOT shown
       setShowCookieConsent(true)
     }
   }, [])
