@@ -2,7 +2,7 @@ export const revalidate = 60
 
 export default function VoorwaardenPage() {
   return (
-    <div>
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
         Algemene Voorwaarden
       </h1>
@@ -34,16 +34,17 @@ export default function VoorwaardenPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          3. Commissie
+          3. Commissie & Prijzen
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
-          DealSense rekent een commissie op de besparing die je maakt:
+          DealSense rekent een commissie op de besparing die je maakt. De commissie wordt alleen berekend 
+          wanneer wij een lagere prijs vinden dan de door jou opgegeven basisprijs:
         </p>
         <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', marginBottom: '12px' }}>
           <li><strong>FREE pakket:</strong> 10% commissie (na 3 gratis scans)</li>
-          <li><strong>PLUS pakket:</strong> 9% commissie (€19,99/maand)</li>
-          <li><strong>PRO pakket:</strong> 9% commissie (€29,99/maand)</li>
-          <li><strong>FINANCE pakket:</strong> 9% commissie (€39,99/maand)</li>
+          <li><strong>PLUS pakket:</strong> 9% commissie + €19,99/maand abonnement</li>
+          <li><strong>PRO pakket:</strong> 9% commissie + €29,99/maand abonnement</li>
+          <li><strong>FINANCE pakket:</strong> 9% commissie + €39,99/maand abonnement</li>
         </ul>
         <div style={{
           padding: '16px',
@@ -51,12 +52,16 @@ export default function VoorwaardenPage() {
           borderRadius: '8px',
           fontSize: '13px',
           color: '#374151',
-          fontFamily: 'monospace'
+          fontFamily: 'monospace',
+          marginBottom: '12px'
         }}>
           Commissie = (Oorspronkelijke prijs - Beste prijs) × percentage
           <br />
           Voorbeeld PLUS: (€100 - €80) × 9% = €1,80
         </div>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+          Geen besparing = geen commissie. Alle prijzen zijn inclusief BTW tenzij anders vermeld.
+        </p>
       </div>
 
       <div style={{ marginBottom: '32px' }}>
@@ -132,11 +137,77 @@ export default function VoorwaardenPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          8. Wijzigingen
+          8. Beschikbaarheid & Onderhoud
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
+          DealSense streeft naar een beschikbaarheid van 99% op jaarbasis. We behouden ons het recht voor om:
+        </p>
+        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
+          <li>Gepland onderhoud uit te voeren (waar mogelijk buiten kantooruren)</li>
+          <li>De dienst tijdelijk te onderbreken voor updates of reparaties</li>
+          <li>Functionaliteiten toe te voegen of te wijzigen zonder voorafgaande kennisgeving</li>
+        </ul>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          9. Beëindiging & Opzegging
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
+          Voor abonnementen gelden de volgende opzegvoorwaarden:
+        </p>
+        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', marginBottom: '12px' }}>
+          <li>Je kunt je abonnement op elk moment opzeggen via je account instellingen</li>
+          <li>Opzegging gaat in aan het einde van de lopende betaalperiode</li>
+          <li>Geen restitutie voor gedeeltelijk gebruikte periodes</li>
+          <li>Bij niet-betaling kunnen we je toegang direct beëindigen</li>
+        </ul>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+          DealSense kan de overeenkomst met onmiddellijke ingang beëindigen bij misbruik, 
+          fraude of schending van deze voorwaarden.
+        </p>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          10. Herroepingsrecht (Consumentenrecht)
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
+          Als consument heb je recht op een bedenktijd van 14 dagen na aankoop van een abonnement, 
+          zonder opgave van redenen. Dit recht vervalt wanneer:
+        </p>
+        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', marginBottom: '12px' }}>
+          <li>Je de dienst al hebt gebruikt (scans hebt uitgevoerd)</li>
+          <li>Je expliciet hebt verzocht om directe toegang tot de dienst</li>
+        </ul>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+          Voor herroeping neem je contact op via{' '}
+          <a href="mailto:info@dealsense.nl" style={{ color: '#2563eb', textDecoration: 'underline' }}>
+            info@dealsense.nl
+          </a>
+          . Restitutie vindt plaats binnen 14 dagen.
+        </p>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          11. Force Majeure
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          We behouden ons het recht voor om deze voorwaarden op elk moment te wijzigen. 
-          Wijzigingen worden van kracht zodra ze op deze pagina worden gepubliceerd.
+          DealSense is niet aansprakelijk voor het niet nakomen van verplichtingen als gevolg van 
+          overmacht, waaronder: storingen bij derden (hosting, API's), internetproblemen, 
+          natuurrampen, overheidsmaatregelen, of andere omstandigheden buiten onze controle.
+        </p>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          12. Wijziging Voorwaarden
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+          We behouden ons het recht voor om deze voorwaarden te wijzigen. Materiële wijzigingen 
+          worden 30 dagen van tevoren aangekondigd via e-mail (voor account gebruikers) of op deze pagina. 
+          Gebruik van de dienst na wijziging betekent acceptatie van de nieuwe voorwaarden.
         </p>
       </div>
 
@@ -153,17 +224,7 @@ export default function VoorwaardenPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          10. Geschillenbeslechting
-        </h2>
-        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          Bij geschillen proberen we eerst tot een oplossing te komen via direct contact. Lukt dit niet, dan is Nederlands recht 
-          van toepassing en zijn de rechtbanken in Amsterdam bevoegd.
-        </p>
-      </div>
-
-      <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          11. Referral Programma
+          10. Referral Programma
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
           Gebruikers met een betaald pakket ontvangen een unieke referral code. Vrienden die zich aanmelden met deze code 
@@ -174,14 +235,41 @@ export default function VoorwaardenPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          12. Contact
+          11. Toepasselijk Recht & Geschillenbeslechting
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
+          Op deze voorwaarden is Nederlands recht van toepassing. Bij geschillen:
+        </p>
+        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
+          <li>Proberen we eerst tot een oplossing te komen via direct contact</li>
+          <li>Consumenten kunnen zich wenden tot de Geschillencommissie Thuiswinkel</li>
+          <li>Bij niet-oplossing zijn de rechtbanken in Amsterdam bevoegd</li>
+        </ul>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          12. Slotbepalingen
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          Vragen over deze voorwaarden? Neem contact op via{' '}
-          <a href="mailto:info@dealsense.nl" style={{ color: '#2563eb', textDecoration: 'underline' }}>
-            info@dealsense.nl
-          </a>
+          Indien een bepaling in deze voorwaarden nietig of vernietigbaar blijkt, blijven de overige 
+          bepalingen volledig van kracht. De nietige bepaling wordt vervangen door een geldige bepaling 
+          die de bedoeling van de oorspronkelijke bepaling zo dicht mogelijk benadert.
         </p>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
+          13. Contact
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+          Vragen, klachten of opmerkingen over deze voorwaarden?
+        </p>
+        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', marginTop: '8px' }}>
+          <li>Algemeen: <a href="mailto:info@dealsense.nl" style={{ color: '#2563eb', textDecoration: 'underline' }}>info@dealsense.nl</a></li>
+          <li>Privacy: <a href="mailto:privacy@dealsense.nl" style={{ color: '#2563eb', textDecoration: 'underline' }}>privacy@dealsense.nl</a></li>
+          <li>Klachten: <a href="mailto:klachten@dealsense.nl" style={{ color: '#2563eb', textDecoration: 'underline' }}>klachten@dealsense.nl</a></li>
+        </ul>
       </div>
 
       <div style={{
