@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'use'
+import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle } from 'lucide-react'
 import { AuthService } from '../../_lib/auth'
