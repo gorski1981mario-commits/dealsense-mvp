@@ -22,7 +22,7 @@ const packages: Package[] = [
       '✓ Basis prijsvergelijking (top 3 deals)',
       '✓ 100+ Nederlandse webshops',
       '⚠️ Na 3 scans: 10% commissie op besparingen',
-      '🎁 Referral: 3% korting - deel je code, ontvang korting, help vrienden besparen'
+      '🎁 Referral: deel je unieke code, vrienden krijgen 3% korting op hun eerste aankoop, jij krijgt 3% korting bij verlenging - win-win!'
     ],
     color: '#6B7280'
   },
@@ -38,7 +38,7 @@ const packages: Package[] = [
       '✓ Prioriteit support',
       '✓ 100+ Nederlandse webshops',
       '✓ Echo - AI productadvies & garanties',
-      '🎁 Referral: 3% korting - deel code PLUS2026, krijg korting bij verlenging'
+      '🎁 Referral PLUS2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   },
@@ -54,7 +54,7 @@ const packages: Package[] = [
       '✓ Prioriteit support',
       '✓ 100+ Nederlandse webshops',
       '✓ Echo - volledige AI assistent',
-      '🎁 Referral: 3% korting - deel code PRO2026, krijg korting bij verlenging'
+      '🎁 Referral PRO2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   },
@@ -71,7 +71,8 @@ const packages: Package[] = [
       '✓ VIP support - directe hulp',
       '✓ 100+ Nederlandse webshops',
       '✓ Echo - premium AI assistent + financieel advies',
-      '🎁 Referral: 3% korting - deel code FINANCE2026, krijg korting bij verlenging'
+      '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
+      '🎁 Referral FINANCE2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   }
@@ -86,26 +87,49 @@ export default function PricingAccordion() {
     setOpenPackage(openPackage === id ? null : id)
   }
 
-  const handlePurchase = async (packageType: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    setLoading(packageType)
+  const handlePurchase = async (packageId: string) => {
+    setLoading(packageId)
     
     try {
-      const response = await fetch('/api/checkout', {
+      const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageType, userId: 'guest' })
+        body: JSON.stringify({
+          packageType: packageId,
+          userId: 'demo-user' // TODO: Get from auth
+        })
       })
       
-      const data = await response.json()
+      const data = await res.json()
       
-      if (data.success && data.checkoutUrl) {
+      if (data.success) {
         router.push(data.checkoutUrl)
       }
-    } catch (error) {
-      console.error('Purchase error:', error)
+    } catch (err) {
+      console.error('Purchase failed:', err)
     } finally {
       setLoading(null)
+    }
+  }
+
+  const handlePromptsPurchase = async () => {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productType: 'echo-prompts',
+          userId: 'demo-user' // TODO: Get from auth
+        })
+      })
+      
+      const data = await res.json()
+      
+      if (data.success) {
+        router.push(data.checkoutUrl)
+      }
+    } catch (err) {
+      console.error('Prompts purchase failed:', err)
     }
   }
 
@@ -181,35 +205,64 @@ export default function PricingAccordion() {
                 
                 {/* Przycisk zakupu dla płatnych pakietów */}
                 {pkg.id !== 'free' && (
-                  <button
-                    onClick={(e) => handlePurchase(pkg.id, e)}
-                    disabled={loading === pkg.id}
-                    style={{
-                      width: '100%',
-                      marginTop: '16px',
-                      padding: '12px',
-                      background: loading === pkg.id ? '#9ca3af' : pkg.color,
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      cursor: loading === pkg.id ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (loading !== pkg.id) {
-                        e.currentTarget.style.transform = 'translateY(-2px)'
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.3)'
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  >
-                    {loading === pkg.id ? 'Laden...' : 'Koop nu →'}
-                  </button>
+                  <>
+                    <button
+                      onClick={() => handlePurchase(pkg.id)}
+                      disabled={loading === pkg.id}
+                      style={{
+                        width: '100%',
+                        marginTop: '16px',
+                        padding: '12px',
+                        background: loading === pkg.id ? '#9ca3af' : pkg.color,
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        cursor: loading === pkg.id ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (loading !== pkg.id) {
+                          e.currentTarget.style.transform = 'translateY(-2px)'
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.3)'
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
+                    >
+                      {loading === pkg.id ? 'Laden...' : 'Koop nu →'}
+                    </button>
+                    
+                    {(pkg.id === 'plus' || pkg.id === 'pro' || pkg.id === 'finance') && (
+                      <button
+                        onClick={() => handlePromptsPurchase()}
+                        style={{
+                          width: '100%',
+                          marginTop: '8px',
+                          padding: '10px',
+                          background: 'white',
+                          color: '#1E7F5C',
+                          border: '2px solid #1E7F5C',
+                          borderRadius: '8px',
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#f0fdf4'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'white'
+                        }}
+                      >
+                        💬 Koop 10.000 extra Echo prompts (€9,99)
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
             )}

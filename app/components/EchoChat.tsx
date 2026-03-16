@@ -25,12 +25,12 @@ export default function EchoChat() {
     const pkg = (localStorage.getItem('dealsense_package') || 'free') as 'free' | 'plus' | 'pro' | 'finance'
     setUserPackage(pkg)
     
-    // Daily limits based on package
+    // Daily limits based on package (reduced by 35%)
     const limits = {
       free: 0,      // No Echo for FREE without subscription
-      plus: 100,    // €1.10/month cost
-      pro: 200,     // €2.20/month cost
-      finance: 300  // €3.30/month cost
+      plus: 65,     // €0.72/month cost
+      pro: 130,     // €1.43/month cost
+      finance: 195  // €2.15/month cost
     }
     
     const limit = limits[pkg]
@@ -216,12 +216,13 @@ export default function EchoChat() {
         }}>
           {/* Header */}
           <div style={{
-            background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
+            background: '#E6F4EE',
             padding: '14px 16px',
             borderRadius: '16px 16px 0 0',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            borderBottom: '2px solid #1E7F5C'
           }}>
             <div>
               <div style={{
@@ -230,17 +231,17 @@ export default function EchoChat() {
                 gap: '2px',
                 marginBottom: '4px'
               }}>
-                <span style={{ color: '#E6F4EE', fontWeight: 700, fontSize: '18px' }}>E</span>
+                <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '18px' }}>E</span>
                 <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '15px' }}>ch</span>
                 <div style={{
                   width: '10px',
                   height: '10px',
-                  background: 'white',
+                  background: '#111827',
                   borderRadius: '50%',
                   marginLeft: '2px'
                 }} />
               </div>
-              <div style={{ fontSize: '11px', color: '#E6F4EE' }}>
+              <div style={{ fontSize: '11px', color: '#6B7280' }}>
                 {messagesLeft}/{dailyLimit} berichten vandaag
               </div>
             </div>
@@ -253,7 +254,7 @@ export default function EchoChat() {
                 padding: '4px'
               }}
             >
-              <X size={18} color="white" />
+              <X size={18} color="#111827" />
             </button>
           </div>
 

@@ -6,9 +6,27 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { packageType, userId } = body
+    const { packageType, userId, productType } = body
 
-    // Validate package type
+    // Handle Echo prompts purchase
+    if (productType === 'echo-prompts') {
+      const promptPackages = {
+        '10k': 9.99  // 10,000 prompts at cost price (€0.0011 per message)
+      }
+      
+      const price = promptPackages['10k']
+      const checkoutUrl = `/checkout/echo-prompts?price=${price}&userId=${userId}&quantity=10000`
+      
+      return NextResponse.json({
+        success: true,
+        checkoutUrl,
+        price,
+        productType: 'echo-prompts',
+        quantity: 10000
+      })
+    }
+
+    // Validate package type for subscriptions
     if (!['plus', 'pro', 'finance'].includes(packageType)) {
       return NextResponse.json(
         { error: 'Invalid package type' },
