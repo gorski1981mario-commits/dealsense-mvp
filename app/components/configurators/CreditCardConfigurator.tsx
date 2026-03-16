@@ -9,56 +9,118 @@ interface CreditCardConfiguratorProps {
 }
 
 export default function CreditCardConfigurator({ packageType = 'finance', userId }: CreditCardConfiguratorProps = {}) {
-  const [config, setConfig] = useState({
-    type: 'Visa',
-    limit: 2000,
-    rewards: 'Cashback',
-    annualFee: 0,
-    travelInsurance: false
-  })
+  const [cardType, setCardType] = useState('visa')
+  const [limit, setLimit] = useState(2000)
+  const [usage, setUsage] = useState('dagelijks')
+  const [rewards, setRewards] = useState('cashback')
+  const [annualFee, setAnnualFee] = useState(0)
+  const [income, setIncome] = useState(30000)
+  const [travelInsurance, setTravelInsurance] = useState(false)
+  const [purchaseProtection, setPurchaseProtection] = useState(false)
+  const [contactless, setContactless] = useState(true)
+  const [secondCard, setSecondCard] = useState(false)
   const [searching, setSearching] = useState(false)
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSearching(true)
+    setTimeout(() => setSearching(false), 3000)
+  }
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#111827', marginBottom: '24px' }}>💳 Creditcard Configurator</h2>
-      <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Type</label>
-          <select value={config.type} onChange={(e) => setConfig({ ...config, type: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
-            <option value="Visa">Visa</option>
-            <option value="Mastercard">Mastercard</option>
-            <option value="American Express">American Express</option>
-          </select>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>💳 Creditcard Configurator</h2>
+
+      <form onSubmit={handleSubmit} style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+        
+        {/* 1. KAART TYPE */}
+        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>1. Kaart type</div>
+          
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Netwerk</label>
+            <select value={cardType} onChange={(e) => setCardType(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <option value="visa">🟦 Visa</option>
+              <option value="mastercard">🔴 Mastercard</option>
+              <option value="amex">🔵 American Express</option>
+              <option value="vpay">V Pay (alleen Europa)</option>
+              <option value="maestro">Maestro</option>
+            </select>
+          </div>
+
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste limiet: €{limit.toLocaleString()}</label>
+            <input type="range" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gebruik</label>
+            <select value={usage} onChange={(e) => setUsage(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <option value="dagelijks">🛍️ Dagelijkse aankopen</option>
+              <option value="reizen">✈️ Reizen & vakanties</option>
+              <option value="zakelijk">💼 Zakelijk gebruik</option>
+              <option value="online">💻 Online shopping</option>
+              <option value="noodgeval">🆘 Noodgevallen/reserve</option>
+            </select>
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Limiet: €{config.limit.toLocaleString()}</label>
-          <input type="range" min="500" max="10000" step="500" value={config.limit} onChange={(e) => setConfig({ ...config, limit: parseInt(e.target.value) })} style={{ width: '100%' }} />
+
+        {/* 2. REWARDS & VOORDELEN */}
+        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Rewards & voordelen</div>
+          
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Rewards programma</label>
+            <select value={rewards} onChange={(e) => setRewards(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <option value="cashback">💵 Cashback (geld terug)</option>
+              <option value="miles">✈️ Vliegtuig miles</option>
+              <option value="punten">⭐ Spaarpunten</option>
+              <option value="korting">🎫 Kortingen bij partners</option>
+              <option value="geen">❌ Geen rewards (goedkoper)</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten: €{annualFee}</label>
+            <input type="range" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>{annualFee === 0 ? 'Alleen gratis kaarten' : `Tot €${annualFee}/jaar`}</div>
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Rewards</label>
-          <select value={config.rewards} onChange={(e) => setConfig({ ...config, rewards: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
-            <option value="Cashback">Cashback</option>
-            <option value="Miles">Miles</option>
-            <option value="Punten">Punten</option>
-          </select>
+
+        {/* 3. PERSOONLIJKE INFO */}
+        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Persoonlijke informatie</div>
+          
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen: €{income.toLocaleString()}</label>
+            <input type="range" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Jaarlijkse kosten: €{config.annualFee}</label>
-          <input type="range" min="0" max="200" step="10" value={config.annualFee} onChange={(e) => setConfig({ ...config, annualFee: parseInt(e.target.value) })} style={{ width: '100%' }} />
+
+        {/* 4. EXTRA OPTIES */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Extra opties</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {[{value: travelInsurance, setter: setTravelInsurance, label: '✈️ Reisverzekering', desc: 'Gratis verzekering bij reizen'}, {value: purchaseProtection, setter: setPurchaseProtection, label: '🛡️ Aankoopbescherming', desc: 'Bescherming tegen schade/diefstal'}, {value: contactless, setter: setContactless, label: '📶 Contactloos betalen', desc: 'NFC/tap-to-pay functie'}, {value: secondCard, setter: setSecondCard, label: '👥 Tweede kaart', desc: 'Extra kaart voor partner/kind'}].map((item, i) => (
+              <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#1E7F5C' : '#E5E7EB' }}>
+                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
+                  <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-            <input type="checkbox" checked={config.travelInsurance} onChange={(e) => setConfig({ ...config, travelInsurance: e.target.checked })} />
-            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Reisverzekering inbegrepen</span>
-          </label>
-        </div>
-        <button onClick={() => setSearching(true)} disabled={searching} style={{ width: '100%', padding: '16px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer' }}>
-          {searching ? 'Zoeken...' : 'Zoek beste creditcard'}
+
+        <button type="submit" disabled={searching} style={{ width: '100%', padding: '14px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {searching ? 'Zoeken...' : 'Zoek beste creditcard →'}
         </button>
-      </div>
+      </form>
+
       {searching && (
-        <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center' }}>
+        <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center', marginTop: '20px' }}>
           <div style={{ border: '4px solid #f3f3f3', borderTop: '4px solid #15803d', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }}></div>
           <p style={{ color: '#166534', fontSize: '15px' }}>Echo zoekt de beste creditcards voor je...</p>
         </div>

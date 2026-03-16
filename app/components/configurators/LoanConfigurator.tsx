@@ -8,62 +8,102 @@ interface LoanConfiguratorProps {
   userId?: string
 }
 
-interface LoanConfig {
-  amount: number
-  duration: number
-  purpose: string
-  income: number
-  bkr: boolean
-}
-
 export default function LoanConfigurator({ packageType = 'finance', userId }: LoanConfiguratorProps = {}) {
-  const [config, setConfig] = useState<LoanConfig>({
-    amount: 10000,
-    duration: 60,
-    purpose: 'Vrij',
-    income: 40000,
-    bkr: false
-  })
+  const [amount, setAmount] = useState(10000)
+  const [duration, setDuration] = useState(60)
+  const [purpose, setPurpose] = useState('vrij')
+  const [income, setIncome] = useState(40000)
+  const [employmentType, setEmploymentType] = useState('vast')
+  const [bkr, setBkr] = useState(false)
+  const [coApplicant, setCoApplicant] = useState(false)
+  const [homeOwner, setHomeOwner] = useState(false)
   const [searching, setSearching] = useState(false)
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSearching(true)
+    setTimeout(() => setSearching(false), 3000)
+  }
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#111827', marginBottom: '24px' }}>💳 Lening Configurator</h2>
-      <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Bedrag: €{config.amount.toLocaleString()}</label>
-          <input type="range" min="1000" max="50000" step="500" value={config.amount} onChange={(e) => setConfig({ ...config, amount: parseInt(e.target.value) })} style={{ width: '100%' }} />
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>� Lening Configurator</h2>
+
+      <form onSubmit={handleSubmit} style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+        
+        {/* 1. LENING DETAILS */}
+        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>1. Lening details</div>
+          
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bedrag: €{amount.toLocaleString()}</label>
+            <input type="range" min="1000" max="75000" step="500" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+          </div>
+
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd: {duration} maanden</label>
+            <input type="range" min="12" max="120" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Doel van de lening</label>
+            <select value={purpose} onChange={(e) => setPurpose(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <option value="verbouwing">🏗️ Verbouwing/renovatie</option>
+              <option value="auto">🚗 Auto aankoop</option>
+              <option value="studie">🎓 Studie/opleiding</option>
+              <option value="schuld">💳 Schulden samenvoegen</option>
+              <option value="bruiloft">💍 Bruiloft</option>
+              <option value="vakantie">✈️ Vakantie</option>
+              <option value="vrij">🎯 Vrij te besteden</option>
+            </select>
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Looptijd: {config.duration} maanden</label>
-          <input type="range" min="12" max="120" value={config.duration} onChange={(e) => setConfig({ ...config, duration: parseInt(e.target.value) })} style={{ width: '100%' }} />
+
+        {/* 2. PERSOONLIJKE SITUATIE */}
+        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Persoonlijke situatie</div>
+          
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen: €{income.toLocaleString()}</label>
+            <input type="range" min="15000" max="150000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type dienstverband</label>
+            <select value={employmentType} onChange={(e) => setEmploymentType(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <option value="vast">💼 Vast contract</option>
+              <option value="tijdelijk">📄 Tijdelijk contract</option>
+              <option value="zzp">👨‍💻 ZZP/Zelfstandige</option>
+              <option value="pensioen">👴 Pensioen/AOW</option>
+              <option value="uitkering">💵 Uitkering</option>
+            </select>
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Doel</label>
-          <select value={config.purpose} onChange={(e) => setConfig({ ...config, purpose: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
-            <option value="Verbouwing">Verbouwing</option>
-            <option value="Auto">Auto</option>
-            <option value="Studie">Studie</option>
-            <option value="Vrij">Vrij te besteden</option>
-          </select>
+
+        {/* 3. EXTRA INFORMATIE */}
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Extra informatie</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {[{value: bkr, setter: setBkr, label: '⚠️ BKR registratie', desc: 'Ik heb een BKR-registratie'}, {value: coApplicant, setter: setCoApplicant, label: '👥 Mede-aanvrager', desc: 'Ik vraag samen met partner aan'}, {value: homeOwner, setter: setHomeOwner, label: '🏠 Eigen woning', desc: 'Ik ben eigenaar van een woning'}].map((item, i) => (
+              <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#1E7F5C' : '#E5E7EB' }}>
+                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
+                  <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Jaarinkomen: €{config.income.toLocaleString()}</label>
-          <input type="range" min="20000" max="100000" step="5000" value={config.income} onChange={(e) => setConfig({ ...config, income: parseInt(e.target.value) })} style={{ width: '100%' }} />
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-            <input type="checkbox" checked={config.bkr} onChange={(e) => setConfig({ ...config, bkr: e.target.checked })} />
-            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>BKR registratie</span>
-          </label>
-        </div>
-        <button onClick={() => setSearching(true)} disabled={searching} style={{ width: '100%', padding: '16px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer' }}>
-          {searching ? 'Zoeken...' : 'Zoek beste lening'}
+
+        <button type="submit" disabled={searching} style={{ width: '100%', padding: '14px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {searching ? 'Zoeken...' : 'Zoek beste lening →'}
         </button>
-      </div>
+      </form>
+
       {searching && (
-        <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center' }}>
+        <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center', marginTop: '20px' }}>
           <div style={{ border: '4px solid #f3f3f3', borderTop: '4px solid #15803d', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }}></div>
           <p style={{ color: '#166534', fontSize: '15px' }}>Echo zoekt de beste leningen voor je...</p>
         </div>
