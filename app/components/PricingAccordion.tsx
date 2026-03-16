@@ -19,8 +19,10 @@ const packages: Package[] = [
     features: [
       '✓ 3 Gratis scans om DealSense te proberen',
       '✓ Toegang tot 10 productcategorieën',
-      '✓ Basis prijsvergelijking',
-      '🤖 Agent Echo - basis productadvies'
+      '✓ Basis prijsvergelijking (top 3 deals)',
+      '✓ 100+ Nederlandse webshops',
+      '⚠️ Na 3 scans: 10% commissie op besparingen',
+      '🎁 Referral code: FREE2026'
     ],
     color: '#6B7280'
   },
@@ -31,9 +33,12 @@ const packages: Package[] = [
     features: [
       '✓ Onbeperkt producten scannen',
       '✓ 10 productcategorieën',
-      '✓ Ghost Mode (24u)',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
-      '🤖 Agent Echo - productadvies & garanties'
+      '✓ 100+ Nederlandse webshops',
+      '🤖 Agent Echo - productadvies & garanties',
+      '🎁 Referral code: PLUS2026'
     ],
     color: '#1E7F5C'
   },
@@ -44,9 +49,12 @@ const packages: Package[] = [
     features: [
       '✓ Onbeperkt scans - producten én diensten',
       '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
-      '✓ Ghost Mode (24u)',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
-      '🤖 Agent Echo - volledige AI assistent'
+      '✓ 100+ Nederlandse webshops',
+      '🤖 Agent Echo - volledige AI assistent',
+      '🎁 Referral code: PRO2026'
     ],
     color: '#1E7F5C'
   },
@@ -57,9 +65,13 @@ const packages: Package[] = [
     features: [
       '✓ Alles inclusief - alle 20+ categorieën',
       '✓ Hypotheken, Leningen, Leasing, Creditcards',
-      '✓ Ghost Mode (5 min - anoniem)',
+      '✓ Vergelijk alle financiële producten',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ VIP support - directe hulp',
-      '🤖 Agent Echo - premium AI assistent + financieel advies'
+      '✓ 100+ Nederlandse webshops',
+      '🤖 Agent Echo - premium AI assistent + financieel advies',
+      '🎁 Referral code: FINANCE2026'
     ],
     color: '#1E7F5C'
   }
