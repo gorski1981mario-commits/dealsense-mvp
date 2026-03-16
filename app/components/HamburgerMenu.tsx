@@ -38,33 +38,14 @@ interface MenuItem {
   path: string
 }
 
-// PRODUKTY - Scannen
+// PRODUKTY - Scannen (uproszczone)
 const productCategories: MenuItem[] = [
-  { icon: Laptop, title: 'Elektronica', path: '/' },
-  { icon: Home, title: 'Huis & Tuin', path: '/' },
-  { icon: Shirt, title: 'Mode', path: '/' },
-  { icon: Heart, title: 'Gezondheid & Schoonheid', path: '/' },
-  { icon: Dumbbell, title: 'Sport & Fitness', path: '/' },
-  { icon: Car, title: 'Auto & Accessoires', path: '/' },
-  { icon: Baby, title: 'Speelgoed & Educatie', path: '/' },
-  { icon: Armchair, title: 'Meubels', path: '/' },
-  { icon: PawPrint, title: 'Huisdieren', path: '/' },
-  { icon: Wrench, title: 'Gereedschap - DIY', path: '/' }
+  { icon: Laptop, title: 'Scan producten (alle categorieën)', path: '/' }
 ]
 
-// DIENSTEN - Vergelijken
+// DIENSTEN - Vergelijken (uproszczone)
 const serviceCategories: MenuItem[] = [
-  { icon: Plane, title: 'Vakanties', path: '/vacations' },
-  { icon: Shield, title: 'Verzekeringen', path: '/insurance' },
-  { icon: Zap, title: 'Energie', path: '/vaste-lasten' },
-  { icon: Smartphone, title: 'Mobiel', path: '/vaste-lasten' },
-  { icon: Wifi, title: 'Internet', path: '/vaste-lasten' },
-  { icon: Tv, title: 'TV', path: '/vaste-lasten' },
-  { icon: Building, title: 'Hypotheek', path: '/finance' },
-  { icon: Banknote, title: 'Leningen', path: '/finance' },
-  { icon: FileText, title: 'Leasing', path: '/finance' },
-  { icon: CreditCard, title: 'Creditcards', path: '/finance' },
-  { icon: Calendar, title: 'Abonnementen', path: '/vaste-lasten' }
+  { icon: BarChart3, title: 'Diensten Configurators', path: '/vaste-lasten' }
 ]
 
 // FUNCTIES
