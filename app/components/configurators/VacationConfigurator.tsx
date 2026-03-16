@@ -6,7 +6,6 @@ interface VacationConfig {
   destination: string
   departureDate: string
   persons: number
-  budget: number
   type: string
   duration: number
 }
@@ -21,7 +20,6 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     destination: 'Europa',
     departureDate: '',
     persons: 2,
-    budget: 2000,
     type: 'All-inclusive',
     duration: 7
   })
@@ -129,28 +127,6 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             max="10"
             value={config.persons}
             onChange={(e) => setConfig({ ...config, persons: parseInt(e.target.value) })}
-            style={{ width: '100%' }}
-          />
-        </div>
-
-        {/* Budget */}
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{
-            display: 'block',
-            fontSize: '14px',
-            fontWeight: 600,
-            color: '#374151',
-            marginBottom: '8px'
-          }}>
-            Budget: €{config.budget}
-          </label>
-          <input
-            type="range"
-            min="500"
-            max="10000"
-            step="100"
-            value={config.budget}
-            onChange={(e) => setConfig({ ...config, budget: parseInt(e.target.value) })}
             style={{ width: '100%' }}
           />
         </div>
