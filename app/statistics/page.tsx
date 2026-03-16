@@ -97,7 +97,7 @@ export default function StatisticsPage() {
 
         {/* Recent Activity */}
         <div style={{
-          background: 'white',
+          background: 'transparent',
           borderRadius: '12px',
           padding: '20px',
           border: '1px solid #E5E7EB'
@@ -130,7 +130,8 @@ export default function StatisticsPage() {
                 <div key={scan.id} style={{
                   padding: '12px',
                   borderRadius: '8px',
-                  border: '1px solid #E5E7EB'
+                  border: '1px solid #E5E7EB',
+                  background: 'transparent'
                 }}>
                   <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
                     {scan.category}
