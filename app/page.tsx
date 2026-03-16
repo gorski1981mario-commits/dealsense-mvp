@@ -334,7 +334,7 @@ export default function HomePage() {
             style={{ width: '20px', height: '20px', cursor: 'pointer' }}
           />
           <label htmlFor="ghostMode" style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
-            Ghost Mode (24/7 monitoring)
+            Ghost Mode (24 godziny)
           </label>
         </div>
 

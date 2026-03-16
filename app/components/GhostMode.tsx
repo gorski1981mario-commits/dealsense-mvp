@@ -16,8 +16,8 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
   // Duration based on package
   const getDuration = () => {
     switch (packageType) {
-      case 'plus': return 24 * 60 * 60 // 24 hours
-      case 'pro': return 7 * 24 * 60 * 60 // 7 days
+      case 'plus': return 10 * 24 * 60 * 60 // 10 days
+      case 'pro': return 20 * 24 * 60 * 60 // 20 days
       case 'finance': return 30 * 24 * 60 * 60 // 30 days
       default: return 24 * 60 * 60
     }
@@ -25,8 +25,8 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
   
   const getDurationLabel = () => {
     switch (packageType) {
-      case 'plus': return '24 uur'
-      case 'pro': return '7 dagen'
+      case 'plus': return '10 dagen'
+      case 'pro': return '20 dagen'
       case 'finance': return '30 dagen'
       default: return '24 uur'
     }
@@ -131,8 +131,8 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
             Ghost Mode
           </div>
           <div style={{ fontSize: '12px', opacity: 0.8 }}>
-            {packageType === 'plus' && 'Automatische prijsbewaking (24u)'}
-            {packageType === 'pro' && 'Geavanceerde monitoring (7 dagen)'}
+            {packageType === 'plus' && 'Automatische prijsbewaking (10 dagen)'}
+            {packageType === 'pro' && 'Geavanceerde monitoring (20 dagen)'}
             {packageType === 'finance' && 'Premium monitoring (30 dagen)'}
           </div>
         </div>
@@ -195,7 +195,7 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
               <div>⚡ Premium 30-dagen monitoring</div>
             )}
             {packageType === 'pro' && (
-              <div>⭐ Geavanceerde 7-dagen monitoring</div>
+              <div>⭐ Geavanceerde 20-dagen monitoring</div>
             )}
           </div>
 

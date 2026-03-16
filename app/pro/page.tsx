@@ -108,7 +108,8 @@ export default function ProPage() {
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Vakanties</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Verzekeringen</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Energie</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 3% commissie</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (20 dagen)</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
         </div>
       </div>
 

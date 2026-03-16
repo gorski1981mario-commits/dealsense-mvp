@@ -82,7 +82,7 @@ export default function FinancePage() {
       </div>
       
       <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
-        Voor complete financiële controle. Alle tools, geen commissie.
+        Voor complete financiële controle. Alle tools, minimale commissie.
       </p>
 
       {/* Ghost Mode */}
@@ -108,7 +108,8 @@ export default function FinancePage() {
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Hypotheken</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leningen</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leasing</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 0% commissie</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (30 dagen)</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
         </div>
       </div>
 

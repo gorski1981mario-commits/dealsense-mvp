@@ -22,7 +22,7 @@ export default function AgentEchoLogo() {
         <span style={{
           color: '#15803d',
           fontWeight: 700,
-          fontSize: '24px',
+          fontSize: '28px',
           lineHeight: 1
         }}>
           E
@@ -32,7 +32,7 @@ export default function AgentEchoLogo() {
         <span style={{
           color: '#3b82f6',
           fontWeight: 700,
-          fontSize: '20px',
+          fontSize: '24px',
           lineHeight: 1
         }}>
           ch
@@ -53,7 +53,7 @@ export default function AgentEchoLogo() {
       {/* Tagline */}
       <span style={{
         color: '#374151',
-        fontSize: '14px',
+        fontSize: '16px',
         fontWeight: 400
       }}>
         Je persoonlijke AI agent

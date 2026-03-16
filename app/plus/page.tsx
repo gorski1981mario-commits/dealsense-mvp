@@ -104,8 +104,8 @@ export default function PlusPage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Onbeperkt scans</div>
           <div style={{ fontSize: '13px', color: '#374151' }}>✓ Shopping</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (24h)</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 5% commissie</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (10 dagen)</div>
+          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
         </div>
       </div>
 
