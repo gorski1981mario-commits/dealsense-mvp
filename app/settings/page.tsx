@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Mail, Lock, Trash2, Bell, Globe, Shield, BarChart3, Settings as SettingsIcon } from 'lucide-react'
+import { Mail, Lock, Trash2, Bell, Globe, Shield, BarChart3, Settings as SettingsIcon, Fingerprint, Copy, Check } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { AuthService } from '../_lib/auth'
+import { BiometricAuth } from '../_lib/biometric'
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -15,6 +17,26 @@ export default function SettingsPage() {
   const [priceDrops, setPriceDrops] = useState(false)
   const [echoNotifications, setEchoNotifications] = useState(true)
   const [ghostModeAlerts, setGhostModeAlerts] = useState(true)
+  const [biometricEnabled, setBiometricEnabled] = useState(false)
+  const [biometricAvailable, setBiometricAvailable] = useState(false)
+  const [showBackupCodes, setShowBackupCodes] = useState(false)
+  const [backupCodes, setBackupCodes] = useState<string[]>([])
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  
+  useEffect(() => {
+    checkBiometric()
+  }, [])
+
+  const checkBiometric = async () => {
+    const available = await BiometricAuth.isAvailable()
+    setBiometricAvailable(available)
+    setBiometricEnabled(BiometricAuth.hasRegistered())
+    
+    const user = AuthService.getCurrentUser()
+    if (user?.backupCodes) {
+      setBackupCodes(user.backupCodes)
+    }
+  }
   
   useEffect(() => {
     // Load real user data from localStorage
@@ -77,6 +99,42 @@ export default function SettingsPage() {
     const newValue = !ghostModeAlerts
     setGhostModeAlerts(newValue)
     saveNotificationPreference('ghostMode', newValue)
+  }
+
+  const handleBiometricToggle = async () => {
+    if (biometricEnabled) {
+      // Disable biometric
+      BiometricAuth.remove()
+      AuthService.disableBiometric()
+      setBiometricEnabled(false)
+      setBackupCodes([])
+    } else {
+      // Enable biometric
+      const userId = localStorage.getItem('dealsense_device_id') || 'user_' + Date.now()
+      const success = await BiometricAuth.register(userId)
+      
+      if (success) {
+        const result = await AuthService.enableBiometric()
+        if (result.success && result.backupCodes) {
+          setBiometricEnabled(true)
+          setBackupCodes(result.backupCodes)
+          setShowBackupCodes(true)
+        }
+      }
+    }
+  }
+
+  const copyCode = (code: string, index: number) => {
+    navigator.clipboard.writeText(code)
+    setCopiedIndex(index)
+    setTimeout(() => setCopiedIndex(null), 2000)
+  }
+
+  const copyAllCodes = () => {
+    const allCodes = backupCodes.join('\n')
+    navigator.clipboard.writeText(allCodes)
+    setCopiedIndex(-1)
+    setTimeout(() => setCopiedIndex(null), 2000)
   }
   
   const packageNames = { free: 'FREE', plus: 'PLUS', pro: 'PRO', finance: 'FINANCE' }
@@ -433,6 +491,222 @@ export default function SettingsPage() {
             {userPackage !== 'free' && (
               <div style={{ fontSize: '13px', color: '#6B7280' }}>
                 Onbeperkt scannen ✓
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* BEVEILIGING */}
+        <div style={{
+          background: 'white',
+          borderRadius: '12px',
+          padding: '20px',
+          marginBottom: '16px',
+          border: '1px solid #E5E7EB'
+        }}>
+          <div style={{
+            fontSize: '14px',
+            fontWeight: 600,
+            color: '#6B7280',
+            letterSpacing: '0.5px',
+            marginBottom: '16px',
+            textTransform: 'uppercase'
+          }}>
+            BEVEILIGING
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {/* Biometric Toggle */}
+            <div style={{
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '8px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <Fingerprint size={18} color="#6B7280" />
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                      Biometrische authenticatie
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                      {biometricEnabled ? 'Actief' : 'Niet actief'}
+                    </div>
+                  </div>
+                </div>
+                {biometricAvailable && (
+                  <button
+                    onClick={handleBiometricToggle}
+                    style={{
+                      width: '44px',
+                      height: '24px',
+                      borderRadius: '12px',
+                      background: biometricEnabled ? '#1E7F5C' : '#E5E7EB',
+                      border: 'none',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      transition: 'background 0.2s'
+                    }}
+                  >
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      background: 'white',
+                      position: 'absolute',
+                      top: '2px',
+                      left: biometricEnabled ? '22px' : '2px',
+                      transition: 'left 0.2s'
+                    }} />
+                  </button>
+                )}
+              </div>
+              {!biometricAvailable && (
+                <div style={{
+                  padding: '8px 12px',
+                  background: '#FEF2F2',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  color: '#DC2626'
+                }}>
+                  Biometrie niet beschikbaar op dit apparaat
+                </div>
+              )}
+              {biometricEnabled && (
+                <div style={{
+                  padding: '8px 12px',
+                  background: '#f0fdf4',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  color: '#15803d'
+                }}>
+                  ✓ Je kunt nu inloggen met vingerafdruk of gezichtsherkenning
+                </div>
+              )}
+            </div>
+
+            {/* Backup Codes */}
+            {biometricEnabled && backupCodes.length > 0 && (
+              <div style={{
+                padding: '12px',
+                borderRadius: '8px',
+                border: '1px solid #E5E7EB'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '8px'
+                }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                      Backup codes
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                      {backupCodes.length} codes beschikbaar
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowBackupCodes(!showBackupCodes)}
+                    style={{
+                      fontSize: '13px',
+                      color: '#1E7F5C',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    {showBackupCodes ? 'Verberg' : 'Toon'}
+                  </button>
+                </div>
+
+                {showBackupCodes && (
+                  <>
+                    <div style={{
+                      padding: '12px',
+                      background: '#fef3c7',
+                      border: '1px solid #fbbf24',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      color: '#92400e',
+                      marginBottom: '12px'
+                    }}>
+                      ⚠️ Elke code kan maar 1x gebruikt worden. Bewaar ze veilig!
+                    </div>
+
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '8px',
+                      marginBottom: '12px'
+                    }}>
+                      {backupCodes.map((code, index) => (
+                        <div
+                          key={index}
+                          onClick={() => copyCode(code, index)}
+                          style={{
+                            padding: '8px',
+                            background: '#f9fafb',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '6px',
+                            fontSize: '12px',
+                            fontFamily: 'monospace',
+                            fontWeight: 600,
+                            color: '#111827',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                          }}
+                        >
+                          <span>{code}</span>
+                          {copiedIndex === index ? (
+                            <Check size={14} color="#15803d" />
+                          ) : (
+                            <Copy size={14} color="#6B7280" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={copyAllCodes}
+                      style={{
+                        width: '100%',
+                        padding: '8px',
+                        background: 'white',
+                        border: '1px solid #E5E7EB',
+                        borderRadius: '6px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        color: '#374151',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      {copiedIndex === -1 ? (
+                        <>
+                          <Check size={14} color="#15803d" />
+                          Gekopieerd!
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={14} />
+                          Kopieer alle codes
+                        </>
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>
