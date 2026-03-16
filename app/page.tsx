@@ -20,7 +20,7 @@ export default function HomePage() {
   const [ghostMode, setGhostMode] = useState(false)
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
-  const [onboardingStep, setOnboardingStep] = useState(1)
+  const [termsAccepted, setTermsAccepted] = useState(false)
   
   // FAQ accordion state
   const [faqOpen, setFaqOpen] = useState<number | null>(null)
@@ -50,11 +50,11 @@ export default function HomePage() {
     }
     loadUsageCount()
 
-    // Check if first visit (show onboarding)
+    // Check if first visit and terms accepted (show onboarding)
     const hasVisited = localStorage.getItem('dealsense_visited')
-    if (!hasVisited) {
+    const termsAcceptedStorage = localStorage.getItem('dealsense_terms_accepted')
+    if (!hasVisited || !termsAcceptedStorage) {
       setShowOnboarding(true)
-      localStorage.setItem('dealsense_visited', 'true')
     }
 
     // Check cookie consent
@@ -132,12 +132,15 @@ export default function HomePage() {
     showToast('✓ Cookie instellingen opgeslagen')
   }
 
-  const nextOnboardingStep = () => {
-    if (onboardingStep < 3) {
-      setOnboardingStep(onboardingStep + 1)
-    } else {
-      setShowOnboarding(false)
+  const handleWelcomeStart = () => {
+    if (!termsAccepted) {
+      showToast('⚠️ Accepteer de Algemene Voorwaarden om door te gaan')
+      return
     }
+    localStorage.setItem('dealsense_visited', 'true')
+    localStorage.setItem('dealsense_terms_accepted', 'true')
+    setShowOnboarding(false)
+    showToast('✓ Welkom bij DealSense!')
   }
 
   return (
@@ -507,103 +510,81 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Onboarding Flow */}
+      {/* Welcome Flow with Terms Acceptance */}
       {showOnboarding && (
         <div className="onboarding-overlay">
           <div className="onboarding-modal">
-            {onboardingStep === 1 && (
-              <>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="6"/>
-                  <circle cx="12" cy="12" r="2"/>
-                </svg>
-                <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
-                  Welkom bij DealSense!
-                </h2>
-                <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-                  Vind altijd de beste deal. Snel, betrouwbaar, en gratis te proberen.
-                </p>
-                <button
-                  onClick={nextOnboardingStep}
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎁</div>
+            <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px', color: '#111827' }}>
+              Welkom bij DealSense!
+            </h2>
+            <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+              3 gratis scans om te proberen
+            </p>
+
+            {/* Terms Acceptance Box */}
+            <div style={{
+              background: '#F7F9F8',
+              border: '1px solid #E5E7EB',
+              borderRadius: '12px',
+              padding: '16px',
+              marginBottom: '20px',
+              textAlign: 'left'
+            }}>
+              <label style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '12px',
+                cursor: 'pointer'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
                   style={{
-                    padding: '12px 24px',
-                    background: '#258b52',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer'
+                    marginTop: '4px',
+                    width: '18px',
+                    height: '18px',
+                    cursor: 'pointer',
+                    accentColor: '#1E7F5C'
                   }}
-                >
-                  Volgende
-                </button>
-              </>
-            )}
-            {onboardingStep === 2 && (
-              <>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.35-4.35"/>
-                </svg>
-                <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
-                  Hoe het werkt
-                </h2>
-                <div style={{ textAlign: 'left', marginBottom: '24px' }}>
-                  <div style={{ fontSize: '14px', marginBottom: '8px' }}>1. Plak product URL en prijs</div>
-                  <div style={{ fontSize: '14px', marginBottom: '8px' }}>2. We scannen 1000+ winkels</div>
-                  <div style={{ fontSize: '14px' }}>3. Jij ziet de beste 3 deals</div>
-                </div>
-                <button
-                  onClick={nextOnboardingStep}
-                  style={{
-                    padding: '12px 24px',
-                    background: '#258b52',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Volgende
-                </button>
-              </>
-            )}
-            {onboardingStep === 3 && (
-              <>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="2" style={{ marginBottom: '16px' }}>
-                  <polyline points="20 12 20 22 4 22 4 12"/>
-                  <rect x="2" y="7" width="20" height="5"/>
-                  <line x1="12" y1="22" x2="12" y2="7"/>
-                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
-                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
-                </svg>
-                <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>
-                  3 gratis scans!
-                </h2>
-                <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
-                  Probeer DealSense gratis. Geen registratie nodig.
-                </p>
-                <button
-                  onClick={nextOnboardingStep}
-                  style={{
-                    padding: '12px 24px',
-                    background: '#258b52',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Start nu
-                </button>
-              </>
-            )}
+                />
+                <span style={{ fontSize: '13px', color: '#374151', lineHeight: '1.5' }}>
+                  Ik ga akkoord met de{' '}
+                  <a href="/voorwaarden" target="_blank" style={{ color: '#1E7F5C', textDecoration: 'underline' }}>
+                    Algemene Voorwaarden
+                  </a>
+                  {' '}en het{' '}
+                  <a href="/veiligheid" target="_blank" style={{ color: '#1E7F5C', textDecoration: 'underline' }}>
+                    Privacybeleid
+                  </a>
+                </span>
+              </label>
+            </div>
+
+            {/* Start Button */}
+            <button
+              onClick={handleWelcomeStart}
+              disabled={!termsAccepted}
+              style={{
+                padding: '14px 24px',
+                background: termsAccepted ? '#1E7F5C' : '#D1D5DB',
+                color: 'white',
+                border: 'none',
+                borderRadius: '10px',
+                fontSize: '15px',
+                fontWeight: 600,
+                cursor: termsAccepted ? 'pointer' : 'not-allowed',
+                width: '100%',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Akkoord & Start →
+            </button>
+
+            <div style={{ marginTop: '16px', fontSize: '12px', color: '#6B7280' }}>
+              Geen registratie nodig • Direct beginnen
+            </div>
           </div>
         </div>
       )}

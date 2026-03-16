@@ -358,6 +358,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .onboarding-modal {
@@ -365,8 +366,10 @@ body {
   border-radius: 16px;
   padding: 32px;
   max-width: 500px;
-  margin: 20px;
+  width: 100%;
   text-align: center;
+  overflow: visible;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 /* Price Slider */
