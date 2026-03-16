@@ -91,7 +91,7 @@ export default function EchoChat() {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button - Echo Branding */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -99,29 +99,53 @@ export default function EchoChat() {
             position: 'fixed',
             bottom: '80px',
             right: '20px',
-            width: '56px',
-            height: '56px',
+            width: '60px',
+            height: '60px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
-            border: 'none',
+            background: 'linear-gradient(135deg, #1E7F5C 0%, #3b82f6 40%, #111827 70%, #E6F4EE 100%)',
+            border: '3px solid white',
             boxShadow: '0 4px 16px rgba(30, 127, 92, 0.3)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 999,
-            transition: 'transform 0.15s ease'
+            transition: 'all 0.15s ease',
+            animation: 'echo-pulse 2s ease-in-out infinite'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.1)'
+            e.currentTarget.style.boxShadow = '0 4px 24px rgba(30, 127, 92, 0.5), 0 0 20px rgba(59, 130, 246, 0.3)'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)'
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(30, 127, 92, 0.3)'
           }}
         >
-          <MessageCircle size={26} color="white" />
+          <div style={{
+            width: '36px',
+            height: '36px',
+            background: '#1E7F5C',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <MessageCircle size={20} color="white" strokeWidth={2.5} />
+          </div>
         </button>
       )}
+      
+      <style jsx>{`
+        @keyframes echo-pulse {
+          0%, 100% {
+            box-shadow: 0 4px 16px rgba(30, 127, 92, 0.3);
+          }
+          50% {
+            box-shadow: 0 4px 24px rgba(30, 127, 92, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+          }
+        }
+      `}</style>
 
       {/* Chat Window */}
       {isOpen && (

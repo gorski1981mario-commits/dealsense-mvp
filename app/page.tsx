@@ -243,10 +243,11 @@ export default function HomePage() {
           fontWeight: 600,
           marginBottom: '6px'
         }}>Categorie</label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          disabled={categoryLocked}
+        <input
+          type="text"
+          value={category === 'electronics' ? 'Elektronika' : category}
+          readOnly
+          placeholder="Automatisch gedetecteerd via product URL"
           style={{
             width: '100%',
             padding: '12px',
@@ -254,39 +255,11 @@ export default function HomePage() {
             borderRadius: '10px',
             fontSize: '16px',
             marginBottom: '8px',
-            background: categoryLocked ? '#f1f5f9' : 'white',
-            cursor: categoryLocked ? 'not-allowed' : 'pointer',
-            color: categoryLocked ? '#64748b' : '#111827'
+            background: '#f1f5f9',
+            cursor: 'not-allowed',
+            color: '#64748b'
           }}
-        >
-          <optgroup label="Shopping (FREE)">
-            <option value="electronics">Elektronika</option>
-            <option value="home">Dom i ogród</option>
-            <option value="fashion">Moda</option>
-            <option value="health">Zdrowie i uroda</option>
-            <option value="sports">Sport i fitness</option>
-            <option value="auto">Auto i akcesoria</option>
-            <option value="toys">Zabawki i edukacja</option>
-            <option value="furniture">Meble</option>
-            <option value="pets">Zwierzęta</option>
-            <option value="tools">Narzędzia - DIY</option>
-          </optgroup>
-          <optgroup label="Services (PRO)">
-            <option value="vacations">Vacations</option>
-            <option value="insurance">Insurance</option>
-            <option value="energy">Energy</option>
-            <option value="mobile">Mobile</option>
-            <option value="internet">Internet</option>
-            <option value="tv">TV</option>
-          </optgroup>
-          <optgroup label="Finance (FINANCE)">
-            <option value="mortgage">Mortgage</option>
-            <option value="loans">Loans</option>
-            <option value="leasing">Leasing</option>
-            <option value="cards">Cards</option>
-            <option value="subscriptions">Subscriptions</option>
-          </optgroup>
-        </select>
+        />
         <div style={{ fontSize: '11px', color: '#6B7280', marginBottom: '16px' }}>
           ⚠️ Niet ondersteund: voedsel en tweedehands/refurbished producten
         </div>
