@@ -363,7 +363,7 @@ export default function HamburgerMenu() {
           </div>
 
           {/* ECHO AI ASSISTENT - Osobna sekcja */}
-          <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #E5E7EB' }}>
+          <div style={{ marginTop: '32px', paddingTop: '24px', paddingBottom: '32px', borderTop: '1px solid #E5E7EB' }}>
             <h3 style={{
               fontSize: '14px',
               fontWeight: 600,
@@ -375,6 +375,7 @@ export default function HamburgerMenu() {
             </h3>
             <div style={{
               padding: '16px',
+              paddingBottom: '20px',
               background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
               borderRadius: '12px',
               border: '1px solid #86efac'
