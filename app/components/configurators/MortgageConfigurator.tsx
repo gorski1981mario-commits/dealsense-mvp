@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import AgentEchoLogo from '../AgentEchoLogo'
 
 interface MortgageConfiguratorProps {
   packageType?: 'plus' | 'pro' | 'finance'
@@ -9,20 +8,20 @@ interface MortgageConfiguratorProps {
 }
 
 interface MortgageConfig {
-  amount: number
-  duration: number
-  interestType: string
-  nhg: boolean
-  interestOnly: number
+  inkomen: number
+  postcode: string
+  bedrag: number
+  looptijd: number
+  type: string
 }
 
 export default function MortgageConfigurator({ packageType = 'finance', userId }: MortgageConfiguratorProps = {}) {
   const [config, setConfig] = useState<MortgageConfig>({
-    amount: 300000,
-    duration: 30,
-    interestType: 'Vast',
-    nhg: false,
-    interestOnly: 0
+    inkomen: 50000,
+    postcode: '',
+    bedrag: 300000,
+    looptijd: 30,
+    type: 'Annuïteit'
   })
   const [searching, setSearching] = useState(false)
 
@@ -33,42 +32,38 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <AgentEchoLogo />
-
       <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#111827', marginBottom: '24px' }}>
         🏠 Hypotheek Configurator
       </h2>
 
       <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Bedrag: €{config.amount.toLocaleString()}</label>
-          <input type="range" min="100000" max="1000000" step="10000" value={config.amount} onChange={(e) => setConfig({ ...config, amount: parseInt(e.target.value) })} style={{ width: '100%' }} />
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Bruto inkomen per jaar: €{config.inkomen.toLocaleString()}</label>
+          <input type="range" min="20000" max="150000" step="5000" value={config.inkomen} onChange={(e) => setConfig({ ...config, inkomen: parseInt(e.target.value) })} style={{ width: '100%' }} />
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Looptijd: {config.duration} jaar</label>
-          <input type="range" min="10" max="30" value={config.duration} onChange={(e) => setConfig({ ...config, duration: parseInt(e.target.value) })} style={{ width: '100%' }} />
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Postcode</label>
+          <input type="text" placeholder="1234 AB" value={config.postcode} onChange={(e) => setConfig({ ...config, postcode: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }} />
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Rente type</label>
-          <select value={config.interestType} onChange={(e) => setConfig({ ...config, interestType: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
-            <option value="Vast">Vast</option>
-            <option value="Variabel">Variabel</option>
-            <option value="Mix">Mix</option>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Gewenst bedrag: €{config.bedrag.toLocaleString()}</label>
+          <input type="range" min="100000" max="1000000" step="10000" value={config.bedrag} onChange={(e) => setConfig({ ...config, bedrag: parseInt(e.target.value) })} style={{ width: '100%' }} />
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Looptijd: {config.looptijd} jaar</label>
+          <input type="range" min="10" max="30" value={config.looptijd} onChange={(e) => setConfig({ ...config, looptijd: parseInt(e.target.value) })} style={{ width: '100%' }} />
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Type hypotheek</label>
+          <select value={config.type} onChange={(e) => setConfig({ ...config, type: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
+            <option value="Annuïteit">Annuïteitenhypotheek</option>
+            <option value="Lineair">Lineaire hypotheek</option>
+            <option value="Aflossingsvrij">Aflossingsvrije hypotheek</option>
           </select>
-        </div>
-
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-            <input type="checkbox" checked={config.nhg} onChange={(e) => setConfig({ ...config, nhg: e.target.checked })} />
-            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>NHG (Nationale Hypotheek Garantie)</span>
-          </label>
-        </div>
-
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Aflossingsvrij: {config.interestOnly}%</label>
-          <input type="range" min="0" max="50" value={config.interestOnly} onChange={(e) => setConfig({ ...config, interestOnly: parseInt(e.target.value) })} style={{ width: '100%' }} />
         </div>
 
         <button onClick={handleSearch} disabled={searching} style={{ width: '100%', padding: '16px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer' }}>
