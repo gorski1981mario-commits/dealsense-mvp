@@ -173,7 +173,7 @@ export default function HamburgerMenu() {
             Menu
           </h2>
 
-          {/* PAKIETY Section */}
+          {/* PAKKETTEN Section */}
           <div style={{ marginBottom: '32px' }}>
             <h3 style={{
               fontSize: '14px',
@@ -182,7 +182,7 @@ export default function HamburgerMenu() {
               letterSpacing: '0.5px',
               marginBottom: '16px'
             }}>
-              PAKIETY
+              PAKKETTEN
             </h3>
             <div style={{
               background: '#F7F9F8',
