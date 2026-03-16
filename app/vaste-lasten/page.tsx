@@ -1,49 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import Link from 'next/link'
 
 export default function VasteLastenPage() {
-  const [expenses, setExpenses] = useState({
-    energy: '',
-    internet: '',
-    mobile: '',
-    insurance: '',
-    tv: ''
-  })
-  const [result, setResult] = useState<any>(null)
-  const [loading, setLoading] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      const response = await fetch('/api/vaste-lasten-status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(expenses)
-      })
-
-      const data = await response.json()
-      setResult(data)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const totalCurrent = Object.values(expenses).reduce((sum, val) => sum + (parseFloat(val) || 0), 0)
-  const potentialSavings = totalCurrent * 0.15
+  const configurators = [
+    { href: '/vacations', icon: '🏖️', title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO' },
+    { href: '/insurance', icon: '🛡️', title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO' },
+    { href: '/energy', icon: '⚡', title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO' },
+    { href: '/telecom', icon: '📱', title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO' },
+    { href: '/mortgage', icon: '🏠', title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE' },
+    { href: '/leasing', icon: '🚗', title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE' },
+    { href: '/loan', icon: '💰', title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE' },
+    { href: '/creditcard', icon: '💳', title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE' }
+  ]
 
   return (
     <div>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        Mijn vaste lasten
+        Vaste lasten configurators
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
-        Vul je maandelijkse vaste lasten in. We berekenen hoeveel je kunt besparen.
+        Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.
       </p>
 
       <div style={{
@@ -61,168 +39,49 @@ export default function VasteLastenPage() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: '32px' }}>
-        <div style={{ display: 'grid', gap: '16px', marginBottom: '24px' }}>
-          <div>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              ⚡ Energie (gas + elektra)
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="120.00"
-              value={expenses.energy}
-              onChange={(e) => setExpenses({ ...expenses, energy: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              🌐 Internet
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="45.00"
-              value={expenses.internet}
-              onChange={(e) => setExpenses({ ...expenses, internet: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              📞 Mobiel
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="25.00"
-              value={expenses.mobile}
-              onChange={(e) => setExpenses({ ...expenses, mobile: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              🛡️ Verzekeringen
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="80.00"
-              value={expenses.insurance}
-              onChange={(e) => setExpenses({ ...expenses, insurance: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              📺 TV / Streaming
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="30.00"
-              value={expenses.tv}
-              onChange={(e) => setExpenses({ ...expenses, tv: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-        </div>
-
-        <div style={{
-          padding: '20px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          borderRadius: '12px',
-          border: '1px solid #93c5fd',
-          marginBottom: '24px'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Totaal per maand:</span>
-            <span style={{ fontSize: '18px', fontWeight: 700, color: '#2563eb' }}>
-              €{totalCurrent.toFixed(2)}
-            </span>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Potentiële besparing (15%):</span>
-            <span style={{ fontSize: '18px', fontWeight: 700, color: '#258b52' }}>
-              €{potentialSavings.toFixed(2)}/maand
-            </span>
-          </div>
-          <div style={{ fontSize: '12px', color: '#64748b', marginTop: '8px' }}>
-            = €{(potentialSavings * 12).toFixed(2)} per jaar
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading || totalCurrent === 0}
-          style={{
-            width: '100%',
-            padding: '14px',
-            background: loading || totalCurrent === 0 ? '#9ca3af' : '#258b52',
-            color: 'white',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '16px',
-            fontWeight: 700,
-            cursor: loading || totalCurrent === 0 ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {loading ? 'Analyseren...' : 'Analyseer mijn vaste lasten'}
-        </button>
-      </form>
-
-      {result && (
-        <div style={{
-          padding: '24px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-          borderRadius: '12px',
-          border: '1px solid #86efac'
-        }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px', color: '#258b52' }}>
-            ✓ Analyse compleet!
-          </h3>
-          <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-            We hebben je vaste lasten geanalyseerd. Je kunt tot €{(potentialSavings * 12).toFixed(2)} per jaar besparen 
-            door over te stappen naar goedkopere aanbieders.
-          </p>
-        </div>
-      )}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+        {configurators.map((config) => (
+          <Link
+            key={config.href}
+            href={config.href}
+            style={{
+              display: 'block',
+              padding: '20px',
+              background: 'white',
+              border: '2px solid #E5E7EB',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#1E7F5C'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.15)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#E5E7EB'
+              e.currentTarget.style.boxShadow = 'none'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <span style={{ fontSize: '32px' }}>{config.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
+                  {config.title}
+                </div>
+                <div style={{ fontSize: '12px', fontWeight: 600, color: config.package === 'PRO' ? '#1E7F5C' : '#258b52', background: config.package === 'PRO' ? '#E6F4EE' : 'rgba(37,139,82,0.12)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                  {config.package}
+                </div>
+              </div>
+            </div>
+            <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>
+              {config.desc}
+            </p>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
