@@ -28,7 +28,7 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <AgentEchoLogo />
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>🏠 Hypotheek Configurator</h2>
 

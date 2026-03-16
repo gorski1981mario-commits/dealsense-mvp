@@ -56,7 +56,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   if (view === 'configurator') {
     return (
-      <div style={{ padding: '20px' }}>
+      <div>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
           🏖️ Vakantie Configurator
         </h2>
@@ -236,7 +236,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   if (view === 'results') {
     return (
-      <div style={{ padding: '20px' }}>
+      <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
@@ -272,7 +272,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   if (view === 'payment') {
     return (
-      <div style={{ padding: '20px' }}>
+      <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
@@ -290,7 +290,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
       <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals + TikTok reviews</p>
 

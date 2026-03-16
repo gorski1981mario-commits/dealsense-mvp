@@ -143,10 +143,7 @@ export default function SettingsPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#F7F9F8',
-      padding: '20px',
-      maxWidth: '600px',
-      margin: '0 auto'
+      background: '#F7F9F8'
     }}>
       <h1 style={{
         fontSize: '24px',

@@ -24,10 +24,7 @@ export default function StatisticsPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#F7F9F8',
-      padding: '20px',
-      maxWidth: '800px',
-      margin: '0 auto'
+      background: '#F7F9F8'
     }}>
       <h1 style={{
         fontSize: '24px',
