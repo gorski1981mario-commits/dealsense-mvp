@@ -24,7 +24,7 @@ const packages: Package[] = [
       '⚠️ Na 3 scans: 10% commissie op besparingen',
       '🎁 Referral: deel je unieke code, vrienden krijgen 2% korting op hun eerste aankoop, jij krijgt 2% korting bij verlenging - win-win!'
     ],
-    color: '#6B7280'
+    color: '#1E7F5C'
   },
   {
     id: 'plus',
@@ -282,18 +282,10 @@ export default function PricingAccordion() {
         <h3 style={{
           fontSize: '20px',
           fontWeight: 700,
-          marginBottom: '12px'
+          marginBottom: '20px'
         }}>
           Upgrade en begin vandaag met besparen
         </h3>
-        <p style={{
-          fontSize: '14px',
-          marginBottom: '20px',
-          opacity: 0.9,
-          lineHeight: '1.6'
-        }}>
-          Krijg toegang tot alle voordelen: onbeperkt scannen, Echo AI assistent, Ghost Mode prijsmonitoring en veel meer. Start nu en bespaar honderden euro's per jaar.
-        </p>
         <button
           onClick={() => router.push('/packages')}
           style={{
@@ -308,7 +300,7 @@ export default function PricingAccordion() {
             boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
           }}
         >
-          Bekijk alle pakketten →
+          Start Besparen Direct →
         </button>
       </div>
     </div>
