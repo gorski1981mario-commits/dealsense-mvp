@@ -3,16 +3,33 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { 
-  Wallet, 
+  Laptop, 
+  Home,
+  Shirt,
+  Heart,
+  Dumbbell,
+  Car,
+  Baby,
+  Armchair,
+  PawPrint,
+  Wrench,
   Plane, 
   Shield, 
+  Zap,
+  Smartphone,
+  Wifi,
+  Tv,
+  Building,
+  Banknote,
+  FileText,
+  CreditCard,
+  Calendar,
   BarChart3, 
   Mail, 
   Settings,
   ShieldCheck,
   HelpCircle,
-  Users,
-  Smile
+  Users
 } from 'lucide-react'
 
 interface MenuItem {
@@ -21,36 +38,36 @@ interface MenuItem {
   path: string
 }
 
-// PRODUKTY - Skanowanie EAN/URL
+// PRODUKTY - Scannen
 const productCategories: MenuItem[] = [
-  { icon: Wallet, title: 'Elektronika', path: '/category/elektronika' },
-  { icon: Wallet, title: 'Dom i ogród', path: '/category/dom-ogrod' },
-  { icon: Wallet, title: 'Moda', path: '/category/moda' },
-  { icon: Wallet, title: 'Zdrowie i uroda', path: '/category/zdrowie' },
-  { icon: Wallet, title: 'Sport i fitnes', path: '/category/sport' },
-  { icon: Wallet, title: 'Auto i akcesoria', path: '/category/auto' },
-  { icon: Wallet, title: 'Zabawki i edukacja', path: '/category/zabawki' },
-  { icon: Wallet, title: 'Meble', path: '/category/meble' },
-  { icon: Wallet, title: 'Zwierzęta', path: '/category/zwierzeta' },
-  { icon: Wallet, title: 'Narzędzia - DIY', path: '/category/narzedzia' }
+  { icon: Laptop, title: 'Elektronica', path: '/' },
+  { icon: Home, title: 'Huis & Tuin', path: '/' },
+  { icon: Shirt, title: 'Mode', path: '/' },
+  { icon: Heart, title: 'Gezondheid & Schoonheid', path: '/' },
+  { icon: Dumbbell, title: 'Sport & Fitness', path: '/' },
+  { icon: Car, title: 'Auto & Accessoires', path: '/' },
+  { icon: Baby, title: 'Speelgoed & Educatie', path: '/' },
+  { icon: Armchair, title: 'Meubels', path: '/' },
+  { icon: PawPrint, title: 'Huisdieren', path: '/' },
+  { icon: Wrench, title: 'Gereedschap - DIY', path: '/' }
 ]
 
-// USŁUGI - Porównanie ofert
+// DIENSTEN - Vergelijken
 const serviceCategories: MenuItem[] = [
-  { icon: Plane, title: 'Vacations', path: '/vacations' },
-  { icon: Shield, title: 'Insurance', path: '/insurance' },
-  { icon: Wallet, title: 'Energy', path: '/energy' },
-  { icon: Wallet, title: 'Mobile', path: '/mobile' },
-  { icon: Wallet, title: 'Internet', path: '/internet' },
-  { icon: Wallet, title: 'TV', path: '/tv' },
-  { icon: Wallet, title: 'Mortgage', path: '/mortgage' },
-  { icon: Wallet, title: 'Loans', path: '/loans' },
-  { icon: Wallet, title: 'Leasing', path: '/leasing' },
-  { icon: Wallet, title: 'Cards', path: '/cards' },
-  { icon: Wallet, title: 'Subscriptions', path: '/subscriptions' }
+  { icon: Plane, title: 'Vakanties', path: '/vacations' },
+  { icon: Shield, title: 'Verzekeringen', path: '/insurance' },
+  { icon: Zap, title: 'Energie', path: '/vaste-lasten' },
+  { icon: Smartphone, title: 'Mobiel', path: '/vaste-lasten' },
+  { icon: Wifi, title: 'Internet', path: '/vaste-lasten' },
+  { icon: Tv, title: 'TV', path: '/vaste-lasten' },
+  { icon: Building, title: 'Hypotheek', path: '/finance' },
+  { icon: Banknote, title: 'Leningen', path: '/finance' },
+  { icon: FileText, title: 'Leasing', path: '/finance' },
+  { icon: CreditCard, title: 'Creditcards', path: '/finance' },
+  { icon: Calendar, title: 'Abonnementen', path: '/vaste-lasten' }
 ]
 
-// INNE FUNKCJE
+// FUNCTIES
 const otherItems: MenuItem[] = [
   { icon: BarChart3, title: 'Mijn statistieken', path: '/statistics' },
   { icon: Mail, title: 'Contact', path: 'mailto:info@dealsense.nl' },
@@ -226,7 +243,7 @@ export default function HamburgerMenu() {
                 marginBottom: '12px',
                 textTransform: 'uppercase'
               }}>
-                PRODUKTY (Skanowanie)
+                PRODUCTEN (Scannen)
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {productCategories.map((item, idx) => {
@@ -271,7 +288,7 @@ export default function HamburgerMenu() {
                 marginBottom: '12px',
                 textTransform: 'uppercase'
               }}>
-                USŁUGI (Porównanie)
+                DIENSTEN (Vergelijken)
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {serviceCategories.map((item, idx) => {
