@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import AgentEchoLogo from '../AgentEchoLogo'
 
 interface VacationConfig {
   destination: string
@@ -40,9 +39,6 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       margin: '0 auto',
       padding: '20px'
     }}>
-      {/* Agent Echo Logo */}
-      <AgentEchoLogo />
-
       {/* Title */}
       <h2 style={{
         fontSize: '24px',

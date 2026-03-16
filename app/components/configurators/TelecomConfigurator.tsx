@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import AgentEchoLogo from '../AgentEchoLogo'
 
 interface TelecomConfiguratorProps {
   packageType?: 'plus' | 'pro' | 'finance'
@@ -33,8 +32,6 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <AgentEchoLogo />
-
       <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#111827', marginBottom: '24px' }}>
         📱 Telecom Configurator
       </h2>
