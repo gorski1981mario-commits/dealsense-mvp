@@ -710,8 +710,25 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <div style={{ marginTop: '32px', padding: '20px', textAlign: 'center', fontSize: '12px', color: '#374151' }}>
-        <p>© 2026 DealSense.nl - AI aankoop assistent</p>
+      <div style={{
+        marginTop: '48px',
+        paddingTop: '24px',
+        borderTop: '1px solid #E5E7EB',
+        textAlign: 'center',
+        fontSize: '13px',
+        color: '#64748b'
+      }}>
+        <div style={{ marginBottom: '8px' }}>
+          <a href="/voorwaarden" style={{ color: '#1E7F5C', textDecoration: 'none', marginRight: '16px' }}>
+            Algemene Voorwaarden
+          </a>
+          <a href="/veiligheid" style={{ color: '#1E7F5C', textDecoration: 'none' }}>
+            Privacy & Veiligheid
+          </a>
+        </div>
+        <div>
+          © 2026 DealSense.nl
+        </div>
       </div>
     </div>
   )
