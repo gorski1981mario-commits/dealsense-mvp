@@ -9,19 +9,19 @@ interface TelecomConfiguratorProps {
 
 interface TelecomConfig {
   type: string
+  postcode: string
   data: number
   speed: number
   contract: string
-  lines: number
 }
 
 export default function TelecomConfigurator({ packageType = 'pro', userId }: TelecomConfiguratorProps = {}) {
   const [config, setConfig] = useState<TelecomConfig>({
     type: 'Bundel',
+    postcode: '',
     data: 10,
     speed: 200,
-    contract: '1 jaar',
-    lines: 1
+    contract: '1 jaar'
   })
   const [searching, setSearching] = useState(false)
 
@@ -58,17 +58,17 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
         </div>
 
         <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Postcode</label>
+          <input type="text" placeholder="1234 AB" value={config.postcode} onChange={(e) => setConfig({ ...config, postcode: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }} />
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
           <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Contract</label>
           <select value={config.contract} onChange={(e) => setConfig({ ...config, contract: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '14px' }}>
             <option value="1 jaar">1 jaar</option>
             <option value="2 jaar">2 jaar</option>
             <option value="Sim-only">Sim-only</option>
           </select>
-        </div>
-
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>Aantal lijnen: {config.lines}</label>
-          <input type="range" min="1" max="5" value={config.lines} onChange={(e) => setConfig({ ...config, lines: parseInt(e.target.value) })} style={{ width: '100%' }} />
         </div>
 
         <button onClick={handleSearch} disabled={searching} style={{ width: '100%', padding: '16px', background: searching ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 600, cursor: searching ? 'not-allowed' : 'pointer' }}>
