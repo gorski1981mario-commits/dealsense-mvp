@@ -11,6 +11,7 @@ export default function HomePage() {
   const [url, setUrl] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('electronics')
+  const [categoryLocked, setCategoryLocked] = useState(false)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
@@ -245,14 +246,17 @@ export default function HomePage() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          disabled={categoryLocked}
           style={{
             width: '100%',
             padding: '12px',
             border: '1px solid #E2E8F0',
             borderRadius: '10px',
             fontSize: '16px',
-            marginBottom: '16px',
-            background: 'white'
+            marginBottom: '8px',
+            background: categoryLocked ? '#f1f5f9' : 'white',
+            cursor: categoryLocked ? 'not-allowed' : 'pointer',
+            color: categoryLocked ? '#64748b' : '#111827'
           }}
         >
           <optgroup label="Shopping (FREE)">
@@ -283,6 +287,9 @@ export default function HomePage() {
             <option value="subscriptions">Subscriptions</option>
           </optgroup>
         </select>
+        <div style={{ fontSize: '11px', color: '#6B7280', marginBottom: '16px' }}>
+          ⚠️ Niet ondersteund: voedsel en tweedehands/refurbished producten
+        </div>
 
         <label style={{
           display: 'block',

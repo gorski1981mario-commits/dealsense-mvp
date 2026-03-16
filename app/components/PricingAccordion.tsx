@@ -19,7 +19,8 @@ const packages: Package[] = [
     features: [
       '✓ 3 Gratis scans om DealSense te proberen',
       '✓ Toegang tot 10 productcategorieën',
-      '✓ Basis prijsvergelijking'
+      '✓ Basis prijsvergelijking',
+      '🤖 Agent Echo - basis productadvies'
     ],
     color: '#6B7280'
   },
@@ -31,7 +32,8 @@ const packages: Package[] = [
       '✓ Onbeperkt producten scannen',
       '✓ 10 productcategorieën',
       '✓ Ghost Mode (24u)',
-      '✓ Prioriteit support'
+      '✓ Prioriteit support',
+      '🤖 Agent Echo - productadvies & garanties'
     ],
     color: '#1E7F5C'
   },
@@ -43,7 +45,8 @@ const packages: Package[] = [
       '✓ Onbeperkt scans - producten én diensten',
       '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
       '✓ Ghost Mode (24u)',
-      '✓ Prioriteit support'
+      '✓ Prioriteit support',
+      '🤖 Agent Echo - volledige AI assistent'
     ],
     color: '#1E7F5C'
   },
@@ -55,7 +58,8 @@ const packages: Package[] = [
       '✓ Alles inclusief - alle 20+ categorieën',
       '✓ Hypotheken, Leningen, Leasing, Creditcards',
       '✓ Ghost Mode (5 min - anoniem)',
-      '✓ VIP support - directe hulp'
+      '✓ VIP support - directe hulp',
+      '🤖 Agent Echo - premium AI assistent + financieel advies'
     ],
     color: '#1E7F5C'
   }
