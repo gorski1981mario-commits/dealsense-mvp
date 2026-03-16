@@ -22,7 +22,7 @@ const packages: Package[] = [
       '✓ Basis prijsvergelijking (top 3 deals)',
       '✓ 100+ Nederlandse webshops',
       '⚠️ Na 3 scans: 10% commissie op besparingen',
-      '🎁 Referral code: FREE2026'
+      '🎁 Referral: 3% korting - deel je code, ontvang korting, help vrienden besparen'
     ],
     color: '#6B7280'
   },
@@ -37,8 +37,8 @@ const packages: Package[] = [
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
       '✓ 100+ Nederlandse webshops',
-      '🤖 Agent Echo - productadvies & garanties',
-      '🎁 Referral code: PLUS2026'
+      '✓ Echo - AI productadvies & garanties',
+      '🎁 Referral: 3% korting - deel code PLUS2026, krijg korting bij verlenging'
     ],
     color: '#1E7F5C'
   },
@@ -53,8 +53,8 @@ const packages: Package[] = [
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
       '✓ 100+ Nederlandse webshops',
-      '🤖 Agent Echo - volledige AI assistent',
-      '🎁 Referral code: PRO2026'
+      '✓ Echo - volledige AI assistent',
+      '🎁 Referral: 3% korting - deel code PRO2026, krijg korting bij verlenging'
     ],
     color: '#1E7F5C'
   },
@@ -70,8 +70,8 @@ const packages: Package[] = [
       '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ VIP support - directe hulp',
       '✓ 100+ Nederlandse webshops',
-      '🤖 Agent Echo - premium AI assistent + financieel advies',
-      '🎁 Referral code: FINANCE2026'
+      '✓ Echo - premium AI assistent + financieel advies',
+      '🎁 Referral: 3% korting - deel code FINANCE2026, krijg korting bij verlenging'
     ],
     color: '#1E7F5C'
   }

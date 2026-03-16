@@ -13,11 +13,48 @@ export default function EchoChat() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isListening, setIsListening] = useState(false)
-  const [messagesLeft, setMessagesLeft] = useState(10) // FREE: 10 messages
+  const [messagesLeft, setMessagesLeft] = useState(0)
+  const [dailyLimit, setDailyLimit] = useState(0)
+  const [userPackage, setUserPackage] = useState<'free' | 'plus' | 'pro' | 'finance'>('free')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null)
 
+  // Detect user package and set daily limits
+  useEffect(() => {
+    const pkg = (localStorage.getItem('dealsense_package') || 'free') as 'free' | 'plus' | 'pro' | 'finance'
+    setUserPackage(pkg)
+    
+    // Daily limits based on package
+    const limits = {
+      free: 0,      // No Echo for FREE without subscription
+      plus: 100,    // €1.10/month cost
+      pro: 200,     // €2.20/month cost
+      finance: 300  // €3.30/month cost
+    }
+    
+    const limit = limits[pkg]
+    setDailyLimit(limit)
+    
+    // Check daily usage from localStorage
+    const today = new Date().toDateString()
+    const stored = localStorage.getItem('dealsense_echo_usage')
+    
+    if (stored) {
+      const { date, count } = JSON.parse(stored)
+      if (date === today) {
+        setMessagesLeft(Math.max(0, limit - count))
+      } else {
+        // New day - reset counter
+        localStorage.setItem('dealsense_echo_usage', JSON.stringify({ date: today, count: 0 }))
+        setMessagesLeft(limit)
+      }
+    } else {
+      localStorage.setItem('dealsense_echo_usage', JSON.stringify({ date: today, count: 0 }))
+      setMessagesLeft(limit)
+    }
+  }, [])
+  
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -46,8 +83,13 @@ export default function EchoChat() {
   const handleSend = async () => {
     if (!input.trim()) return
 
+    if (userPackage === 'free') {
+      alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS, PRO en FINANCE abonnees. Upgrade om Echo te gebruiken!')
+      return
+    }
+
     if (messagesLeft <= 0) {
-      alert('⚠️ Je hebt je limiet bereikt (10/10 berichten). Upgrade naar PLUS voor unlimited chat!')
+      alert(`⚠️ Je hebt je dagelijkse limiet bereikt (${dailyLimit}/${dailyLimit} berichten). Probeer morgen opnieuw!`)
       return
     }
 
@@ -56,6 +98,14 @@ export default function EchoChat() {
     setInput('')
     setIsLoading(true)
     setMessagesLeft(prev => prev - 1)
+    
+    // Update daily usage counter
+    const today = new Date().toDateString()
+    const stored = localStorage.getItem('dealsense_echo_usage')
+    if (stored) {
+      const { count } = JSON.parse(stored)
+      localStorage.setItem('dealsense_echo_usage', JSON.stringify({ date: today, count: count + 1 }))
+    }
 
     // Simulate AI response (replace with actual OpenAI API call)
     setTimeout(() => {
@@ -191,7 +241,7 @@ export default function EchoChat() {
                 }} />
               </div>
               <div style={{ fontSize: '11px', color: '#E6F4EE' }}>
-                {messagesLeft}/10 berichten
+                {messagesLeft}/{dailyLimit} berichten vandaag
               </div>
             </div>
             <button
