@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { EyeOff } from 'lucide-react'
 
 interface GhostModeProps {
   packageType: 'plus' | 'pro' | 'finance'
@@ -115,10 +116,15 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
         <div style={{ 
-          fontSize: '24px',
-          filter: isActive ? 'grayscale(0)' : 'grayscale(1)'
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          👻
+          <EyeOff 
+            size={24} 
+            color={isActive ? '#86efac' : '#64748b'}
+            strokeWidth={2}
+          />
         </div>
         <div>
           <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>
