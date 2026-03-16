@@ -154,6 +154,20 @@ export default function HoeHetWerktPage() {
             borderRadius: '10px'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
+              🤖 Agent Echo
+            </div>
+            <div style={{ fontSize: '13px', color: '#374151' }}>
+              Je persoonlijke AI assistent helpt met productadvies, garanties en besparingen.
+            </div>
+          </div>
+
+          <div style={{
+            padding: '16px',
+            background: 'white',
+            border: '1px solid #E2E8F0',
+            borderRadius: '10px'
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
               💰 Eerlijke commissie
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>

@@ -39,12 +39,9 @@ export default function VeiligheidPage() {
           Onze TrustDelta-algoritme controleert alle winkels op betrouwbaarheid. We filteren automatisch 
           verdachte aanbiedingen en waarschuwen je voor mogelijke scams.
         </p>
-        <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
-          <li>Rating minimaal 4.0/5.0</li>
-          <li>Minimaal 30 reviews</li>
-          <li>Prijs niet lager dan 35% van gemiddelde</li>
-          <li>Alleen bekende, geverifieerde winkels</li>
-        </ul>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', fontWeight: 600 }}>
+          Gemiddelde rating: 4.0 volgens DealScore
+        </p>
       </div>
 
       <div style={{ marginBottom: '32px' }}>
