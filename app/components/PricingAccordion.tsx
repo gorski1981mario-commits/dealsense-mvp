@@ -282,26 +282,32 @@ export default function PricingAccordion() {
         <h3 style={{
           fontSize: '20px',
           fontWeight: 700,
-          marginBottom: '20px'
+          margin: 0
         }}>
           Upgrade en begin vandaag met besparen
         </h3>
-        <button
-          onClick={() => router.push('/packages')}
-          style={{
-            background: 'white',
-            color: '#1E7F5C',
-            border: 'none',
-            borderRadius: '10px',
-            padding: '12px 24px',
-            fontSize: '15px',
-            fontWeight: 600,
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-          }}
-        >
-          Start Besparen Direct →
-        </button>
+      </div>
+
+      {/* Footer */}
+      <div style={{
+        marginTop: '48px',
+        paddingTop: '24px',
+        borderTop: '1px solid #E5E7EB',
+        textAlign: 'center',
+        fontSize: '13px',
+        color: '#64748b'
+      }}>
+        <div style={{ marginBottom: '8px' }}>
+          <a href="/voorwaarden" style={{ color: '#1E7F5C', textDecoration: 'none', marginRight: '16px' }}>
+            Algemene Voorwaarden
+          </a>
+          <a href="/veiligheid" style={{ color: '#1E7F5C', textDecoration: 'none' }}>
+            Privacy & Veiligheid
+          </a>
+        </div>
+        <div>
+          © 2026 DealSense.nl
+        </div>
       </div>
     </div>
   )
