@@ -22,7 +22,7 @@ const packages: Package[] = [
       '✓ Basis prijsvergelijking (top 3 deals)',
       '✓ 1000+ Nederlandse webshops',
       '⚠️ Na 3 scans: 10% commissie op besparingen',
-      '🎁 Referral: deel je unieke code, vrienden krijgen 3% korting op hun eerste aankoop, jij krijgt 3% korting bij verlenging - win-win!'
+      '🎁 Referral: deel je unieke code, vrienden krijgen 2% korting op hun eerste aankoop, jij krijgt 2% korting bij verlenging - win-win!'
     ],
     color: '#6B7280'
   },
@@ -33,12 +33,12 @@ const packages: Package[] = [
     features: [
       '✓ Onbeperkt producten scannen',
       '✓ 10 productcategorieën',
-      '✓ Slechts 10% commissie op besparingen',
+      '✓ Slechts 9% commissie op besparingen',
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
       '✓ 1000+ Nederlandse webshops',
       '✓ Echo - AI productadvies & garanties',
-      '🎁 Referral PLUS2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
+      '🎁 Referral PLUS2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   },
@@ -49,12 +49,12 @@ const packages: Package[] = [
     features: [
       '✓ Onbeperkt scans - producten én diensten',
       '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
-      '✓ Slechts 10% commissie op besparingen',
+      '✓ Slechts 9% commissie op besparingen',
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
       '✓ 1000+ Nederlandse webshops',
       '✓ Echo - volledige AI assistent',
-      '🎁 Referral PRO2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
+      '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   },
@@ -66,13 +66,13 @@ const packages: Package[] = [
       '✓ Alles inclusief - alle 20+ categorieën',
       '✓ Hypotheken, Leningen, Leasing, Creditcards',
       '✓ Vergelijk alle financiële producten',
-      '✓ Slechts 10% commissie op besparingen',
+      '✓ Slechts 9% commissie op besparingen',
       '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ VIP support - directe hulp',
       '✓ 1000+ Nederlandse webshops',
       '✓ Echo - premium AI assistent + financieel advies',
       '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
-      '🎁 Referral FINANCE2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
+      '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
   }

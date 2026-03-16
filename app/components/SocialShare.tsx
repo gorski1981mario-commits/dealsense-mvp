@@ -21,7 +21,7 @@ export default function SocialShare({
   const hasPackage = userPackage !== 'free'
   
   const savingsAfterCommission = withCode 
-    ? savings * 0.93
+    ? savings * 0.98
     : savings * 0.90
   
   const handleToggleCode = async () => {
@@ -67,7 +67,7 @@ export default function SocialShare({
     const url = withCode && referralCode ? `${baseUrl}?ref=${referralCode}` : baseUrl
     
     const text = withCode && referralCode
-      ? `💰 ${productName} - ${amount} bespaard! 🎉\n🎁 Code: ${referralCode} (3% korting!)\nProbeer: ${url}`
+      ? `💰 ${productName} - ${amount} bespaard! 🎉\n🎁 Code: ${referralCode} (2% korting!)\nProbeer: ${url}`
       : `💰 ${productName} - ${amount} bespaard! 🎉\nGevonden met DealSense\nProbeer gratis: ${url}`
     
     switch(platform) {
@@ -251,7 +251,7 @@ export default function SocialShare({
             color: withCode ? '#92400e' : '#374151',
             flex: 1
           }}>
-            🎁 Geef vrienden 3% extra korting
+            🎁 Geef vrienden 2% extra korting
           </span>
           {withCode && referralCode && (
             <span style={{

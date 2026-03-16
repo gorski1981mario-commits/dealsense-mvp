@@ -426,7 +426,7 @@ export default function HomePage() {
               Upgrade naar Plus
             </h3>
             <p style={{ fontSize: '14px', color: '#374151', marginBottom: '16px' }}>
-              Je hebt 3 gratis scans gebruikt. Upgrade naar Plus voor onbeperkt scannen!
+              Je hebt 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen en slechts 9% commissie!
             </p>
             
             <div style={{ marginBottom: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px' }}>
@@ -631,7 +631,7 @@ export default function HomePage() {
           </div>
           {faqOpen === 0 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
-              Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS, PRO of FINANCE voor onbeperkt scannen en betaal je 10% commissie op besparingen.
+              Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS, PRO of FINANCE voor onbeperkt scannen en betaal je 9% commissie op besparingen.
             </p>
           )}
         </div>

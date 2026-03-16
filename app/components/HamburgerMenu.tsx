@@ -58,6 +58,18 @@ const otherItems: MenuItem[] = [
   { icon: Users, title: 'Waarom geen partnerschappen', path: '/waarom-geen-partnerschappen' }
 ]
 
+// AI ASSISTENT
+const aiAssistantItem = {
+  title: 'Echo AI Assistent',
+  description: 'Stel vragen over producten, garanties en besparingen. Beschikbaar in PLUS, PRO en FINANCE pakketten.',
+  features: [
+    'Productadvies op maat',
+    'Garantie-informatie',
+    'Bespaartips',
+    'Financieel advies (FINANCE)'
+  ]
+}
+
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
@@ -301,6 +313,36 @@ export default function HamburgerMenu() {
                     </div>
                   )
                 })}
+              </div>
+            </div>
+
+            {/* ECHO AI ASSISTENT */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{
+                padding: '16px',
+                background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+                borderRadius: '12px',
+                border: '1px solid #86efac'
+              }}>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '16px' }}>E</span>
+                  <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '14px' }}>·ch·</span>
+                  <span style={{ color: '#111827', fontWeight: 700, fontSize: '16px' }}>o</span>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>AI Assistent</span>
+                </div>
+                <div style={{ fontSize: '12px', color: '#374151', marginBottom: '12px', lineHeight: '1.5' }}>
+                  {aiAssistantItem.description}
+                </div>
+                <div style={{ fontSize: '11px', color: '#6B7280' }}>
+                  {aiAssistantItem.features.map((feature, idx) => (
+                    <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
+                  ))}
+                </div>
               </div>
             </div>
 
