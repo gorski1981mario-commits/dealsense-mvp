@@ -50,8 +50,8 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           </div>
 
           <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste limiet (€)</label>
-            <input type="number" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} placeholder="2000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste limiet: €{limit.toLocaleString()}</label>
+            <input type="range" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
           </div>
 
           <div>
@@ -82,8 +82,8 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten (€)</label>
-            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten: €{annualFee}</label>
+            <input type="range" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>{annualFee === 0 ? 'Alleen gratis kaarten' : `Tot €${annualFee}/jaar`}</div>
           </div>
         </div>
@@ -93,8 +93,8 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Persoonlijke informatie</div>
           
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen: €{income.toLocaleString()}</label>
+            <input type="range" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
           </div>
         </div>
 

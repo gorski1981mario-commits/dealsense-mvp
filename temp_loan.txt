@@ -37,13 +37,13 @@ export default function LoanConfigurator({ packageType = 'finance', userId }: Lo
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>1. Lening details</div>
           
           <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bedrag (€)</label>
-            <input type="number" min="1000" max="75000" step="500" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} placeholder="10000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bedrag: €{amount.toLocaleString()}</label>
+            <input type="range" min="1000" max="75000" step="500" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (maanden)</label>
-            <input type="number" min="12" max="120" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} placeholder="60" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd: {duration} maanden</label>
+            <input type="range" min="12" max="120" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
           </div>
 
           <div>
@@ -65,8 +65,8 @@ export default function LoanConfigurator({ packageType = 'finance', userId }: Lo
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Persoonlijke situatie</div>
           
           <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="15000" max="150000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} placeholder="40000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen: €{income.toLocaleString()}</label>
+            <input type="range" min="15000" max="150000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} style={{ width: '100%', accentColor: '#1E7F5C' }} />
           </div>
 
           <div>
