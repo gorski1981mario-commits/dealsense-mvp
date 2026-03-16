@@ -149,7 +149,7 @@ export default function PricingAccordion() {
             key={pkg.id}
             onClick={() => togglePackage(pkg.id)}
             style={{
-              background: 'white',
+              background: openPackage === pkg.id ? 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)' : 'white',
               border: `1px solid ${openPackage === pkg.id ? pkg.color : '#E5E7EB'}`,
               borderRadius: '12px',
               padding: '16px',
@@ -268,6 +268,48 @@ export default function PricingAccordion() {
             )}
           </div>
         ))}
+      </div>
+
+      {/* CTA Section */}
+      <div style={{
+        marginTop: '32px',
+        padding: '24px',
+        background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
+        borderRadius: '16px',
+        textAlign: 'center',
+        color: 'white'
+      }}>
+        <h3 style={{
+          fontSize: '20px',
+          fontWeight: 700,
+          marginBottom: '12px'
+        }}>
+          Upgrade en begin vandaag met besparen
+        </h3>
+        <p style={{
+          fontSize: '14px',
+          marginBottom: '20px',
+          opacity: 0.9,
+          lineHeight: '1.6'
+        }}>
+          Krijg toegang tot alle voordelen: onbeperkt scannen, Echo AI assistent, Ghost Mode prijsmonitoring en veel meer. Start nu en bespaar honderden euro's per jaar.
+        </p>
+        <button
+          onClick={() => router.push('/packages')}
+          style={{
+            background: 'white',
+            color: '#1E7F5C',
+            border: 'none',
+            borderRadius: '10px',
+            padding: '12px 24px',
+            fontSize: '15px',
+            fontWeight: 600,
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+          }}
+        >
+          Bekijk alle pakketten →
+        </button>
       </div>
     </div>
   )

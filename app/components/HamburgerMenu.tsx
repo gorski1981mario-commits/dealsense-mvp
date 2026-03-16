@@ -385,9 +385,11 @@ export default function HamburgerMenu() {
                 gap: '8px',
                 marginBottom: '8px'
               }}>
-                <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '16px' }}>E</span>
-                <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '14px' }}>·ch·</span>
-                <span style={{ color: '#111827', fontWeight: 700, fontSize: '16px' }}>o</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0px' }}>
+                  <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '16px' }}>E</span>
+                  <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '14px' }}>·ch·</span>
+                  <span style={{ color: '#111827', fontWeight: 700, fontSize: '16px' }}>o</span>
+                </div>
                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>AI Assistent</span>
               </div>
               <div style={{ fontSize: '12px', color: '#374151', marginBottom: '12px', lineHeight: '1.5' }}>
