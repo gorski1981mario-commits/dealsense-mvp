@@ -25,20 +25,18 @@ export default function StatisticsPage() {
     <div style={{
       minHeight: '100vh',
       background: '#F7F9F8',
-      padding: '20px'
+      padding: '20px',
+      maxWidth: '800px',
+      margin: '0 auto'
     }}>
-      <div style={{
-        maxWidth: '800px',
-        margin: '0 auto'
+      <h1 style={{
+        fontSize: '24px',
+        fontWeight: 600,
+        color: '#111827',
+        marginBottom: '24px'
       }}>
-        <h1 style={{
-          fontSize: '24px',
-          fontWeight: 600,
-          color: '#111827',
-          marginBottom: '24px'
-        }}>
-          Mijn statistieken
-        </h1>
+        Mijn statistieken
+      </h1>
 
         {/* Stats Grid */}
         <div style={{
@@ -166,7 +164,6 @@ export default function StatisticsPage() {
             </div>
           )}
         </div>
-      </div>
     </div>
   )
 }

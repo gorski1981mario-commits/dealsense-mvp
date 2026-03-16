@@ -144,20 +144,18 @@ export default function SettingsPage() {
     <div style={{
       minHeight: '100vh',
       background: '#F7F9F8',
-      padding: '20px'
+      padding: '20px',
+      maxWidth: '600px',
+      margin: '0 auto'
     }}>
-      <div style={{
-        maxWidth: '600px',
-        margin: '0 auto'
+      <h1 style={{
+        fontSize: '24px',
+        fontWeight: 600,
+        color: '#111827',
+        marginBottom: '24px'
       }}>
-        <h1 style={{
-          fontSize: '24px',
-          fontWeight: 600,
-          color: '#111827',
-          marginBottom: '24px'
-        }}>
-          Instellingen
-        </h1>
+        Instellingen
+      </h1>
 
         {/* ACCOUNT */}
         <div style={{
@@ -815,7 +813,6 @@ export default function SettingsPage() {
             )}
           </div>
         </div>
-      </div>
     </div>
   )
 }
