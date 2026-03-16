@@ -5,23 +5,41 @@ import VacationConfigurator from './configurators/VacationConfigurator'
 import InsuranceConfigurator from './configurators/InsuranceConfigurator'
 import EnergyConfigurator from './configurators/EnergyConfigurator'
 import TelecomConfigurator from './configurators/TelecomConfigurator'
+import MortgageConfigurator from './configurators/MortgageConfigurator'
+import LeasingConfigurator from './configurators/LeasingConfigurator'
+import LoanConfigurator from './configurators/LoanConfigurator'
+import CreditCardConfigurator from './configurators/CreditCardConfigurator'
 
 interface ConfiguratorSelectorProps {
   packageType: 'plus' | 'pro' | 'finance'
   userId: string
 }
 
-type ConfiguratorType = 'vacation' | 'insurance' | 'energy' | 'telecom' | null
+type ConfiguratorType = 'vacation' | 'insurance' | 'energy' | 'telecom' | 'mortgage' | 'leasing' | 'loan' | 'creditcard' | null
 
 export default function ConfiguratorSelector({ packageType, userId }: ConfiguratorSelectorProps) {
   const [selectedConfigurator, setSelectedConfigurator] = useState<ConfiguratorType>(null)
 
-  const configurators = [
-    { id: 'vacation', name: '🏖️ Vakanties', component: VacationConfigurator },
-    { id: 'insurance', name: '🛡️ Verzekeringen', component: InsuranceConfigurator },
-    { id: 'energy', name: '⚡ Energie', component: EnergyConfigurator },
-    { id: 'telecom', name: '📱 Telecom', component: TelecomConfigurator }
+  // Base configurators (PRO)
+  const baseConfigurators = [
+    { id: 'vacation', name: '🏖️ Vakanties', component: VacationConfigurator, category: 'Services' },
+    { id: 'insurance', name: '🛡️ Verzekeringen', component: InsuranceConfigurator, category: 'Services' },
+    { id: 'energy', name: '⚡ Energie', component: EnergyConfigurator, category: 'Services' },
+    { id: 'telecom', name: '📱 Telecom', component: TelecomConfigurator, category: 'Services' }
   ]
+
+  // Finance configurators (FINANCE only)
+  const financeConfigurators = [
+    { id: 'mortgage', name: '🏠 Hypotheek', component: MortgageConfigurator, category: 'Finance' },
+    { id: 'leasing', name: '🚗 Leasing', component: LeasingConfigurator, category: 'Finance' },
+    { id: 'loan', name: '💰 Lening', component: LoanConfigurator, category: 'Finance' },
+    { id: 'creditcard', name: '💳 Creditcard', component: CreditCardConfigurator, category: 'Finance' }
+  ]
+
+  // Combine based on package type
+  const configurators = packageType === 'finance' 
+    ? [...baseConfigurators, ...financeConfigurators]
+    : baseConfigurators
 
   const SelectedComponent = selectedConfigurator 
     ? configurators.find(c => c.id === selectedConfigurator)?.component 
@@ -64,11 +82,30 @@ export default function ConfiguratorSelector({ packageType, userId }: Configurat
           }}
         >
           <option value="">-- Kies een configurator --</option>
-          {configurators.map(config => (
-            <option key={config.id} value={config.id}>
-              {config.name}
-            </option>
-          ))}
+          {packageType === 'finance' ? (
+            <>
+              <optgroup label="Services (van PRO)">
+                {baseConfigurators.map(config => (
+                  <option key={config.id} value={config.id}>
+                    {config.name}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Finance (exclusief)">
+                {financeConfigurators.map(config => (
+                  <option key={config.id} value={config.id}>
+                    {config.name}
+                  </option>
+                ))}
+              </optgroup>
+            </>
+          ) : (
+            configurators.map(config => (
+              <option key={config.id} value={config.id}>
+                {config.name}
+              </option>
+            ))
+          )}
         </select>
       </div>
 
