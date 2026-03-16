@@ -126,14 +126,6 @@ export default function PricingAccordion() {
                 </div>
               </div>
               
-              <div style={{
-                fontSize: '16px',
-                color: '#6B7280',
-                transition: 'transform 0.15s ease',
-                transform: openPackage === pkg.id ? 'rotate(180deg)' : 'rotate(0deg)'
-              }}>
-                ▼
-              </div>
             </div>
 
             {/* Rozwijana zawartość */}
