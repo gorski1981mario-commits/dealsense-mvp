@@ -20,7 +20,7 @@ const packages: Package[] = [
       '✓ 3 Gratis scans om DealSense te proberen',
       '✓ Toegang tot 10 productcategorieën',
       '✓ Basis prijsvergelijking (top 3 deals)',
-      '✓ 100+ Nederlandse webshops',
+      '✓ 1000+ Nederlandse webshops',
       '⚠️ Na 3 scans: 10% commissie op besparingen',
       '🎁 Referral: deel je unieke code, vrienden krijgen 3% korting op hun eerste aankoop, jij krijgt 3% korting bij verlenging - win-win!'
     ],
@@ -36,7 +36,7 @@ const packages: Package[] = [
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
-      '✓ 100+ Nederlandse webshops',
+      '✓ 1000+ Nederlandse webshops',
       '✓ Echo - AI productadvies & garanties',
       '🎁 Referral PLUS2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
     ],
@@ -52,7 +52,7 @@ const packages: Package[] = [
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - prijsmonitoring (24u)',
       '✓ Prioriteit support',
-      '✓ 100+ Nederlandse webshops',
+      '✓ 1000+ Nederlandse webshops',
       '✓ Echo - volledige AI assistent',
       '🎁 Referral PRO2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'
     ],
@@ -69,7 +69,7 @@ const packages: Package[] = [
       '✓ Slechts 10% commissie op besparingen',
       '✓ Ghost Mode - anonieme vergelijking (5 min)',
       '✓ VIP support - directe hulp',
-      '✓ 100+ Nederlandse webshops',
+      '✓ 1000+ Nederlandse webshops',
       '✓ Echo - premium AI assistent + financieel advies',
       '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
       '🎁 Referral FINANCE2026: deel code, vrienden -3% op eerste maand, jij -3% bij verlenging. Onbeperkt delen!'

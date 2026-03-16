@@ -552,7 +552,7 @@ export default function HomePage() {
                 </h2>
                 <div style={{ textAlign: 'left', marginBottom: '24px' }}>
                   <div style={{ fontSize: '14px', marginBottom: '8px' }}>1. Plak product URL en prijs</div>
-                  <div style={{ fontSize: '14px', marginBottom: '8px' }}>2. We scannen 100+ winkels</div>
+                  <div style={{ fontSize: '14px', marginBottom: '8px' }}>2. We scannen 1000+ winkels</div>
                   <div style={{ fontSize: '14px' }}>3. Jij ziet de beste 3 deals</div>
                 </div>
                 <button
@@ -631,7 +631,7 @@ export default function HomePage() {
           </div>
           {faqOpen === 0 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
-              Je krijgt 3 gratis scans. Daarna kun je upgraden naar Plus, Pro of Finance voor onbeperkt scannen.
+              Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS, PRO of FINANCE voor onbeperkt scannen en betaal je 10% commissie op besparingen.
             </p>
           )}
         </div>
@@ -655,7 +655,7 @@ export default function HomePage() {
           </div>
           {faqOpen === 1 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
-              Nee! Je kunt producten van elke prijs scannen, zelfs tot €3000-4000, zolang ze een EAN code hebben.
+              Nee, er is geen prijslimiet. Je kunt producten van elke prijs vergelijken.
             </p>
           )}
         </div>
@@ -703,7 +703,7 @@ export default function HomePage() {
           </div>
           {faqOpen === 3 && (
             <p style={{ marginTop: '12px', color: '#374151' }}>
-              1. Scan QR code op product. 2. We scannen 100+ winkels. 3. Je ziet de beste 3 deals. Simpel!
+              1. Scan QR code op product. 2. We scannen 1000+ winkels. 3. Je ziet de beste 3 deals. Simpel!
             </p>
           )}
         </div>

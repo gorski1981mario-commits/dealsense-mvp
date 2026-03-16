@@ -61,10 +61,10 @@ export default function HoeHetWerktPage() {
           </div>
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
-              Wij scannen 100+ winkels
+              Wij scannen 1000+ winkels
             </h2>
             <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-              Onze AI scant in 3-15 seconden meer dan 100 Nederlandse webshops. We vergelijken prijzen, 
+              Onze AI scant in 2-8 seconden meer dan 1000 Nederlandse webshops. We vergelijken prijzen, 
               ratings, levertijden en betrouwbaarheid. Alles automatisch.
             </p>
           </div>
@@ -106,72 +106,59 @@ export default function HoeHetWerktPage() {
         
         <div style={{ display: 'grid', gap: '16px' }}>
           <div style={{
-            padding: '16px',
+            padding: '20px',
             background: 'white',
             border: '1px solid #E2E8F0',
-            borderRadius: '10px'
+            borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              Supersnel
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+              ⚡ Supersnel vergelijken
             </div>
-            <div style={{ fontSize: '13px', color: '#374151' }}>
-              Resultaten in 3-15 seconden. Geen eindeloos wachten.
+            <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+              Binnen 2-8 seconden scannen we 1000+ Nederlandse webshops. Jij ziet meteen de beste 3 deals met de grootste besparingen. Geen eindeloos zoeken meer.
             </div>
           </div>
 
           <div style={{
-            padding: '16px',
+            padding: '20px',
             background: 'white',
             border: '1px solid #E2E8F0',
-            borderRadius: '10px'
+            borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              Altijd de beste deal
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+              🛡️ Betrouwbaar & veilig
             </div>
-            <div style={{ fontSize: '13px', color: '#374151' }}>
-              Onze AI filtert automatisch slechte aanbiedingen en scams.
+            <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+              Onze AI filtert automatisch verdachte aanbiedingen en scams. Je ziet alleen betrouwbare winkels met goede ratings. Veilig winkelen, altijd.
             </div>
           </div>
 
           <div style={{
-            padding: '16px',
+            padding: '20px',
             background: 'white',
             border: '1px solid #E2E8F0',
-            borderRadius: '10px'
+            borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              Ghost Mode
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+              👁️ Ghost Mode monitoring
             </div>
-            <div style={{ fontSize: '13px', color: '#374151' }}>
-              Laat ons 24/7 monitoren. Je krijgt een melding zodra de prijs daalt.
+            <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+              Laat ons 24/7 de prijs monitoren. Zodra het product goedkoper wordt, krijg je een melding. Zo mis je nooit meer een deal.
             </div>
           </div>
 
           <div style={{
-            padding: '16px',
+            padding: '20px',
             background: 'white',
             border: '1px solid #E2E8F0',
-            borderRadius: '10px'
+            borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              🤖 Agent Echo
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: '#1E7F5C', fontWeight: 700 }}>E</span><span style={{ color: '#3b82f6', fontWeight: 700 }}>·ch·</span><span style={{ color: '#111827', fontWeight: 700 }}>o</span>
+              <span style={{ color: '#374151', fontWeight: 600 }}>- jouw AI assistent</span>
             </div>
-            <div style={{ fontSize: '13px', color: '#374151' }}>
-              Je persoonlijke AI assistent helpt met productadvies, garanties en besparingen.
-            </div>
-          </div>
-
-          <div style={{
-            padding: '16px',
-            background: 'white',
-            border: '1px solid #E2E8F0',
-            borderRadius: '10px'
-          }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              💰 Eerlijke commissie
-            </div>
-            <div style={{ fontSize: '13px', color: '#374151' }}>
-              Alleen 10% van je besparing. Bespaar je €50? Dan betaal je €5.
+            <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+              Stel vragen over producten, garanties of besparingen. Echo helpt je de beste keuze maken met persoonlijk advies. Beschikbaar in PLUS, PRO en FINANCE pakketten.
             </div>
           </div>
         </div>
