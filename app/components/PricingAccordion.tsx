@@ -149,8 +149,8 @@ export default function PricingAccordion() {
             key={pkg.id}
             onClick={() => togglePackage(pkg.id)}
             style={{
-              background: openPackage === pkg.id ? 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)' : 'white',
-              border: `1px solid ${openPackage === pkg.id ? pkg.color : '#E5E7EB'}`,
+              background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+              border: '2px solid #86efac',
               borderRadius: '12px',
               padding: '16px',
               cursor: 'pointer',
@@ -161,17 +161,13 @@ export default function PricingAccordion() {
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center',
-              background: '#1E7F5C',
-              padding: '16px',
-              borderRadius: '12px',
-              marginBottom: openPackage === pkg.id ? '12px' : '0'
+              alignItems: 'center'
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
                 <div style={{
                   fontSize: '12px',
                   fontWeight: 600,
-                  color: 'white',
+                  color: '#111827',
                   letterSpacing: '0.5px'
                 }}>
                   {pkg.name}
@@ -179,7 +175,7 @@ export default function PricingAccordion() {
                 <div style={{
                   fontSize: '20px',
                   fontWeight: 700,
-                  color: 'white'
+                  color: '#111827'
                 }}>
                   {pkg.price}
                 </div>
