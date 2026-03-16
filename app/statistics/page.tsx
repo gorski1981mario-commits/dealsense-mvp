@@ -1,8 +1,26 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { BarChart3, TrendingDown, ShoppingBag, Clock } from 'lucide-react'
+import { Storage, ScanRecord } from '../_lib/storage'
+import { getDeviceId } from '../_lib/utils'
 
 export default function StatisticsPage() {
+  const [scans, setScans] = useState<ScanRecord[]>([])
+  const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const history = Storage.getScanHistory(userId)
+      setScans(history)
+    }
+  }, [userId])
+
+  const totalSavings = scans.reduce((sum, scan) => sum + (scan.savings || 0), 0)
+  const totalScans = scans.length
+  const avgSavings = totalScans > 0 ? totalSavings / totalScans : 0
+  const recentScans = scans.slice(0, 3)
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -45,7 +63,9 @@ export default function StatisticsPage() {
               <TrendingDown size={20} color="#1E7F5C" />
               <div style={{ fontSize: '14px', color: '#6B7280' }}>Totale besparing</div>
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: '#1E7F5C' }}>€234</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: '#1E7F5C' }}>
+              €{totalSavings.toFixed(2)}
+            </div>
           </div>
 
           {/* Total Scans */}
@@ -64,7 +84,7 @@ export default function StatisticsPage() {
               <ShoppingBag size={20} color="#6B7280" />
               <div style={{ fontSize: '14px', color: '#6B7280' }}>Aantal scans</div>
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>12</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>{totalScans}</div>
           </div>
 
           {/* Avg Savings */}
@@ -83,7 +103,9 @@ export default function StatisticsPage() {
               <BarChart3 size={20} color="#6B7280" />
               <div style={{ fontSize: '14px', color: '#6B7280' }}>Gem. besparing</div>
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>€19,50</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>
+              €{avgSavings.toFixed(2)}
+            </div>
           </div>
         </div>
 
@@ -107,46 +129,42 @@ export default function StatisticsPage() {
             Recente activiteit
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {recentScans.length === 0 ? (
             <div style={{
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB'
+              padding: '20px',
+              textAlign: 'center',
+              color: '#6B7280',
+              fontSize: '14px'
             }}>
-              <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
-                iPhone 15 Pro
-              </div>
-              <div style={{ fontSize: '13px', color: '#6B7280' }}>
-                Bespaard: €89 • 2 dagen geleden
-              </div>
+              Nog geen scans. Start met scannen om je activiteit te zien.
             </div>
-
-            <div style={{
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB'
-            }}>
-              <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
-                Samsung TV 55"
-              </div>
-              <div style={{ fontSize: '13px', color: '#6B7280' }}>
-                Bespaard: €145 • 5 dagen geleden
-              </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {recentScans.map((scan) => (
+                <div key={scan.id} style={{
+                  padding: '12px',
+                  borderRadius: '8px',
+                  border: '1px solid #E5E7EB'
+                }}>
+                  <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
+                    {scan.category}
+                  </div>
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>
+                    Bespaard: €{(scan.savings || 0).toFixed(2)} • {
+                      (() => {
+                        const days = Math.floor((Date.now() - scan.timestamp) / (1000 * 60 * 60 * 24))
+                        if (days === 0) return 'vandaag'
+                        if (days === 1) return '1 dag geleden'
+                        if (days < 7) return `${days} dagen geleden`
+                        const weeks = Math.floor(days / 7)
+                        return weeks === 1 ? '1 week geleden' : `${weeks} weken geleden`
+                      })()
+                    }
+                  </div>
+                </div>
+              ))}
             </div>
-
-            <div style={{
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB'
-            }}>
-              <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
-                Dyson V15
-              </div>
-              <div style={{ fontSize: '13px', color: '#6B7280' }}>
-                Bespaard: €0 • 1 week geleden
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
