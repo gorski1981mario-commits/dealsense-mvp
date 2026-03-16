@@ -1,9 +1,10 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { XCircle, ArrowLeft } from 'lucide-react'
 
-export default function PaymentCancelPage() {
+function PaymentCancelContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const packageType = searchParams.get('package') as 'plus' | 'pro' | 'finance' | null
@@ -137,5 +138,17 @@ export default function PaymentCancelPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function PaymentCancelPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div>Loading...</div>
+      </div>
+    }>
+      <PaymentCancelContent />
+    </Suspense>
   )
 }
