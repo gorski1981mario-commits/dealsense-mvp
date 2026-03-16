@@ -31,6 +31,8 @@ const { stats: kwantQueueStats } = require("./kwant/queue");
 const { getJson: kwantCacheGetJson } = require("./kwant/cache");
 const { enqueue: kwantEnqueue } = require("./kwant/queue");
 const { cacheKeyFor: kwantCacheKeyFor } = require("./kwant/planner");
+const GoogleShoppingAPI = require("./google-shopping");
+const APICache = require("./api-cache");
 const { isScam: scoringIsScam } = require("./scoring/isScam");
 const {
   offerDedupeKeyForSelection: scoringOfferDedupeKeyForSelection,
@@ -183,6 +185,94 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/health", (req, res) => {
   res.status(200).json({ ok: true });
+});
+
+// Initialize Google Shopping API and Cache
+let googleShoppingAPI = null;
+let googleShoppingCache = null;
+
+if (process.env.GOOGLE_SHOPPING_API_KEY) {
+  googleShoppingAPI = new GoogleShoppingAPI(process.env.GOOGLE_SHOPPING_API_KEY);
+  googleShoppingCache = new APICache(null, { defaultTTL: 21600 }); // 6h cache, no Redis
+  console.log('Google Shopping API initialized');
+}
+
+// Google Shopping API endpoint
+app.post("/api/google-shopping", async (req, res) => {
+  try {
+    if (!googleShoppingAPI) {
+      return res.status(503).json({
+        error: 'Google Shopping API not configured',
+        message: 'GOOGLE_SHOPPING_API_KEY environment variable not set'
+      });
+    }
+
+    const { query, basePrice } = req.body;
+    
+    if (!query || !basePrice) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'query and basePrice are required'
+      });
+    }
+
+    // Check cache first
+    const cacheKey = `shopping:${query.toLowerCase().replace(/\s+/g, '-')}`;
+    const cached = await googleShoppingCache.get(cacheKey);
+    if (cached) {
+      return res.json({ ...cached, fromCache: true });
+    }
+
+    // Call Google Shopping API
+    console.log(`Searching Google Shopping for: ${query}`);
+    const offers = await googleShoppingAPI.searchProduct(query, {
+      country: 'nl',
+      language: 'nl',
+      limit: 40
+    });
+
+    console.log(`Found ${offers.length} offers from Google Shopping`);
+
+    // Filter offers by price (basic filtering, can be enhanced)
+    const validOffers = offers.filter(offer => 
+      offer.price > 0 && 
+      offer.price < basePrice * 1.5 // Only offers up to 150% of base price
+    );
+
+    // Sort by price
+    const sorted = validOffers.sort((a, b) => a.price - b.price);
+    const top3 = sorted.slice(0, 3);
+
+    const savings = top3.length > 0 
+      ? {
+          amount: basePrice - top3[0].price,
+          percent: (((basePrice - top3[0].price) / basePrice) * 100).toFixed(1)
+        }
+      : { amount: 0, percent: '0.0' };
+
+    const result = {
+      query,
+      basePrice,
+      totalOffers: offers.length,
+      validOffers: validOffers.length,
+      topOffers: top3,
+      savings,
+      fromCache: false,
+      timestamp: new Date().toISOString()
+    };
+
+    // Save to cache (6h TTL)
+    await googleShoppingCache.set(cacheKey, result, 21600);
+
+    res.json(result);
+
+  } catch (error) {
+    console.error('Google Shopping API error:', error);
+    res.status(500).json({
+      error: 'Search failed',
+      message: error.message
+    });
+  }
 });
 
 function isValidHttpUrl(value) {
