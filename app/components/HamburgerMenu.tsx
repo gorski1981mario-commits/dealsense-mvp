@@ -93,13 +93,13 @@ export default function HamburgerMenu() {
         onClick={() => setIsOpen(!isOpen)}
         style={{
           position: 'fixed',
-          top: '20px',
+          top: '12px',
           right: '20px',
           zIndex: 1001,
           background: 'white',
           border: '2px solid #E5E7EB',
           borderRadius: '12px',
-          padding: '12px',
+          padding: '10px',
           cursor: 'pointer',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}

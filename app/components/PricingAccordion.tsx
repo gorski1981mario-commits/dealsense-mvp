@@ -16,48 +16,56 @@ const packages: Package[] = [
     name: 'FREE',
     price: '€0',
     features: [
-      '✓ 3 gratis scans',
-      '✓ 10 categorieën',
-      '✓ Basis resultaten'
+      '✓ 3 Gratis Kans - probeer DealSense gratis',
+      '✓ Scan tot 3 producten zonder kosten',
+      '✓ Toegang tot 10 productcategorieën',
+      '✓ Basis prijsvergelijking',
+      '⚠️ Na 3 scans: 10% commissie op besparingen'
     ],
     color: '#6B7280'
   },
   {
     id: 'plus',
     name: 'PLUS',
-    price: '€19,99',
+    price: '€19,99/mnd',
     features: [
-      '✓ Eenmalige betaling',
-      '✓ Onbeperkt scans',
-      '✓ 10 categorieën',
-      '✓ 10% commissie',
-      '✓ Fast Mode (24h)'
+      '✓ Maandelijks abonnement - opzegbaar',
+      '✓ Onbeperkt producten scannen',
+      '✓ Toegang tot 10 productcategorieën',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ Prioriteit support'
     ],
     color: '#1E7F5C'
   },
   {
     id: 'pro',
     name: 'PRO',
-    price: '€29,99',
+    price: '€29,99/mnd',
     features: [
-      '✓ Eenmalige betaling',
-      '✓ Onbeperkt scans',
-      '✓ 16 categorieën',
-      '✓ Vakanties, Verzekeringen',
-      '✓ 10% commissie'
+      '✓ Maandelijks abonnement - opzegbaar',
+      '✓ Onbeperkt scans - producten én diensten',
+      '✓ 16 categorieën inclusief Vakanties & Verzekeringen',
+      '✓ Vergelijk energie, internet, mobiel, TV',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ Prioriteit support'
     ],
     color: '#1E7F5C'
   },
   {
     id: 'finance',
     name: 'FINANCE',
-    price: '€39,99',
+    price: '€39,99/mnd',
     features: [
-      '✓ Eenmalige betaling',
-      '✓ Alles inclusief',
-      '✓ Hypotheken, Leningen',
-      '✓ Ghost Mode (5 min)',
-      '✓ 10% commissie'
+      '✓ Maandelijks abonnement - opzegbaar',
+      '✓ Alles inclusief - alle 20+ categorieën',
+      '✓ Hypotheken, Leningen, Leasing, Creditcards',
+      '✓ Vergelijk alle financiële producten',
+      '✓ Ghost Mode - anonieme vergelijking (5 min)',
+      '✓ Slechts 10% commissie op besparingen',
+      '✓ Fast Mode - resultaten binnen 24 uur',
+      '✓ VIP support - directe hulp'
     ],
     color: '#D97706'
   }
@@ -76,16 +84,6 @@ export default function PricingAccordion() {
       margin: '0 auto',
       padding: '16px'
     }}>
-      <h2 style={{
-        fontSize: '20px',
-        fontWeight: 600,
-        color: '#111827',
-        marginBottom: '16px',
-        textAlign: 'center'
-      }}>
-        Pakiety
-      </h2>
-
       <div style={{
         display: 'flex',
         flexDirection: 'column',
