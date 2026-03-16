@@ -92,6 +92,7 @@ export default function FinancePage() {
       <Scanner type="finance" />
 
       <div style={{
+        marginTop: '24px',
         marginBottom: '24px',
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'

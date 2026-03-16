@@ -91,6 +91,7 @@ export default function PlusPage() {
       <Scanner type="plus" />
 
       <div style={{
+        marginTop: '24px',
         marginBottom: '24px',
         paddingBottom: '16px',
         borderBottom: '1px solid #E2E8F0'
