@@ -22,10 +22,7 @@ export default function StatisticsPage() {
   const recentScans = scans.slice(0, 3)
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#F7F9F8'
-    }}>
+    <div>
       <h1 style={{
         fontSize: '24px',
         fontWeight: 600,

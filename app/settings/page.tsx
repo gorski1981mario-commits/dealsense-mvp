@@ -141,10 +141,7 @@ export default function SettingsPage() {
   const packagePrices = { free: '€0', plus: '€19,99/mnd', pro: '€29,99/mnd', finance: '€39,99/mnd' }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#F7F9F8'
-    }}>
+    <div>
       <h1 style={{
         fontSize: '24px',
         fontWeight: 600,
