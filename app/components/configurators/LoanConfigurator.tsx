@@ -26,7 +26,7 @@ export default function LoanConfigurator({ packageType = 'finance', userId }: Lo
   }
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ padding: '20px' }}>
       <AgentEchoLogo />
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>� Lening Configurator</h2>
 
