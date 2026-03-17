@@ -193,7 +193,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Soort</label>
-            <select value={insuranceType} onChange={(e) => setInsuranceType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={insuranceType} onChange={(e) => setInsuranceType(e.target.value)} onFocus={() => setActiveField('insuranceType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'insuranceType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'insuranceType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="auto">🚗 Autoverzekering</option>
               <option value="motor">🏍️ Motorverzekering</option>
               <option value="zorg">🏥 Zorgverzekering</option>
@@ -215,7 +215,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               {value: 'wa-beperkt', label: '🔒 WA + Beperkt Casco', desc: 'Incl. diefstal, brand, storm'},
               {value: 'allrisk', label: '🛡️ All-risk / Volledig Casco', desc: 'Volledige dekking'}
             ].map(c => (
-              <div key={c.value} onClick={() => !isLocked && setCoverage(c.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: coverage === c.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+              <div key={c.value} onClick={() => !isLocked && setCoverage(c.value)} onFocus={() => setActiveField('coverage')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: activeField === 'coverage' ? '2px solid #1E7F5C' : (coverage === c.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: activeField === 'coverage' ? '#E6F4EE' : (coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="radio" name="coverage" value={c.value} checked={coverage === c.value} onChange={() => !isLocked && setCoverage(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
@@ -232,34 +232,34 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
-            <input type="number" min="18" max="80" value={age} onChange={(e) => setAge(parseInt(e.target.value))} disabled={isLocked} placeholder="35" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="18" max="80" value={age} onChange={(e) => setAge(parseInt(e.target.value))} onFocus={() => setActiveField('age')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="35" style={{ width: '100%', padding: '10px 14px', border: activeField === 'age' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'age' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} onFocus={() => setActiveField('postcode')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: activeField === 'postcode' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'postcode' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bonus-malus (schadevrije jaren)</label>
-            <input type="number" min="0" max="10" value={bonusMalus} onChange={(e) => setBonusMalus(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="0" max="10" value={bonusMalus} onChange={(e) => setBonusMalus(parseInt(e.target.value))} onFocus={() => setActiveField('bonusMalus')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: activeField === 'bonusMalus' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'bonusMalus' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           {insuranceType === 'auto' && (
             <>
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Waarde voertuig (€)</label>
-                <input type="number" min="1000" max="100000" step="1000" value={vehicleValue} onChange={(e) => setVehicleValue(parseInt(e.target.value))} disabled={isLocked} placeholder="25000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+                <input type="number" min="1000" max="100000" step="1000" value={vehicleValue} onChange={(e) => setVehicleValue(parseInt(e.target.value))} onFocus={() => setActiveField('vehicleValue')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="25000" style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleValue' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleValue' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               </div>
 
               <div style={{ marginBottom: '14px' }}>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
-                <input type="number" min="5000" max="50000" step="5000" value={annualMileage} onChange={(e) => setAnnualMileage(parseInt(e.target.value))} disabled={isLocked} placeholder="15000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+                <input type="number" min="5000" max="50000" step="5000" value={annualMileage} onChange={(e) => setAnnualMileage(parseInt(e.target.value))} onFocus={() => setActiveField('annualMileage')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="15000" style={{ width: '100%', padding: '10px 14px', border: activeField === 'annualMileage' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'annualMileage' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               </div>
 
               <div>
                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Parkeerlocatie</label>
-                <select value={parkingLocation} onChange={(e) => setParkingLocation(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+                <select value={parkingLocation} onChange={(e) => setParkingLocation(e.target.value)} onFocus={() => setActiveField('parkingLocation')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'parkingLocation' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'parkingLocation' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                   <option value="straat">🚗 Op straat</option>
                   <option value="parkeerplaats">🅿️ Openbare parkeerplaats</option>
                   <option value="carport">🏚️ Carport</option>
