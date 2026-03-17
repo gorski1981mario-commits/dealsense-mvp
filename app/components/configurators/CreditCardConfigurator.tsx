@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface CreditCardConfiguratorProps {
@@ -14,6 +15,7 @@ interface CreditCardConfiguratorProps {
 }
 
 export default function CreditCardConfigurator({ packageType, userId }: CreditCardConfiguratorProps) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [cardType, setCardType] = useState('')
   const [limit, setLimit] = useState<number | ''>('')
   const [usage, setUsage] = useState('')

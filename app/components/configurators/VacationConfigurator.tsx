@@ -5,6 +5,7 @@ import { Lock, Unlock, Download } from 'lucide-react'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface VacationConfiguratorProps {
@@ -16,6 +17,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 
 export default function VacationConfigurator({ packageType = 'pro', userId }: VacationConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [adults, setAdults] = useState(0)
   const [children, setChildren] = useState(0)
   const [childrenAges, setChildrenAges] = useState<number[]>([])
@@ -184,6 +186,13 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
         )}
 
         <form onSubmit={handleSubmit}>
+          
+          {/* FILTER OPTIONS */}
+          <FilterOptions 
+            selectedFilter={filterType}
+            onFilterChange={setFilterType}
+            disabled={isLocked}
+          />
           
           {/* 1. REIZIGERS */}
           <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>

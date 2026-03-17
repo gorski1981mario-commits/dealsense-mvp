@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface LeasingConfiguratorProps {
@@ -14,6 +15,7 @@ interface LeasingConfiguratorProps {
 }
 
 export default function LeasingConfigurator({ packageType = 'finance', userId }: LeasingConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [vehicleType, setVehicleType] = useState('')
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')

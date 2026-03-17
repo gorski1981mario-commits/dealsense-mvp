@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators, formatters } from '../../utils/validators'
 
 interface InsuranceConfiguratorProps {
@@ -14,6 +15,7 @@ interface InsuranceConfiguratorProps {
 }
 
 export default function InsuranceConfigurator({ packageType = 'pro', userId }: InsuranceConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [insuranceType, setInsuranceType] = useState('')
   const [coverage, setCoverage] = useState('')
   const [age, setAge] = useState<number | ''>('')

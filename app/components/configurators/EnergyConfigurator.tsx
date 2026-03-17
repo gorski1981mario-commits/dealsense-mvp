@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators, formatters } from '../../utils/validators'
 
 interface EnergyConfiguratorProps {
@@ -14,6 +15,7 @@ interface EnergyConfiguratorProps {
 }
 
 export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [energyType, setEnergyType] = useState('')
   const [electricityUsage, setElectricityUsage] = useState<number | ''>('')
   const [gasUsage, setGasUsage] = useState<number | ''>('')

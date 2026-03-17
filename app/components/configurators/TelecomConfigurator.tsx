@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface TelecomConfiguratorProps {
@@ -14,6 +15,7 @@ interface TelecomConfiguratorProps {
 }
 
 export default function TelecomConfigurator({ packageType = 'pro', userId }: TelecomConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [serviceType, setServiceType] = useState('')
   const [mobileData, setMobileData] = useState<number | ''>('')
   const [mobileMinutes, setMobileMinutes] = useState('')

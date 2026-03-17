@@ -6,6 +6,7 @@ import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
+import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface LoanConfiguratorProps {
@@ -14,6 +15,7 @@ interface LoanConfiguratorProps {
 }
 
 export default function LoanConfigurator({ packageType, userId }: LoanConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType>('balanced')
   const [amount, setAmount] = useState<number | ''>('')
   const [duration, setDuration] = useState<number | ''>('')
   const [purpose, setPurpose] = useState('')
