@@ -42,20 +42,14 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   const totalFields = 7 // filterType, energyType, contractType, electricityUsage, gasUsage, postcode, houseNumber
   
-  // Auto-fill from user account (with auto-validation)
+  // Auto-fill from user account (without auto-validation)
   useEffect(() => {
     const userData = { postcode: '1943BR', houseNumber: '42' }
     if (userData.postcode) {
       setPostcode(userData.postcode)
-      // Auto-validate postcode
-      markFieldTouched('postcode')
-      markFieldValid('postcode', validators.postcode(userData.postcode))
     }
     if (userData.houseNumber) {
       setHouseNumber(userData.houseNumber)
-      // Auto-validate houseNumber
-      markFieldTouched('houseNumber')
-      markFieldValid('houseNumber', validators.required(userData.houseNumber))
     }
   }, [])
   
