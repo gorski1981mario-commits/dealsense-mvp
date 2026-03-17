@@ -125,7 +125,15 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const updateChildren = (newCount: number) => {
     if (isLocked) return
     setChildren(newCount)
+    validateAndMark('children', newCount, (v) => v >= 0 && v <= 4)
+    
+    // Reset childrenAges and remove from valid if count changes
     setChildrenAges(Array(newCount).fill(0))
+    if (newCount === 0) {
+      validFields.delete('childrenAges')
+    } else {
+      validFields.delete('childrenAges') // Will be validated when ages are filled
+    }
   }
 
   const toggleStar = (star: string) => {
@@ -192,7 +200,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kinderen (0-17)</label>
-              <div onFocus={() => setActiveField('children')} onBlur={() => setActiveField(null)} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: activeField === 'children' ? '#E6F4EE' : '#F3F4F6', borderRadius: '10px', padding: '8px 12px', width: 'fit-content', border: activeField === 'children' ? '2px solid #1E7F5C' : '2px solid transparent', transition: 'all 0.2s' }}>
+              <div onFocus={() => setActiveField('children')} onBlur={() => setActiveField(null)} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: validFields.has('children') ? '#E6F4EE' : (touchedFields.has('children') ? '#FEF3C7' : '#F3F4F6'), borderRadius: '10px', padding: '8px 12px', width: 'fit-content', border: validFields.has('children') ? '2px solid #1E7F5C' : (touchedFields.has('children') ? '2px solid #F59E0B' : '2px solid transparent'), transition: 'all 0.2s' }}>
                 <button type="button" onClick={() => !isLocked && children > 0 && updateChildren(children - 1)} disabled={children <= 0 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children <= 0 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{children}</div>
                 <button type="button" onClick={() => !isLocked && children < 4 && updateChildren(children + 1)} disabled={children >= 4 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children >= 4 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
@@ -202,7 +210,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                   {childrenAges.map((age, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <label style={{ margin: 0, minWidth: '70px', fontSize: '13px' }}>Kind {i + 1}:</label>
-                      <select value={age} onChange={(e) => { if (!isLocked) { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); }}} onFocus={() => setActiveField(`childAge${i}`)} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ flex: 1, padding: '8px 10px', border: activeField === `childAge${i}` ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: isLocked ? '#F3F4F6' : (activeField === `childAge${i}` ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                      <select value={age} onChange={(e) => { if (!isLocked) { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); const allValid = newAges.every(a => a > 0 && a <= 17); if (allValid) { validateAndMark('childrenAges', newAges, () => true); } else { validFields.delete('childrenAges'); }}}} onFocus={() => setActiveField(`childAge${i}`)} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ flex: 1, padding: '8px 10px', border: age > 0 ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: isLocked ? '#F3F4F6' : (age > 0 ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                         <option value="0">Leeftijd...</option>
                         {Array.from({length: 18}, (_, i) => <option key={i} value={i}>{i} jaar</option>)}
                       </select>
