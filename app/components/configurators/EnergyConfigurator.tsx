@@ -19,7 +19,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
-  const [energyType, setEnergyType] = useState('stroom-gas')
+  const [energyType, setEnergyType] = useState('')
   const [electricityUsage, setElectricityUsage] = useState<number | ''>('')
   const [gasUsage, setGasUsage] = useState<number | ''>('')
   const [contractType, setContractType] = useState('')
@@ -321,29 +321,21 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Wat wil je vergelijken?</label>
-            <select 
-              value={energyType} 
-              onChange={(e) => { const val = e.target.value; setEnergyType(val); validateAndMark('energyType', val); }} 
-              onInput={(e) => { const val = e.currentTarget.value; setEnergyType(val); validateAndMark('energyType', val); }}
-              disabled={isLocked} 
-              style={{ 
-                width: '100%', 
-                padding: '10px 14px', 
-                border: `2px solid ${validFields.has('energyType') ? '#1E7F5C' : '#E5E7EB'}`, 
-                borderRadius: '10px', 
-                fontSize: '14px', 
-                fontWeight: 500, 
-                color: '#111827', 
-                background: isLocked ? '#F3F4F6' : (validFields.has('energyType') ? '#E6F4EE' : 'white'), 
-                boxShadow: validFields.has('energyType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
-                cursor: isLocked ? 'not-allowed' : 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              <option value="stroom-gas">⚡🔥 Stroom + Gas</option>
-              <option value="stroom">⚡ Alleen stroom</option>
-              <option value="gas">🔥 Alleen gas</option>
-            </select>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {[
+                {value: 'stroom-gas', label: '⚡🔥 Stroom + Gas', desc: 'Elektriciteit en gas'},
+                {value: 'stroom', label: '⚡ Alleen stroom', desc: 'Alleen elektriciteit'},
+                {value: 'gas', label: '🔥 Alleen gas', desc: 'Alleen gas'}
+              ].map(e => (
+                <div key={e.value} onClick={() => { if (!isLocked) { setEnergyType(e.value); validateAndMark('energyType', e.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: energyType === e.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: energyType === e.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <input type="radio" name="energyType" value={e.value} checked={energyType === e.value} onChange={() => { if (!isLocked) { setEnergyType(e.value); validateAndMark('energyType', e.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{e.label}</div>
+                    <div style={{ fontSize: '11px', color: '#6B7280' }}>{e.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
