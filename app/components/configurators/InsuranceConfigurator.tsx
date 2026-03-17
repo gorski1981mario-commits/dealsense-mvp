@@ -215,7 +215,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               {value: 'allrisk', label: '🛡️ All-risk / Volledig Casco', desc: 'Volledige dekking'}
             ].map(c => (
               <div key={c.value} onClick={() => !isLocked && setCoverage(c.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: coverage === c.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="radio" name="coverage" value={c.value} checked={coverage === c.value} onChange={() => setCoverage(c.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                <input type="radio" name="coverage" value={c.value} checked={coverage === c.value} onChange={() => !isLocked && setCoverage(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{c.desc}</div>
@@ -279,7 +279,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               {value: legalAid, setter: setLegalAid, label: '⚖️ Rechtsbijstand', desc: 'Juridische hulp bij schade'}
             ].map((item, i) => (
               <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>

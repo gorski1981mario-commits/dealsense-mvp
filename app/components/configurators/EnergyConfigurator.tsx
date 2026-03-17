@@ -229,7 +229,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
               {value: 'variabel', label: '📊 Variabel', desc: 'Prijs volgt de markt'}
             ].map(c => (
               <div key={c.value} onClick={() => !isLocked && setContractType(c.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: contractType === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: contractType === c.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="radio" name="contractType" value={c.value} checked={contractType === c.value} onChange={() => setContractType(c.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                <input type="radio" name="contractType" value={c.value} checked={contractType === c.value} onChange={() => !isLocked && setContractType(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{c.desc}</div>
@@ -264,7 +264,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
               {value: smartMeter, setter: setSmartMeter, label: '📊 Slimme meter', desc: 'Ik heb een slimme meter'}
             ].map((item, i) => (
               <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>

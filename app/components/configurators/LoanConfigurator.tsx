@@ -75,17 +75,17 @@ export default function LoanConfigurator({ packageType = 'finance', userId }: Lo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bedrag (€)</label>
-            <input type="number" min="1000" max="75000" step="500" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} placeholder="10000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="1000" max="75000" step="500" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} disabled={isLocked} placeholder="10000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (maanden)</label>
-            <input type="number" min="12" max="120" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} placeholder="60" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="12" max="120" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} disabled={isLocked} placeholder="60" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Doel van de lening</label>
-            <select value={purpose} onChange={(e) => setPurpose(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={purpose} onChange={(e) => setPurpose(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="verbouwing">🏗️ Verbouwing/renovatie</option>
               <option value="auto">🚗 Auto aankoop</option>
               <option value="studie">🎓 Studie/opleiding</option>

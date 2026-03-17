@@ -85,18 +85,18 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Waarde woning (€)</label>
-            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => setHouseValue(parseInt(e.target.value))} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => setHouseValue(parseInt(e.target.value))} disabled={isLocked} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hypotheekbedrag (€)</label>
-            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => setMortgageAmount(parseInt(e.target.value))} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => setMortgageAmount(parseInt(e.target.value))} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Loan-to-Value: {Math.round((mortgageAmount / houseValue) * 100)}%</div>
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (jaren)</label>
-            <select value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="10">10 jaar</option>
               <option value="15">15 jaar</option>
               <option value="20">20 jaar</option>

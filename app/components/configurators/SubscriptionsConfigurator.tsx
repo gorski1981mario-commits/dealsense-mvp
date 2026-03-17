@@ -62,6 +62,7 @@ export default function SubscriptionsConfigurator({ packageType = 'pro', userId 
   }
 
   const toggleService = (service: string) => {
+    if (isLocked) return
     setServices(prev => prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service])
   }
 
@@ -160,7 +161,7 @@ export default function SubscriptionsConfigurator({ packageType = 'pro', userId 
                   <input 
                     type="checkbox" 
                     checked={services.includes(service.id)} 
-                    onChange={() => toggleService(service.id)} 
+                    onChange={() => !isLocked && toggleService(service.id)} 
                     disabled={isLocked}
                     style={{ width: '16px', height: '16px', cursor: 'pointer' }} 
                   />
@@ -247,7 +248,7 @@ export default function SubscriptionsConfigurator({ packageType = 'pro', userId 
               {value: annualPayment, setter: setAnnualPayment, label: '💰 Jaarlijks betalen', desc: 'Vaak goedkoper dan maandelijks'}
             ].map((item, i) => (
               <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>

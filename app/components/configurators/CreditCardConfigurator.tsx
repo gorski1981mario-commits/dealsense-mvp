@@ -75,7 +75,7 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Netwerk</label>
-            <select value={cardType} onChange={(e) => setCardType(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={cardType} onChange={(e) => setCardType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="visa">🟦 Visa</option>
               <option value="mastercard">🔴 Mastercard</option>
               <option value="amex">🔵 American Express</option>
@@ -86,12 +86,12 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste limiet (€)</label>
-            <input type="number" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} placeholder="2000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} disabled={isLocked} placeholder="2000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gebruik</label>
-            <select value={usage} onChange={(e) => setUsage(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={usage} onChange={(e) => setUsage(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="dagelijks">🛍️ Dagelijkse aankopen</option>
               <option value="reizen">✈️ Reizen & vakanties</option>
               <option value="zakelijk">💼 Zakelijk gebruik</option>
@@ -107,7 +107,7 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Rewards programma</label>
-            <select value={rewards} onChange={(e) => setRewards(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={rewards} onChange={(e) => setRewards(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="cashback">💵 Cashback (geld terug)</option>
               <option value="miles">✈️ Vliegtuig miles</option>
               <option value="punten">⭐ Spaarpunten</option>
@@ -118,7 +118,7 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten (€)</label>
-            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>{annualFee === 0 ? 'Alleen gratis kaarten' : `Tot €${annualFee}/jaar`}</div>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
         </div>
 
@@ -138,8 +138,8 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Extra opties</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[{value: travelInsurance, setter: setTravelInsurance, label: '✈️ Reisverzekering', desc: 'Gratis verzekering bij reizen'}, {value: purchaseProtection, setter: setPurchaseProtection, label: '🛡️ Aankoopbescherming', desc: 'Bescherming tegen schade/diefstal'}, {value: contactless, setter: setContactless, label: '📶 Contactloos betalen', desc: 'NFC/tap-to-pay functie'}, {value: secondCard, setter: setSecondCard, label: '👥 Tweede kaart', desc: 'Extra kaart voor partner/kind'}].map((item, i) => (
-              <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#1E7F5C' : '#E5E7EB' }}>
-                <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
+              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>

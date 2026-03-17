@@ -74,17 +74,20 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   const updateChildren = (newCount: number) => {
+    if (isLocked) return
     setChildren(newCount)
     setChildrenAges(Array(newCount).fill(0))
   }
 
   const toggleStar = (star: string) => {
+    if (isLocked) return
     setStars(prev => 
       prev.includes(star) ? prev.filter(s => s !== star) : [...prev, star]
     )
   }
 
   const toggleExtra = (extra: string) => {
+    if (isLocked) return
     setExtras(prev => 
       prev.includes(extra) ? prev.filter(e => e !== extra) : [...prev, extra]
     )
@@ -116,25 +119,25 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Volwassenen (18+)</label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#F3F4F6', borderRadius: '10px', padding: '8px 12px', width: 'fit-content' }}>
-                <button type="button" onClick={() => adults > 1 && setAdults(adults - 1)} disabled={adults <= 1} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>−</button>
+                <button type="button" onClick={() => !isLocked && adults > 1 && setAdults(adults - 1)} disabled={adults <= 1 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults <= 1 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{adults}</div>
-                <button type="button" onClick={() => adults < 9 && setAdults(adults + 1)} disabled={adults >= 9} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>+</button>
+                <button type="button" onClick={() => !isLocked && adults < 9 && setAdults(adults + 1)} disabled={adults >= 9 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults >= 9 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
               </div>
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kinderen (0-17)</label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#F3F4F6', borderRadius: '10px', padding: '8px 12px', width: 'fit-content' }}>
-                <button type="button" onClick={() => children > 0 && updateChildren(children - 1)} disabled={children <= 0} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>−</button>
+                <button type="button" onClick={() => !isLocked && children > 0 && updateChildren(children - 1)} disabled={children <= 0 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children <= 0 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{children}</div>
-                <button type="button" onClick={() => children < 4 && updateChildren(children + 1)} disabled={children >= 4} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>+</button>
+                <button type="button" onClick={() => !isLocked && children < 4 && updateChildren(children + 1)} disabled={children >= 4 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children >= 4 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
               </div>
               {children > 0 && (
                 <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {childrenAges.map((age, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <label style={{ margin: 0, minWidth: '70px', fontSize: '13px' }}>Kind {i + 1}:</label>
-                      <select value={age} onChange={(e) => { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); }} style={{ flex: 1, padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: 'white' }}>
+                      <select value={age} onChange={(e) => { if (!isLocked) { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); }}} disabled={isLocked} style={{ flex: 1, padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
                         <option value="0">Leeftijd...</option>
                         {Array.from({length: 18}, (_, i) => <option key={i} value={i}>{i} jaar</option>)}
                       </select>
@@ -151,7 +154,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
-              <select value={destination} onChange={(e) => setDestination(e.target.value)} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <select value={destination} onChange={(e) => setDestination(e.target.value)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
                 <option value="">Kies bestemming...</option>
                 <optgroup label="🔥 Meest populair voor Nederlanders">
                   <option value="turkije">🔥 🇹🇷 Turkije</option>
@@ -192,12 +195,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
-              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
-              <select value={duration} onChange={(e) => setDuration(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <select value={duration} onChange={(e) => setDuration(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
                 <option value="7">7 dagen</option>
                 <option value="10">10 dagen</option>
                 <option value="14">14 dagen</option>
@@ -211,8 +214,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Vervoer</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {[{value: 'flight', label: '✈️ Vliegtuig'}, {value: 'own', label: '🚗 Eigen vervoer'}, {value: 'bus', label: '🚌 Bus'}].map(t => (
-                <div key={t.value} onClick={() => setTransport(t.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: transport === t.value ? '#E6F4EE' : 'white', borderColor: transport === t.value ? '#1E7F5C' : '#E5E7EB' }}>
-                  <input type="radio" name="transport" value={t.value} checked={transport === t.value} onChange={() => setTransport(t.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                <div key={t.value} onClick={() => !isLocked && setTransport(t.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: transport === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: transport === t.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                  <input type="radio" name="transport" value={t.value} checked={transport === t.value} onChange={() => !isLocked && setTransport(t.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{t.label}</label>
                 </div>
               ))}
@@ -225,7 +228,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-              <select value={accommodationType} onChange={(e) => setAccommodationType(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+              <select value={accommodationType} onChange={(e) => setAccommodationType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
                 <option value="hotel">🏨 Hotel</option>
                 <option value="apartment">🏠 Appartement</option>
                 <option value="resort">🏖️ Resort</option>
@@ -237,8 +240,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hotel categorie (sterren)</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
                 {[{value: '3', label: '⭐⭐⭐ 3 sterren'}, {value: '4', label: '⭐⭐⭐⭐ 4 sterren'}, {value: '5', label: '⭐⭐⭐⭐⭐ 5 sterren'}].map(s => (
-                  <div key={s.value} onClick={() => toggleStar(s.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: stars.includes(s.value) ? '#E6F4EE' : 'white', borderColor: stars.includes(s.value) ? '#1E7F5C' : '#E5E7EB' }}>
-                    <input type="checkbox" checked={stars.includes(s.value)} onChange={() => toggleStar(s.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <div key={s.value} onClick={() => !isLocked && toggleStar(s.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: stars.includes(s.value) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: stars.includes(s.value) ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                    <input type="checkbox" checked={stars.includes(s.value)} onChange={() => !isLocked && toggleStar(s.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{s.label}</label>
                   </div>
                 ))}
@@ -251,8 +254,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>5. Verblijf type</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {[{value: 'bb', label: '🍳 Logies & Ontbijt'}, {value: 'hb', label: '🍽️ Halfpension'}, {value: 'fb', label: '🍽️🍽️ Volpension'}, {value: 'ai', label: '🍹 All Inclusive'}, {value: 'uai', label: '🍹+ Ultra All Inclusive'}].map(b => (
-                <div key={b.value} onClick={() => setBoard(b.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: board === b.value ? '#E6F4EE' : 'white', borderColor: board === b.value ? '#1E7F5C' : '#E5E7EB' }}>
-                  <input type="radio" name="board" value={b.value} checked={board === b.value} onChange={() => setBoard(b.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                <div key={b.value} onClick={() => !isLocked && setBoard(b.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: board === b.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: board === b.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                  <input type="radio" name="board" value={b.value} checked={board === b.value} onChange={() => !isLocked && setBoard(b.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{b.label}</label>
                 </div>
               ))}
@@ -264,8 +267,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>6. Extra voorkeuren</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
               {[{value: 'pool', label: '🏊 Zwembad'}, {value: 'wifi', label: '📶 Wifi'}, {value: 'parking', label: '🅿️ Parkeren'}, {value: 'kids', label: '👶 Kinderclub'}, {value: 'spa', label: '💆 Spa/Wellness'}, {value: 'beach', label: '🏖️ Strand'}, {value: 'adults', label: '🔞 Adults Only'}].map(e => (
-                <div key={e.value} onClick={() => toggleExtra(e.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: extras.includes(e.value) ? '#E6F4EE' : 'white', borderColor: extras.includes(e.value) ? '#1E7F5C' : '#E5E7EB' }}>
-                  <input type="checkbox" checked={extras.includes(e.value)} onChange={() => toggleExtra(e.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                <div key={e.value} onClick={() => !isLocked && toggleExtra(e.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: extras.includes(e.value) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: extras.includes(e.value) ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                  <input type="checkbox" checked={extras.includes(e.value)} onChange={() => !isLocked && toggleExtra(e.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{e.label}</label>
                 </div>
               ))}
