@@ -321,7 +321,25 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Wat wil je vergelijken?</label>
-            <select value={energyType} onChange={(e) => { const val = e.target.value; setEnergyType(val); validateAndMark('energyType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select 
+              value={energyType} 
+              onChange={(e) => { const val = e.target.value; setEnergyType(val); validateAndMark('energyType', val); }} 
+              onInput={(e) => { const val = e.currentTarget.value; setEnergyType(val); validateAndMark('energyType', val); }}
+              disabled={isLocked} 
+              style={{ 
+                width: '100%', 
+                padding: '10px 14px', 
+                border: `2px solid ${validFields.has('energyType') ? '#1E7F5C' : '#E5E7EB'}`, 
+                borderRadius: '10px', 
+                fontSize: '14px', 
+                fontWeight: 500, 
+                color: '#111827', 
+                background: isLocked ? '#F3F4F6' : (validFields.has('energyType') ? '#E6F4EE' : 'white'), 
+                boxShadow: validFields.has('energyType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                cursor: isLocked ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
               <option value="stroom-gas">⚡🔥 Stroom + Gas</option>
               <option value="stroom">⚡ Alleen stroom</option>
               <option value="gas">🔥 Alleen gas</option>
