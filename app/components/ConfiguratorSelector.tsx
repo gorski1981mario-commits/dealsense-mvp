@@ -5,6 +5,7 @@ import VacationConfigurator from './configurators/VacationConfigurator'
 import InsuranceConfigurator from './configurators/InsuranceConfigurator'
 import EnergyConfigurator from './configurators/EnergyConfigurator'
 import TelecomConfigurator from './configurators/TelecomConfigurator'
+import SubscriptionsConfigurator from './configurators/SubscriptionsConfigurator'
 import MortgageConfigurator from './configurators/MortgageConfigurator'
 import LeasingConfigurator from './configurators/LeasingConfigurator'
 import LoanConfigurator from './configurators/LoanConfigurator'
@@ -15,7 +16,7 @@ interface ConfiguratorSelectorProps {
   userId: string
 }
 
-type ConfiguratorType = 'vacation' | 'insurance' | 'energy' | 'telecom' | 'mortgage' | 'leasing' | 'loan' | 'creditcard' | null
+type ConfiguratorType = 'vacation' | 'insurance' | 'energy' | 'telecom' | 'subscriptions' | 'mortgage' | 'leasing' | 'loan' | 'creditcard' | null
 
 export default function ConfiguratorSelector({ packageType, userId }: ConfiguratorSelectorProps) {
   const [selectedConfigurator, setSelectedConfigurator] = useState<ConfiguratorType>(null)
@@ -25,7 +26,8 @@ export default function ConfiguratorSelector({ packageType, userId }: Configurat
     { id: 'vacation', name: '🏖️ Vakanties', component: VacationConfigurator, category: 'Services' },
     { id: 'insurance', name: '🛡️ Verzekeringen', component: InsuranceConfigurator, category: 'Services' },
     { id: 'energy', name: '⚡ Energie', component: EnergyConfigurator, category: 'Services' },
-    { id: 'telecom', name: '📱 Telecom', component: TelecomConfigurator, category: 'Services' }
+    { id: 'telecom', name: '📱 Telecom', component: TelecomConfigurator, category: 'Services' },
+    { id: 'subscriptions', name: '📺 Abonnementen', component: SubscriptionsConfigurator, category: 'Services' }
   ]
 
   // Finance configurators (FINANCE only)
