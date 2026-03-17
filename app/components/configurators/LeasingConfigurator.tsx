@@ -14,7 +14,10 @@ interface LeasingConfiguratorProps {
   userId?: string
 }
 
+type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
+
 export default function LeasingConfigurator({ packageType = 'pro', userId }: LeasingConfiguratorProps = {}) {
+  const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [vehicleType, setVehicleType] = useState('')
   const [brand, setBrand] = useState('')
@@ -43,9 +46,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSearching(true)
     if (!isLocked) { await handleLockConfiguration() }
-    setTimeout(() => setSearching(false), 3000)
+    setView('results')
   }
 
   const handleLockConfiguration = async () => {
@@ -63,6 +65,78 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
     generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'leasing', parameters: { vehicleType, brand, model, amount, duration, kilometers, leasingType, maintenance, insurance, tires, fuelCard }, timestamp: configTimestamp })
+  }
+
+  if (view === 'results') {
+    return (
+      <div>
+        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
+        {[{name: '🚗 Athlon All-in', price: '€425/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🚗 LeasePlan Flex', price: '€465/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🚗 Alphabet Premium', price: '€495/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((lease, i) => (
+          <div key={i} style={{ background: lease.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${lease.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{lease.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{lease.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{lease.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{lease.rating}</span>
+              <span>{lease.trust}</span>
+              <span>{lease.score}</span>
+            </div>
+            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
+          </div>
+        ))}
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€458,40</div>
+          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €5.100 jaarlijks)</div>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'payment') {
+    return (
+      <div>
+        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€458,40</div>
+          <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
+      </div>
+    )
+  }
+
+  if (view === 'unlocked') {
+    return (
+      <div>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
+        {[{name: '🚗 Athlon All-in', price: '€425/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.6/5 (9.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €840/jaar', url: 'https://www.athlon.com', best: true}, {name: '🚗 LeasePlan Flex', price: '€465/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.4/5 (7.891 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.leaseplan.com'}, {name: '🚗 Alphabet Premium', price: '€495/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.5/5 (8.456 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.alphabet.com'}].map((lease, i) => (
+          <div key={i} style={{ background: lease.best ? '#E6F4EE' : 'white', border: `2px solid ${lease.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{lease.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{lease.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{lease.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{lease.rating}</span>
+              <span>{lease.trust}</span>
+            </div>
+            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
+            <button onClick={() => window.open(lease.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#1E7F5C', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (

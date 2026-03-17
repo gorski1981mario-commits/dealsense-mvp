@@ -14,7 +14,10 @@ interface MortgageConfiguratorProps {
   userId?: string
 }
 
+type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
+
 export default function MortgageConfigurator({ packageType = 'pro', userId }: MortgageConfiguratorProps = {}) {
+  const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [mortgageAmount, setMortgageAmount] = useState<number | ''>('')
   const [houseValue, setHouseValue] = useState<number | ''>('')
@@ -46,11 +49,10 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSearching(true)
     if (!isLocked) {
       await handleLockConfiguration()
     }
-    setTimeout(() => setSearching(false), 3000)
+    setView('results')
   }
 
   const handleLockConfiguration = async () => {
@@ -73,6 +75,78 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
     generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'mortgage', parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, nhg, fixedRate }, timestamp: configTimestamp })
+  }
+
+  if (view === 'results') {
+    return (
+      <div>
+        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
+        {[{name: '🏠 ING Hypotheek', price: '3.2% rente', plan: '€350.000 | 30 jaar | €1.512/mnd', rating: '⭐ 4.7/5', trust: '🛡️ 9/10', score: 'Score: 9.3', badge: 'BESTE DEAL', best: true}, {name: '🏠 Rabobank Woonhypotheek', price: '3.5% rente', plan: '€350.000 | 30 jaar | €1.571/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}, {name: '🏠 ABN AMRO Hypotheek', price: '3.8% rente', plan: '€350.000 | 30 jaar | €1.629/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}].map((mtg, i) => (
+          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${mtg.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{mtg.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{mtg.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{mtg.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{mtg.rating}</span>
+              <span>{mtg.trust}</span>
+              <span>{mtg.score}</span>
+            </div>
+            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
+          </div>
+        ))}
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€1.632,96</div>
+          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €18.144 jaarlijks)</div>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'payment') {
+    return (
+      <div>
+        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€1.632,96</div>
+          <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
+      </div>
+    )
+  }
+
+  if (view === 'unlocked') {
+    return (
+      <div>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
+        {[{name: '🏠 ING Hypotheek', price: '3.2% rente', plan: '€350.000 | 30 jaar | €1.512/mnd', rating: '⭐ 4.7/5 (22.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €4.212/jaar', url: 'https://www.ing.nl', best: true}, {name: '🏠 Rabobank Woonhypotheek', price: '3.5% rente', plan: '€350.000 | 30 jaar | €1.571/mnd', rating: '⭐ 4.5/5 (18.891 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.rabobank.nl'}, {name: '🏠 ABN AMRO Hypotheek', price: '3.8% rente', plan: '€350.000 | 30 jaar | €1.629/mnd', rating: '⭐ 4.6/5 (20.456 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.abnamro.nl'}].map((mtg, i) => (
+          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : 'white', border: `2px solid ${mtg.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{mtg.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{mtg.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{mtg.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{mtg.rating}</span>
+              <span>{mtg.trust}</span>
+            </div>
+            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
+            <button onClick={() => window.open(mtg.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#1E7F5C', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Aanvragen</button>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (

@@ -14,7 +14,10 @@ interface SubscriptionsConfiguratorProps {
   userId?: string
 }
 
+type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
+
 export default function SubscriptionsConfigurator({ packageType, userId }: SubscriptionsConfiguratorProps) {
+  const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [subscriptionType, setSubscriptionType] = useState('')
   const [services, setServices] = useState<string[]>([])
@@ -42,13 +45,10 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSearching(true)
-    
     if (!isLocked) {
       await handleLockConfiguration()
     }
-    
-    setTimeout(() => setSearching(false), 3000)
+    setView('results')
   }
 
   const handleLockConfiguration = async () => {
@@ -76,6 +76,78 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   const toggleService = (service: string) => {
     if (isLocked) return
     setServices(prev => prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service])
+  }
+
+  if (view === 'results') {
+    return (
+      <div>
+        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
+        {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5', trust: '🛡️ 9/10', score: 'Score: 9.4', badge: 'BESTE DEAL', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.0'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5', trust: '🛡️ 8/10', score: 'Score: 8.9'}].map((sub, i) => (
+          <div key={i} style={{ background: sub.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${sub.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{sub.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{sub.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{sub.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{sub.rating}</span>
+              <span>{sub.trust}</span>
+              <span>{sub.score}</span>
+            </div>
+            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
+          </div>
+        ))}
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€21,59</div>
+          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €239,88 jaarlijks)</div>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'payment') {
+    return (
+      <div>
+        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€21,59</div>
+          <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
+      </div>
+    )
+  }
+
+  if (view === 'unlocked') {
+    return (
+      <div>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
+        {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5 (45.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €120/jaar', url: 'https://www.netflix.com', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5 (32.891 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.disneyplus.com'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5 (38.456 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.youtube.com'}].map((sub, i) => (
+          <div key={i} style={{ background: sub.best ? '#E6F4EE' : 'white', border: `2px solid ${sub.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{sub.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{sub.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{sub.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{sub.rating}</span>
+              <span>{sub.trust}</span>
+            </div>
+            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
+            <button onClick={() => window.open(sub.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#1E7F5C', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Abonneren</button>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   const streamingServices = [

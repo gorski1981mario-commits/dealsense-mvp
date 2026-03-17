@@ -14,7 +14,10 @@ interface LoanConfiguratorProps {
   userId?: string
 }
 
+type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
+
 export default function LoanConfigurator({ packageType = 'pro', userId }: LoanConfiguratorProps = {}) {
+  const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [amount, setAmount] = useState<number | ''>('')
   const [duration, setDuration] = useState<number | ''>('')
@@ -40,11 +43,10 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSearching(true)
     if (!isLocked) {
       await handleLockConfiguration()
     }
-    setTimeout(() => setSearching(false), 3000)
+    setView('results')
   }
 
   const handleLockConfiguration = async () => {
@@ -62,6 +64,78 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
     generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'loan', parameters: { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }, timestamp: configTimestamp })
+  }
+
+  if (view === 'results') {
+    return (
+      <div>
+        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
+        {[{name: '💰 ING Persoonlijke Lening', price: '4.2% rente', plan: '€15.000 | 60 mnd | €276/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.2', badge: 'BESTE DEAL', best: true}, {name: '💰 ABN AMRO Doorlopend Krediet', price: '5.1% rente', plan: '€15.000 | 60 mnd | €283/mnd', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '💰 Rabobank Lening', price: '5.8% rente', plan: '€15.000 | 60 mnd | €289/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((loan, i) => (
+          <div key={i} style={{ background: loan.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${loan.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{loan.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{loan.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{loan.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{loan.rating}</span>
+              <span>{loan.trust}</span>
+              <span>{loan.score}</span>
+            </div>
+            {loan.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{loan.badge}</span>}
+          </div>
+        ))}
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€149,04</div>
+          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €1.656 jaarlijks)</div>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'payment') {
+    return (
+      <div>
+        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
+        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+          <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€149,04</div>
+          <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
+      </div>
+    )
+  }
+
+  if (view === 'unlocked') {
+    return (
+      <div>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
+        {[{name: '💰 ING Persoonlijke Lening', price: '4.2% rente', plan: '€15.000 | 60 mnd | €276/mnd', rating: '⭐ 4.6/5 (14.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €780', url: 'https://www.ing.nl', best: true}, {name: '💰 ABN AMRO Doorlopend Krediet', price: '5.1% rente', plan: '€15.000 | 60 mnd | €283/mnd', rating: '⭐ 4.4/5 (11.891 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.abnamro.nl'}, {name: '💰 Rabobank Lening', price: '5.8% rente', plan: '€15.000 | 60 mnd | €289/mnd', rating: '⭐ 4.5/5 (13.456 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.rabobank.nl'}].map((loan, i) => (
+          <div key={i} style={{ background: loan.best ? '#E6F4EE' : 'white', border: `2px solid ${loan.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{loan.name}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{loan.price}</div>
+            </div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{loan.plan}</div>
+            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
+              <span>{loan.rating}</span>
+              <span>{loan.trust}</span>
+            </div>
+            {loan.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{loan.badge}</span>}
+            <button onClick={() => window.open(loan.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#1E7F5C', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Aanvragen</button>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
