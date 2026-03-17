@@ -26,7 +26,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [duration, setDuration] = useState('')
   const [transport, setTransport] = useState('')
   const [accommodationType, setAccommodationType] = useState('')
-  const [stars, setStars] = useState<string[]>([])
+  const [stars, setStars] = useState('')
   const [board, setBoard] = useState('')
   const [extras, setExtras] = useState<string[]>([])
   
@@ -47,8 +47,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const getTotalFields = () => {
     let total = 6 // adults, destination, departureDate, duration, transport, board
     if (children > 0) {
-      total += 1 // children field itself
-      // childrenAges are validated separately but count as one field
+      total += 1 // childrenAges (only if children > 0)
     }
     return total
   }
@@ -127,22 +126,25 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const updateChildren = (newCount: number) => {
     if (isLocked) return
     setChildren(newCount)
-    validateAndMark('children', newCount, (v) => v >= 0 && v <= 4)
     
     // Reset childrenAges and remove from valid if count changes
     setChildrenAges(Array(newCount).fill(0))
     if (newCount === 0) {
       validFields.delete('childrenAges')
+      // If Adults Only was selected, deselect it when adding children
+      if (board === 'adults_only') {
+        setBoard('')
+        validFields.delete('board')
+      }
     } else {
       validFields.delete('childrenAges') // Will be validated when ages are filled
     }
   }
 
-  const toggleStar = (star: string) => {
+  const selectStar = (star: string) => {
     if (isLocked) return
-    setStars(prev => 
-      prev.includes(star) ? prev.filter(s => s !== star) : [...prev, star]
-    )
+    setStars(star)
+    validateAndMark('stars', star)
   }
 
   const toggleExtra = (extra: string) => {
@@ -209,7 +211,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kinderen (0-17)</label>
-              <div onFocus={() => setActiveField('children')} onBlur={() => setActiveField(null)} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: validFields.has('children') ? '#E6F4EE' : (touchedFields.has('children') ? '#FEF3C7' : '#F3F4F6'), borderRadius: '10px', padding: '8px 12px', width: 'fit-content', border: validFields.has('children') ? '2px solid #1E7F5C' : (touchedFields.has('children') ? '2px solid #F59E0B' : '2px solid transparent'), transition: 'all 0.2s' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: children > 0 ? '#E6F4EE' : '#F3F4F6', borderRadius: '10px', padding: '8px 12px', width: 'fit-content', border: children > 0 ? '2px solid #1E7F5C' : '2px solid transparent', transition: 'all 0.2s' }}>
                 <button type="button" onClick={() => !isLocked && children > 0 && updateChildren(children - 1)} disabled={children <= 0 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children <= 0 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{children}</div>
                 <button type="button" onClick={() => !isLocked && children < 4 && updateChildren(children + 1)} disabled={children >= 4 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (children >= 4 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
@@ -296,7 +298,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Vervoer</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {[{value: 'flight', label: '✈️ Vliegtuig'}, {value: 'own', label: '🚗 Eigen vervoer'}, {value: 'bus', label: '🚌 Bus'}].map(t => (
-                <div key={t.value} onClick={() => { if (!isLocked) { setTransport(t.value); validateAndMark('transport', t.value); } }} onFocus={() => setActiveField('transport')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: validFields.has('transport') ? '2px solid #1E7F5C' : (touchedFields.has('transport') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: validFields.has('transport') ? '#E6F4EE' : (touchedFields.has('transport') ? '#FEF3C7' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                <div key={t.value} onClick={() => { if (!isLocked) { setTransport(t.value); validateAndMark('transport', t.value); } }} onFocus={() => setActiveField('transport')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: transport === t.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: transport === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                   <input type="radio" name="transport" value={t.value} checked={transport === t.value} onChange={() => !isLocked && setTransport(t.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{t.label}</label>
                 </div>
@@ -320,31 +322,28 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hotel categorie (sterren)</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {[{value: '3', label: '⭐⭐⭐ 3 sterren'}, {value: '4', label: '⭐⭐⭐⭐ 4 sterren'}, {value: '5', label: '⭐⭐⭐⭐⭐ 5 sterren'}].map(s => (
-                  <div key={s.value} onClick={() => !isLocked && toggleStar(s.value)} onFocus={() => setActiveField('stars')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: activeField === 'stars' ? '2px solid #1E7F5C' : (stars.includes(s.value) ? '2px solid #1E7F5C' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: activeField === 'stars' ? '#E6F4EE' : (stars.includes(s.value) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
-                    <input type="checkbox" checked={stars.includes(s.value)} onChange={() => !isLocked && toggleStar(s.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
-                    <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{s.label}</label>
+                  <div key={s.value} onClick={() => !isLocked && selectStar(s.value)} onFocus={() => setActiveField('stars')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: stars === s.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: stars === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="stars" value={s.value} checked={stars === s.value} onChange={() => !isLocked && selectStar(s.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{s.label}</label>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-
           {/* 5. VERBLIJF TYPE */}
           <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>5. Verblijf type</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {[{value: 'bb', label: '🍳 Logies & Ontbijt'}, {value: 'hb', label: '🍽️ Halfpension'}, {value: 'fb', label: '🍽️🍽️ Volpension'}, {value: 'ai', label: '🍹 All Inclusive'}, {value: 'uai', label: '🍹+ Ultra All Inclusive'}].map(b => (
-                <div key={b.value} onClick={() => { if (!isLocked) { setBoard(b.value); validateAndMark('board', b.value); } }} onFocus={() => setActiveField('board')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: validFields.has('board') ? '2px solid #1E7F5C' : (touchedFields.has('board') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: validFields.has('board') ? '#E6F4EE' : (touchedFields.has('board') ? '#FEF3C7' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+              {[{value: 'bb', label: '🍳 Logies & Ontbijt'}, {value: 'hb', label: '🍽️ Halfpension'}, {value: 'fb', label: '🍽️🍽️ Volpension'}, {value: 'ai', label: '🍹 All Inclusive'}, {value: 'uai', label: '🍹+ Ultra All Inclusive'}, ...(children === 0 ? [{value: 'adults_only', label: '🔞 Adults Only'}] : [])].map(b => (
+                <div key={b.value} onClick={() => { if (!isLocked) { setBoard(b.value); validateAndMark('board', b.value); } }} onFocus={() => setActiveField('board')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: board === b.value ? '2px solid #1E7F5C' : (touchedFields.has('board') && !validFields.has('board') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: board === b.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : (touchedFields.has('board') && !validFields.has('board') ? '#FEF3C7' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                   <input type="radio" name="board" value={b.value} checked={board === b.value} onChange={() => !isLocked && setBoard(b.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{b.label}</label>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* 6. EXTRA FILTERS */}
           <div style={{ marginBottom: '24px' }}>
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>6. Extra voorkeuren</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
