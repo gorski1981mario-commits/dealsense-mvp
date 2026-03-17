@@ -227,15 +227,18 @@
         const postcode = document.getElementById('postcode');
         const houseNumber = document.getElementById('houseNumber');
         
-        energyType.addEventListener('change', function() {
-            if (this.value) {
-                validFields.add('energyType');
-                this.classList.add('filled');
-            } else {
-                validFields.delete('energyType');
-                this.classList.remove('filled');
-            }
-            updateProgress();
+        // Multiple events to ensure immediate highlighting
+        ['change', 'input'].forEach(eventType => {
+            energyType.addEventListener(eventType, function() {
+                if (this.value) {
+                    validFields.add('energyType');
+                    this.classList.add('filled');
+                } else {
+                    validFields.delete('energyType');
+                    this.classList.remove('filled');
+                }
+                updateProgress();
+            });
         });
         
         // Electricity usage validation
