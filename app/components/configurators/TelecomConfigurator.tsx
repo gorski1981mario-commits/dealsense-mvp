@@ -32,6 +32,23 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [activeField, setActiveField] = useState<string | null>(null)
+  
+  // Progress tracking
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
+  const [validFields, setValidFields] = useState<Set<string>>(new Set())
+  const totalFields = 1 // postcode (minimum required)
+  
+  const validateAndMark = (fieldName: string, value: any, validator?: (val: any) => boolean) => {
+    setTouchedFields(prev => new Set(prev).add(fieldName))
+    const isValid = validator ? validator(value) : validators.required(value)
+    setValidFields(prev => {
+      const newSet = new Set(prev)
+      isValid ? newSet.add(fieldName) : newSet.delete(fieldName)
+      return newSet
+    })
+  }
+  
+  const progress = Math.round((validFields.size / totalFields) * 100)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -87,7 +104,21 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       <AgentEchoLogo />
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>📱 Telecom Configurator</h2>
 
-      {isLocked && configId && (
+      <ProgressTracker 
+        percentage={progress}
+        validCount={validFields.size}
+        totalFields={totalFields}
+        showWarning={validFields.size < totalFields}
+      />
+
+      <LockPanel
+        isLocked={isLocked}
+        configId={configId}
+        onUnlock={handleUnlockConfiguration}
+        onDownloadPDF={handleDownloadPDF}
+      />
+
+      {false && isLocked && configId && (
         <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Lock size={16} color="#1E7F5C" />

@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
+import ProgressTracker from '../shared/ProgressTracker'
+import LockPanel from '../shared/LockPanel'
+import { validators } from '../../utils/validators'
 
 interface CreditCardConfiguratorProps {
   packageType?: 'plus' | 'pro' | 'finance'
@@ -28,6 +31,12 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [activeField, setActiveField] = useState<string | null>(null)
+  
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
+  const [validFields, setValidFields] = useState<Set<string>>(new Set())
+  const totalFields = 1
+  const validateAndMark = (f: string, v: any, val?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = val ? val(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
+  const progress = Math.round((validFields.size / totalFields) * 100)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -58,7 +67,10 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
       <AgentEchoLogo />
       <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>💳 Creditcard Configurator</h2>
 
-      {isLocked && configId && (
+      <ProgressTracker percentage={progress} validCount={validFields.size} totalFields={totalFields} showWarning={validFields.size < totalFields} />
+      <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />
+
+      {false && isLocked && configId && (
         <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#1E7F5C" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#1E7F5C' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
           <div style={{ display: 'flex', gap: '8px' }}>
