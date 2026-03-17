@@ -27,6 +27,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
   const [partnerIncome, setPartnerIncome] = useState<number | ''>(0)
   const [postcode, setPostcode] = useState('')
   const [firstTimeBuyer, setFirstTimeBuyer] = useState(false)
+  const [refinancing, setRefinancing] = useState(false)
+  const [currentMortgageDebt, setCurrentMortgageDebt] = useState<number | ''>('')
   const [nhg, setNhg] = useState(false)
   const [fixedRate, setFixedRate] = useState('')
   const [searching, setSearching] = useState(false)
@@ -61,7 +63,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
       const configData = {
         userId: userId || 'anonymous',
         sector: 'mortgage',
-        parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, nhg, fixedRate },
+        parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, refinancing, currentMortgageDebt, nhg, fixedRate },
         timestamp: new Date().toISOString()
       }
       const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
@@ -74,7 +76,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
 
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
-    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'mortgage', parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, nhg, fixedRate }, timestamp: configTimestamp })
+    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'mortgage', parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, refinancing, currentMortgageDebt, nhg, fixedRate }, timestamp: configTimestamp })
   }
 
   if (view === 'results') {
@@ -241,7 +243,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Partner inkomen (€, optioneel)</label>
-            <input type="number" min="0" max="200000" step="5000" value={partnerIncome} onChange={(e) => setPartnerIncome(parseInt(e.target.value))} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="0" max="200000" step="5000" value={partnerIncome} onChange={(e) => setPartnerIncome(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof partnerIncome === 'number' && partnerIncome > 0 ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof partnerIncome === 'number' && partnerIncome > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof partnerIncome === 'number' && partnerIncome > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             {typeof income === 'number' && typeof partnerIncome === 'number' && (
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Totaal inkomen: €{(income + partnerIncome).toLocaleString()}</div>
             )}
@@ -272,12 +274,13 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode woning</label>
-            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} disabled={isLocked} placeholder="1234 AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[
               {value: firstTimeBuyer, setter: setFirstTimeBuyer, label: '🏡 Starter', desc: 'Dit is mijn eerste woning'},
+              {value: refinancing, setter: setRefinancing, label: '🔄 Oversluiten', desc: 'Ik wil mijn huidige hypotheek oversluiten'},
               {value: nhg, setter: setNhg, label: '🛡️ NHG', desc: 'Nationale Hypotheek Garantie (tot €435.000)'}
             ].map((item, i) => (
               <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#1E7F5C' : '#E5E7EB' }}>
@@ -289,6 +292,14 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
               </div>
             ))}
           </div>
+
+          {refinancing && (
+            <div style={{ marginTop: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Restschuld huidige hypotheek (€)</label>
+              <input type="number" min="0" max="1500000" step="10000" value={currentMortgageDebt} onChange={(e) => setCurrentMortgageDebt(parseInt(e.target.value))} disabled={isLocked} placeholder="200000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Hoeveel moet je nog afbetalen op je huidige hypotheek?</div>
+            </div>
+          )}
         </div>
 
         {(!houseValue || !mortgageAmount || !income || !postcode) && (
