@@ -53,6 +53,13 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     }
   }, [])
   
+  // Auto-validate energyType on mount (has initial value)
+  useEffect(() => {
+    if (energyType) {
+      validateAndMark('energyType', energyType)
+    }
+  }, [])
+  
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
   }
@@ -335,13 +342,13 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Elektriciteit per jaar (kWh)</label>
-            <input type="number" min="0" max="20000" step="100" value={electricityUsage} onChange={(e) => { const val = parseInt(e.target.value); setElectricityUsage(val); validateAndMark('electricityUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="2500" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="0" max="20000" step="100" value={electricityUsage} onChange={(e) => { const val = parseInt(e.target.value); setElectricityUsage(val); validateAndMark('electricityUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="2500" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('electricityUsage') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('electricityUsage') ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 2500-3500 kWh/jaar</div>
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gas per jaar (m³)</label>
-            <input type="number" min="0" max="5000" step="50" value={gasUsage} onChange={(e) => { const val = parseInt(e.target.value); setGasUsage(val); validateAndMark('gasUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="1200" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="0" max="5000" step="50" value={gasUsage} onChange={(e) => { const val = parseInt(e.target.value); setGasUsage(val); validateAndMark('gasUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="1200" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('gasUsage') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('gasUsage') ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 1200-1500 m³/jaar</div>
           </div>
         </div>
