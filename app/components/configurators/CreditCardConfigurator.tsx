@@ -23,7 +23,6 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
   const [limit, setLimit] = useState<number | ''>('')
   const [usage, setUsage] = useState('')
   const [rewards, setRewards] = useState('')
-  const [annualFee, setAnnualFee] = useState<number | ''>('')
   const [income, setIncome] = useState<number | ''>('')
   const [travelInsurance, setTravelInsurance] = useState(false)
   const [purchaseProtection, setPurchaseProtection] = useState(false)
@@ -52,7 +51,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
   const handleLockConfiguration = async () => {
     try {
       setSaving(true)
-      const configData = { userId: userId || 'anonymous', sector: 'creditcard', parameters: { cardType, limit, usage, rewards, annualFee, income, travelInsurance, purchaseProtection, contactless, secondCard }, timestamp: new Date().toISOString() }
+      const configData = { userId: userId || 'anonymous', sector: 'creditcard', parameters: { cardType, limit, usage, rewards, income, travelInsurance, purchaseProtection, contactless, secondCard }, timestamp: new Date().toISOString() }
       const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
       const result = await response.json()
       if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
@@ -63,7 +62,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
 
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
-    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'creditcard', parameters: { cardType, limit, usage, rewards, annualFee, income, travelInsurance, purchaseProtection, contactless, secondCard }, timestamp: configTimestamp })
+    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'creditcard', parameters: { cardType, limit, usage, rewards, income, travelInsurance, purchaseProtection, contactless, secondCard }, timestamp: configTimestamp })
   }
 
   if (view === 'results') {
@@ -213,11 +212,6 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
             </select>
           </div>
 
-          <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten (€)</label>
-            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof annualFee === 'number' ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof annualFee === 'number' ? '#E6F4EE' : 'white'), boxShadow: typeof annualFee === 'number' ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
-            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>{annualFee === 0 ? 'Alleen gratis kaarten' : `Tot €${annualFee}/jaar`}</div>
-          </div>
         </div>
 
         {/* 3. PERSOONLIJKE INFO */}
