@@ -14,16 +14,16 @@ interface LeasingConfiguratorProps {
 }
 
 export default function LeasingConfigurator({ packageType = 'finance', userId }: LeasingConfiguratorProps = {}) {
-  const [vehicleType, setVehicleType] = useState('auto')
+  const [vehicleType, setVehicleType] = useState('')
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
-  const [amount, setAmount] = useState(30000)
-  const [duration, setDuration] = useState(48)
-  const [kilometers, setKilometers] = useState(20000)
-  const [leasingType, setLeasingType] = useState('operational')
-  const [maintenance, setMaintenance] = useState(true)
-  const [insurance, setInsurance] = useState(true)
-  const [tires, setTires] = useState(true)
+  const [amount, setAmount] = useState<number | ''>('')
+  const [duration, setDuration] = useState<number | ''>('')
+  const [kilometers, setKilometers] = useState<number | ''>('')
+  const [leasingType, setLeasingType] = useState('')
+  const [maintenance, setMaintenance] = useState(false)
+  const [insurance, setInsurance] = useState(false)
+  const [tires, setTires] = useState(false)
   const [fuelCard, setFuelCard] = useState(false)
   const [searching, setSearching] = useState(false)
   

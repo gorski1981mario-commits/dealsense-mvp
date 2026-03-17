@@ -14,15 +14,15 @@ interface EnergyConfiguratorProps {
 }
 
 export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
-  const [energyType, setEnergyType] = useState('stroom-gas')
-  const [electricityUsage, setElectricityUsage] = useState(3000)
-  const [gasUsage, setGasUsage] = useState(1500)
-  const [contractType, setContractType] = useState('vast-1')
+  const [energyType, setEnergyType] = useState('')
+  const [electricityUsage, setElectricityUsage] = useState<number | ''>('')
+  const [gasUsage, setGasUsage] = useState<number | ''>('')
+  const [contractType, setContractType] = useState('')
   const [postcode, setPostcode] = useState('')
   const [houseNumber, setHouseNumber] = useState('')
   const [greenEnergy, setGreenEnergy] = useState(false)
   const [solarPanels, setSolarPanels] = useState(false)
-  const [smartMeter, setSmartMeter] = useState(true)
+  const [smartMeter, setSmartMeter] = useState(false)
   const [searching, setSearching] = useState(false)
   
   // Lock/unlock state

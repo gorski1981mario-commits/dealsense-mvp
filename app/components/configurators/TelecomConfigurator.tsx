@@ -14,13 +14,13 @@ interface TelecomConfiguratorProps {
 }
 
 export default function TelecomConfigurator({ packageType = 'pro', userId }: TelecomConfiguratorProps = {}) {
-  const [serviceType, setServiceType] = useState('mobiel-internet')
-  const [mobileData, setMobileData] = useState(10)
-  const [mobileMinutes, setMobileMinutes] = useState('onbeperkt')
-  const [internetSpeed, setInternetSpeed] = useState(100)
+  const [serviceType, setServiceType] = useState('')
+  const [mobileData, setMobileData] = useState<number | ''>('')
+  const [mobileMinutes, setMobileMinutes] = useState('')
+  const [internetSpeed, setInternetSpeed] = useState<number | ''>('')
   const [tvChannels, setTvChannels] = useState(false)
   const [postcode, setPostcode] = useState('')
-  const [numberOfSims, setNumberOfSims] = useState(1)
+  const [numberOfSims, setNumberOfSims] = useState<number | ''>('')
   const [fiveG, setFiveG] = useState(false)
   const [roaming, setRoaming] = useState(false)
   const [fixedPhone, setFixedPhone] = useState(false)

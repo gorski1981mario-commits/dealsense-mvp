@@ -13,13 +13,13 @@ interface SubscriptionsConfiguratorProps {
   userId?: string
 }
 
-export default function SubscriptionsConfigurator({ packageType = 'pro', userId }: SubscriptionsConfiguratorProps = {}) {
-  const [subscriptionType, setSubscriptionType] = useState('streaming')
+export default function SubscriptionsConfigurator({ packageType, userId }: SubscriptionsConfiguratorProps) {
+  const [subscriptionType, setSubscriptionType] = useState('')
   const [services, setServices] = useState<string[]>([])
-  const [budget, setBudget] = useState(50)
+  const [budget, setBudget] = useState<number | >('')
   const [users, setUsers] = useState(1)
-  const [quality, setQuality] = useState('hd')
-  const [bundlePreference, setBundlePreference] = useState('separate')
+  const [quality, setQuality] = useState('')
+  const [bundlePreference, setBundlePreference] = useState('')
   const [studentDiscount, setStudentDiscount] = useState(false)
   const [familyPlan, setFamilyPlan] = useState(false)
   const [annualPayment, setAnnualPayment] = useState(false)

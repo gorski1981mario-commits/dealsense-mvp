@@ -13,16 +13,16 @@ interface CreditCardConfiguratorProps {
   userId?: string
 }
 
-export default function CreditCardConfigurator({ packageType = 'finance', userId }: CreditCardConfiguratorProps = {}) {
-  const [cardType, setCardType] = useState('visa')
-  const [limit, setLimit] = useState(2000)
-  const [usage, setUsage] = useState('dagelijks')
-  const [rewards, setRewards] = useState('cashback')
-  const [annualFee, setAnnualFee] = useState(0)
-  const [income, setIncome] = useState(30000)
+export default function CreditCardConfigurator({ packageType, userId }: CreditCardConfiguratorProps) {
+  const [cardType, setCardType] = useState('')
+  const [limit, setLimit] = useState<number | ''>('')
+  const [usage, setUsage] = useState('')
+  const [rewards, setRewards] = useState('')
+  const [annualFee, setAnnualFee] = useState<number | ''>('')
+  const [income, setIncome] = useState<number | ''>('')
   const [travelInsurance, setTravelInsurance] = useState(false)
   const [purchaseProtection, setPurchaseProtection] = useState(false)
-  const [contactless, setContactless] = useState(true)
+  const [contactless, setContactless] = useState(false)
   const [secondCard, setSecondCard] = useState(false)
   const [searching, setSearching] = useState(false)
   

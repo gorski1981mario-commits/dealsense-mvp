@@ -14,16 +14,16 @@ interface MortgageConfiguratorProps {
 }
 
 export default function MortgageConfigurator({ packageType = 'finance', userId }: MortgageConfiguratorProps = {}) {
-  const [mortgageAmount, setMortgageAmount] = useState(250000)
-  const [houseValue, setHouseValue] = useState(350000)
-  const [duration, setDuration] = useState(30)
-  const [mortgageType, setMortgageType] = useState('annuitair')
-  const [income, setIncome] = useState(50000)
-  const [partnerIncome, setPartnerIncome] = useState(0)
+  const [mortgageAmount, setMortgageAmount] = useState<number | ''>('')
+  const [houseValue, setHouseValue] = useState<number | ''>('')
+  const [duration, setDuration] = useState<number | ''>('')
+  const [mortgageType, setMortgageType] = useState('')
+  const [income, setIncome] = useState<number | ''>('')
+  const [partnerIncome, setPartnerIncome] = useState<number | ''>(0)
   const [postcode, setPostcode] = useState('')
   const [firstTimeBuyer, setFirstTimeBuyer] = useState(false)
   const [nhg, setNhg] = useState(false)
-  const [fixedRate, setFixedRate] = useState('10')
+  const [fixedRate, setFixedRate] = useState('')
   const [searching, setSearching] = useState(false)
   
   const [isLocked, setIsLocked] = useState(false)

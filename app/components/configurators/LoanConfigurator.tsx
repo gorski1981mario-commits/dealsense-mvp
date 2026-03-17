@@ -13,12 +13,12 @@ interface LoanConfiguratorProps {
   userId?: string
 }
 
-export default function LoanConfigurator({ packageType = 'finance', userId }: LoanConfiguratorProps = {}) {
-  const [amount, setAmount] = useState(10000)
-  const [duration, setDuration] = useState(60)
-  const [purpose, setPurpose] = useState('vrij')
-  const [income, setIncome] = useState(40000)
-  const [employmentType, setEmploymentType] = useState('vast')
+export default function LoanConfigurator({ packageType, userId }: LoanConfiguratorProps = {}) {
+  const [amount, setAmount] = useState<number | ''>('')
+  const [duration, setDuration] = useState<number | ''>('')
+  const [purpose, setPurpose] = useState('')
+  const [income, setIncome] = useState<number | ''>('')
+  const [employmentType, setEmploymentType] = useState('')
   const [bkr, setBkr] = useState(false)
   const [coApplicant, setCoApplicant] = useState(false)
   const [homeOwner, setHomeOwner] = useState(false)
