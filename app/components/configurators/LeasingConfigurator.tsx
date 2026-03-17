@@ -28,24 +28,7 @@ export default function LeasingConfigurator({ packageType = 'finance', userId }:
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
-
-  // Auto-lock when any field changes
-  useEffect(() => {
-    const hasChanges = brand || model || amount !== 30000 || duration !== 48 || kilometers !== 20000 || leasingType !== 'operational' || !maintenance || !insurance || !tires || fuelCard
-    
-    if (hasChanges && !isLocked && !saving && !configId) {
-      const lockConfig = async () => {
-        try {
-          setSaving(true)
-          const configData = { userId: userId || 'anonymous', sector: 'leasing', parameters: { vehicleType, brand, model, amount, duration, kilometers, leasingType, maintenance, insurance, tires, fuelCard }, timestamp: new Date().toISOString() }
-          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-          const result = await response.json()
-          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
-        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
-      }
-      lockConfig()
-    }
-  }, [brand, model, amount, duration, kilometers, leasingType, maintenance, insurance, tires, fuelCard, vehicleType, isLocked, saving, configId, userId])
+  const [activeField, setActiveField] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -94,7 +77,7 @@ export default function LeasingConfigurator({ packageType = 'finance', userId }:
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-            <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)} onFocus={() => setActiveField('vehicleType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="auto">🚗 Auto</option>
               <option value="elektrisch">⚡ Elektrische auto</option>
               <option value="hybride">🔋 Hybride auto</option>
@@ -106,12 +89,12 @@ export default function LeasingConfigurator({ packageType = 'finance', userId }:
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Merk (optioneel)</label>
-            <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} disabled={isLocked} placeholder="Bijv. Volkswagen, Tesla, BMW..." style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} onFocus={() => setActiveField('brand')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Volkswagen, Tesla, BMW..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'brand' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'brand' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Model (optioneel)</label>
-            <input type="text" value={model} onChange={(e) => setModel(e.target.value)} disabled={isLocked} placeholder="Bijv. Golf, Model 3, X5..." style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={model} onChange={(e) => setModel(e.target.value)} onFocus={() => setActiveField('model')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Golf, Model 3, X5..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'model' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'model' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
         </div>
 
@@ -164,8 +147,14 @@ export default function LeasingConfigurator({ packageType = 'finance', userId }:
           </div>
         </div>
 
+        {!brand && !model && (
+          <div style={{ padding: '12px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', marginBottom: '16px' }}>
+            <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul merk en model in voor nauwkeurigere aanbiedingen!</div>
+          </div>
+        )}
+
         <button type="submit" disabled={searching || isLocked} style={{ width: '100%', padding: '14px', background: (searching || isLocked) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : 'Zoek beste leasing →')}
+          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : 'Vergelijk leasing aanbiedingen →')}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>

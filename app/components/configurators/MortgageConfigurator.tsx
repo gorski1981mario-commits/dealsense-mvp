@@ -27,24 +27,7 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
-
-  // Auto-lock when any field changes
-  useEffect(() => {
-    const hasChanges = mortgageAmount !== 250000 || houseValue !== 350000 || duration !== 30 || mortgageType !== 'annuitair' || income !== 50000 || partnerIncome !== 0 || postcode || firstTimeBuyer || nhg || fixedRate !== '10'
-    
-    if (hasChanges && !isLocked && !saving && !configId) {
-      const lockConfig = async () => {
-        try {
-          setSaving(true)
-          const configData = { userId: userId || 'anonymous', sector: 'mortgage', parameters: { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, nhg, fixedRate }, timestamp: new Date().toISOString() }
-          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-          const result = await response.json()
-          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
-        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
-      }
-      lockConfig()
-    }
-  }, [mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, nhg, fixedRate, isLocked, saving, configId, userId])
+  const [activeField, setActiveField] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -203,8 +186,14 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
           </div>
         </div>
 
-        <button type="submit" disabled={searching || isLocked} style={{ width: '100%', padding: '14px', background: (searching || isLocked) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : 'Zoek beste hypotheek →')}
+        {(!houseValue || !mortgageAmount || !income || !postcode) && (
+          <div style={{ padding: '12px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', marginBottom: '16px' }}>
+            <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul woningwaarde, hypotheekbedrag, inkomen en postcode in voor nauwkeurige berekeningen!</div>
+          </div>
+        )}
+
+        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk hypotheken →'}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>

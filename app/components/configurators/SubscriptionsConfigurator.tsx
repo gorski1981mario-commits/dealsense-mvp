@@ -27,24 +27,7 @@ export default function SubscriptionsConfigurator({ packageType = 'pro', userId 
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
-
-  // Auto-lock when any field changes
-  useEffect(() => {
-    const hasChanges = subscriptionType !== 'streaming' || services.length > 0 || budget !== 50 || users !== 1 || quality !== 'hd' || bundlePreference !== 'separate' || studentDiscount || familyPlan || annualPayment
-    
-    if (hasChanges && !isLocked && !saving && !configId) {
-      const lockConfig = async () => {
-        try {
-          setSaving(true)
-          const configData = { userId: userId || 'anonymous', sector: 'subscriptions', parameters: { subscriptionType, services, budget, users, quality, bundlePreference, studentDiscount, familyPlan, annualPayment }, timestamp: new Date().toISOString() }
-          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-          const result = await response.json()
-          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
-        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
-      }
-      lockConfig()
-    }
-  }, [subscriptionType, services, budget, users, quality, bundlePreference, studentDiscount, familyPlan, annualPayment, isLocked, saving, configId, userId])
+  const [activeField, setActiveField] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -276,8 +259,8 @@ export default function SubscriptionsConfigurator({ packageType = 'pro', userId 
           </div>
         </div>
 
-        <button type="submit" disabled={searching || isLocked} style={{ width: '100%', padding: '14px', background: (searching || isLocked) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : 'Zoek beste abonnementen →')}
+        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk abonnementen →'}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>

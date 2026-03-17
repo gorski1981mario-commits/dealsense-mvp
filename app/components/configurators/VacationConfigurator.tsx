@@ -157,7 +157,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
-              <select value={destination} onChange={(e) => setDestination(e.target.value)} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: activeField === 'destination' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'destination' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <select value={destination} onChange={(e) => setDestination(e.target.value)} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'destination' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'destination' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="">Kies bestemming...</option>
                 <optgroup label="🔥 Meest populair voor Nederlanders">
                   <option value="turkije">🔥 🇹🇷 Turkije</option>
@@ -198,7 +198,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
-              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: activeField === 'departureDate' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'departureDate' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'departureDate' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'departureDate' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
 
             <div>
@@ -277,6 +277,13 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
               ))}
             </div>
           </div>
+
+          {/* Waarschuwing als niet alle velden zijn ingevuld */}
+          {!destination && !departureDate && (
+            <div style={{ padding: '12px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul meer velden in voor betere resultaten. Hoe meer informatie, hoe nauwkeuriger de aanbiedingen!</div>
+            </div>
+          )}
 
           <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
             {isLocked ? 'Configuratie vergrendeld' : 'Zoek beste vakantie →'}
