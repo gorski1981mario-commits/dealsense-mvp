@@ -45,7 +45,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   
   // Dynamic totalFields calculation
   const getTotalFields = () => {
-    let total = 9 // filterType, adults, destination, departureDate, duration, transport, accommodationType, stars, board
+    let total = 10 // filterType, adults, destination, departureDate, duration, transport, accommodationType, stars, board, extras
     if (children > 0) {
       total += 1 // childrenAges (only if children > 0)
     }
@@ -161,9 +161,13 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   const toggleExtra = (extra: string) => {
     if (isLocked) return
-    setExtras(prev => 
-      prev.includes(extra) ? prev.filter(e => e !== extra) : [...prev, extra]
-    )
+    setExtras(prev => {
+      const newExtras = prev.includes(extra) ? prev.filter(e => e !== extra) : [...prev, extra]
+      // Mark extras field as touched and valid (extras are optional, any selection is valid)
+      markFieldTouched('extras')
+      markFieldValid('extras', true)
+      return newExtras
+    })
   }
 
   if (view === 'configurator') {
@@ -365,7 +369,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
               {[{value: 'pool', label: '🏊 Zwembad'}, {value: 'wifi', label: '📶 Wifi'}, {value: 'parking', label: '🅿️ Parkeren'}, {value: 'kids', label: '👶 Kinderclub'}, {value: 'spa', label: '💆 Spa/Wellness'}, {value: 'beach', label: '🏖️ Strand'}, ...(children === 0 ? [{value: 'adults', label: '🔞 Adults Only'}] : [])].map(e => (
                 <div key={e.value} onClick={() => !isLocked && toggleExtra(e.value)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: extras.includes(e.value) ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: extras.includes(e.value) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
-                  <input type="checkbox" checked={extras.includes(e.value)} onChange={() => !isLocked && toggleExtra(e.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <input type="checkbox" checked={extras.includes(e.value)} readOnly disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', pointerEvents: 'none' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{e.label}</label>
                 </div>
               ))}
