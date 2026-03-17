@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
@@ -27,6 +27,24 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+
+  // Auto-lock when any field changes
+  useEffect(() => {
+    const hasChanges = energyType !== 'stroom-gas' || electricityUsage !== 3000 || gasUsage !== 1500 || contractType !== 'vast-1' || postcode || houseNumber || greenEnergy || solarPanels || smartMeter
+    
+    if (hasChanges && !isLocked && !saving && !configId) {
+      const lockConfig = async () => {
+        try {
+          setSaving(true)
+          const configData = { userId: userId || 'anonymous', sector: 'energy', parameters: { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }, timestamp: new Date().toISOString() }
+          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
+          const result = await response.json()
+          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
+        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+      }
+      lockConfig()
+    }
+  }, [energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter, isLocked, saving, configId, userId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

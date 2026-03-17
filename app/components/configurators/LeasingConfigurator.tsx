@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
@@ -28,6 +28,24 @@ export default function LeasingConfigurator({ packageType = 'finance', userId }:
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+
+  // Auto-lock when any field changes
+  useEffect(() => {
+    const hasChanges = brand || model || amount !== 30000 || duration !== 48 || kilometers !== 20000 || leasingType !== 'operational' || !maintenance || !insurance || !tires || fuelCard
+    
+    if (hasChanges && !isLocked && !saving && !configId) {
+      const lockConfig = async () => {
+        try {
+          setSaving(true)
+          const configData = { userId: userId || 'anonymous', sector: 'leasing', parameters: { vehicleType, brand, model, amount, duration, kilometers, leasingType, maintenance, insurance, tires, fuelCard }, timestamp: new Date().toISOString() }
+          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
+          const result = await response.json()
+          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
+        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+      }
+      lockConfig()
+    }
+  }, [brand, model, amount, duration, kilometers, leasingType, maintenance, insurance, tires, fuelCard, vehicleType, isLocked, saving, configId, userId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

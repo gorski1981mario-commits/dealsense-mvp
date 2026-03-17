@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
@@ -27,6 +27,24 @@ export default function CreditCardConfigurator({ packageType = 'finance', userId
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+
+  // Auto-lock when any field changes
+  useEffect(() => {
+    const hasChanges = cardType !== 'visa' || limit !== 2000 || usage !== 'dagelijks' || rewards !== 'cashback' || annualFee !== 0 || income !== 30000 || travelInsurance || purchaseProtection || !contactless || secondCard
+    
+    if (hasChanges && !isLocked && !saving && !configId) {
+      const lockConfig = async () => {
+        try {
+          setSaving(true)
+          const configData = { userId: userId || 'anonymous', sector: 'creditcard', parameters: { cardType, limit, usage, rewards, annualFee, income, travelInsurance, purchaseProtection, contactless, secondCard }, timestamp: new Date().toISOString() }
+          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
+          const result = await response.json()
+          if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
+        } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+      }
+      lockConfig()
+    }
+  }, [cardType, limit, usage, rewards, annualFee, income, travelInsurance, purchaseProtection, contactless, secondCard, isLocked, saving, configId, userId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
