@@ -297,6 +297,13 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
 
       <form onSubmit={handleSubmit}>
         
+        {/* FILTER OPTIONS */}
+        <FilterOptions 
+          selectedFilter={filterType}
+          onFilterChange={(filter) => { setFilterType(filter); validateAndMark('filterType', filter); }}
+          disabled={isLocked}
+        />
+        
         {/* 1. TYPE ENERGIE */}
         <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>1. Type energie</div>

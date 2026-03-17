@@ -207,7 +207,14 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
 
       <form onSubmit={handleSubmit}>
         
-        {/* 1. TYPE SUBSCRIPTIONS */}
+        {/* FILTER OPTIONS */}
+        <FilterOptions 
+          selectedFilter={filterType}
+          onFilterChange={(filter) => { setFilterType(filter); validateAndMark('filterType', filter); }}
+          disabled={isLocked}
+        />
+        
+        {/* 1. TYPE ABONNEMENT */}
         <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>1. Type abonnementen</div>
           
