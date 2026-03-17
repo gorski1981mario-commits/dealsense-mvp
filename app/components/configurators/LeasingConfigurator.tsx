@@ -165,7 +165,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-            <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)} onFocus={() => setActiveField('vehicleType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={vehicleType} onChange={(e) => { const val = e.target.value; setVehicleType(val); validateAndMark('vehicleType', val); }} onFocus={() => setActiveField('vehicleType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="auto">🚗 Auto</option>
               <option value="elektrisch">⚡ Elektrische auto</option>
               <option value="hybride">🔋 Hybride auto</option>
@@ -192,17 +192,17 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Cataloguswaarde (€)</label>
-            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => { const val = parseInt(e.target.value); setAmount(val); validateAndMark('amount', val); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (maanden)</label>
-            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val); }} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
-            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => setKilometers(parseInt(e.target.value))} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => { const val = parseInt(e.target.value); setKilometers(val); validateAndMark('kilometers', val); }} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
         </div>
 
@@ -211,8 +211,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Type leasing</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {[{value: 'operational', label: '💼 Operational Lease', desc: 'All-in, incl. onderhoud'}, {value: 'financial', label: '📊 Financial Lease', desc: 'Voertuig wordt eigendom'}].map(t => (
-              <div key={t.value} onClick={() => !isLocked && setLeasingType(t.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: leasingType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: leasingType === t.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="radio" name="leasingType" value={t.value} checked={leasingType === t.value} onChange={() => !isLocked && setLeasingType(t.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              <div key={t.value} onClick={() => { if (!isLocked) { setLeasingType(t.value); validateAndMark('leasingType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: leasingType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: leasingType === t.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                <input type="radio" name="leasingType" value={t.value} checked={leasingType === t.value} onChange={() => { if (!isLocked) { setLeasingType(t.value); validateAndMark('leasingType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{t.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{t.desc}</div>

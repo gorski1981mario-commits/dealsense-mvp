@@ -303,7 +303,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Wat wil je vergelijken?</label>
-            <select value={energyType} onChange={(e) => setEnergyType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={energyType} onChange={(e) => { const val = e.target.value; setEnergyType(val); validateAndMark('energyType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
               <option value="stroom-gas">⚡🔥 Stroom + Gas</option>
               <option value="stroom">⚡ Alleen stroom</option>
               <option value="gas">🔥 Alleen gas</option>
@@ -343,8 +343,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
               {value: 'vast-5', label: '🔏 Vast 5 jaar', desc: 'Vaste prijs voor 5 jaar'},
               {value: 'variabel', label: '📊 Variabel', desc: 'Prijs volgt de markt'}
             ].map(c => (
-              <div key={c.value} onClick={() => !isLocked && setContractType(c.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: contractType === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: contractType === c.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="radio" name="contractType" value={c.value} checked={contractType === c.value} onChange={() => !isLocked && setContractType(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              <div key={c.value} onClick={() => { if (!isLocked) { setContractType(c.value); validateAndMark('contractType', c.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: contractType === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: contractType === c.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+                <input type="radio" name="contractType" value={c.value} checked={contractType === c.value} onChange={() => { if (!isLocked) { setContractType(c.value); validateAndMark('contractType', c.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{c.desc}</div>
@@ -360,12 +360,12 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
-            <input type="text" value={houseNumber} onChange={(e) => setHouseNumber(e.target.value)} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
         </div>
 
