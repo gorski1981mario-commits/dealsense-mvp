@@ -45,7 +45,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   
   // Dynamic totalFields calculation
   const getTotalFields = () => {
-    let total = 6 // adults, destination, departureDate, duration, transport, board
+    let total = 8 // adults, destination, departureDate, duration, transport, accommodationType, stars, board
     if (children > 0) {
       total += 1 // childrenAges (only if children > 0)
     }
@@ -312,12 +312,14 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-              <select value={accommodationType} onChange={(e) => setAccommodationType(e.target.value)} onFocus={() => setActiveField('accommodationType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'accommodationType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'accommodationType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                <option value="hotel">🏨 Hotel</option>
-                <option value="apartment">🏠 Appartement</option>
-                <option value="resort">🏖️ Resort</option>
-                <option value="park">🏡 Vakantiepark</option>
-              </select>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[{value: 'hotel', label: '🏨 Hotel'}, {value: 'apartment', label: '🏠 Appartement'}, {value: 'resort', label: '🏖️ Resort'}, {value: 'park', label: '🏡 Vakantiepark'}].map(a => (
+                  <div key={a.value} onClick={() => { if (!isLocked) { setAccommodationType(a.value); validateAndMark('accommodationType', a.value); } }} onFocus={() => setActiveField('accommodationType')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: accommodationType === a.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: accommodationType === a.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="accommodationType" value={a.value} checked={accommodationType === a.value} onChange={() => !isLocked && setAccommodationType(a.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{a.label}</label>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div>
