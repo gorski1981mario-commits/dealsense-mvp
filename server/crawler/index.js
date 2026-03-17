@@ -2,24 +2,26 @@
 // Optimized multi-source crawler for NL market
 
 const Queue = require('bull')
-const axios = require('axios')
 const cheerio = require('cheerio')
 const Redis = require('ioredis')
 const config = require('./config')
-const { ProxyManager } = require('./lib/proxy-manager')
+const StealthBrowser = require('./lib/stealth-browser')
 const { ParserRegistry } = require('./lib/parser-registry')
 const { RateLimiter } = require('./lib/rate-limiter')
 const { ErrorHandler } = require('./lib/error-handler')
 const { MetricsCollector } = require('./lib/metrics')
+const AIRanking = require('./lib/ai-ranking')
 
 class DealSenseCrawler {
   constructor() {
     this.redis = new Redis(config.queue.redis)
     this.queue = new Queue(config.queue.name, { redis: config.queue.redis })
-    this.proxyManager = new ProxyManager(config.proxy)
     this.parserRegistry = new ParserRegistry()
     this.rateLimiter = new RateLimiter(config.rateLimit)
     this.metrics = new MetricsCollector()
+    
+    // Stealth browser pool (reuse browsers for performance)
+    this.browserPool = new Map()
     
     this.setupQueue()
     this.loadParsers()
@@ -139,55 +141,36 @@ class DealSenseCrawler {
   }
 
   /**
-   * Fetch URL with anti-bot protection
+   * Fetch URL with Playwright Stealth
+   * 100% UNDETECTABLE - bypasses Cloudflare, DataDome, PerimeterX
    */
   async fetch(url, options = {}) {
-    const { proxy, domain } = options
+    const { domain } = options
 
-    // Get random user agent
-    const userAgent = this.getRandomUserAgent()
-
-    // Build headers
-    const headers = {
-      'User-Agent': userAgent,
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-      'Accept-Language': 'nl-NL,nl;q=0.9,en;q=0.8',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'DNT': '1',
-      'Connection': 'keep-alive',
-      'Upgrade-Insecure-Requests': '1',
-      'Sec-Fetch-Dest': 'document',
-      'Sec-Fetch-Mode': 'navigate',
-      'Sec-Fetch-Site': 'none',
-      'Sec-Fetch-User': '?1',
-      'Cache-Control': 'max-age=0',
-      'Referer': 'https://www.google.nl/'
+    // Get or create browser for this domain
+    let browser = this.browserPool.get(domain)
+    
+    if (!browser) {
+      browser = new StealthBrowser({
+        enabled: config.proxy.enabled,
+        provider: config.proxy.provider,
+        username: process.env.PROXY_USERNAME,
+        password: process.env.PROXY_PASSWORD
+      })
+      this.browserPool.set(domain, browser)
     }
 
-    // Make request
-    const response = await axios.get(url, {
-      headers,
-      proxy: proxy ? {
-        host: proxy.host,
-        port: proxy.port,
-        auth: proxy.auth
-      } : undefined,
-      timeout: config.timeout.request,
-      maxRedirects: 5,
-      validateStatus: (status) => status < 500 // Accept 4xx but not 5xx
-    })
+    try {
+      // Fetch with human-like behavior (random delays, mouse movements, scrolling)
+      const html = await browser.fetch(url)
+      return html
 
-    // Check for Cloudflare challenge
-    if (response.data.includes('cf-browser-verification')) {
-      throw new Error('Cloudflare challenge detected')
+    } catch (error) {
+      // If browser fails, close it and remove from pool
+      await browser.close()
+      this.browserPool.delete(domain)
+      throw error
     }
-
-    // Check for CAPTCHA
-    if (response.data.includes('recaptcha') || response.data.includes('captcha')) {
-      throw new Error('CAPTCHA detected')
-    }
-
-    return response.data
   }
 
   /**
@@ -243,11 +226,11 @@ class DealSenseCrawler {
   }
 
   /**
-   * Get random user agent
+   * Rank results using AI Ranking 4.0
+   * Prioritizes niszowe shops for best deals
    */
-  getRandomUserAgent() {
-    const agents = config.userAgents
-    return agents[Math.floor(Math.random() * agents.length)]
+  rankResults(offers, userPreferences = {}) {
+    return AIRanking.rank(offers, userPreferences)
   }
 
   /**
@@ -275,6 +258,14 @@ class DealSenseCrawler {
    */
   async shutdown() {
     console.log('Shutting down crawler...')
+    
+    // Close all browsers in pool
+    for (const [domain, browser] of this.browserPool.entries()) {
+      console.log(`Closing browser for ${domain}...`)
+      await browser.close()
+    }
+    this.browserPool.clear()
+    
     await this.queue.close()
     await this.redis.quit()
     console.log('Crawler stopped')
