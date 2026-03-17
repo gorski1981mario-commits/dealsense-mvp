@@ -41,7 +41,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   
   const getTotalFields = () => {
-    let total = 5 // insuranceType, coverage, age, postcode, bonusMalus
+    let total = 6 // insuranceType, coverage, age, postcode, bonusMalus, extras
     if (insuranceType === 'auto') total += 1 // parkingLocation
     return total
   }
@@ -482,7 +482,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               {value: businessUse, setter: setBusinessUse, label: '💼 Zakelijk gebruik', desc: 'Ook voor zakelijke ritten'},
               {value: legalAid, setter: setLegalAid, label: '⚖️ Rechtsbijstand', desc: 'Juridische hulp bij schade'}
             ].map((item, i) => (
-              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} onFocus={() => setActiveField('extras')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: activeField === 'extras' ? '2px solid #1E7F5C' : (item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: activeField === 'extras' ? '#E6F4EE' : (item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} onFocus={() => setActiveField('extras')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: activeField === 'extras' ? '2px solid #1E7F5C' : (item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: activeField === 'extras' ? '#E6F4EE' : (item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>

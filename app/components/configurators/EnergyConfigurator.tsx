@@ -37,16 +37,24 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 4 // energyType, postcode, houseNumber, contractType
+  const totalFields = 5 // energyType, postcode, houseNumber, contractType, extras
   
-  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
+  const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
-    const isValid = customValidator ? customValidator(value) : validators.required(value)
+  }
+  
+  const markFieldValid = (fieldName: string, isValid: boolean) => {
     setValidFields(prev => {
       const newSet = new Set(prev)
       isValid ? newSet.add(fieldName) : newSet.delete(fieldName)
       return newSet
     })
+  }
+  
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
+    markFieldTouched(fieldName)
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
+    markFieldValid(fieldName, isValid)
   }
   
   const progress = Math.round((validFields.size / totalFields) * 100)
@@ -299,7 +307,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
               {value: solarPanels, setter: setSolarPanels, label: '☀️ Zonnepanelen', desc: 'Ik heb zonnepanelen (salderen)'},
               {value: smartMeter, setter: setSmartMeter, label: '📊 Slimme meter', desc: 'Ik heb een slimme meter'}
             ].map((item, i) => (
-              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
