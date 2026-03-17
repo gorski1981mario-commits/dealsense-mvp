@@ -14,8 +14,8 @@ interface LoanConfiguratorProps {
   userId?: string
 }
 
-export default function LoanConfigurator({ packageType, userId }: LoanConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+export default function LoanConfigurator({ packageType = 'pro', userId }: LoanConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [amount, setAmount] = useState<number | ''>('')
   const [duration, setDuration] = useState<number | ''>('')
   const [purpose, setPurpose] = useState('')

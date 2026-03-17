@@ -15,7 +15,7 @@ interface TelecomConfiguratorProps {
 }
 
 export default function TelecomConfigurator({ packageType = 'pro', userId }: TelecomConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [serviceType, setServiceType] = useState('')
   const [mobileData, setMobileData] = useState<number | ''>('')
   const [mobileMinutes, setMobileMinutes] = useState('')

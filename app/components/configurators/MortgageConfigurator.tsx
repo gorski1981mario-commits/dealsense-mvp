@@ -14,8 +14,8 @@ interface MortgageConfiguratorProps {
   userId?: string
 }
 
-export default function MortgageConfigurator({ packageType = 'finance', userId }: MortgageConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+export default function MortgageConfigurator({ packageType = 'pro', userId }: MortgageConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [mortgageAmount, setMortgageAmount] = useState<number | ''>('')
   const [houseValue, setHouseValue] = useState<number | ''>('')
   const [duration, setDuration] = useState<number | ''>('')

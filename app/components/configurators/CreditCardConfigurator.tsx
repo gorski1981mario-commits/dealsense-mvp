@@ -14,8 +14,8 @@ interface CreditCardConfiguratorProps {
   userId?: string
 }
 
-export default function CreditCardConfigurator({ packageType, userId }: CreditCardConfiguratorProps) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+export default function CreditCardConfigurator({ packageType = 'pro', userId }: CreditCardConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [cardType, setCardType] = useState('')
   const [limit, setLimit] = useState<number | ''>('')
   const [usage, setUsage] = useState('')

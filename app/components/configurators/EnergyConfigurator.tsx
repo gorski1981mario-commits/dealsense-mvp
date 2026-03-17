@@ -15,7 +15,7 @@ interface EnergyConfiguratorProps {
 }
 
 export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [energyType, setEnergyType] = useState('')
   const [electricityUsage, setElectricityUsage] = useState<number | ''>('')
   const [gasUsage, setGasUsage] = useState<number | ''>('')

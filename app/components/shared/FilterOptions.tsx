@@ -5,7 +5,7 @@ import { useState } from 'react'
 export type FilterType = 'cheapest' | 'balanced' | 'quality'
 
 interface FilterOptionsProps {
-  selectedFilter: FilterType
+  selectedFilter: FilterType | ''
   onFilterChange: (filter: FilterType) => void
   disabled?: boolean
 }
@@ -93,7 +93,7 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
                 padding: '2px 8px', 
                 borderRadius: '6px',
                 marginLeft: '6px'
-              }}>AANBEVOLEN</span>
+              }}>MEEST GEKOZEN</span>
             </div>
             <div style={{ fontSize: '12px', color: '#6B7280' }}>
               Balans tussen prijs en kwaliteit

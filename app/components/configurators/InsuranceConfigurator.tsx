@@ -15,7 +15,7 @@ interface InsuranceConfiguratorProps {
 }
 
 export default function InsuranceConfigurator({ packageType = 'pro', userId }: InsuranceConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [insuranceType, setInsuranceType] = useState('')
   const [coverage, setCoverage] = useState('')
   const [age, setAge] = useState<number | ''>('')

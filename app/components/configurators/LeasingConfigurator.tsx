@@ -14,8 +14,8 @@ interface LeasingConfiguratorProps {
   userId?: string
 }
 
-export default function LeasingConfigurator({ packageType = 'finance', userId }: LeasingConfiguratorProps = {}) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+export default function LeasingConfigurator({ packageType = 'pro', userId }: LeasingConfiguratorProps = {}) {
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [vehicleType, setVehicleType] = useState('')
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')

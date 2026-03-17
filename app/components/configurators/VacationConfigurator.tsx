@@ -17,7 +17,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 
 export default function VacationConfigurator({ packageType = 'pro', userId }: VacationConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [adults, setAdults] = useState(0)
   const [children, setChildren] = useState(0)
   const [childrenAges, setChildrenAges] = useState<number[]>([])
@@ -240,17 +240,17 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
               <select value={destination} onChange={(e) => { const val = e.target.value; setDestination(val); validateAndMark('destination', val); }} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('destination') ? '2px solid #1E7F5C' : (touchedFields.has('destination') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('destination') ? '#E6F4EE' : (touchedFields.has('destination') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="">Kies bestemming...</option>
-                <optgroup label="🔥 Meest populair voor Nederlanders">
-                  <option value="turkije">🔥 🇹🇷 Turkije</option>
-                  <option value="griekenland">🔥 🇬🇷 Griekenland</option>
-                  <option value="spanje">🔥 🇪🇸 Spanje</option>
-                  <option value="egypte">🔥 🇪🇬 Egypte</option>
-                  <option value="portugal">🔥 🇵🇹 Portugal</option>
-                  <option value="italie">🔥 🇮🇹 Italië</option>
-                  <option value="frankrijk">🔥 🇫🇷 Frankrijk</option>
-                  <option value="kroatie">🔥 🇭🇷 Kroatië</option>
-                  <option value="thailand">🔥 🇹🇭 Thailand</option>
-                  <option value="dubai">🔥 🇦🇪 Dubai (VAE)</option>
+                <optgroup label="Meest populair voor Nederlanders">
+                  <option value="turkije">MEEST GEKOZEN 🇹🇷 Turkije</option>
+                  <option value="griekenland">MEEST GEKOZEN 🇬🇷 Griekenland</option>
+                  <option value="spanje">MEEST GEKOZEN 🇪🇸 Spanje</option>
+                  <option value="egypte">MEEST GEKOZEN 🇪🇬 Egypte</option>
+                  <option value="portugal">MEEST GEKOZEN 🇵🇹 Portugal</option>
+                  <option value="italie">MEEST GEKOZEN 🇮🇹 Italië</option>
+                  <option value="frankrijk">MEEST GEKOZEN 🇫🇷 Frankrijk</option>
+                  <option value="kroatie">MEEST GEKOZEN 🇭🇷 Kroatië</option>
+                  <option value="thailand">MEEST GEKOZEN 🇹🇭 Thailand</option>
+                  <option value="dubai">MEEST GEKOZEN 🇦🇪 Dubai (VAE)</option>
                 </optgroup>
                 <optgroup label="Andere bestemmingen">
                   <option value="marokko">🇲🇦 Marokko</option>

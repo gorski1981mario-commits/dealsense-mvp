@@ -15,7 +15,7 @@ interface SubscriptionsConfiguratorProps {
 }
 
 export default function SubscriptionsConfigurator({ packageType, userId }: SubscriptionsConfiguratorProps) {
-  const [filterType, setFilterType] = useState<FilterType>('balanced')
+  const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [subscriptionType, setSubscriptionType] = useState('')
   const [services, setServices] = useState<string[]>([])
   const [budget, setBudget] = useState<number | ''>('')
