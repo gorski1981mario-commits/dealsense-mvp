@@ -53,7 +53,21 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 4 // filterType, serviceType, mobileData or internetSpeed (postcode/houseNumber opcjonalne, extras opcjonalne)
+  // Dynamic totalFields based on serviceType
+  const getTotalFields = () => {
+    let total = 2 // filterType + serviceType (always required)
+    
+    if (serviceType === 'mobiel' || serviceType === 'mobiel-internet' || serviceType === 'alles') {
+      total += 1 // mobileData
+    }
+    if (serviceType === 'internet' || serviceType === 'mobiel-internet' || serviceType === 'alles') {
+      total += 1 // internetSpeed
+    }
+    
+    return total
+  }
+  
+  const totalFields = getTotalFields()
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
@@ -262,7 +276,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Data per maand (GB)</label>
-              <input type="number" min="1" max="100" value={mobileData} onChange={(e) => { const val = parseInt(e.target.value); setMobileData(val); validateAndMark('mobileData', val); }} disabled={isLocked} placeholder="10" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <input type="number" min="1" max="100" value={mobileData} onChange={(e) => { const val = parseInt(e.target.value); setMobileData(val); validateAndMark('mobileData', val, (v) => v > 0); }} disabled={isLocked} placeholder="10" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mobileData') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mobileData') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mobileData') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Of kies onbeperkt hieronder</div>
             </div>
 
@@ -289,7 +303,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste snelheid (Mbps)</label>
-              <select value={internetSpeed} onChange={(e) => { const val = parseInt(e.target.value); setInternetSpeed(val); validateAndMark('internetSpeed', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+              <select value={internetSpeed} onChange={(e) => { const val = parseInt(e.target.value); setInternetSpeed(val); validateAndMark('internetSpeed', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('internetSpeed') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('internetSpeed') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('internetSpeed') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="50">50 Mbps - Basis</option>
                 <option value="100">100 Mbps - Standaard</option>
                 <option value="200">200 Mbps - Snel</option>
@@ -300,11 +314,11 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
-              <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${houseNumber ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (houseNumber ? '#E6F4EE' : 'white'), boxShadow: houseNumber ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor beschikbaarheid glasvezel/kabel</div>
             </div>
           </div>
