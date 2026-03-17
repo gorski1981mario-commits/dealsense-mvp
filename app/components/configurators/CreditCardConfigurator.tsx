@@ -204,7 +204,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Rewards programma</label>
-            <select value={rewards} onChange={(e) => setRewards(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={rewards} onChange={(e) => setRewards(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${rewards ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (rewards ? '#E6F4EE' : 'white'), boxShadow: rewards ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="cashback">💵 Cashback (geld terug)</option>
               <option value="miles">✈️ Vliegtuig miles</option>
               <option value="punten">⭐ Spaarpunten</option>
@@ -215,7 +215,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Max. jaarlijkse kosten (€)</label>
-            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="0" max="250" step="25" value={annualFee} onChange={(e) => setAnnualFee(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof annualFee === 'number' ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof annualFee === 'number' ? '#E6F4EE' : 'white'), boxShadow: typeof annualFee === 'number' ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>{annualFee === 0 ? 'Alleen gratis kaarten' : `Tot €${annualFee}/jaar`}</div>
           </div>
         </div>
