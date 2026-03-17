@@ -310,10 +310,10 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   alignItems: 'center', 
                   gap: '10px', 
                   padding: '10px 12px', 
-                  border: validFields.has('coverage') ? '2px solid #1E7F5C' : (touchedFields.has('coverage') ? '2px solid #F59E0B' : '2px solid #E5E7EB'),
+                  border: coverage === c.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
                   borderRadius: '8px', 
                   cursor: isLocked ? 'not-allowed' : 'pointer', 
-                  background: validFields.has('coverage') ? '#E6F4EE' : (touchedFields.has('coverage') ? '#FEF3C7' : (isLocked ? '#F3F4F6' : 'white')), 
+                  background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), 
                   opacity: isLocked ? 0.6 : 1, 
                   transition: 'all 0.2s' 
                 }}>
