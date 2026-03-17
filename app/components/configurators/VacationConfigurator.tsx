@@ -45,7 +45,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   
   // Dynamic totalFields calculation
   const getTotalFields = () => {
-    let total = 8 // adults, destination, departureDate, duration, transport, accommodationType, stars, board
+    let total = 9 // filterType, adults, destination, departureDate, duration, transport, accommodationType, stars, board
     if (children > 0) {
       total += 1 // childrenAges (only if children > 0)
     }
@@ -204,7 +204,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
           {/* FILTER OPTIONS */}
           <FilterOptions 
             selectedFilter={filterType}
-            onFilterChange={setFilterType}
+            onFilterChange={(filter) => { setFilterType(filter); validateAndMark('filterType', filter); }}
             disabled={isLocked}
           />
           
@@ -291,17 +291,19 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
-              <input type="date" value={departureDate} onChange={(e) => { const val = e.target.value; setDepartureDate(val); validateAndMark('departureDate', val); }} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('departureDate') ? '2px solid #1E7F5C' : (touchedFields.has('departureDate') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('departureDate') ? '#E6F4EE' : (touchedFields.has('departureDate') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="date" min={new Date().toISOString().split('T')[0]} value={departureDate} onChange={(e) => { const val = e.target.value; setDepartureDate(val); validateAndMark('departureDate', val); }} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('departureDate') ? '2px solid #1E7F5C' : (touchedFields.has('departureDate') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('departureDate') ? '#E6F4EE' : (touchedFields.has('departureDate') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
-              <select value={duration} onChange={(e) => { const val = e.target.value; setDuration(val); validateAndMark('duration', val); }} onFocus={() => setActiveField('duration')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('duration') ? '2px solid #1E7F5C' : (touchedFields.has('duration') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : (touchedFields.has('duration') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                <option value="7">7 dagen</option>
-                <option value="10">10 dagen</option>
-                <option value="14">14 dagen</option>
-                <option value="21">21 dagen</option>
-              </select>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur: <span style={{ color: '#1E7F5C', fontWeight: 700 }}>{duration || 7} dagen</span></div>
+                <input type="range" min="1" max="30" value={duration || 7} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val.toString()); validateAndMark('duration', val.toString()); }} disabled={isLocked} style={{ width: '100%', height: '8px', borderRadius: '4px', background: '#E5E7EB', outline: 'none', cursor: isLocked ? 'not-allowed' : 'pointer' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#6B7280', marginTop: '4px' }}>
+                  <span>1 dag</span>
+                  <span>30 dagen</span>
+                </div>
+              </div>
             </div>
           </div>
 
