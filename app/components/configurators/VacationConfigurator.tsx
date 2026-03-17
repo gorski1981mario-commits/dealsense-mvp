@@ -131,8 +131,9 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     
     setChildren(newCount)
     
-    // Reset childrenAges and remove from valid if count changes
-    setChildrenAges(Array(newCount).fill(0))
+    // Reset childrenAges - initialize with age 1 (Baby) so they're valid by default
+    const newAges = Array(newCount).fill(1)
+    setChildrenAges(newAges)
     if (newCount === 0) {
       validFields.delete('childrenAges')
       // If Adults Only was selected, deselect it when adding children
@@ -141,7 +142,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
         validFields.delete('board')
       }
     } else {
-      validFields.delete('childrenAges') // Will be validated when ages are filled
+      // Auto-validate since all ages are set to 1 (Baby)
+      validateAndMark('childrenAges', newAges, () => true)
     }
     
     // Show warning if configuration was changed
@@ -231,9 +233,9 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                   {childrenAges.map((age, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <label style={{ margin: 0, minWidth: '70px', fontSize: '13px' }}>Kind {i + 1}:</label>
-                      <select value={age} onChange={(e) => { if (!isLocked) { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); const allValid = newAges.every(a => a > 0 && a <= 17); if (allValid) { validateAndMark('childrenAges', newAges, () => true); } else { validFields.delete('childrenAges'); }}}} onFocus={() => setActiveField(`childAge${i}`)} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ flex: 1, padding: '8px 10px', border: age > 0 ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: isLocked ? '#F3F4F6' : (age > 0 ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                        <option value="0">Leeftijd...</option>
-                        {Array.from({length: 18}, (_, i) => <option key={i} value={i}>{i} jaar</option>)}
+                      <select value={age || 1} onChange={(e) => { if (!isLocked) { const newAges = [...childrenAges]; newAges[i] = parseInt(e.target.value); setChildrenAges(newAges); const allValid = newAges.every(a => a >= 1 && a <= 17); if (allValid) { validateAndMark('childrenAges', newAges, () => true); } else { validFields.delete('childrenAges'); }}}} onFocus={() => setActiveField(`childAge${i}`)} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ flex: 1, padding: '8px 10px', border: age >= 1 ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', fontSize: '13px', background: isLocked ? '#F3F4F6' : (age >= 1 ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                        <option value="1">👶 Baby (0-1 jaar)</option>
+                        {Array.from({length: 17}, (_, i) => <option key={i+2} value={i+2}>{i+2} jaar</option>)}
                       </select>
                     </div>
                   ))}
