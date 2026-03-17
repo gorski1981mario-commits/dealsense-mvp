@@ -36,11 +36,11 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 1 // postcode (minimum required)
+  const totalFields = 3 // serviceType, postcode, mobileData or internetSpeed
   
-  const validateAndMark = (fieldName: string, value: any, validator?: (val: any) => boolean) => {
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
-    const isValid = validator ? validator(value) : validators.required(value)
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
     setValidFields(prev => {
       const newSet = new Set(prev)
       isValid ? newSet.add(fieldName) : newSet.delete(fieldName)

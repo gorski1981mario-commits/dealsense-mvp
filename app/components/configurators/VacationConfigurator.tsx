@@ -40,7 +40,17 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 6 // adults, destination, departureDate, duration, transport, board
+  
+  // Dynamic totalFields calculation
+  const getTotalFields = () => {
+    let total = 6 // adults, destination, departureDate, duration, transport, board
+    if (children > 0) {
+      total += 1 // children field itself
+      // childrenAges are validated separately but count as one field
+    }
+    return total
+  }
+  const totalFields = getTotalFields()
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
@@ -58,12 +68,15 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     })
   }
   
-  const validateAndMark = (fieldName: string, value: any) => {
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (v: any) => boolean) => {
     markFieldTouched(fieldName)
-    const isValid = validators.required(value)
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
     markFieldValid(fieldName, isValid)
     return isValid
   }
+  
+  // Validator for adults (must be >= 1)
+  const validateAdults = (value: number) => value >= 1 && value <= 9
   
   const progress = Math.round((validFields.size / totalFields) * 100)
 
@@ -171,9 +184,9 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Volwassenen (18+)</label>
               <div onFocus={() => setActiveField('adults')} onBlur={() => setActiveField(null)} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: validFields.has('adults') ? '#E6F4EE' : (touchedFields.has('adults') ? '#FEF3C7' : '#F3F4F6'), borderRadius: '10px', padding: '8px 12px', width: 'fit-content', border: validFields.has('adults') ? '2px solid #1E7F5C' : (touchedFields.has('adults') ? '2px solid #F59E0B' : '2px solid transparent'), transition: 'all 0.2s' }}>
-                <button type="button" onClick={() => { if (!isLocked && adults > 1) { const newVal = adults - 1; setAdults(newVal); validateAndMark('adults', newVal); } }} disabled={adults <= 1 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults <= 1 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
+                <button type="button" onClick={() => { if (!isLocked && adults > 0) { const newVal = adults - 1; setAdults(newVal); validateAndMark('adults', newVal, validateAdults); } }} disabled={adults <= 0 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults <= 1 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>−</button>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{adults}</div>
-                <button type="button" onClick={() => { if (!isLocked && adults < 9) { const newVal = adults + 1; setAdults(newVal); validateAndMark('adults', newVal); } }} disabled={adults >= 9 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults >= 9 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
+                <button type="button" onClick={() => { if (!isLocked && adults < 9) { const newVal = adults + 1; setAdults(newVal); validateAndMark('adults', newVal, validateAdults); } }} disabled={adults >= 9 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: (adults >= 9 || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', opacity: isLocked ? 0.5 : 1 }}>+</button>
               </div>
             </div>
 

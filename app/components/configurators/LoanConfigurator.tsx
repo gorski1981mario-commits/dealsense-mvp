@@ -32,8 +32,8 @@ export default function LoanConfigurator({ packageType, userId }: LoanConfigurat
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 1
-  const validateAndMark = (f: string, v: any, val?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = val ? val(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
+  const totalFields = 4 // amount, duration, purpose, income
+  const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 
   const handleSubmit = async (e: React.FormEvent) => {

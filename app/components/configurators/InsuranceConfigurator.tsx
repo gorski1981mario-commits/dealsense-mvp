@@ -37,7 +37,13 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 6 // insuranceType, coverage, age, postcode, bonusMalus, parkingLocation
+  
+  const getTotalFields = () => {
+    let total = 5 // insuranceType, coverage, age, postcode, bonusMalus
+    if (insuranceType === 'auto') total += 1 // parkingLocation
+    return total
+  }
+  const totalFields = getTotalFields()
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
@@ -55,17 +61,11 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     })
   }
   
-  const validateAndMark = (fieldName: string, value: any, validator?: (val: any) => boolean) => {
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
     markFieldTouched(fieldName)
-    if (validator) {
-      const isValid = validator(value)
-      markFieldValid(fieldName, isValid)
-      return isValid
-    } else {
-      const isValid = validators.required(value)
-      markFieldValid(fieldName, isValid)
-      return isValid
-    }
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
+    markFieldValid(fieldName, isValid)
+    return isValid
   }
   
   const progress = Math.round((validFields.size / totalFields) * 100)

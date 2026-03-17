@@ -34,10 +34,10 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 1
-  const validateAndMark = (fieldName: string, value: any, validator?: (val: any) => boolean) => {
+  const totalFields = 6 // mortgageAmount, houseValue, duration, mortgageType, income, fixedRate
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
-    const isValid = validator ? validator(value) : validators.required(value)
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
     setValidFields(prev => { const newSet = new Set(prev); isValid ? newSet.add(fieldName) : newSet.delete(fieldName); return newSet })
   }
   const progress = Math.round((validFields.size / totalFields) * 100)

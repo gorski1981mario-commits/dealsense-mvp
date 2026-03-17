@@ -35,11 +35,11 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 2 // postcode, houseNumber (minimum required)
+  const totalFields = 4 // energyType, postcode, houseNumber, contractType
   
-  const validateAndMark = (fieldName: string, value: any, validator?: (val: any) => boolean) => {
+  const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
-    const isValid = validator ? validator(value) : validators.required(value)
+    const isValid = customValidator ? customValidator(value) : validators.required(value)
     setValidFields(prev => {
       const newSet = new Set(prev)
       isValid ? newSet.add(fieldName) : newSet.delete(fieldName)
