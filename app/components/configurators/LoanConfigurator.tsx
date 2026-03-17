@@ -37,7 +37,7 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 5 // filterType, amount, duration, purpose, income
+  const totalFields = 6 // filterType, amount, duration, purpose, income, employmentType
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 
@@ -205,7 +205,8 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type dienstverband</label>
-            <select value={employmentType} onChange={(e) => setEmploymentType(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={employmentType} onChange={(e) => { const val = e.target.value; setEmploymentType(val); validateAndMark('employmentType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('employmentType') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('employmentType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('employmentType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies dienstverband...</option>
               <option value="vast">💼 Vast contract</option>
               <option value="tijdelijk">📄 Tijdelijk contract</option>
               <option value="zzp">👨‍💻 ZZP/Zelfstandige</option>
