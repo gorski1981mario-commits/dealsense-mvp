@@ -185,12 +185,12 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Waarde woning (€)</label>
-            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => setHouseValue(parseInt(e.target.value))} disabled={isLocked} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => { const val = parseInt(e.target.value); setHouseValue(val); validateAndMark('houseValue', val, (v) => v > 0); }} disabled={isLocked} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('houseValue') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('houseValue') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('houseValue') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hypotheekbedrag (€)</label>
-            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => setMortgageAmount(parseInt(e.target.value))} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => { const val = parseInt(e.target.value); setMortgageAmount(val); validateAndMark('mortgageAmount', val, (v) => v > 0); }} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mortgageAmount') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mortgageAmount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mortgageAmount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             {typeof mortgageAmount === 'number' && typeof houseValue === 'number' && houseValue > 0 && (
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Loan-to-Value: {Math.round((mortgageAmount / houseValue) * 100)}%</div>
             )}
@@ -198,7 +198,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (jaren)</label>
-            <select value={duration} onChange={(e) => setDuration(parseInt(e.target.value))} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies looptijd...</option>
               <option value="10">10 jaar</option>
               <option value="15">15 jaar</option>
               <option value="20">20 jaar</option>
@@ -218,8 +219,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
               {value: 'lineair', label: '📉 Lineair', desc: 'Dalende maandlasten'},
               {value: 'aflossingsvrij', label: '💰 Aflossingsvrij', desc: 'Alleen rente betalen'}
             ].map(t => (
-              <div key={t.value} onClick={() => setMortgageType(t.value)} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: mortgageType === t.value ? '#E6F4EE' : 'white', borderColor: mortgageType === t.value ? '#1E7F5C' : '#E5E7EB' }}>
-                <input type="radio" name="mortgageType" value={t.value} checked={mortgageType === t.value} onChange={() => setMortgageType(t.value)} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              <div key={t.value} onClick={() => { if (!isLocked) { setMortgageType(t.value); validateAndMark('mortgageType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: mortgageType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: mortgageType === t.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                <input type="radio" name="mortgageType" value={t.value} checked={mortgageType === t.value} onChange={() => { if (!isLocked) { setMortgageType(t.value); validateAndMark('mortgageType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{t.label}</div>
                   <div style={{ fontSize: '11px', color: '#6B7280' }}>{t.desc}</div>
@@ -235,7 +236,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="20000" max="200000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} placeholder="50000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
+            <input type="number" min="20000" max="200000" step="5000" value={income} onChange={(e) => { const val = parseInt(e.target.value); setIncome(val); validateAndMark('income', val, (v) => v > 0); }} disabled={isLocked} placeholder="50000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('income') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('income') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('income') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
@@ -253,7 +254,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hoelang wil je de rente vastzetten?</label>
-            <select value={fixedRate} onChange={(e) => setFixedRate(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }}>
+            <select value={fixedRate} onChange={(e) => { const val = e.target.value; setFixedRate(val); validateAndMark('fixedRate', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('fixedRate') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('fixedRate') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('fixedRate') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies rentevaste periode...</option>
               <option value="1">1 jaar</option>
               <option value="5">5 jaar</option>
               <option value="10">10 jaar</option>
@@ -295,8 +297,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           </div>
         )}
 
-        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk hypotheken →'}
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk hypotheken →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>
