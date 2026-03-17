@@ -170,8 +170,9 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Netwerk</label>
-            <select value={cardType} onChange={(e) => setCardType(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
-              <option value="visa">🟦 Visa</option>
+            <select value={cardType} onChange={(e) => { const val = e.target.value; setCardType(val); validateAndMark('cardType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('cardType') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('cardType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('cardType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies netwerk...</option>
+              <option value="visa">� Visa</option>
               <option value="mastercard">🔴 Mastercard</option>
               <option value="amex">🔵 American Express</option>
               <option value="vpay">V Pay (alleen Europa)</option>
@@ -181,13 +182,14 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste limiet (€)</label>
-            <input type="number" min="500" max="15000" step="500" value={limit} onChange={(e) => setLimit(parseInt(e.target.value))} disabled={isLocked} placeholder="2000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="500" max="15000" step="500" value={limit} onChange={(e) => { const val = parseInt(e.target.value); setLimit(val); validateAndMark('limit', val, (v) => v > 0); }} disabled={isLocked} placeholder="2000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('limit') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('limit') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('limit') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gebruik</label>
-            <select value={usage} onChange={(e) => setUsage(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
-              <option value="dagelijks">🛍️ Dagelijkse aankopen</option>
+            <select value={usage} onChange={(e) => { const val = e.target.value; setUsage(val); validateAndMark('usage', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('usage') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('usage') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('usage') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies gebruik...</option>
+              <option value="dagelijks">�️ Dagelijkse aankopen</option>
               <option value="reizen">✈️ Reizen & vakanties</option>
               <option value="zakelijk">💼 Zakelijk gebruik</option>
               <option value="online">💻 Online shopping</option>
@@ -224,7 +226,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="15000" max="100000" step="5000" value={income} onChange={(e) => setIncome(parseInt(e.target.value))} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="15000" max="100000" step="5000" value={income} onChange={(e) => { const val = parseInt(e.target.value); setIncome(val); validateAndMark('income', val, (v) => v > 0); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('income') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('income') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('income') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
         </div>
 
@@ -250,8 +252,8 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
           </div>
         )}
 
-        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk creditcards →'}
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk creditcards →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>
