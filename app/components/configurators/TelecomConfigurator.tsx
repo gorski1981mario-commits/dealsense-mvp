@@ -25,11 +25,23 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   const [internetSpeed, setInternetSpeed] = useState<number | ''>('')
   const [tvChannels, setTvChannels] = useState(false)
   const [postcode, setPostcode] = useState('')
+  const [houseNumber, setHouseNumber] = useState('')
   const [numberOfSims, setNumberOfSims] = useState<number | ''>('')
   const [fiveG, setFiveG] = useState(false)
   const [roaming, setRoaming] = useState(false)
   const [fixedPhone, setFixedPhone] = useState(false)
   const [searching, setSearching] = useState(false)
+  
+  // Auto-fill from user account (without auto-validation)
+  useEffect(() => {
+    const userData = { postcode: '1943BR', houseNumber: '42' }
+    if (userData.postcode) {
+      setPostcode(userData.postcode)
+    }
+    if (userData.houseNumber) {
+      setHouseNumber(userData.houseNumber)
+    }
+  }, [])
   
   // Lock/unlock state
   const [isLocked, setIsLocked] = useState(false)
@@ -75,7 +87,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       const configData = {
         userId: userId || 'anonymous',
         sector: 'telecom',
-        parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, numberOfSims, fiveG, roaming, fixedPhone },
+        parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone },
         timestamp: new Date().toISOString()
       }
       const response = await fetch('/api/configurations/save', {
@@ -106,7 +118,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       configId,
       userId: userId || 'anonymous',
       sector: 'telecom',
-      parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, numberOfSims, fiveG, roaming, fixedPhone },
+      parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone },
       timestamp: configTimestamp
     })
   }
@@ -285,9 +297,13 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
               </select>
             </div>
 
-            <div>
+            <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
+              <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor beschikbaarheid glasvezel/kabel</div>
             </div>
           </div>

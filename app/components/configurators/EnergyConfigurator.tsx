@@ -40,7 +40,18 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 6 // filterType, energyType, postcode, houseNumber, contractType, extras
+  const totalFields = 5 // filterType, energyType, contractType, postcode, houseNumber
+  
+  // Auto-fill from user account (without auto-validation)
+  useEffect(() => {
+    const userData = { postcode: '1943BR', houseNumber: '42' }
+    if (userData.postcode) {
+      setPostcode(userData.postcode)
+    }
+    if (userData.houseNumber) {
+      setHouseNumber(userData.houseNumber)
+    }
+  }, [])
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
@@ -363,16 +374,15 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
 
         {/* 4. ADRES */}
         <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Adresgegevens</div>
-          
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Adresgegevens</div>
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-            <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234 AB" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
           </div>
-
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
             <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor beschikbaarheid en tarieven</div>
           </div>
         </div>
 
@@ -396,9 +406,9 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           </div>
         </div>
 
-        {!postcode && !houseNumber && (
+        {!postcode && (
           <div style={{ padding: '12px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', marginBottom: '16px' }}>
-            <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul postcode en huisnummer in voor nauwkeurige tarieven!</div>
+            <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul postcode in voor nauwkeurige tarieven!</div>
           </div>
         )}
 
