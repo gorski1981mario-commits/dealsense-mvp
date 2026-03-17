@@ -222,7 +222,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
               {value: tvChannels, setter: setTvChannels, label: '📺 TV pakket', desc: 'Digitale TV zenders'},
               {value: fixedPhone, setter: setFixedPhone, label: '☎️ Vaste telefonie', desc: 'Vaste lijn voor thuis'}
             ].map((item, i) => (
-              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
