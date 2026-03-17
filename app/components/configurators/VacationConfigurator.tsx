@@ -30,6 +30,9 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [configId, setConfigId] = useState<string | null>(null)
   const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  
+  // Active field tracking for visual highlight
+  const [activeField, setActiveField] = useState<string | null>(null)
 
   const limits = {
     free: 3,
@@ -39,37 +42,6 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   const maxDestinations = limits[packageType || 'pro']
-
-  // Auto-lock when any field changes
-  useEffect(() => {
-    const hasChanges = destination || departureDate || adults !== 2 || children !== 0 || transport !== 'flight' || accommodationType !== 'hotel' || stars.length !== 1 || board !== 'ai' || extras.length > 0
-    
-    if (hasChanges && !isLocked && !saving && !configId) {
-      const lockConfig = async () => {
-        try {
-          setSaving(true)
-          const configData = {
-            userId: userId || 'anonymous',
-            sector: 'vacation',
-            parameters: { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras },
-            timestamp: new Date().toISOString()
-          }
-          const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-          const result = await response.json()
-          if (result.success) { 
-            setConfigId(result.configId)
-            setConfigTimestamp(configData.timestamp)
-            setIsLocked(true)
-          }
-        } catch (error) { 
-          console.error('Error:', error)
-        } finally { 
-          setSaving(false)
-        }
-      }
-      lockConfig()
-    }
-  }, [destination, departureDate, adults, children, transport, accommodationType, stars, board, extras, duration, childrenAges, isLocked, saving, configId, userId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -185,7 +157,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
-              <select value={destination} onChange={(e) => setDestination(e.target.value)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+              <select value={destination} onChange={(e) => setDestination(e.target.value)} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: activeField === 'destination' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'destination' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="">Kies bestemming...</option>
                 <optgroup label="🔥 Meest populair voor Nederlanders">
                   <option value="turkije">🔥 🇹🇷 Turkije</option>
@@ -226,12 +198,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
-              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} required style={{ width: '100%', padding: '10px 14px', border: activeField === 'departureDate' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'departureDate' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
-              <select value={duration} onChange={(e) => setDuration(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+              <select value={duration} onChange={(e) => setDuration(e.target.value)} onFocus={() => setActiveField('duration')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'duration' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'duration' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="7">7 dagen</option>
                 <option value="10">10 dagen</option>
                 <option value="14">14 dagen</option>
