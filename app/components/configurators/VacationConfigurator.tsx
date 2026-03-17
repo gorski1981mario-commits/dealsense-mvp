@@ -297,8 +297,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
               <div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur: <span style={{ color: '#1E7F5C', fontWeight: 700 }}>{duration || 7} dagen</span></div>
-                <input type="range" min="1" max="30" value={duration || 7} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val.toString()); validateAndMark('duration', val.toString()); }} disabled={isLocked} style={{ width: '100%', height: '8px', borderRadius: '4px', background: '#E5E7EB', outline: 'none', cursor: isLocked ? 'not-allowed' : 'pointer' }} />
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur: <span style={{ color: '#1E7F5C', fontWeight: 700 }}>{duration || 1} {(duration || 1) === 1 ? 'dag' : 'dagen'}</span></div>
+                <input type="range" min="1" max="30" value={duration || 1} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val.toString()); validateAndMark('duration', val.toString()); }} disabled={isLocked} style={{ width: '100%', height: '8px', borderRadius: '4px', background: '#E5E7EB', outline: 'none', cursor: isLocked ? 'not-allowed' : 'pointer' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#6B7280', marginTop: '4px' }}>
                   <span>1 dag</span>
                   <span>30 dagen</span>
@@ -352,7 +352,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
           <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>5. Verblijf type</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {[{value: 'bb', label: '🍳 Logies & Ontbijt'}, {value: 'hb', label: '🍽️ Halfpension'}, {value: 'fb', label: '🍽️🍽️ Volpension'}, {value: 'ai', label: '🍹 All Inclusive'}, {value: 'uai', label: '🍹+ Ultra All Inclusive'}, ...(children === 0 ? [{value: 'adults_only', label: '🔞 Adults Only'}] : [])].map(b => (
+              {[{value: 'bb', label: '🍳 Logies & Ontbijt'}, {value: 'hb', label: '🍽️ Halfpension'}, {value: 'fb', label: '🍽️🍽️ Volpension'}, {value: 'ai', label: '🍹 All Inclusive'}, {value: 'uai', label: '🍹+ Ultra All Inclusive'}].map(b => (
                 <div key={b.value} onClick={() => { if (!isLocked) { setBoard(b.value); validateAndMark('board', b.value); } }} onFocus={() => setActiveField('board')} onBlur={() => setActiveField(null)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: board === b.value ? '2px solid #1E7F5C' : (touchedFields.has('board') && !validFields.has('board') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: board === b.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : (touchedFields.has('board') && !validFields.has('board') ? '#FEF3C7' : 'white')), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                   <input type="radio" name="board" value={b.value} checked={board === b.value} onChange={() => !isLocked && setBoard(b.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                   <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{b.label}</label>
