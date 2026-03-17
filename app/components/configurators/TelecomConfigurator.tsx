@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
+import ProgressTracker from '../shared/ProgressTracker'
+import LockPanel from '../shared/LockPanel'
+import { validators } from '../../utils/validators'
 
 interface TelecomConfiguratorProps {
   packageType?: 'plus' | 'pro' | 'finance'

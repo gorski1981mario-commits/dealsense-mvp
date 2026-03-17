@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download } from 'lucide-react'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
+import ProgressTracker from '../shared/ProgressTracker'
+import LockPanel from '../shared/LockPanel'
+import { validators } from '../../utils/validators'
 
 interface VacationConfiguratorProps {
   packageType?: 'free' | 'plus' | 'pro' | 'finance'
@@ -33,6 +36,36 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   
   // Active field tracking for visual highlight
   const [activeField, setActiveField] = useState<string | null>(null)
+  
+  // Progress tracking
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
+  const [validFields, setValidFields] = useState<Set<string>>(new Set())
+  const totalFields = 3 // destination, departureDate, duration (minimum required)
+  
+  const markFieldTouched = (fieldName: string) => {
+    setTouchedFields(prev => new Set(prev).add(fieldName))
+  }
+  
+  const markFieldValid = (fieldName: string, isValid: boolean) => {
+    setValidFields(prev => {
+      const newSet = new Set(prev)
+      if (isValid) {
+        newSet.add(fieldName)
+      } else {
+        newSet.delete(fieldName)
+      }
+      return newSet
+    })
+  }
+  
+  const validateAndMark = (fieldName: string, value: any) => {
+    markFieldTouched(fieldName)
+    const isValid = validators.required(value)
+    markFieldValid(fieldName, isValid)
+    return isValid
+  }
+  
+  const progress = Math.round((validFields.size / totalFields) * 100)
 
   const limits = {
     free: 3,
@@ -103,6 +136,22 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
           🏖️ Vakantie Configurator
         </h2>
 
+        {/* Progress Tracker */}
+        <ProgressTracker 
+          percentage={progress}
+          validCount={validFields.size}
+          totalFields={totalFields}
+          showWarning={validFields.size < totalFields}
+        />
+
+        {/* Lock Panel */}
+        <LockPanel
+          isLocked={isLocked}
+          configId={configId}
+          onUnlock={handleUnlockConfiguration}
+          onDownloadPDF={handleDownloadPDF}
+        />
+
         {isLocked && configId && (
           <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#1E7F5C" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#1E7F5C' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
@@ -157,7 +206,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
-              <select value={destination} onChange={(e) => setDestination(e.target.value)} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'destination' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'destination' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <select value={destination} onChange={(e) => { const val = e.target.value; setDestination(val); validateAndMark('destination', val); }} onFocus={() => setActiveField('destination')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('destination') ? '2px solid #1E7F5C' : (touchedFields.has('destination') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('destination') ? '#E6F4EE' : (touchedFields.has('destination') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="">Kies bestemming...</option>
                 <optgroup label="🔥 Meest populair voor Nederlanders">
                   <option value="turkije">🔥 🇹🇷 Turkije</option>
@@ -198,12 +247,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
-              <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'departureDate' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'departureDate' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="date" value={departureDate} onChange={(e) => { const val = e.target.value; setDepartureDate(val); validateAndMark('departureDate', val); }} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('departureDate') ? '2px solid #1E7F5C' : (touchedFields.has('departureDate') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('departureDate') ? '#E6F4EE' : (touchedFields.has('departureDate') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
-              <select value={duration} onChange={(e) => setDuration(e.target.value)} onFocus={() => setActiveField('duration')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'duration' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'duration' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <select value={duration} onChange={(e) => { const val = e.target.value; setDuration(val); validateAndMark('duration', val); }} onFocus={() => setActiveField('duration')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('duration') ? '2px solid #1E7F5C' : (touchedFields.has('duration') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : (touchedFields.has('duration') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="7">7 dagen</option>
                 <option value="10">10 dagen</option>
                 <option value="14">14 dagen</option>
@@ -285,7 +334,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             </div>
           )}
 
-          <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          <button type="submit" disabled={isLocked || validFields.size < totalFields} style={{ width: '100%', padding: '14px', background: (isLocked || validFields.size < totalFields) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || validFields.size < totalFields) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
             {isLocked ? 'Configuratie vergrendeld' : 'Zoek beste vakantie →'}
           </button>
           {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
