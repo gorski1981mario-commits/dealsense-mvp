@@ -19,7 +19,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 export default function EnergyConfigurator({ packageType = 'pro', userId }: EnergyConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
-  const [energyType, setEnergyType] = useState('')
+  const [energyType, setEnergyType] = useState('stroom-gas')
   const [electricityUsage, setElectricityUsage] = useState<number | ''>('')
   const [gasUsage, setGasUsage] = useState<number | ''>('')
   const [contractType, setContractType] = useState('')
@@ -331,23 +331,19 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
 
         {/* 2. VERBRUIK */}
         <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Jaarverbruik</div>
+          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Jaarverbruik (schatting)</div>
           
-          {(energyType === 'stroom' || energyType === 'stroom-gas') && (
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Stroomverbruik (kWh/jaar)</label>
-              <input type="number" min="500" max="20000" step="100" value={electricityUsage} onChange={(e) => { const val = parseInt(e.target.value); setElectricityUsage(val); validateAndMark('electricityUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="2500" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
-              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 2500-3500 kWh</div>
-            </div>
-          )}
+          <div style={{ marginBottom: '14px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Elektriciteit per jaar (kWh)</label>
+            <input type="number" min="0" max="20000" step="100" value={electricityUsage} onChange={(e) => { const val = parseInt(e.target.value); setElectricityUsage(val); validateAndMark('electricityUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="2500" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 2500-3500 kWh/jaar</div>
+          </div>
 
-          {(energyType === 'gas' || energyType === 'stroom-gas') && (
-            <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gasverbruik (m³/jaar)</label>
-              <input type="number" min="200" max="5000" step="100" value={gasUsage} onChange={(e) => { const val = parseInt(e.target.value); setGasUsage(val); validateAndMark('gasUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="1500" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
-              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 1200-1800 m³</div>
-            </div>
-          )}
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gas per jaar (m³)</label>
+            <input type="number" min="0" max="5000" step="50" value={gasUsage} onChange={(e) => { const val = parseInt(e.target.value); setGasUsage(val); validateAndMark('gasUsage', val, (v) => v > 0); }} disabled={isLocked} placeholder="1200" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld huishouden: 1200-1500 m³/jaar</div>
+          </div>
         </div>
 
         {/* 3. CONTRACT */}

@@ -21,13 +21,6 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   const [filterType, setFilterType] = useState<FilterType | ''>('')
   const [subscriptionType, setSubscriptionType] = useState('')
   const [services, setServices] = useState<string[]>([])
-  const [budget, setBudget] = useState<number | ''>('')
-  const [users, setUsers] = useState(1)
-  const [quality, setQuality] = useState('')
-  const [bundlePreference, setBundlePreference] = useState('')
-  const [studentDiscount, setStudentDiscount] = useState(false)
-  const [familyPlan, setFamilyPlan] = useState(false)
-  const [annualPayment, setAnnualPayment] = useState(false)
   const [searching, setSearching] = useState(false)
   
   // Lock/unlock state
@@ -39,7 +32,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 4 // filterType, subscriptionType, budget, services (at least one)
+  const totalFields = 3 // filterType, subscriptionType, services (at least one)
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 
@@ -57,7 +50,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
       const configData = {
         userId: userId || 'anonymous',
         sector: 'subscriptions',
-        parameters: { subscriptionType, services, budget, users, quality, bundlePreference, studentDiscount, familyPlan, annualPayment },
+        parameters: { subscriptionType, services },
         timestamp: new Date().toISOString()
       }
       const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
@@ -70,13 +63,21 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
 
   const handleDownloadPDF = () => {
     if (!configId || !configTimestamp) return
-    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'subscriptions', parameters: { subscriptionType, services, budget, users, quality, bundlePreference, studentDiscount, familyPlan, annualPayment }, timestamp: configTimestamp })
+    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'subscriptions', parameters: { subscriptionType, services }, timestamp: configTimestamp })
   }
 
   const toggleService = (service: string) => {
     if (isLocked) return
-    setServices(prev => prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service])
+    const newServices = services.includes(service) ? services.filter(s => s !== service) : [...services, service]
+    setServices(newServices)
+    validateAndMark('services', newServices, (v) => v.length > 0)
   }
+  
+  useEffect(() => {
+    if (services.length > 0) {
+      validateAndMark('services', services, (v) => v.length > 0)
+    }
+  }, [services])
 
   if (view === 'results') {
     return (
@@ -273,83 +274,6 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
               </div>
             </div>
           )}
-        </div>
-
-        {/* 3. BUDGET */}
-        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Budget</div>
-          
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>
-              Maximaal budget per maand: €{budget}
-            </label>
-            <input 
-              type="range" 
-              min="10" 
-              max="200" 
-              step="5" 
-              value={budget} 
-              onChange={(e) => setBudget(parseInt(e.target.value))} 
-              disabled={isLocked}
-              style={{ width: '100%', cursor: isLocked ? 'not-allowed' : 'pointer' }} 
-            />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>
-              <span>€10</span>
-              <span>€200</span>
-            </div>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Aantal gebruikers</label>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#F3F4F6', borderRadius: '10px', padding: '8px 12px', width: 'fit-content' }}>
-              <button type="button" onClick={() => !isLocked && users > 1 && setUsers(users - 1)} disabled={users <= 1 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>−</button>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#111827', minWidth: '25px', textAlign: 'center' }}>{users}</div>
-              <button type="button" onClick={() => !isLocked && users < 6 && setUsers(users + 1)} disabled={users >= 6 || isLocked} style={{ width: '30px', height: '30px', borderRadius: '8px', border: 'none', background: 'white', color: '#111827', fontSize: '16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>+</button>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. VOORKEUREN */}
-        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Voorkeuren</div>
-          
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kwaliteit (streaming)</label>
-            <select value={quality} onChange={(e) => setQuality(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
-              <option value="sd">📺 SD (Standard Definition)</option>
-              <option value="hd">🎬 HD (High Definition)</option>
-              <option value="4k">✨ 4K Ultra HD</option>
-            </select>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bundle voorkeur</label>
-            <select value={bundlePreference} onChange={(e) => setBundlePreference(e.target.value)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
-              <option value="separate">📦 Losse abonnementen</option>
-              <option value="bundle">🎁 Bundel deals (goedkoper)</option>
-              <option value="both">🔄 Beide opties tonen</option>
-            </select>
-          </div>
-        </div>
-
-        {/* 5. EXTRA OPTIES */}
-        <div style={{ marginBottom: '24px' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>5. Extra opties</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {[
-              {value: studentDiscount, setter: setStudentDiscount, label: '🎓 Studentenkorting', desc: 'Ik ben student'},
-              {value: familyPlan, setter: setFamilyPlan, label: '👨‍👩‍👧‍👦 Familie abonnement', desc: 'Voor meerdere gebruikers'},
-              {value: annualPayment, setter: setAnnualPayment, label: '💰 Jaarlijks betalen', desc: 'Vaak goedkoper dan maandelijks'}
-            ].map((item, i) => (
-              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
-                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
-                  <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
