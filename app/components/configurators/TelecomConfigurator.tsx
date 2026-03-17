@@ -53,7 +53,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 5 // filterType, serviceType, postcode, mobileData or internetSpeed, extras
+  const totalFields = 4 // filterType, serviceType, mobileData or internetSpeed (postcode/houseNumber opcjonalne, extras opcjonalne)
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
@@ -245,7 +245,8 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Wat wil je vergelijken?</label>
-            <select value={serviceType} onChange={(e) => { const val = e.target.value; setServiceType(val); validateAndMark('serviceType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer' }}>
+            <select value={serviceType} onChange={(e) => { const val = e.target.value; setServiceType(val); validateAndMark('serviceType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('serviceType') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('serviceType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('serviceType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies dienst...</option>
               <option value="mobiel-internet">📱📡 Mobiel + Internet</option>
               <option value="mobiel">📱 Alleen mobiel</option>
               <option value="internet">📡 Alleen internet</option>
@@ -319,7 +320,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
               {value: tvChannels, setter: setTvChannels, label: '📺 TV pakket', desc: 'Digitale TV zenders'},
               {value: fixedPhone, setter: setFixedPhone, label: '☎️ Vaste telefonie', desc: 'Vaste lijn voor thuis'}
             ].map((item, i) => (
-              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
@@ -336,8 +337,8 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
           </div>
         )}
 
-        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk telecom aanbiedingen →'}
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk telecom aanbiedingen →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>
