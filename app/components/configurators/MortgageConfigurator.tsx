@@ -108,7 +108,9 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hypotheekbedrag (€)</label>
             <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => setMortgageAmount(parseInt(e.target.value))} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
-            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Loan-to-Value: {Math.round((mortgageAmount / houseValue) * 100)}%</div>
+            {typeof mortgageAmount === 'number' && typeof houseValue === 'number' && houseValue > 0 && (
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Loan-to-Value: {Math.round((mortgageAmount / houseValue) * 100)}%</div>
+            )}
           </div>
 
           <div>
@@ -156,7 +158,9 @@ export default function MortgageConfigurator({ packageType = 'finance', userId }
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Partner inkomen (€, optioneel)</label>
             <input type="number" min="0" max="200000" step="5000" value={partnerIncome} onChange={(e) => setPartnerIncome(parseInt(e.target.value))} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: 'white' }} />
-            <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Totaal inkomen: €{(income + partnerIncome).toLocaleString()}</div>
+            {typeof income === 'number' && typeof partnerIncome === 'number' && (
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Totaal inkomen: €{(income + partnerIncome).toLocaleString()}</div>
+            )}
           </div>
         </div>
 
