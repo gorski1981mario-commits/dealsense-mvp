@@ -53,13 +53,6 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     }
   }, [])
   
-  // Auto-validate energyType on mount (has initial value)
-  useEffect(() => {
-    if (energyType) {
-      validateAndMark('energyType', energyType)
-    }
-  }, [])
-  
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
   }
