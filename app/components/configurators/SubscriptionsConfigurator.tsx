@@ -16,7 +16,7 @@ interface SubscriptionsConfiguratorProps {
 export default function SubscriptionsConfigurator({ packageType, userId }: SubscriptionsConfiguratorProps) {
   const [subscriptionType, setSubscriptionType] = useState('')
   const [services, setServices] = useState<string[]>([])
-  const [budget, setBudget] = useState<number | >('')
+  const [budget, setBudget] = useState<number | ''>('')
   const [users, setUsers] = useState(1)
   const [quality, setQuality] = useState('')
   const [bundlePreference, setBundlePreference] = useState('')
