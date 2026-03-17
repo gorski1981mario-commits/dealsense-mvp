@@ -41,7 +41,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 4 // serviceType, postcode, mobileData or internetSpeed, extras
+  const totalFields = 5 // filterType, serviceType, postcode, mobileData or internetSpeed, extras
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))

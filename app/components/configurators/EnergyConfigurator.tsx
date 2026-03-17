@@ -40,7 +40,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   // Progress tracking
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 5 // energyType, postcode, houseNumber, contractType, extras
+  const totalFields = 6 // filterType, energyType, postcode, houseNumber, contractType, extras
   
   const markFieldTouched = (fieldName: string) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))

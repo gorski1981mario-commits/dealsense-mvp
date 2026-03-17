@@ -44,7 +44,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   
   const getTotalFields = () => {
-    let total = 6 // insuranceType, coverage, age, postcode, bonusMalus, extras
+    let total = 7 // filterType, insuranceType, coverage, age, postcode, bonusMalus, extras
     if (insuranceType === 'auto') total += 1 // parkingLocation
     return total
   }

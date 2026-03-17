@@ -39,7 +39,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 4 // cardType, limit, usage, income
+  const totalFields = 5 // filterType, cardType, limit, usage, income
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 

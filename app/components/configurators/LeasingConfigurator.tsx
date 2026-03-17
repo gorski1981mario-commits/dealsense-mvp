@@ -40,7 +40,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 5 // vehicleType, amount, duration, kilometers, leasingType
+  const totalFields = 6 // filterType, vehicleType, amount, duration, kilometers, leasingType
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 

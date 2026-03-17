@@ -39,7 +39,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 3 // subscriptionType, budget, services (at least one)
+  const totalFields = 4 // filterType, subscriptionType, budget, services (at least one)
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
 

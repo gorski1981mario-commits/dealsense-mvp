@@ -39,7 +39,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
-  const totalFields = 6 // mortgageAmount, houseValue, duration, mortgageType, income, fixedRate
+  const totalFields = 7 // filterType, mortgageAmount, houseValue, duration, mortgageType, income, fixedRate
   const validateAndMark = (fieldName: string, value: any, customValidator?: (val: any) => boolean) => {
     setTouchedFields(prev => new Set(prev).add(fieldName))
     const isValid = customValidator ? customValidator(value) : validators.required(value)
