@@ -26,7 +26,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   const [tvChannels, setTvChannels] = useState(false)
   const [postcode, setPostcode] = useState('')
   const [houseNumber, setHouseNumber] = useState('')
-  const [numberOfSims, setNumberOfSims] = useState<number | ''>('')
+  const [numberOfSims, setNumberOfSims] = useState<number | ''>(0)
   const [fiveG, setFiveG] = useState(false)
   const [roaming, setRoaming] = useState(false)
   const [fixedPhone, setFixedPhone] = useState(false)
@@ -58,7 +58,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
     let total = 2 // filterType + serviceType (always required)
     
     if (serviceType === 'mobiel' || serviceType === 'mobiel-internet' || serviceType === 'alles') {
-      total += 1 // mobileData
+      total += 2 // mobileData + numberOfSims
     }
     if (serviceType === 'internet' || serviceType === 'mobiel-internet' || serviceType === 'alles') {
       total += 1 // internetSpeed
@@ -291,7 +291,20 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Aantal SIM-kaarten</label>
-              <input type="number" min="1" max="5" value={numberOfSims} onChange={(e) => setNumberOfSims(parseInt(e.target.value))} disabled={isLocked} placeholder="1" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 1, label: '1 SIM-kaart', desc: 'Voor 1 persoon'},
+                  {value: 2, label: '2 SIM-kaarten', desc: 'Voor 2 personen'}
+                ].map(s => (
+                  <div key={s.value} onClick={() => { if (!isLocked) { setNumberOfSims(s.value); validateAndMark('numberOfSims', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: numberOfSims === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: numberOfSims === s.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="numberOfSims" value={s.value} checked={numberOfSims === s.value} onChange={() => { if (!isLocked) { setNumberOfSims(s.value); validateAndMark('numberOfSims', s.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{s.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{s.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
