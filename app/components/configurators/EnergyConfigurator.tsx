@@ -42,14 +42,20 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   const totalFields = 7 // filterType, energyType, contractType, electricityUsage, gasUsage, postcode, houseNumber
   
-  // Auto-fill from user account (without auto-validation)
+  // Auto-fill from user account (with auto-validation)
   useEffect(() => {
     const userData = { postcode: '1943BR', houseNumber: '42' }
     if (userData.postcode) {
       setPostcode(userData.postcode)
+      // Auto-validate postcode
+      markFieldTouched('postcode')
+      markFieldValid('postcode', validators.postcode(userData.postcode))
     }
     if (userData.houseNumber) {
       setHouseNumber(userData.houseNumber)
+      // Auto-validate houseNumber
+      markFieldTouched('houseNumber')
+      markFieldValid('houseNumber', validators.required(userData.houseNumber))
     }
   }, [])
   
@@ -383,11 +389,11 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Adresgegevens</div>
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-            <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); validateAndMark('postcode', val, validators.postcode); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('postcode') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('postcode') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
-            <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); validateAndMark('houseNumber', val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('houseNumber') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('houseNumber') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('houseNumber') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor beschikbaarheid en tarieven</div>
           </div>
         </div>
@@ -418,8 +424,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           </div>
         )}
 
-        <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk energieleveranciers →'}
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk energieleveranciers →' : `Vul alle velden in (${progress}%)`)}
         </button>
         
         {isLocked && (
