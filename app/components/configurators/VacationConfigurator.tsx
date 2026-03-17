@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Lock, Unlock, Download } from 'lucide-react'
+import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 
 interface VacationConfiguratorProps {
   packageType?: 'free' | 'plus' | 'pro' | 'finance'
@@ -22,6 +24,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [stars, setStars] = useState<string[]>(['4'])
   const [board, setBoard] = useState('ai')
   const [extras, setExtras] = useState<string[]>([])
+  
+  // Lock/unlock state
+  const [isLocked, setIsLocked] = useState(false)
+  const [configId, setConfigId] = useState<string | null>(null)
+  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
 
   const limits = {
     free: 3,
@@ -32,9 +40,37 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   const maxDestinations = limits[packageType || 'pro']
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Auto-lock configuration on submit
+    if (!isLocked) {
+      await handleLockConfiguration()
+    }
+    
     setView('results')
+  }
+
+  const handleLockConfiguration = async () => {
+    try {
+      setSaving(true)
+      const configData = {
+        userId: userId || 'anonymous',
+        sector: 'vacation',
+        parameters: { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras },
+        timestamp: new Date().toISOString()
+      }
+      const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
+      const result = await response.json()
+      if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
+    } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+  }
+
+  const handleUnlockConfiguration = () => { setIsLocked(false) }
+
+  const handleDownloadPDF = () => {
+    if (!configId || !configTimestamp) return
+    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'vacation', parameters: { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }, timestamp: configTimestamp })
   }
 
   const updateChildren = (newCount: number) => {
@@ -60,6 +96,16 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
           🏖️ Vakantie Configurator
         </h2>
+
+        {isLocked && configId && (
+          <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#1E7F5C" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#1E7F5C' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #1E7F5C', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
+              <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#1E7F5C', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           
@@ -226,9 +272,10 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             </div>
           </div>
 
-          <button type="submit" style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-            Zoek beste vakantie →
+          <button type="submit" disabled={isLocked} style={{ width: '100%', padding: '14px', background: isLocked ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: isLocked ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+            {isLocked ? 'Configuratie vergrendeld' : 'Zoek beste vakantie →'}
           </button>
+          {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
         </form>
       </div>
     )
