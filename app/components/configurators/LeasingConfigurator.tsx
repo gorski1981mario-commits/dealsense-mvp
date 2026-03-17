@@ -172,7 +172,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-            <select value={vehicleType} onChange={(e) => { const val = e.target.value; setVehicleType(val); validateAndMark('vehicleType', val); }} onFocus={() => setActiveField('vehicleType')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleType' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleType' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={vehicleType} onChange={(e) => { const val = e.target.value; setVehicleType(val); validateAndMark('vehicleType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('vehicleType') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('vehicleType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('vehicleType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <option value="">Kies type...</option>
               <option value="auto">🚗 Auto</option>
               <option value="elektrisch">⚡ Elektrische auto</option>
               <option value="hybride">🔋 Hybride auto</option>
@@ -199,17 +200,17 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Cataloguswaarde (€)</label>
-            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => { const val = parseInt(e.target.value); setAmount(val); validateAndMark('amount', val); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => { const val = parseInt(e.target.value); setAmount(val); validateAndMark('amount', val, (v) => v > 0); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('amount') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('amount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('amount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (maanden)</label>
-            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val); }} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
-            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => { const val = parseInt(e.target.value); setKilometers(val); validateAndMark('kilometers', val); }} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'text' }} />
+            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => { const val = parseInt(e.target.value); setKilometers(val); validateAndMark('kilometers', val, (v) => v > 0); }} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('kilometers') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('kilometers') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('kilometers') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
         </div>
 
@@ -248,8 +249,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           </div>
         )}
 
-        <button type="submit" disabled={searching || isLocked} style={{ width: '100%', padding: '14px', background: (searching || isLocked) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
-          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : 'Vergelijk leasing aanbiedingen →')}
+        <button type="submit" disabled={searching || isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (searching || isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+          {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk leasing aanbiedingen →' : `Vul alle velden in (${progress}%)`))}  
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
       </form>
