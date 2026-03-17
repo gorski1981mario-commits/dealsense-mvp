@@ -125,6 +125,10 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   const updateChildren = (newCount: number) => {
     if (isLocked) return
+    
+    // Check if we're reducing children count and had valid ages
+    const hadValidAges = validFields.has('childrenAges') && childrenAges.some(age => age > 0)
+    
     setChildren(newCount)
     
     // Reset childrenAges and remove from valid if count changes
@@ -138,6 +142,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       }
     } else {
       validFields.delete('childrenAges') // Will be validated when ages are filled
+    }
+    
+    // Show warning if configuration was changed
+    if (hadValidAges && newCount < children) {
+      // User reduced children count - ages need to be re-entered
+      touchedFields.add('childrenAges')
     }
   }
 
