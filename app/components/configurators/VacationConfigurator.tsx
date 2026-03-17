@@ -23,7 +23,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [childrenAges, setChildrenAges] = useState<number[]>([])
   const [destination, setDestination] = useState('')
   const [departureDate, setDepartureDate] = useState('')
-  const [duration, setDuration] = useState('')
+  const [duration, setDuration] = useState(1)
   const [transport, setTransport] = useState('')
   const [accommodationType, setAccommodationType] = useState('')
   const [stars, setStars] = useState('')
@@ -299,14 +299,11 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur</label>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur: <span style={{ color: '#1E7F5C', fontWeight: 700 }}>{duration || 1} {(duration || 1) === 1 ? 'dag' : 'dagen'}</span></div>
-                <input type="range" min="1" max="30" value={duration || 1} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val.toString()); validateAndMark('duration', val.toString()); }} disabled={isLocked} style={{ width: '100%', height: '8px', borderRadius: '4px', background: '#E5E7EB', outline: 'none', cursor: isLocked ? 'not-allowed' : 'pointer' }} />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#6B7280', marginTop: '4px' }}>
-                  <span>1 dag</span>
-                  <span>30 dagen</span>
-                </div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Duur: <span style={{ color: '#1E7F5C', fontWeight: 700 }}>{duration} {duration === 1 ? 'dag' : 'dagen'}</span></div>
+              <input type="range" min="1" max="30" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v >= 1); }} disabled={isLocked} style={{ width: '100%', height: '8px', borderRadius: '4px', background: '#E5E7EB', outline: 'none', cursor: isLocked ? 'not-allowed' : 'pointer' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#6B7280', marginTop: '4px' }}>
+                <span>1 dag</span>
+                <span>30 dagen</span>
               </div>
             </div>
           </div>
