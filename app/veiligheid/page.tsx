@@ -47,8 +47,8 @@ export default function VeiligheidPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          🔐 Veilige Betalingen
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ShieldCheck size={20} strokeWidth={2} color="#1E7F5C" /> Veilige Betalingen
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           Alle betalingen worden verwerkt via Stripe, een van de veiligste betalingsproviders ter wereld. 

@@ -117,7 +117,7 @@ export default function HoeHetWerktPage() {
               <Zap size={20} strokeWidth={2} color="#1E7F5C" /> Supersnel vergelijken
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-              Binnen 2-8 seconden scannen we 1000+ Nederlandse webshops. Jij ziet meteen de beste 3 deals met de grootste besparingen. Geen eindeloos zoeken meer.
+              Binnen aantal seconden vind je de beste deals. Geen eindeloos zoeken meer.
             </div>
           </div>
 

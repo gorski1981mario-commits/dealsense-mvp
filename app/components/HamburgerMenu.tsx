@@ -178,9 +178,12 @@ export default function HamburgerMenu() {
             <h3 style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#6B7280',
+              color: '#1E7F5C',
               letterSpacing: '0.5px',
-              marginBottom: '16px'
+              marginBottom: '16px',
+              background: '#E6F4EE',
+              padding: '8px 12px',
+              borderRadius: '6px'
             }}>
               PAKKETTEN
             </h3>
@@ -219,9 +222,12 @@ export default function HamburgerMenu() {
             <h3 style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#6B7280',
+              color: '#1E7F5C',
               letterSpacing: '0.5px',
-              marginBottom: '16px'
+              marginBottom: '16px',
+              background: '#E6F4EE',
+              padding: '8px 12px',
+              borderRadius: '6px'
             }}>
               FUNCTIES
             </h3>
@@ -231,10 +237,13 @@ export default function HamburgerMenu() {
               <div style={{
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#6B7280',
+                color: '#1E7F5C',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                background: '#E6F4EE',
+                padding: '6px 10px',
+                borderRadius: '6px'
               }}>
                 PRODUCTEN (Scannen)
               </div>
@@ -276,10 +285,13 @@ export default function HamburgerMenu() {
               <div style={{
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#6B7280',
+                color: '#1E7F5C',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                background: '#E6F4EE',
+                padding: '6px 10px',
+                borderRadius: '6px'
               }}>
                 DIENSTEN (Vergelijken)
               </div>

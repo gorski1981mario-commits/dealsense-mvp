@@ -85,7 +85,7 @@ export default function WaaromGeenPartnerschappenPage() {
             <br /><br />
             <strong>Andere vergelijker:</strong>
             <br />
-            Partner Shop A: €850 (zij krijgen €20 commissie)
+            Partner Shop A: €850
             <br />
             Shop B: verborgen (geen partner)
             <br />
@@ -94,8 +94,6 @@ export default function WaaromGeenPartnerschappenPage() {
             <strong style={{ color: '#1E7F5C' }}>DealSense:</strong>
             <br />
             Shop B: €765 (beste prijs)
-            <br />
-            Commissie: €13,40 (10% van €134 besparing)
             <br />
             Jij betaalt: €778,40
             <br /><br />
