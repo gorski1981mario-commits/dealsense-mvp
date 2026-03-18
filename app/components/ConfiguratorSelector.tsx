@@ -22,7 +22,7 @@ export default function ConfiguratorSelector({ packageType, userId }: Configurat
 
   // Base configurators (PRO)
   const baseConfigurators = [
-    { id: 'vacation', name: '🏖️ Vakanties', component: VacationConfigurator, category: 'Services' },
+    { id: 'vacation', name: '✈️ Vakanties', component: VacationConfigurator, category: 'Services' },
     { id: 'insurance', name: '🛡️ Verzekeringen', component: InsuranceConfigurator, category: 'Services' },
     { id: 'energy', name: '⚡ Energie', component: EnergyConfigurator, category: 'Services' },
     { id: 'telecom', name: '📱 Telecom', component: TelecomConfigurator, category: 'Services' }
@@ -30,9 +30,9 @@ export default function ConfiguratorSelector({ packageType, userId }: Configurat
 
   // Finance configurators (FINANCE only)
   const financeConfigurators = [
-    { id: 'mortgage', name: '🏠 Hypotheek', component: MortgageConfigurator, category: 'Finance' },
-    { id: 'leasing', name: '🚗 Leasing', component: LeasingConfigurator, category: 'Finance' },
-    { id: 'loan', name: '💰 Lening', component: LoanConfigurator, category: 'Finance' },
+    { id: 'mortgage', name: '� Hypotheek', component: MortgageConfigurator, category: 'Finance' },
+    { id: 'leasing', name: '� Leasing', component: LeasingConfigurator, category: 'Finance' },
+    { id: 'loan', name: '� Lening', component: LoanConfigurator, category: 'Finance' },
     { id: 'creditcard', name: '💳 Creditcard', component: CreditCardConfigurator, category: 'Finance' }
   ]
 
