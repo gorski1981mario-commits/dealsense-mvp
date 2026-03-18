@@ -51,10 +51,10 @@ export default function StatisticsPage() {
               gap: '12px',
               marginBottom: '12px'
             }}>
-              <TrendingDown size={20} color="#1E7F5C" />
+              <TrendingDown size={20} color="#10b981" />
               <div style={{ fontSize: '14px', color: '#6B7280' }}>Totale besparing</div>
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: '#1E7F5C' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: '#10b981' }}>
               €{totalSavings.toFixed(2)}
             </div>
           </div>

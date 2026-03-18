@@ -106,7 +106,7 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
       disabled={loading}
       style={{
         padding: '16px 24px',
-        background: loading ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
+        background: loading ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)',
         color: 'white',
         border: 'none',
         borderRadius: '10px',

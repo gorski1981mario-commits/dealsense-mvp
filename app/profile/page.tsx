@@ -38,7 +38,7 @@ export default function ProfilePage() {
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
+              background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -57,7 +57,7 @@ export default function ProfilePage() {
             <div style={{
               padding: '8px 16px',
               background: '#E6F4EE',
-              color: '#1E7F5C',
+              color: '#10b981',
               borderRadius: '8px',
               fontSize: '13px',
               fontWeight: 600
@@ -83,10 +83,10 @@ export default function ProfilePage() {
                 padding: '16px',
                 background: activeTab === 'overview' ? '#E6F4EE' : 'white',
                 border: 'none',
-                borderBottom: activeTab === 'overview' ? '3px solid #1E7F5C' : '3px solid transparent',
+                borderBottom: activeTab === 'overview' ? '3px solid #10b981' : '3px solid transparent',
                 fontSize: '14px',
                 fontWeight: 600,
-                color: activeTab === 'overview' ? '#1E7F5C' : '#6B7280',
+                color: activeTab === 'overview' ? '#10b981' : '#6B7280',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
@@ -100,10 +100,10 @@ export default function ProfilePage() {
                 padding: '16px',
                 background: activeTab === 'configurations' ? '#E6F4EE' : 'white',
                 border: 'none',
-                borderBottom: activeTab === 'configurations' ? '3px solid #1E7F5C' : '3px solid transparent',
+                borderBottom: activeTab === 'configurations' ? '3px solid #10b981' : '3px solid transparent',
                 fontSize: '14px',
                 fontWeight: 600,
-                color: activeTab === 'configurations' ? '#1E7F5C' : '#6B7280',
+                color: activeTab === 'configurations' ? '#10b981' : '#6B7280',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
@@ -117,10 +117,10 @@ export default function ProfilePage() {
                 padding: '16px',
                 background: activeTab === 'settings' ? '#E6F4EE' : 'white',
                 border: 'none',
-                borderBottom: activeTab === 'settings' ? '3px solid #1E7F5C' : '3px solid transparent',
+                borderBottom: activeTab === 'settings' ? '3px solid #10b981' : '3px solid transparent',
                 fontSize: '14px',
                 fontWeight: 600,
-                color: activeTab === 'settings' ? '#1E7F5C' : '#6B7280',
+                color: activeTab === 'settings' ? '#10b981' : '#6B7280',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
@@ -151,7 +151,7 @@ export default function ProfilePage() {
                 </div>
                 <div style={{ background: '#F9FAFB', borderRadius: '8px', padding: '16px' }}>
                   <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '4px' }}>Betaald</div>
-                  <div style={{ fontSize: '24px', fontWeight: 700, color: '#1E7F5C' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 700, color: '#10b981' }}>
                     {JSON.parse(localStorage.getItem('userConfigurations') || '[]').filter((c: any) => c.status === 'betaald').length}
                   </div>
                 </div>

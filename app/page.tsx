@@ -150,7 +150,7 @@ export default function HomePage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#1E7F5C',
+          background: '#10b981',
           color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
@@ -158,7 +158,7 @@ export default function HomePage() {
         }}>FREE</span>
         <span style={{ 
           fontSize: '14px', 
-          color: scansRemaining === 0 ? '#ef4444' : '#1E7F5C', 
+          color: scansRemaining === 0 ? '#ef4444' : '#10b981', 
           fontWeight: 700,
           padding: '4px 12px',
           background: scansRemaining === 0 ? '#fee2e2' : '#f0fdf4',
@@ -205,7 +205,7 @@ export default function HomePage() {
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#10b981', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>100+ winkels</span>
         </div>
         <div style={{
@@ -219,7 +219,7 @@ export default function HomePage() {
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#10b981', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>Veilig & betrouwbaar</span>
         </div>
         <div style={{
@@ -233,7 +233,7 @@ export default function HomePage() {
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#10b981', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>3 gratis scans</span>
         </div>
       </div>
@@ -345,7 +345,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading || scansRemaining === 0 ? '#9ca3af' : '#1E7F5C',
+            background: loading || scansRemaining === 0 ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
             color: 'white',
             border: 'none',
             borderRadius: '10px',
@@ -383,7 +383,7 @@ export default function HomePage() {
             {result.message || 'Scan voltooid!'}
           </p>
           {result.savings && (
-            <div style={{ fontSize: '24px', fontWeight: 900, color: '#1E7F5C', marginBottom: '8px' }}>
+            <div style={{ fontSize: '24px', fontWeight: 900, color: '#10b981', marginBottom: '8px' }}>
               €{result.savings.toFixed(2)} besparing
             </div>
           )}
@@ -433,7 +433,7 @@ export default function HomePage() {
             </p>
             
             <div style={{ marginBottom: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px' }}>
-              <div style={{ fontSize: '24px', fontWeight: 900, color: '#1E7F5C', marginBottom: '4px' }}>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: '#10b981', marginBottom: '4px' }}>
                 €19,99/maand
               </div>
               <div style={{ fontSize: '12px', color: '#374151' }}>
@@ -494,7 +494,7 @@ export default function HomePage() {
                 onClick={acceptCookies}
                 style={{
                   padding: '8px 16px',
-                  background: '#1E7F5C',
+                  background: '#10b981',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
@@ -546,16 +546,16 @@ export default function HomePage() {
                     width: '18px',
                     height: '18px',
                     cursor: 'pointer',
-                    accentColor: '#1E7F5C'
+                    accentColor: '#10b981'
                   }}
                 />
                 <span style={{ fontSize: '13px', color: '#374151', lineHeight: '1.5' }}>
                   Ik ga akkoord met de{' '}
-                  <a href="/voorwaarden" target="_blank" style={{ color: '#1E7F5C', textDecoration: 'underline' }}>
+                  <a href="/voorwaarden" target="_blank" style={{ color: '#10b981', textDecoration: 'underline' }}>
                     Algemene Voorwaarden
                   </a>
                   {' '}en het{' '}
-                  <a href="/veiligheid" target="_blank" style={{ color: '#1E7F5C', textDecoration: 'underline' }}>
+                  <a href="/veiligheid" target="_blank" style={{ color: '#10b981', textDecoration: 'underline' }}>
                     Privacybeleid
                   </a>
                 </span>
@@ -568,7 +568,7 @@ export default function HomePage() {
               disabled={!termsAccepted}
               style={{
                 padding: '12px 24px',
-                background: termsAccepted ? '#1E7F5C' : '#D1D5DB',
+                background: termsAccepted ? '#10b981' : '#D1D5DB',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -700,7 +700,7 @@ export default function HomePage() {
         fontSize: '13px',
         color: '#64748b'
       }}>
-        <a href="/voorwaarden" style={{ color: '#1E7F5C', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
+        <a href="/voorwaarden" style={{ color: '#10b981', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
           Algemene Voorwaarden
         </a>
         <div>

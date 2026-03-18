@@ -114,7 +114,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '12px'
           }}>
             <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Zap size={20} strokeWidth={2} color="#1E7F5C" /> Supersnel vergelijken
+              <Zap size={20} strokeWidth={2} color="#10b981" /> Supersnel vergelijken
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Binnen aantal seconden vind je de beste deals. Geen eindeloos zoeken meer.
@@ -128,7 +128,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '12px'
           }}>
             <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <ShieldCheck size={20} strokeWidth={2} color="#1E7F5C" /> Betrouwbaar & veilig
+              <ShieldCheck size={20} strokeWidth={2} color="#10b981" /> Betrouwbaar & veilig
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Onze AI filtert automatisch verdachte aanbiedingen en scams. Je ziet alleen betrouwbare winkels met goede ratings. Veilig winkelen, altijd.
@@ -142,7 +142,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '12px'
           }}>
             <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <EyeOff size={20} strokeWidth={2} color="#1E7F5C" /> Ghost Mode monitoring
+              <EyeOff size={20} strokeWidth={2} color="#10b981" /> Ghost Mode monitoring
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Laat ons 24/7 de prijs monitoren. Zodra het product goedkoper wordt, krijg je een melding. Zo mis je nooit meer een deal.
@@ -156,7 +156,7 @@ export default function HoeHetWerktPage() {
             borderRadius: '12px'
           }}>
             <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'baseline' }}>
-              <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '28px', lineHeight: 1 }}>E</span><span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '24px', lineHeight: 1 }}>ch</span><span style={{ color: '#000', fontSize: '26px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
+              <span style={{ color: '#10b981', fontWeight: 700, fontSize: '28px', lineHeight: 1 }}>E</span><span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '24px', lineHeight: 1 }}>ch</span><span style={{ color: '#000', fontSize: '26px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
               <span style={{ color: '#374151', fontWeight: 600, fontSize: '16px', marginLeft: '8px' }}>jouw AI assistent</span>
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>

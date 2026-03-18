@@ -30,7 +30,7 @@ function CheckoutContent() {
         <div style={{ fontSize: '16px', color: '#374151', marginBottom: '16px' }}>
           Je gaat {quantity} extra Echo prompts kopen voor:
         </div>
-        <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', marginBottom: '16px' }}>
+        <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', marginBottom: '16px' }}>
           €{price}
         </div>
         
@@ -75,7 +75,7 @@ function CheckoutContent() {
           style={{
             display: 'inline-block',
             padding: '12px 24px',
-            background: '#1E7F5C',
+            background: '#10b981',
             color: 'white',
             borderRadius: '8px',
             fontSize: '14px',

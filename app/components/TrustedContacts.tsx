@@ -215,7 +215,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
             style={{
               width: '100%',
               padding: '12px',
-              background: '#1E7F5C',
+              background: '#10b981',
               color: 'white',
               border: 'none',
               borderRadius: '8px',

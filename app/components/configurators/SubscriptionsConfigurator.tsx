@@ -87,10 +87,10 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5', trust: '🛡️ 9/10', score: 'Score: 9.4', badge: 'BESTE DEAL', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.0'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5', trust: '🛡️ 8/10', score: 'Score: 8.9'}].map((sub, i) => (
-          <div key={i} style={{ background: sub.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${sub.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+          <div key={i} style={{ background: sub.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${sub.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{sub.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{sub.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{sub.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{sub.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
@@ -98,14 +98,14 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
               <span>{sub.trust}</span>
               <span>{sub.score}</span>
             </div>
-            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
+            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
           </div>
         ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€21,59</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€21,59</div>
           <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €239,88 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
         </div>
       </div>
     )
@@ -116,11 +116,11 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #1E7F5C', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€21,59</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€21,59</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>
@@ -133,18 +133,18 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
         {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5 (45.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €120/jaar', url: 'https://www.netflix.com', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5 (32.891 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.disneyplus.com'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5 (38.456 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.youtube.com'}].map((sub, i) => (
-          <div key={i} style={{ background: sub.best ? '#E6F4EE' : 'white', border: `2px solid ${sub.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+          <div key={i} style={{ background: sub.best ? '#E6F4EE' : 'white', border: `2px solid ${sub.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{sub.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#1E7F5C' }}>{sub.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{sub.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{sub.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
               <span>{sub.rating}</span>
               <span>{sub.trust}</span>
             </div>
-            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#1E7F5C', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
-            <button onClick={() => window.open(sub.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#1E7F5C', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Abonneren</button>
+            {sub.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{sub.badge}</span>}
+            <button onClick={() => window.open(sub.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Abonneren</button>
           </div>
         ))}
       </div>
@@ -197,11 +197,11 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
       <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />
 
       {false && isLocked && configId && (
-        <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#1E7F5C" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#1E7F5C' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
+        <div style={{ background: '#E6F4EE', border: '1px solid #10b981', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#10b981" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#10b981' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #1E7F5C', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
-            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#1E7F5C', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
+            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #10b981', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
+            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#10b981', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
           </div>
         </div>
       )}
@@ -221,7 +221,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Categorie</label>
-            <select value={subscriptionType} onChange={(e) => { const val = e.target.value; setSubscriptionType(val); validateAndMark('subscriptionType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('subscriptionType') ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('subscriptionType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('subscriptionType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={subscriptionType} onChange={(e) => { const val = e.target.value; setSubscriptionType(val); validateAndMark('subscriptionType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('subscriptionType') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('subscriptionType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('subscriptionType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="">Kies categorie...</option>
               <option value="streaming">🎬 Streaming (Video & Muziek)</option>
               <option value="software">💻 Software & Tools</option>
@@ -249,7 +249,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
                   borderRadius: '8px', 
                   cursor: isLocked ? 'not-allowed' : 'pointer', 
                   background: services.includes(service.id) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), 
-                  borderColor: services.includes(service.id) ? '#1E7F5C' : '#E5E7EB',
+                  borderColor: services.includes(service.id) ? '#10b981' : '#E5E7EB',
                   opacity: isLocked ? 0.6 : 1
                 }}
               >
@@ -277,7 +277,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
           )}
         </div>
 
-        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
           {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk abonnementen →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}

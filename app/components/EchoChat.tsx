@@ -356,7 +356,7 @@ export default function EchoChat() {
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #1E7F5C 0%, #3b82f6 40%, #111827 70%, #E6F4EE 100%)',
+            background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 40%, #111827 70%, #E6F4EE 100%)',
             border: '3px solid white',
             boxShadow: '0 4px 16px rgba(30, 127, 92, 0.3)',
             cursor: 'pointer',
@@ -379,7 +379,7 @@ export default function EchoChat() {
           <div style={{
             width: '36px',
             height: '36px',
-            background: '#1E7F5C',
+            background: '#10b981',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -427,7 +427,7 @@ export default function EchoChat() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderBottom: '2px solid #1E7F5C'
+            borderBottom: '2px solid #10b981'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{
@@ -435,7 +435,7 @@ export default function EchoChat() {
                 alignItems: 'baseline',
                 gap: '2px'
               }}>
-                <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '18px' }}>E</span>
+                <span style={{ color: '#10b981', fontWeight: 700, fontSize: '18px' }}>E</span>
                 <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '15px' }}>ch</span>
                 <div style={{
                   width: '10px',
@@ -502,7 +502,7 @@ export default function EchoChat() {
                     maxWidth: '75%',
                     padding: '10px 14px',
                     borderRadius: '12px',
-                    background: msg.role === 'user' ? '#1E7F5C' : '#F3F4F6',
+                    background: msg.role === 'user' ? '#10b981' : '#F3F4F6',
                     color: msg.role === 'user' ? 'white' : '#111827',
                     fontSize: '14px',
                     lineHeight: '1.5',
@@ -531,10 +531,10 @@ export default function EchoChat() {
                         style={{
                           padding: '6px 12px',
                           background: 'white',
-                          border: '1px solid #1E7F5C',
+                          border: '1px solid #10b981',
                           borderRadius: '16px',
                           fontSize: '12px',
-                          color: '#1E7F5C',
+                          color: '#10b981',
                           cursor: 'pointer',
                           fontWeight: 500
                         }}
@@ -582,7 +582,7 @@ export default function EchoChat() {
                 onClick={handleVoiceInput}
                 disabled={isListening}
                 style={{
-                  background: isListening ? '#1E7F5C' : 'white',
+                  background: isListening ? '#10b981' : 'white',
                   border: '1px solid #E5E7EB',
                   borderRadius: '8px',
                   padding: '8px',
@@ -626,7 +626,7 @@ export default function EchoChat() {
                 onClick={handleSend}
                 disabled={!input.trim()}
                 style={{
-                  background: input.trim() ? '#1E7F5C' : '#E5E7EB',
+                  background: input.trim() ? '#10b981' : '#E5E7EB',
                   border: 'none',
                   borderRadius: '8px',
                   padding: '8px',

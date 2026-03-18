@@ -25,7 +25,7 @@ export const generateConfigurationPDF = (config: ConfigurationData) => {
   const doc = new jsPDF()
   
   // Header - DealSense.nl branding
-  doc.setFillColor(30, 127, 92) // #1E7F5C - DealSense green
+  doc.setFillColor(30, 127, 92) // #10b981 - DealSense green
   doc.rect(0, 0, 210, 40, 'F')
   
   // Logo text "D.nl"

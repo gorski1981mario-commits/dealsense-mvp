@@ -70,7 +70,7 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
       <div style={{
         width: '64px',
         height: '64px',
-        background: '#1E7F5C',
+        background: '#10b981',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
@@ -112,7 +112,7 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         style={{
           display: 'inline-block',
           padding: '14px 32px',
-          background: '#1E7F5C',
+          background: '#10b981',
           color: 'white',
           borderRadius: '10px',
           fontSize: '16px',

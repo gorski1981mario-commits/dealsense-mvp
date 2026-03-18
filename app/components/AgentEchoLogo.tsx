@@ -19,7 +19,7 @@ export default function AgentEchoLogo() {
       }}>
         {/* E - standard brand green */}
         <span style={{
-          color: '#1E7F5C',
+          color: '#10b981',
           fontWeight: 700,
           fontSize: '28px',
           lineHeight: 1

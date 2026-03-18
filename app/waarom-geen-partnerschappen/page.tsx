@@ -32,14 +32,14 @@ export default function WaaromGeenPartnerschappenPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', color: '#1E7F5C' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', color: '#10b981' }}>
           Wat wij anders doen
         </h2>
         <div style={{
           padding: '20px',
           background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
           borderRadius: '12px',
-          border: '1px solid #1E7F5C',
+          border: '1px solid #10b981',
           marginBottom: '12px'
         }}>
           <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', margin: 0 }}>
@@ -91,7 +91,7 @@ export default function WaaromGeenPartnerschappenPage() {
             <br />
             Jij betaalt: €850
             <br /><br />
-            <strong style={{ color: '#1E7F5C' }}>DealSense:</strong>
+            <strong style={{ color: '#10b981' }}>DealSense:</strong>
             <br />
             Cena oryginalna: €899,00
             <br />
@@ -103,9 +103,9 @@ export default function WaaromGeenPartnerschappenPage() {
             <br />
             <strong>Jij betaalt: €778,40</strong> (€765 + €13,40)
             <br /><br />
-            <strong style={{ color: '#1E7F5C' }}>Besparing vs Partner Shop A: €71,60</strong>
+            <strong style={{ color: '#10b981' }}>Besparing vs Partner Shop A: €71,60</strong>
             <br />
-            <strong style={{ color: '#1E7F5C' }}>Besparing vs cena oryginalna: €120,60</strong>
+            <strong style={{ color: '#10b981' }}>Besparing vs cena oryginalna: €120,60</strong>
           </div>
         </div>
       </div>

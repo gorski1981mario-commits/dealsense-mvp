@@ -225,7 +225,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
               disabled={searching || !searchQuery.trim()}
               style={{
                 padding: '12px 20px',
-                background: searching ? '#9CA3AF' : '#1E7F5C',
+                background: searching ? '#9CA3AF' : '#10b981',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -259,7 +259,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
                   onClick={() => setSelectedUser(user)}
                   style={{
                     padding: '12px',
-                    border: `2px solid ${selectedUser?.id === user.id ? '#1E7F5C' : '#E5E7EB'}`,
+                    border: `2px solid ${selectedUser?.id === user.id ? '#10b981' : '#E5E7EB'}`,
                     borderRadius: '8px',
                     cursor: 'pointer',
                     background: selectedUser?.id === user.id ? '#F0FDF4' : 'white',
