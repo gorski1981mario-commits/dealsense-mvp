@@ -13,6 +13,8 @@ const { MetricsCollector } = require('./lib/metrics')
 const AIRanking = require('./lib/ai-ranking')
 const { CacheWarmer } = require('./lib/cache-warmer')
 const { ConnectionPool } = require('./lib/connection-pool')
+const { DomainValidator } = require('./lib/domain-validator')
+const { StockDetector } = require('./lib/stock-detector')
 
 class DealSenseCrawler {
   constructor() {
@@ -34,6 +36,14 @@ class DealSenseCrawler {
     
     // Cache Warmer (pre-crawl popular products)
     this.cacheWarmer = new CacheWarmer(this)
+    
+    // Domain Validator (filter young/untrusted domains)
+    this.domainValidator = new DomainValidator({
+      minDomainAge: 365 // 1 year minimum
+    })
+    
+    // Stock Detector (detect low stock levels)
+    this.stockDetector = new StockDetector()
     
     this.setupQueue()
     this.loadParsers()
@@ -126,6 +136,13 @@ class DealSenseCrawler {
     const startTime = Date.now()
 
     try {
+      // Validate domain age (filter young/untrusted domains)
+      const isValidDomain = await this.domainValidator.isValidDomain(domain)
+      if (!isValidDomain) {
+        console.log(`⚠️  Skipping ${domain} - domain too young (<1 year)`)
+        return { offers: [], filtered: true, reason: 'domain_too_young' }
+      }
+
       // Rate limiting
       await this.rateLimiter.wait(domain)
 
@@ -140,6 +157,20 @@ class DealSenseCrawler {
 
       // Parse data
       const data = await parser.parse(html, job.data)
+
+      // Detect stock levels for each offer
+      if (data.offers && Array.isArray(data.offers)) {
+        data.offers = data.offers.map(offer => {
+          const stockInfo = this.stockDetector.detectStockLevel(html, domain)
+          const stockWarning = this.stockDetector.getStockWarning(stockInfo)
+          
+          return {
+            ...offer,
+            stock: stockInfo,
+            stockWarning
+          }
+        })
+      }
 
       // Validate
       if (!this.validateData(data, category)) {
@@ -267,7 +298,8 @@ class DealSenseCrawler {
       metrics: this.metrics.getStats(),
       connectionPool: this.connectionPool.getStats(),
       cacheWarmer: this.cacheWarmer.getStats(),
-      rateLimiter: this.rateLimiter.getStats()
+      rateLimiter: this.rateLimiter.getStats(),
+      domainValidator: this.domainValidator.getStats()
     }
   }
 
