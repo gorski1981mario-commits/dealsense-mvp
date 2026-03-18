@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
+import { Layers, CirclePlus, Star, TrendingUp } from 'lucide-react'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="nl">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="theme-color" content="#258b52" />
+        <meta name="theme-color" content="#1E7F5C" />
         <title>DealSense.nl – AI aankoop assistent</title>
       </head>
       <body>
@@ -88,15 +89,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Bottom Navigation */}
         <nav className="bottom-nav">
           <a href="/" className={`nav-item ${currentPackage === 'free' ? 'active' : ''}`}>
+            <Layers size={20} strokeWidth={2} />
             <span>FREE</span>
           </a>
           <a href="/plus" className={`nav-item ${currentPackage === 'plus' ? 'active' : ''}`}>
+            <CirclePlus size={20} strokeWidth={2} />
             <span>PLUS</span>
           </a>
           <a href="/pro" className={`nav-item ${currentPackage === 'pro' ? 'active' : ''}`}>
+            <Star size={20} strokeWidth={2} />
             <span>PRO</span>
           </a>
           <a href="/finance" className={`nav-item ${currentPackage === 'finance' ? 'active' : ''}`}>
+            <TrendingUp size={20} strokeWidth={2} />
             <span>FINANCE</span>
           </a>
         </nav>
