@@ -78,15 +78,15 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
             style={{ width: '18px', height: '18px', cursor: disabled ? 'not-allowed' : 'pointer' }}
           />
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827', marginBottom: '2px' }}>
-              ⚖️ Prijs + Kwaliteit <span style={{ 
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827', marginBottom: '2px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+              <span>⚖️ Prijs + Kwaliteit</span>
+              <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 700, 
                 color: '#1E7F5C', 
                 background: '#E6F4EE', 
                 padding: '2px 8px', 
-                borderRadius: '6px',
-                marginLeft: '6px'
+                borderRadius: '6px'
               }}>MEEST GEKOZEN</span>
             </div>
             <div style={{ fontSize: '12px', color: '#6B7280' }}>
