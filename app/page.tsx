@@ -567,14 +567,14 @@ export default function HomePage() {
               onClick={handleWelcomeStart}
               disabled={!termsAccepted}
               style={{
-                padding: '14px 24px',
-                background: termsAccepted ? '#1E7F5C' : '#D1D5DB',
+                padding: '12px 24px',
+                background: '#1E7F5C',
                 color: 'white',
                 border: 'none',
-                borderRadius: '10px',
+                borderRadius: '8px',
                 fontSize: '15px',
                 fontWeight: 600,
-                cursor: termsAccepted ? 'pointer' : 'not-allowed',
+                cursor: 'pointer',
                 width: '100%',
                 transition: 'all 0.2s ease'
               }}

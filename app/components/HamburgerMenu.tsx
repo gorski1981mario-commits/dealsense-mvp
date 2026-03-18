@@ -180,10 +180,7 @@ export default function HamburgerMenu() {
               fontWeight: 600,
               color: '#1E7F5C',
               letterSpacing: '0.5px',
-              marginBottom: '16px',
-              background: '#E6F4EE',
-              padding: '8px 12px',
-              borderRadius: '6px'
+              marginBottom: '16px'
             }}>
               PAKKETTEN
             </h3>
@@ -224,10 +221,7 @@ export default function HamburgerMenu() {
               fontWeight: 600,
               color: '#1E7F5C',
               letterSpacing: '0.5px',
-              marginBottom: '16px',
-              background: '#E6F4EE',
-              padding: '8px 12px',
-              borderRadius: '6px'
+              marginBottom: '16px'
             }}>
               FUNCTIES
             </h3>
@@ -240,10 +234,7 @@ export default function HamburgerMenu() {
                 color: '#1E7F5C',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
-                textTransform: 'uppercase',
-                background: '#E6F4EE',
-                padding: '6px 10px',
-                borderRadius: '6px'
+                textTransform: 'uppercase'
               }}>
                 PRODUCTEN (Scannen)
               </div>
@@ -288,10 +279,7 @@ export default function HamburgerMenu() {
                 color: '#1E7F5C',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
-                textTransform: 'uppercase',
-                background: '#E6F4EE',
-                padding: '6px 10px',
-                borderRadius: '6px'
+                textTransform: 'uppercase'
               }}>
                 DIENSTEN (Vergelijken)
               </div>
@@ -329,17 +317,7 @@ export default function HamburgerMenu() {
             </div>
 
             {/* INNE FUNCTIES */}
-            <div>
-              <div style={{
-                fontSize: '12px',
-                fontWeight: 600,
-                color: '#6B7280',
-                letterSpacing: '0.5px',
-                marginBottom: '12px',
-                textTransform: 'uppercase'
-              }}>
-                FUNCTIES
-              </div>
+            <div style={{ marginTop: '24px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {otherItems.map((item, idx) => {
                   const IconComponent = item.icon
