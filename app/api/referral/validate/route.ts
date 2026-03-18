@@ -6,11 +6,11 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { tokenId, deviceId, userId } = body
+    const { tokenId, deviceId, userId, targetPackage } = body
 
-    if (!tokenId || !deviceId) {
+    if (!tokenId || !deviceId || !targetPackage) {
       return NextResponse.json(
-        { error: 'Token ID and device ID required' },
+        { error: 'Token ID, device ID and target package required' },
         { status: 400 }
       )
     }
@@ -20,6 +20,10 @@ export async function POST(request: NextRequest) {
     // 2. Token is not expired (< 14 days old)
     // 3. Token was not used yet (usedBy === null)
     // 4. Device is NOT the owner's device (prevent self-activation)
+    // 5. PACKAGE COMPATIBILITY:
+    //    - ZAKELIJK referral codes ONLY work for ZAKELIJK package
+    //    - PLUS/PRO/FINANCE referral codes ONLY work for PLUS/PRO/FINANCE packages
+    //    - Cross-package usage is NOT allowed
 
     /* MOCK - Replace with Supabase:
     const { data: referralToken, error } = await supabase
@@ -43,13 +47,33 @@ export async function POST(request: NextRequest) {
     if (referralToken.owner_device_id === deviceId) {
       return NextResponse.json({ valid: false, error: 'Je kunt je eigen referral niet gebruiken' }, { status: 400 })
     }
+
+    // PACKAGE COMPATIBILITY CHECK
+    const ownerPackage = referralToken.owner_package_type // 'plus', 'pro', 'finance', or 'zakelijk'
+    const isZakelijkToken = ownerPackage === 'zakelijk'
+    const isZakelijkTarget = targetPackage === 'zakelijk'
+
+    if (isZakelijkToken && !isZakelijkTarget) {
+      return NextResponse.json({ 
+        valid: false, 
+        error: 'ZAKELIJK referral codes kunnen alleen gebruikt worden voor ZAKELIJK pakket' 
+      }, { status: 400 })
+    }
+
+    if (!isZakelijkToken && isZakelijkTarget) {
+      return NextResponse.json({ 
+        valid: false, 
+        error: 'Deze referral code is niet geldig voor ZAKELIJK pakket' 
+      }, { status: 400 })
+    }
     */
 
     // MOCK validation - always valid for testing
+    // In production, add package compatibility check above
     return NextResponse.json({
       valid: true,
       discount: 2, // 2% discount
-      message: '🎉 Token geldig! Klik "Gebruik code" om 2% korting te activeren!'
+      message: '🎉 Token geldig! -2% korting wordt automatisch toegepast bij betaling'
     })
 
   } catch (error) {
