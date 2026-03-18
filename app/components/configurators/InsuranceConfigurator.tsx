@@ -97,16 +97,18 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   
-  // Reset validation when insurance type changes
+  // Reset validation on component mount and when insurance type changes
   useEffect(() => {
-    // Clear all validations when switching insurance type
+    // Clear all validations to ensure clean start
     setValidFields(new Set())
     setTouchedFields(new Set())
   }, [insuranceType])
   
-  // Auto-fill from user account (without auto-validation)
+  // Ensure clean start on mount
   useEffect(() => {
-    // Auto-fill disabled - user must fill all fields manually
+    // Force reset on initial load
+    setValidFields(new Set())
+    setTouchedFields(new Set())
   }, [])
   
   const getTotalFields = () => {
