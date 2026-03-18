@@ -101,10 +101,10 @@ export default function ZakelijkPage() {
               backdropFilter: 'blur(10px)'
             }}>
               <div style={{ fontSize: '32px', fontWeight: 700, color: '#86efac', marginBottom: '4px' }}>
-                50/50
+                1000+
               </div>
               <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
-                Giganten/Niche
+                NL Leveranciers
               </div>
             </div>
           </div>
