@@ -51,32 +51,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Import crawler (server-side)
-    // IMPORTANT: This will work on Render.com deployment
+    // IMPORTANT: Crawler runs on separate backend (Render.com)
+    // For Vercel deployment, we use mock data or call crawler API
     let crawlerResult
     
     try {
-      // Try to use local crawler if available
-      const crawler = await import('@/server/crawler/index.js')
+      // TODO: Call crawler backend API when deployed
+      // const response = await fetch('https://crawler.dealsense.com/search', {
+      //   method: 'POST',
+      //   body: JSON.stringify({ searchTerm, category, packageType })
+      // })
+      // crawlerResult = await response.json()
       
-      const result = await crawler.default.enqueue(searchTerm, {
-        category,
-        priority: packageType === 'finance' ? 1 : 3,
-        ean: ean || null,
-        searchQuery: query || null,
-        metadata: { packageType, userId }
-      })
-
-      // If cached, return immediately
-      if (result.cached) {
-        crawlerResult = result.data
-      } else {
-        // Wait for job to complete (max 30s)
-        crawlerResult = await waitForCrawlerResults(result.jobId, 30000)
-      }
+      // For now, use mock data (crawler backend not deployed yet)
+      crawlerResult = { offers: generateMockOffers(searchTerm, category, packageType) }
     } catch (error) {
       console.error('[Crawler Error]', error)
-      // Fallback to mock data if crawler fails
       crawlerResult = { offers: generateMockOffers(searchTerm, category, packageType) }
     }
 
