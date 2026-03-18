@@ -75,6 +75,25 @@ const packages: Package[] = [
       '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
     color: '#1E7F5C'
+  },
+  {
+    id: 'zakelijk',
+    name: 'ZAKELIJK B2B',
+    price: '€59,99/mnd',
+    features: [
+      '✓ B2B Procurement Platform - 10 industrieën',
+      '✓ Metale, Chemicaliën, Energie, Zboże, Bouwmaterialen',
+      '✓ Machines, Elektronika, Transport, Verpakking, Gereedschap',
+      '✓ Kwant AI - automatisch 50/50 giganten/niszowi leveranciers',
+      '✓ Bulk pricing - beste prijzen voor grote volumes',
+      '✓ 10% commissie op B2B transacties',
+      '✓ Dedicated account manager',
+      '✓ RFQ (Request for Quote) systeem',
+      '✓ Certificaten & documentatie (MSDS, COA, ISO)',
+      '✓ Lokale NL leveranciers + internationale sourcing',
+      '🎁 Referral B2B2026: deel code, andere bedrijven -2% op eerste maand, jij -2% bij verlenging!'
+    ],
+    color: '#1e40af'
   }
 ]
 

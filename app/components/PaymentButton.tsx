@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { COMMISSION } from '../_lib/constants'
 
 interface PaymentButtonProps {
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId: string
   price: number
 }
@@ -20,7 +20,7 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
   const basePrice = price
   const referralDiscount = codeValidated ? basePrice * 0.02 : 0 // -2% if code valid
   const priceAfterDiscount = basePrice - referralDiscount
-  const commissionRate = parseFloat(COMMISSION[packageType].replace('%', '')) / 100
+  const commissionRate = parseFloat((COMMISSION[packageType as keyof typeof COMMISSION] || '10%').replace('%', '')) / 100
   const commission = priceAfterDiscount * commissionRate
   const finalPrice = priceAfterDiscount + commission
 
@@ -96,7 +96,8 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
   const packageNames = {
     plus: 'PLUS',
     pro: 'PRO',
-    finance: 'FINANCE'
+    finance: 'FINANCE',
+    zakelijk: 'ZAKELIJK B2B'
   }
 
   return (
@@ -110,7 +111,7 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
         border: '1px solid #E5E7EB'
       }}>
         <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>
-          🎁 Heb je een referral code?
+          Heb je een referral code?
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <input
