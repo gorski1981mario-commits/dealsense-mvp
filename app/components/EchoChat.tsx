@@ -200,8 +200,8 @@ export default function EchoChat() {
       setContext({...ctx, collectedData: {...ctx.collectedData, destination: userInput}, currentStep: 1})
       return {
         role: 'assistant',
-        content: `Geweldig! ${userInput} is een mooie keuze 🌴\n\nWanneer wil je vertrekken? (bijv. "volgende maand", "juli 2026")`,
-        suggestions: ['Deze zomer', 'Volgende maand', 'December']
+        content: `Geweldig! ${userInput} is een mooie keuze 🌴\n\nWanneer wil je vertrekken?`,
+        suggestions: ['Deze zomer', 'Volgende maand', 'December 2026']
       }
     }
 
@@ -220,18 +220,25 @@ export default function EchoChat() {
       setContext({...ctx, collectedData: {...ctx.collectedData, travelers: userInput}, currentStep: 3})
       return {
         role: 'assistant',
-        content: 'Top! Wat is je budget per persoon?',
-        suggestions: ['€500-€1000', '€1000-€2000', '€2000+']
+        content: 'Top! Wat is belangrijker voor je?',
+        suggestions: ['🏷️ Goedkoopste', '⚖️ Prijs + Kwaliteit', '⭐ Beste kwaliteit']
       }
     }
 
     if (step === 3) {
-      // Done collecting - show results
-      setContext({...ctx, collectedData: {...ctx.collectedData, budget: userInput}, currentStep: 4})
+      // Collect filter preference (not budget!)
+      const filterMap: Record<string, string> = {
+        '🏷️ Goedkoopste': 'cheapest',
+        '⚖️ Prijs + Kwaliteit': 'balanced',
+        '⭐ Beste kwaliteit': 'quality'
+      }
+      const filter = filterMap[userInput] || 'balanced'
+      setContext({...ctx, collectedData: {...ctx.collectedData, filterType: filter}, currentStep: 4})
+      
       return {
         role: 'assistant',
-        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n💰 ${userInput}\n\nIk zoek nu de beste deals voor je... ⏳`,
-        suggestions: ['Bekijk resultaten', 'Wijzig gegevens']
+        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n🎯 ${userInput}\n\nIk doorzoek nu de markt met Ranking 4.0 (AI + kwant)...\n\n⏳ Analyseer 50% e-commerce giganten + 50% niszowe biura...`,
+        suggestions: ['Bekijk TOP 3 deals', 'Wijzig gegevens']
       }
     }
 
