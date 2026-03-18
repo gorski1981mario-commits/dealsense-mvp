@@ -1,0 +1,507 @@
+{
+  "category": "b2b-industrial",
+  "description": "B2B Industrial suppliers - Netherlands only (NL → NL)",
+  "country": "NL",
+  "excludes": ["used", "second-hand", "refurbished", "food", "groceries", "spożywka"],
+  "totalDomains": 150,
+  "targetDomains": 500,
+  "coverage": "30%",
+  
+  "domains": [
+    {
+      "industry": "metals-steel",
+      "description": "Metale & Stal - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "tatasteeleurope.com",
+          "name": "Tata Steel Europe",
+          "location": "IJmuiden",
+          "priority": 1,
+          "products": ["Steel coils", "Steel plates", "Rebar"],
+          "minOrder": "10 tons",
+          "rateLimit": 30
+        },
+        {
+          "domain": "ims-nederland.biz",
+          "name": "IMS Nederland",
+          "location": "Multiple NL",
+          "priority": 1,
+          "products": ["Steel", "Aluminum", "Stainless steel"],
+          "minOrder": "1 ton",
+          "rateLimit": 40
+        },
+        {
+          "domain": "krogmangroup.com",
+          "name": "Krogman Metals",
+          "location": "Rotterdam",
+          "priority": 2,
+          "products": ["Non-ferrous metals", "Aluminum", "Copper"],
+          "minOrder": "500 kg",
+          "rateLimit": 30
+        },
+        {
+          "domain": "nedstaal.nl",
+          "name": "Nedstaal",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Construction steel", "Rebar", "Mesh"],
+          "minOrder": "5 tons",
+          "rateLimit": 35
+        },
+        {
+          "domain": "vanleeuwen.com",
+          "name": "Van Leeuwen",
+          "location": "Zwijndrecht",
+          "priority": 1,
+          "products": ["Steel tubes", "Pipes", "Fittings"],
+          "minOrder": "1 ton",
+          "rateLimit": 35
+        }
+      ]
+    },
+    {
+      "industry": "energy-fuels",
+      "description": "Energia & Paliwa - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "shell.nl",
+          "name": "Shell Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Diesel", "Gasoline", "LNG"],
+          "minOrder": "10000 liters",
+          "rateLimit": 25
+        },
+        {
+          "domain": "bp.com/nl",
+          "name": "BP Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Diesel", "Fuel oil", "Lubricants"],
+          "minOrder": "5000 liters",
+          "rateLimit": 25
+        },
+        {
+          "domain": "totalenergies.nl",
+          "name": "TotalEnergies NL",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Diesel", "LNG", "Biodiesel"],
+          "minOrder": "10000 liters",
+          "rateLimit": 25
+        },
+        {
+          "domain": "vankesselolie.nl",
+          "name": "Van Kessel Olie",
+          "location": "Pernis Rotterdam",
+          "priority": 2,
+          "products": ["Diesel", "Heating oil", "Lubricants"],
+          "minOrder": "1000 liters",
+          "rateLimit": 30
+        },
+        {
+          "domain": "haanfuelservice.nl",
+          "name": "Haan Fuelservice",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Diesel", "AdBlue", "Fuel cards"],
+          "minOrder": "500 liters",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "chemicals",
+      "description": "Chemikalia - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "dow.com/nl",
+          "name": "Dow Benelux",
+          "location": "Terneuzen",
+          "priority": 1,
+          "products": ["Polymers", "Plastics", "Chemicals"],
+          "minOrder": "1000 kg",
+          "rateLimit": 25
+        },
+        {
+          "domain": "basf.com/nl",
+          "name": "BASF Nederland",
+          "location": "Multiple NL",
+          "priority": 1,
+          "products": ["Chemicals", "Polymers", "Coatings"],
+          "minOrder": "500 kg",
+          "rateLimit": 25
+        },
+        {
+          "domain": "brenntag.nl",
+          "name": "Brenntag Nederland",
+          "location": "Dordrecht",
+          "priority": 1,
+          "products": ["Industrial chemicals", "Solvents", "Additives"],
+          "minOrder": "100 kg",
+          "rateLimit": 30
+        },
+        {
+          "domain": "imcd.nl",
+          "name": "IMCD Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Specialty chemicals", "Ingredients"],
+          "minOrder": "50 kg",
+          "rateLimit": 30
+        },
+        {
+          "domain": "chemprogroup.com",
+          "name": "ChemPro Group",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Chemicals", "Polymers", "Resins"],
+          "minOrder": "100 kg",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "machinery",
+      "description": "Maszyny Przemysłowe - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "vdlgroep.com",
+          "name": "VDL Groep",
+          "location": "Eindhoven",
+          "priority": 1,
+          "products": ["CNC machines", "Industrial robots", "Automation"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "dmgmori.com/nl",
+          "name": "DMG MORI Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["CNC machines", "Lathes", "Mills"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "trumpf.com/nl",
+          "name": "TRUMPF Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Laser machines", "CNC", "Sheet metal"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "abb.com/nl",
+          "name": "ABB Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Industrial robots", "Automation", "Drives"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "kuka.com/nl",
+          "name": "KUKA Nederland",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Industrial robots", "Automation systems"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        }
+      ]
+    },
+    {
+      "industry": "construction",
+      "description": "Materiały Budowlane - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "cementbouw.nl",
+          "name": "Cementbouw",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Cement", "Concrete", "Mortar"],
+          "minOrder": "1 ton",
+          "rateLimit": 30
+        },
+        {
+          "domain": "heijmans.nl",
+          "name": "Heijmans",
+          "location": "Rosmalen",
+          "priority": 1,
+          "products": ["Construction materials", "Steel", "Concrete"],
+          "minOrder": "5 tons",
+          "rateLimit": 30
+        },
+        {
+          "domain": "bauwens.nl",
+          "name": "Bauwens",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Timber", "Wood products", "CLT"],
+          "minOrder": "1 m³",
+          "rateLimit": 30
+        },
+        {
+          "domain": "rockwool.com/nl",
+          "name": "Rockwool Nederland",
+          "location": "Roermond",
+          "priority": 1,
+          "products": ["Insulation", "Mineral wool"],
+          "minOrder": "100 m²",
+          "rateLimit": 30
+        },
+        {
+          "domain": "kingspan.com/nl",
+          "name": "Kingspan Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Insulation panels", "PIR", "Facade systems"],
+          "minOrder": "50 m²",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "electronics",
+      "description": "Elektronika Przemysłowa - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "nexperia.com",
+          "name": "Nexperia",
+          "location": "Nijmegen",
+          "priority": 1,
+          "products": ["Semiconductors", "Diodes", "Transistors"],
+          "minOrder": "1000 pcs",
+          "rateLimit": 25
+        },
+        {
+          "domain": "nxp.com/nl",
+          "name": "NXP Semiconductors",
+          "location": "Eindhoven",
+          "priority": 1,
+          "products": ["MCU", "Sensors", "RF components"],
+          "minOrder": "500 pcs",
+          "rateLimit": 25
+        },
+        {
+          "domain": "farnell.com/nl",
+          "name": "Farnell Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Electronic components", "PCB", "Connectors"],
+          "minOrder": "10 pcs",
+          "rateLimit": 35
+        },
+        {
+          "domain": "rs-online.com/nl",
+          "name": "RS Components NL",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Industrial electronics", "Automation", "Tools"],
+          "minOrder": "1 pc",
+          "rateLimit": 35
+        },
+        {
+          "domain": "distrelec.nl",
+          "name": "Distrelec Nederland",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Electronic components", "Test equipment"],
+          "minOrder": "1 pc",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "transport",
+      "description": "Transport & Logistyka - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "daftrucks.nl",
+          "name": "DAF Trucks",
+          "location": "Eindhoven",
+          "priority": 1,
+          "products": ["Trucks", "Commercial vehicles"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "volvotrucks.nl",
+          "name": "Volvo Trucks Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Trucks", "Heavy vehicles"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "krone-trailer.com/nl",
+          "name": "Krone Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Trailers", "Semi-trailers", "Refrigerated"],
+          "minOrder": "1 unit",
+          "rateLimit": 25
+        },
+        {
+          "domain": "toyota-forklifts.nl",
+          "name": "Toyota Material Handling",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Forklifts", "Warehouse equipment"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        },
+        {
+          "domain": "jungheinrich.nl",
+          "name": "Jungheinrich Nederland",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Forklifts", "Warehouse trucks"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "packaging",
+      "description": "Opakowania - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "dssmith.com/nl",
+          "name": "DS Smith Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Cardboard boxes", "Packaging", "Pallets"],
+          "minOrder": "100 pcs",
+          "rateLimit": 30
+        },
+        {
+          "domain": "smurfitkappa.com/nl",
+          "name": "Smurfit Kappa NL",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Corrugated packaging", "Boxes"],
+          "minOrder": "500 pcs",
+          "rateLimit": 30
+        },
+        {
+          "domain": "verpakkingsnl.nl",
+          "name": "Verpakkings NL",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Packaging materials", "Boxes", "Stretch film"],
+          "minOrder": "50 pcs",
+          "rateLimit": 35
+        },
+        {
+          "domain": "rajapack.nl",
+          "name": "Rajapack Nederland",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Packaging", "Boxes", "Bags", "Pallets"],
+          "minOrder": "10 pcs",
+          "rateLimit": 35
+        },
+        {
+          "domain": "packservice.nl",
+          "name": "Pack Service",
+          "location": "Netherlands",
+          "priority": 2,
+          "products": ["Industrial packaging", "Stretch film", "Strapping"],
+          "minOrder": "1 roll",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "tools",
+      "description": "Narzędzia & Wyposażenie - NL suppliers",
+      "suppliers": [
+        {
+          "domain": "boels.com",
+          "name": "Boels Rental",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Power tools", "Construction equipment"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        },
+        {
+          "domain": "hilti.nl",
+          "name": "Hilti Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Power tools", "Construction tools", "Safety equipment"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        },
+        {
+          "domain": "makita.nl",
+          "name": "Makita Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Power tools", "Cordless tools"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        },
+        {
+          "domain": "bosch-professional.com/nl",
+          "name": "Bosch Professional NL",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Power tools", "Measuring tools"],
+          "minOrder": "1 unit",
+          "rateLimit": 30
+        },
+        {
+          "domain": "3m.nl",
+          "name": "3M Nederland",
+          "location": "Netherlands",
+          "priority": 1,
+          "products": ["Safety equipment", "PPE", "Industrial supplies"],
+          "minOrder": "10 pcs",
+          "rateLimit": 30
+        }
+      ]
+    },
+    {
+      "industry": "grain-food-industrial",
+      "description": "Zboże (tylko przemysłowe, NIE spożywka konsumencka)",
+      "suppliers": [
+        {
+          "domain": "cargill.nl",
+          "name": "Cargill Nederland",
+          "location": "Amsterdam",
+          "priority": 1,
+          "products": ["Industrial grain", "Feed ingredients", "Starches"],
+          "minOrder": "20 tons",
+          "rateLimit": 25,
+          "notes": "Industrial use only - animal feed, starch production"
+        },
+        {
+          "domain": "adm.com/nl",
+          "name": "ADM Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Industrial grains", "Oils", "Feed"],
+          "minOrder": "50 tons",
+          "rateLimit": 25,
+          "notes": "B2B industrial processing only"
+        },
+        {
+          "domain": "viterra.com/nl",
+          "name": "Viterra Nederland",
+          "location": "Rotterdam",
+          "priority": 1,
+          "products": ["Bulk grains", "Oilseeds"],
+          "minOrder": "100 tons",
+          "rateLimit": 25,
+          "notes": "Industrial bulk only"
+        }
+      ]
+    }
+  ]
+}
