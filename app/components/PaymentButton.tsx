@@ -101,75 +101,34 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
   }
 
   return (
-    <div style={{ width: '100%' }}>
-      {/* Referral discount is applied automatically via device-bound token from URL */}
-
-      {/* Price Breakdown */}
-      <div style={{
-        marginBottom: '16px',
-        padding: '16px',
-        background: '#FFFBEB',
-        borderRadius: '8px',
-        border: '1px solid #FCD34D'
-      }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#92400E', marginBottom: '12px' }}>
-          💰 Prijsoverzicht
-        </div>
-        
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <span style={{ fontSize: '13px', color: '#78350F' }}>Pakket {packageNames[packageType]}</span>
-          <span style={{ fontSize: '13px', color: '#78350F' }}>€{basePrice.toFixed(2)}</span>
-        </div>
-
-        {codeValidated && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-            <span style={{ fontSize: '13px', color: '#10B981', fontWeight: 600 }}>🎁 Referral korting (-2%)</span>
-            <span style={{ fontSize: '13px', color: '#10B981', fontWeight: 600 }}>-€{referralDiscount.toFixed(2)}</span>
-          </div>
-        )}
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <span style={{ fontSize: '13px', color: '#78350F' }}>Commissie (+9%)</span>
-          <span style={{ fontSize: '13px', color: '#78350F' }}>+€{commission.toFixed(2)}</span>
-        </div>
-
-        <div style={{ 
-          borderTop: '1px solid #FCD34D', 
-          marginTop: '8px', 
-          paddingTop: '8px',
-          display: 'flex',
-          justifyContent: 'space-between'
-        }}>
-          <span style={{ fontSize: '16px', fontWeight: 700, color: '#92400E' }}>Totaal</span>
-          <span style={{ fontSize: '16px', fontWeight: 700, color: '#92400E' }}>€{finalPrice.toFixed(2)}/maand</span>
-        </div>
-
-        {codeValidated && (
-          <div style={{ marginTop: '8px', fontSize: '11px', color: '#10B981', fontStyle: 'italic' }}>
-            ✨ Je bespaart €{referralDiscount.toFixed(2)} met deze code!
-          </div>
-        )}
-      </div>
-
-      {/* Payment Button */}
-      <button
-        onClick={handlePayment}
-        disabled={loading}
-        style={{
-          padding: '12px 24px',
-          background: loading ? '#9ca3af' : '#15803d',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '16px',
-          fontWeight: 600,
-          cursor: loading ? 'not-allowed' : 'pointer',
-          boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
-          width: '100%'
-        }}
-      >
-        {loading ? 'Verwerken...' : `Betaal €${finalPrice.toFixed(2)}/maand`}
-      </button>
-    </div>
+    <button
+      onClick={handlePayment}
+      disabled={loading}
+      style={{
+        padding: '16px 24px',
+        background: loading ? '#9ca3af' : 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)',
+        color: 'white',
+        border: 'none',
+        borderRadius: '10px',
+        fontSize: '16px',
+        fontWeight: 600,
+        cursor: loading ? 'not-allowed' : 'pointer',
+        boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)',
+        width: '100%',
+        transition: 'all 0.2s'
+      }}
+      onMouseEnter={(e) => {
+        if (!loading) {
+          e.currentTarget.style.transform = 'translateY(-2px)'
+          e.currentTarget.style.boxShadow = '0 6px 16px rgba(30, 127, 92, 0.4)'
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)'
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.3)'
+      }}
+    >
+      {loading ? 'Verwerken...' : `Activeer ${packageNames[packageType]} - €${price.toFixed(2)}/maand`}
+    </button>
   )
 }
