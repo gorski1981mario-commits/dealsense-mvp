@@ -1,5 +1,10 @@
 import CreditCardConfigurator from '../components/configurators/CreditCardConfigurator'
+import ConfiguratorGuard from '../components/configurators/ConfiguratorGuard'
 
 export default function CreditCardPage() {
-  return <CreditCardConfigurator packageType="finance" />
+  return (
+    <ConfiguratorGuard requiredPackage="finance" configuratorName="Creditcard Configurator">
+      <CreditCardConfigurator packageType="finance" />
+    </ConfiguratorGuard>
+  )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard } from 'lucide-react'
 import Scanner from '../components/Scanner'
@@ -9,19 +10,51 @@ import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
 import BillsOptimizer from '../components/BillsOptimizer'
+import PaywallMessage from '../components/PaywallMessage'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
+import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
 
 export default function FinancePage() {
   const [biometricRegistered, setBiometricRegistered] = useState(false)
   const [showBiometricSetup, setShowBiometricSetup] = useState(false)
+  const [userPackage, setUserPackage] = useState<PackageType>('free')
+  const [isLoading, setIsLoading] = useState(true)
   const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
+  const router = useRouter()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setBiometricRegistered(BiometricService.hasRegistered())
+      
+      // Check user package
+      const savedPackage = localStorage.getItem(`package_${userId}`) as PackageType
+      setUserPackage(savedPackage || 'free')
+      setIsLoading(false)
     }
-  }, [])
+  }, [userId])
+
+  // Paywall check
+  const hasAccess = hasConfiguratorAccess(userPackage, 'finance')
+  
+  if (isLoading) {
+    return <div style={{ padding: '40px', textAlign: 'center' }}>Laden...</div>
+  }
+
+  if (!hasAccess) {
+    return (
+      <div>
+        <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
+          FINANCE Pakket
+        </h1>
+        <PaywallMessage 
+          currentPackage={userPackage}
+          requiredPackage="finance"
+          featureName="FINANCE Pakket Features"
+        />
+      </div>
+    )
+  }
 
   return (
     <div>
