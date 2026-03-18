@@ -87,8 +87,8 @@ export const TEXTS = {
  */
 export const PRICING = {
   free: '€0',
-  plus: '€9,99',
-  pro: '€19,99',
+  plus: '€19,99',
+  pro: '€29,99',
   finance: '€39,99',
   zakelijk: '€59,99',
 } as const
