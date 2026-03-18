@@ -23,7 +23,8 @@ import {
   FileText,
   CreditCard,
   Calendar,
-  BarChart3, 
+  BarChart3,
+  ListChecks,
   Mail, 
   Settings,
   ShieldCheck,
@@ -44,7 +45,7 @@ const productCategories: MenuItem[] = [
 
 // DIENSTEN - Vergelijken (uproszczone)
 const serviceCategories: MenuItem[] = [
-  { icon: BarChart3, title: 'Diensten Configurators', path: '/vaste-lasten' }
+  { icon: ListChecks, title: 'Diensten Configurators', path: '/vaste-lasten' }
 ]
 
 // FUNCTIES
