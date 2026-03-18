@@ -1,0 +1,27 @@
+# Exclude server-side crawler from Vercel build
+# This is a separate Node.js backend, not part of Next.js app
+server/
+server/**/*
+
+# Exclude other non-Next.js files
+*.html
+!app/**/*.html
+
+# Exclude development files
+.git/
+.github/
+node_modules/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Exclude documentation
+*.md
+!README.md
+
+# Exclude test files
+**/*.test.js
+**/*.test.ts
+**/*.spec.js
+**/*.spec.ts
