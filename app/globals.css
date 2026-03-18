@@ -104,7 +104,7 @@ body {
   font-size: 11px;
   font-weight: 600;
   border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.1s ease;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -113,7 +113,7 @@ body {
 
 .nav-item svg {
   stroke: #6B7280;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.1s ease;
 }
 
 /* Hover only on desktop and only for non-active items */
@@ -125,16 +125,19 @@ body {
 
 .nav-item.active {
   color: #1E7F5C;
-  background: #E6F4EE;
+  background: #E6F4EE !important;
 }
 
 .nav-item.active svg {
   stroke: #1E7F5C;
 }
 
-/* Prevent hover on active item */
-.nav-item.active:hover {
-  background: #E6F4EE;
+/* Prevent hover and focus on active item */
+.nav-item.active:hover,
+.nav-item.active:focus,
+.nav-item.active:active {
+  background: #E6F4EE !important;
+  outline: none;
 }
 
 /* Hamburger Menu */
@@ -398,12 +401,13 @@ body {
   border-radius: 3px;
   background: #E2E8F0;
   outline: none;
+  appearance: none;
   -webkit-appearance: none;
 }
 
 .price-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
   appearance: none;
+  -webkit-appearance: none;
   width: 20px;
   height: 20px;
   border-radius: 50%;

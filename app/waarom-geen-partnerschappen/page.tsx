@@ -93,11 +93,19 @@ export default function WaaromGeenPartnerschappenPage() {
             <br /><br />
             <strong style={{ color: '#1E7F5C' }}>DealSense:</strong>
             <br />
-            Shop B: €765 (beste prijs)
+            Cena oryginalna: €899,00
             <br />
-            Jij betaalt: €778,40
+            DealSense znajduje: €765,00
+            <br />
+            Oszczędność: €134,00 (€899 - €765)
+            <br />
+            Komisja (10%): €13,40 (€134 × 10%)
+            <br />
+            <strong>Jij betaalt: €778,40</strong> (€765 + €13,40)
             <br /><br />
-            <strong style={{ color: '#1E7F5C' }}>Besparing: €71,60</strong>
+            <strong style={{ color: '#1E7F5C' }}>Besparing vs Partner Shop A: €71,60</strong>
+            <br />
+            <strong style={{ color: '#1E7F5C' }}>Besparing vs cena oryginalna: €120,60</strong>
           </div>
         </div>
       </div>

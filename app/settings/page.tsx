@@ -700,14 +700,36 @@ export default function SettingsPage() {
         {/* ECHO */}
         <div>
           <div style={{
-            fontSize: '14px',
-            fontWeight: 600,
-            color: '#6B7280',
-            letterSpacing: '0.5px',
             marginBottom: '16px',
-            textTransform: 'uppercase'
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '2px'
           }}>
-            ECHO
+            <span style={{
+              color: '#1E7F5C',
+              fontWeight: 700,
+              fontSize: '20px',
+              lineHeight: 1
+            }}>
+              E
+            </span>
+            <span style={{
+              color: '#3b82f6',
+              fontWeight: 700,
+              fontSize: '17px',
+              lineHeight: 1
+            }}>
+              ch
+            </span>
+            <span style={{
+              color: '#000',
+              fontSize: '19px',
+              lineHeight: 1,
+              position: 'relative',
+              top: '-1px'
+            }}>
+              ●
+            </span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

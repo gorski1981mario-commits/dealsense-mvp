@@ -30,7 +30,11 @@ import {
   ShieldCheck,
   HelpCircle,
   Users,
-  Lock
+  Lock,
+  Package,
+  Wallet,
+  Star,
+  TrendingUp
 } from 'lucide-react'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
 import { getDeviceId } from '../_lib/utils'
@@ -440,8 +444,9 @@ export default function HamburgerMenu() {
                   lineHeight: '1.6'
                 }}>
                   <div style={{ marginBottom: '12px' }}>
-                    <div style={{ fontWeight: 600, color: '#1E7F5C', marginBottom: '6px' }}>
-                      📦 PRO Pakket:
+                    <div style={{ fontWeight: 600, color: '#1E7F5C', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Star size={16} color="#1E7F5C" strokeWidth={2} />
+                      PRO Pakket:
                     </div>
                     <div style={{ color: '#374151', paddingLeft: '12px' }}>
                       • Vakanties<br />
@@ -452,8 +457,9 @@ export default function HamburgerMenu() {
                   </div>
                   
                   <div>
-                    <div style={{ fontWeight: 600, color: '#258b52', marginBottom: '6px' }}>
-                      💰 FINANCE Pakket:
+                    <div style={{ fontWeight: 600, color: '#258b52', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <TrendingUp size={16} color="#258b52" strokeWidth={2} />
+                      FINANCE Pakket:
                     </div>
                     <div style={{ color: '#374151', paddingLeft: '12px' }}>
                       • Alle PRO configurators +<br />
