@@ -403,6 +403,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   }
 
   // Configurator view (default)
+  // Force rebuild: 2026-03-18 07:23
   return (
     <div>
       <AgentEchoLogo />
