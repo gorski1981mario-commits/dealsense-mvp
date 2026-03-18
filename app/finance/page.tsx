@@ -7,7 +7,6 @@ import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
 import BillsOptimizer from '../components/BillsOptimizer'
-import ConfiguratorSelector from '../components/ConfiguratorSelector'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 
@@ -103,8 +102,38 @@ export default function FinancePage() {
       {/* Bills Optimizer - FINANCE Exclusive */}
       <BillsOptimizer userId={userId} />
 
-      {/* FINANCE Configurators - All 8 (4 PRO + 4 FINANCE) */}
-      <ConfiguratorSelector packageType="finance" userId={userId} />
+      {/* FINANCE Configurators - Redirect to /vaste-lasten */}
+      <div style={{
+        background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+        borderRadius: '16px',
+        padding: '24px',
+        marginTop: '32px',
+        marginBottom: '32px',
+        border: '2px solid #1E7F5C'
+      }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', color: '#15803d' }}>
+          💰 Vaste Lasten + Finance Configurators
+        </h3>
+        <p style={{ fontSize: '14px', color: '#374151', marginBottom: '20px', lineHeight: '1.6' }}>
+          Gebruik onze geavanceerde configurators voor alle diensten (vakanties, verzekeringen, energie, telecom) én exclusieve finance opties (hypotheek, leasing, lening, creditcard).
+        </p>
+        <a
+          href="/vaste-lasten"
+          style={{
+            display: 'inline-block',
+            padding: '12px 24px',
+            background: '#1E7F5C',
+            color: 'white',
+            borderRadius: '10px',
+            fontSize: '15px',
+            fontWeight: 600,
+            textDecoration: 'none',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          Open Alle Configurators →
+        </a>
+      </div>
 
       {/* Scan History */}
       <ScanHistory userId={userId} packageType="finance" />
