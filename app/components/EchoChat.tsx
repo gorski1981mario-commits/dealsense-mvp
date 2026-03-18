@@ -131,6 +131,17 @@ export default function EchoChat() {
 
   // Intelligent conversation processing
   const processUserInput = async (userInput: string, ctx: ConversationContext): Promise<Message> => {
+    // SYSTEM PROMPT: Echo only helps with financial products and app usage
+    const offTopicKeywords = /koken|recept|huiswerk|essay|schrijven|vertalen|gedicht|verhaal|game|sport|weer|nieuws/i
+    
+    if (offTopicKeywords.test(userInput)) {
+      return {
+        role: 'assistant',
+        content: '⚠️ Sorry, ik help alleen met financiële producten en DealSense app.\n\nIk kan je helpen met:\n🛡️ Verzekeringen\n✈️ Vakanties\n⚡ Energie\n📱 Telecom\n💳 Leningen & Hypotheken\n\nWaar kan ik je mee helpen?',
+        suggestions: ['Verzekeringen', 'Energie besparen', 'Vakanties']
+      }
+    }
+    
     // Detect intent
     const intents = {
       insurance: /ubezpieczeni|verzekering|auto|motor|zorg|woon|leven|reis|aansprakelijk/i,
@@ -170,6 +181,10 @@ export default function EchoChat() {
       if (ctx.mode === 'configurator' && ctx.configuratorType === 'insurance') {
         return handleInsuranceFlow(userInput, ctx)
       }
+      
+      // IMPORTANT: Echo can SUGGEST and CONFIGURE, but CANNOT execute final actions
+      // Final confirmations (payments, uploads, contracts) MUST be done by user
+      // This is for security and legal protection
     }
 
     // PLUS: Show potential savings, suggest upgrade
@@ -334,11 +349,12 @@ export default function EchoChat() {
       {isOpen && (
         <div style={{
           position: 'fixed',
-          bottom: '80px',
-          right: '20px',
-          width: '340px',
-          maxWidth: '90vw',
-          height: '480px',
+          bottom: '20px',
+          right: '10px',
+          width: '95vw',
+          maxWidth: '500px',
+          height: '600px',
+          maxHeight: '85vh',
           background: 'white',
           borderRadius: '16px',
           boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
@@ -357,12 +373,11 @@ export default function EchoChat() {
             alignItems: 'center',
             borderBottom: '2px solid #1E7F5C'
           }}>
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'baseline',
-                gap: '2px',
-                marginBottom: '4px'
+                gap: '2px'
               }}>
                 <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '18px' }}>E</span>
                 <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '15px' }}>ch</span>
@@ -371,11 +386,17 @@ export default function EchoChat() {
                   height: '10px',
                   background: '#111827',
                   borderRadius: '50%',
-                  marginLeft: '2px'
+                  marginLeft: '2px',
+                  marginBottom: '3px'
                 }} />
               </div>
-              <div style={{ fontSize: '11px', color: '#6B7280' }}>
-                {messagesLeft}/{dailyLimit} berichten vandaag
+              <div style={{ 
+                fontSize: '12px', 
+                color: '#166534',
+                fontWeight: 600,
+                marginLeft: '4px'
+              }}>
+                Je persoonlijke AI agent
               </div>
             </div>
             <button
