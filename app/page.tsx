@@ -522,7 +522,7 @@ export default function HomePage() {
               3 gratis scans om te proberen
             </p>
 
-            {/* Terms Acceptance Box */}
+            {/* Terms Acceptance Box - Updated colors */}
             <div style={{
               background: '#F7F9F8',
               border: '1px solid #E5E7EB',
