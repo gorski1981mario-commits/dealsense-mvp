@@ -421,6 +421,56 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
 
   // Payment view
   if (view === 'payment') {
+    const handlePayment = async () => {
+      // Simulate payment processing
+      const transactionId = `TRX-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+      const paymentAmount = 96.12
+      
+      // Save configuration to localStorage (later: API)
+      const savedConfig = {
+        id: Date.now().toString(),
+        configId: configId || `INS-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}-${Date.now().toString().slice(-6)}`,
+        sector: 'insurance',
+        status: 'betaald',
+        timestamp: new Date().toISOString(),
+        transactionId,
+        paymentAmount,
+        userProfile: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          postcode,
+          houseNumber,
+          street,
+          city
+        },
+        parameters: {
+          filterType,
+          insuranceType,
+          kenteken,
+          coverage,
+          bonusMalus,
+          age,
+          annualMileage,
+          parkingLocation
+        },
+        results: [
+          { name: 'Zilveren Kruis Basis', price: '€89/mnd', url: 'https://www.zilverenkruis.nl' },
+          { name: 'FBTO Compleet', price: '€112/mnd', url: 'https://www.fbto.nl' },
+          { name: 'Centraal Beheer Premium', price: '€135/mnd', url: 'https://www.centraalbeheer.nl' }
+        ]
+      }
+      
+      // Save to localStorage
+      const existingConfigs = JSON.parse(localStorage.getItem('userConfigurations') || '[]')
+      existingConfigs.push(savedConfig)
+      localStorage.setItem('userConfigurations', JSON.stringify(existingConfigs))
+      
+      // Move to unlocked view
+      setView('unlocked')
+    }
+    
     return (
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
@@ -429,7 +479,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
           <div style={{ fontSize: '32px', fontWeight: 700, color: '#1E7F5C', margin: '12px 0' }}>€96,12</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={handlePayment} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>

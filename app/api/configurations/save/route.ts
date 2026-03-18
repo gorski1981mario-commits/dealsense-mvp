@@ -13,29 +13,45 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { userId, sector, parameters, timestamp } = body
+    const { 
+      configId, 
+      userId, 
+      sector, 
+      status = 'opgeslagen',
+      transactionId,
+      paymentAmount,
+      userProfile,
+      parameters, 
+      results,
+      timestamp 
+    } = body
 
-    // Generate unique configuration ID
-    const date = new Date(timestamp)
-    const dateStr = date.toISOString().split('T')[0]
-    const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase()
-    const configId = `CFG-${dateStr}-${randomStr}`
+    // Use provided configId or generate new one
+    const finalConfigId = configId || `CFG-${new Date().toISOString().split('T')[0]}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
 
     // TODO: Save to Supabase database when configured
     // For now, return mock success
-    console.log('Configuration saved (mock):', { configId, userId, sector })
+    const savedConfig = {
+      id: Date.now().toString(),
+      configId: finalConfigId,
+      userId,
+      sector,
+      status,
+      transactionId,
+      paymentAmount,
+      userProfile,
+      parameters,
+      results,
+      timestamp: timestamp || new Date().toISOString(),
+      locked: true
+    }
+    
+    console.log('Configuration saved (mock):', savedConfig)
 
     return NextResponse.json({
       success: true,
-      configId,
-      data: {
-        config_id: configId,
-        user_id: userId,
-        sector,
-        parameters,
-        timestamp: new Date(timestamp).toISOString(),
-        locked: true
-      }
+      configId: finalConfigId,
+      data: savedConfig
     })
   } catch (error: any) {
     console.error('Error saving configuration:', error)

@@ -55,39 +55,17 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
 
   const loadConfigurations = async () => {
     try {
-      // Mock data - replace with API call
-      const mockConfigs: Configuration[] = [
-        {
-          id: '1',
-          configId: 'INS-2026-ABC12-789456',
-          sector: 'insurance',
-          status: 'betaald',
-          timestamp: new Date().toISOString(),
-          transactionId: 'TRX-2026-XYZ789',
-          paymentAmount: 96.12,
-          userProfile: {
-            firstName: 'Jan',
-            lastName: 'de Vries',
-            email: 'jan.devries@example.nl',
-            phone: '+31 6 12345678',
-            postcode: '1012 AB',
-            houseNumber: '42',
-            street: 'Damstraat',
-            city: 'Amsterdam'
-          },
-          parameters: {
-            insuranceType: 'auto',
-            coverage: 'allrisk'
-          },
-          results: [
-            { name: 'Zilveren Kruis Basis', price: '€89/mnd', url: 'https://www.zilverenkruis.nl' }
-          ]
-        }
-      ]
-
-      setConfigurations(mockConfigs)
+      // Load from localStorage (later: replace with API call)
+      const storedConfigs = localStorage.getItem('userConfigurations')
+      const configs: Configuration[] = storedConfigs ? JSON.parse(storedConfigs) : []
+      
+      // Sort by timestamp (newest first)
+      configs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      
+      setConfigurations(configs)
     } catch (error) {
       console.error('Error loading configurations:', error)
+      setConfigurations([])
     } finally {
       setLoading(false)
     }

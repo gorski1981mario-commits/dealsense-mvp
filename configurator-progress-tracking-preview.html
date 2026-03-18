@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurator Progress Tracking - Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F7F9F8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: #E6F4EE;
+            border: 2px solid #1E7F5C;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E7F5C;
+        }
+
+        .progress-percentage {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E7F5C;
+        }
+
+        .progress-bar-bg {
+            background: white;
+            border-radius: 8px;
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #1E7F5C 0%, #15803d 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .progress-summary {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #374151;
+        }
+
+        /* Warning Banner */
+        .warning-banner {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-banner.hidden {
+            display: none;
+        }
+
+        .warning-icon {
+            font-size: 20px;
+        }
+
+        .warning-text {
+            font-size: 13px;
+            color: #92400E;
+            font-weight: 600;
+        }
+
+        /* Header */
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .section-status {
+            font-size: 20px;
+        }
+
+        /* Field Group */
+        .field-group {
+            margin-bottom: 14px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        /* Input States */
+        .field-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #EFF6FF;
+        }
+
+        /* Untouched state - gray/warning */
+        .field-input.untouched {
+            background: #F9FAFB;
+            border-color: #D1D5DB;
+        }
+
+        /* Touched & valid - green */
+        .field-input.touched-valid {
+            background: #E6F4EE;
+            border-color: #1E7F5C;
+        }
+
+        /* Radio/Checkbox container */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #F9FAFB;
+        }
+
+        .radio-option.untouched {
+            background: #F9FAFB;
+            border-color: #D1D5DB;
+        }
+
+        .radio-option.touched-valid {
+            background: #E6F4EE;
+            border-color: #1E7F5C;
+        }
+
+        .radio-option:hover {
+            border-color: #3b82f6;
+        }
+
+        .radio-option input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .radio-option label {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1E7F5C 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(30, 127, 92, 0.3);
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 127, 92, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Helper text */
+        .helper-text {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Field validation states */
+        .field-input.invalid {
+            background: #FEE2E2;
+            border-color: #DC2626;
+        }
+
+        .field-input.warning {
+            background: #FEF3C7;
+            border-color: #F59E0B;
+        }
+
+        .field-helper {
+            font-size: 11px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .field-helper.error {
+            color: #DC2626;
+        }
+
+        .field-helper.success {
+            color: #1E7F5C;
+        }
+
+        .field-helper.info {
+            color: #6B7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Tracker -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <div class="progress-title">Voortgang configuratie</div>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="progress-summary" id="progressSummary">
+                0 van 6 velden bevestigd
+            </div>
+        </div>
+
+        <!-- Warning Banner -->
+        <div class="warning-banner" id="warningBanner">
+            <span class="warning-icon">⚠️</span>
+            <span class="warning-text">Bevestig alle velden door ze aan te klikken en een keuze te maken</span>
+        </div>
+
+        <h1>🛡️ Verzekering Configurator</h1>
+
+        <form id="configuratorForm">
+            <!-- Section 1: Type verzekering -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">1. Type verzekering</div>
+                    <div class="section-status" id="section1Status">⚪</div>
+                </div>
+                
+                <div class="field-group">
+                    <label class="field-label">Soort</label>
+                    <select class="field-input untouched" id="insuranceType" data-field="insuranceType">
+                        <option value="">Kies type...</option>
+                        <option value="auto">🚗 Autoverzekering</option>
+                        <option value="woning">🏠 Woonverzekering</option>
+                        <option value="gezondheid">🏥 Zorgverzekering</option>
+                        <option value="reis">✈️ Reisverzekering</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Section 2: Dekking -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">2. Dekking</div>
+                    <div class="section-status" id="section2Status">⚪</div>
+                </div>
+                
+                <div class="field-group">
+                    <label class="field-label">Kies dekking niveau</label>
+                    <div class="radio-group">
+                        <div class="radio-option untouched" data-field="coverage" data-value="wa">
+                            <input type="radio" name="coverage" value="wa" id="coverageWA">
+                            <label for="coverageWA">
+                                <strong>🟤 WA (Wettelijke Aansprakelijkheid)</strong><br>
+                                <small style="color: #6B7280;">Basis dekking, verplicht</small>
+                            </label>
+                        </div>
+                        <div class="radio-option untouched" data-field="coverage" data-value="wa-plus">
+                            <input type="radio" name="coverage" value="wa-plus" id="coverageWAPlus">
+                            <label for="coverageWAPlus">
+                                <strong>🟠 WA + Beperkt Casco</strong><br>
+                                <small style="color: #6B7280;">Incl. diefstal, brand, storm</small>
+                            </label>
+                        </div>
+                        <div class="radio-option untouched" data-field="coverage" data-value="allrisk">
+                            <input type="radio" name="coverage" value="allrisk" id="coverageAllRisk">
+                            <label for="coverageAllRisk">
+                                <strong>🔵 All-risk / Volledig Casco</strong><br>
+                                <small style="color: #6B7280;">Volledige dekking</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Persoonlijke gegevens -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">3. Persoonlijke gegevens</div>
+                    <div class="section-status" id="section3Status">⚪</div>
+                </div>
+                
+                <div class="field-group">
+                    <label class="field-label">Leeftijd (jaar)</label>
+                    <input type="number" class="field-input untouched" id="age" data-field="age" placeholder="Vul je leeftijd in..." min="18" max="99">
+                    <span class="field-helper info" id="ageHelper">Tussen 18 en 99 jaar</span>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Postcode</label>
+                    <input type="text" class="field-input untouched" id="postcode" data-field="postcode" placeholder="1234 AB" maxlength="7">
+                    <span class="field-helper info" id="postcodeHelper">Format: 1234 AB (4 cijfers + 2 letters)</span>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Bonus-malus (schadevrije jaren)</label>
+                    <input type="number" class="field-input untouched" id="bonusMalus" data-field="bonusMalus" placeholder="0" min="0" max="15">
+                    <span class="field-helper info" id="bonusMalusHelper">Tussen 0 en 15 jaar</span>
+                </div>
+            </div>
+
+            <!-- Section 4: Extra opties -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">4. Extra opties</div>
+                    <div class="section-status" id="section4Status">⚪</div>
+                </div>
+                
+                <div class="field-group">
+                    <label class="field-label">Rechtsbijstand</label>
+                    <div class="radio-group">
+                        <div class="radio-option untouched" data-field="legalAid" data-value="yes">
+                            <input type="radio" name="legalAid" value="yes" id="legalAidYes">
+                            <label for="legalAidYes">✅ Ja, inclusief rechtsbijstand</label>
+                        </div>
+                        <div class="radio-option untouched" data-field="legalAid" data-value="no">
+                            <input type="radio" name="legalAid" value="no" id="legalAidNo">
+                            <label for="legalAidNo">❌ Nee, zonder rechtsbijstand</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                Zoek beste verzekering →
+            </button>
+            <div class="helper-text" id="helperText">
+                Bevestig alle velden om verder te gaan
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // State tracking
+        const state = {
+            touchedFields: new Set(),
+            fieldValues: {},
+            validFields: new Set(), // Track which fields are valid
+            totalFields: 6 // insuranceType, coverage, age, postcode, bonusMalus, legalAid
+        };
+
+        // Validation rules
+        const validators = {
+            postcode: (value) => {
+                // Dutch postcode: 4 digits + space + 2 uppercase letters
+                const regex = /^\d{4}\s?[A-Z]{2}$/;
+                return regex.test(value);
+            },
+            age: (value) => {
+                const num = parseInt(value);
+                return !isNaN(num) && num >= 18 && num <= 99;
+            },
+            bonusMalus: (value) => {
+                const num = parseInt(value);
+                return !isNaN(num) && num >= 0 && num <= 15;
+            }
+        };
+
+        // Get all field elements
+        const fields = {
+            insuranceType: document.getElementById('insuranceType'),
+            age: document.getElementById('age'),
+            postcode: document.getElementById('postcode'),
+            bonusMalus: document.getElementById('bonusMalus')
+        };
+
+        const radioGroups = {
+            coverage: document.querySelectorAll('[data-field="coverage"]'),
+            legalAid: document.querySelectorAll('[data-field="legalAid"]')
+        };
+
+        // Auto-format postcode
+        function formatPostcode(value) {
+            // Remove all spaces and convert to uppercase
+            let cleaned = value.replace(/\s/g, '').toUpperCase();
+            
+            // Extract digits and letters
+            const digits = cleaned.match(/\d+/)?.[0] || '';
+            const letters = cleaned.match(/[A-Z]+/)?.[0] || '';
+            
+            // Format as "1234 AB"
+            if (digits.length >= 4 && letters.length >= 2) {
+                return digits.slice(0, 4) + ' ' + letters.slice(0, 2);
+            } else if (digits.length > 0) {
+                return digits.slice(0, 4) + (letters.length > 0 ? ' ' + letters.slice(0, 2) : '');
+            }
+            
+            return cleaned;
+        }
+
+        // Validate field and show feedback
+        function validateField(fieldName, value, element) {
+            const helperElement = document.getElementById(fieldName + 'Helper');
+            
+            if (validators[fieldName]) {
+                const isValid = validators[fieldName](value);
+                
+                if (isValid) {
+                    element.classList.remove('invalid', 'warning');
+                    element.classList.add('touched-valid');
+                    state.validFields.add(fieldName);
+                    
+                    if (helperElement) {
+                        helperElement.className = 'field-helper success';
+                        if (fieldName === 'postcode') {
+                            helperElement.textContent = '✅ Geldige Nederlandse postcode';
+                        } else if (fieldName === 'age') {
+                            helperElement.textContent = '✅ Geldige leeftijd';
+                        } else if (fieldName === 'bonusMalus') {
+                            helperElement.textContent = '✅ Geldig aantal jaren';
+                        }
+                    }
+                    return true;
+                } else {
+                    element.classList.remove('touched-valid');
+                    element.classList.add('invalid');
+                    state.validFields.delete(fieldName);
+                    
+                    if (helperElement) {
+                        helperElement.className = 'field-helper error';
+                        if (fieldName === 'postcode') {
+                            helperElement.textContent = '❌ Ongeldige postcode. Gebruik format: 1234 AB';
+                        } else if (fieldName === 'age') {
+                            helperElement.textContent = '❌ Leeftijd moet tussen 18 en 99 jaar zijn';
+                        } else if (fieldName === 'bonusMalus') {
+                            helperElement.textContent = '❌ Moet tussen 0 en 15 jaar zijn';
+                        }
+                    }
+                    return false;
+                }
+            }
+            
+            // For fields without validators (like dropdown)
+            if (value && value.trim() !== '') {
+                state.validFields.add(fieldName);
+                return true;
+            } else {
+                state.validFields.delete(fieldName);
+                return false;
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            const touchedCount = state.touchedFields.size;
+            const validCount = state.validFields.size;
+            const percentage = Math.round((validCount / state.totalFields) * 100);
+            
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressSummary').textContent = 
+                `${validCount} van ${state.totalFields} velden correct ingevuld`;
+
+            // Update warning banner
+            const warningBanner = document.getElementById('warningBanner');
+            if (validCount === state.totalFields) {
+                warningBanner.classList.add('hidden');
+            } else {
+                warningBanner.classList.remove('hidden');
+            }
+
+            // Update submit button
+            const submitBtn = document.getElementById('submitBtn');
+            const helperText = document.getElementById('helperText');
+            if (validCount === state.totalFields) {
+                submitBtn.disabled = false;
+                helperText.textContent = '✅ Alle velden correct ingevuld - klik om verder te gaan';
+                helperText.style.color = '#1E7F5C';
+            } else {
+                submitBtn.disabled = true;
+                helperText.textContent = 'Vul alle velden correct in om verder te gaan';
+                helperText.style.color = '#6B7280';
+            }
+
+            // Update section statuses
+            updateSectionStatus('section1Status', ['insuranceType']);
+            updateSectionStatus('section2Status', ['coverage']);
+            updateSectionStatus('section3Status', ['age', 'postcode', 'bonusMalus']);
+            updateSectionStatus('section4Status', ['legalAid']);
+        }
+
+        function updateSectionStatus(sectionId, fieldNames) {
+            const allValid = fieldNames.every(name => state.validFields.has(name));
+            const statusElement = document.getElementById(sectionId);
+            statusElement.textContent = allValid ? '✅' : '⚪';
+        }
+
+        // Mark field as touched
+        function markFieldTouched(fieldName, element) {
+            state.touchedFields.add(fieldName);
+            
+            // Update visual state
+            if (element.classList.contains('radio-option')) {
+                // For radio groups, update all options in the group
+                const groupName = element.getAttribute('data-field');
+                document.querySelectorAll(`[data-field="${groupName}"]`).forEach(opt => {
+                    opt.classList.remove('untouched');
+                    opt.classList.add('touched-valid');
+                });
+            } else {
+                element.classList.remove('untouched');
+                element.classList.add('touched-valid');
+            }
+            
+            updateProgress();
+        }
+
+        // Setup regular input/select fields
+        Object.entries(fields).forEach(([fieldName, element]) => {
+            // Special handling for postcode - auto-format on input
+            if (fieldName === 'postcode') {
+                element.addEventListener('input', (e) => {
+                    const formatted = formatPostcode(e.target.value);
+                    e.target.value = formatted;
+                    state.fieldValues[fieldName] = formatted;
+                    
+                    // Mark as touched and validate
+                    markFieldTouched(fieldName, element);
+                    validateField(fieldName, formatted, element);
+                    updateProgress();
+                });
+                
+                element.addEventListener('blur', () => {
+                    const value = element.value;
+                    validateField(fieldName, value, element);
+                    updateProgress();
+                });
+            } else {
+                // Regular fields (age, bonusMalus, insuranceType)
+                element.addEventListener('change', () => {
+                    markFieldTouched(fieldName, element);
+                    state.fieldValues[fieldName] = element.value;
+                    validateField(fieldName, element.value, element);
+                    updateProgress();
+                });
+                
+                element.addEventListener('blur', () => {
+                    if (state.touchedFields.has(fieldName)) {
+                        validateField(fieldName, element.value, element);
+                        updateProgress();
+                    }
+                });
+            }
+        });
+
+        // Setup radio groups
+        Object.entries(radioGroups).forEach(([groupName, options]) => {
+            options.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                
+                option.addEventListener('click', () => {
+                    markFieldTouched(groupName, option);
+                    state.fieldValues[groupName] = radio.value;
+                    state.validFields.add(groupName); // Radio groups are always valid once selected
+                    updateProgress();
+                });
+
+                radio.addEventListener('change', () => {
+                    markFieldTouched(groupName, option);
+                    state.fieldValues[groupName] = radio.value;
+                    state.validFields.add(groupName);
+                    updateProgress();
+                });
+            });
+        });
+
+        // Form submit
+        document.getElementById('configuratorForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (state.touchedFields.size === state.totalFields) {
+                alert('✅ Formulier verzonden!\n\nBevestigde velden:\n' + 
+                    Array.from(state.touchedFields).join(', ') +
+                    '\n\nWaarden:\n' + JSON.stringify(state.fieldValues, null, 2));
+            } else {
+                alert('⚠️ Bevestig eerst alle velden!');
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

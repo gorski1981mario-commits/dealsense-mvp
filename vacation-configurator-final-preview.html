@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vakantie Configurator - Final Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F7F9F8; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; }
+        h2 { font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 24px; }
+        .progress-bar { background: #E6F4EE; border: 2px solid #1E7F5C; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
+        .progress-fill { height: 8px; background: #1E7F5C; border-radius: 4px; transition: width 0.3s; }
+        .progress-text { font-size: 14px; color: #374151; margin-top: 8px; }
+        .warning { background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+        .warning-text { font-size: 13px; color: #92400e; }
+        .section { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #E5E7EB; }
+        .section-title { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 12px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; position: relative; }
+        select, input[type="date"] { width: 100%; padding: 10px 14px; border: 2px solid #E5E7EB; border-radius: 10px; font-size: 14px; }
+        .valid { border-color: #1E7F5C !important; background: #E6F4EE !important; }
+        .touched { border-color: #F59E0B !important; background: #FEF3C7 !important; }
+        .counter { display: flex; align-items: center; gap: 12px; background: #F3F4F6; border-radius: 10px; padding: 8px 12px; width: fit-content; }
+        .counter.valid { background: #E6F4EE; border: 2px solid #1E7F5C; }
+        .counter button { width: 30px; height: 30px; border-radius: 8px; border: none; background: white; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .counter-value { font-size: 16px; font-weight: 700; min-width: 25px; text-align: center; }
+        .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 6px; }
+        .radio-option, .checkbox-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid #E5E7EB; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .radio-option.selected { border-color: #1E7F5C; background: #E6F4EE; }
+        .checkbox-option.selected { border-color: #1E7F5C; background: #E6F4EE; }
+        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #1E7F5C 0%, #15803d 100%); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+        .filter-box { background: #F7F9F8; border: 2px solid #E5E7EB; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🏖️ Vakantie Configurator - Final Preview</h2>
+        
+        <div class="progress-bar">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 600; color: #1E7F5C;">Voortgang configuratie</span>
+                <span id="progressPercent" style="font-weight: 700; font-size: 18px; color: #1E7F5C;">0%</span>
+            </div>
+            <div style="background: #D1D5DB; height: 8px; border-radius: 4px;">
+                <div id="progressBar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+            <div class="progress-text"><span id="validCount">0</span> van <span id="totalCount">8</span> velden correct ingevuld</div>
+        </div>
+
+        <div id="warningBox" class="warning" style="display: none;">
+            <div class="warning-text">⚠️ <strong>Bevestig alle velden door ze aan te klikken en een keuze te maken</strong></div>
+        </div>
+
+        <!-- FILTER OPTIONS -->
+        <div class="filter-box">
+            <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 12px;">Kies zoekstrategie:</div>
+            <div class="radio-group">
+                <div class="radio-option" data-filter="cheapest">
+                    <input type="radio" name="filter" value="cheapest">
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600;">🏷️ Goedkoopste</div>
+                        <div style="font-size: 12px; color: #6B7280;">Laagste prijs (kwaliteit minder belangrijk)</div>
+                    </div>
+                </div>
+                <div class="radio-option" data-filter="balanced">
+                    <input type="radio" name="filter" value="balanced">
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600;">⚖️ Prijs + Kwaliteit <span style="font-size: 11px; font-weight: 700; color: #1E7F5C; background: #E6F4EE; padding: 2px 8px; border-radius: 6px; margin-left: 6px;">MEEST GEKOZEN</span></div>
+                        <div style="font-size: 12px; color: #6B7280;">Balans tussen prijs en kwaliteit</div>
+                    </div>
+                </div>
+                <div class="radio-option" data-filter="quality">
+                    <input type="radio" name="filter" value="quality">
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600;">⭐ Beste kwaliteit</div>
+                        <div style="font-size: 12px; color: #6B7280;">Hoogste beoordelingen (binnen redelijke prijs)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. REIZIGERS -->
+        <div class="section">
+            <div class="section-title">1. Reizigers</div>
+            <div style="margin-bottom: 14px;">
+                <label>Volwassenen (18+)</label>
+                <div id="adultsCounter" class="counter">
+                    <button onclick="changeAdults(-1)">−</button>
+                    <div class="counter-value" id="adultsValue">0</div>
+                    <button onclick="changeAdults(1)">+</button>
+                </div>
+            </div>
+            <div>
+                <label>Kinderen (0-17)</label>
+                <div id="childrenCounter" class="counter">
+                    <button onclick="changeChildren(-1)">−</button>
+                    <div class="counter-value" id="childrenValue">0</div>
+                    <button onclick="changeChildren(1)">+</button>
+                </div>
+                <div id="childrenAgesContainer" style="margin-top: 10px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- 2. BESTEMMING & DATUM -->
+        <div class="section">
+            <div class="section-title">2. Bestemming & Datum</div>
+            <div style="margin-bottom: 14px;">
+                <label>Bestemming</label>
+                <select id="destination">
+                    <option value="">Kies bestemming...</option>
+                    <optgroup label="Meest populair voor Nederlanders">
+                        <option value="turkije">MEEST GEKOZEN 🇹🇷 Turkije</option>
+                        <option value="griekenland">MEEST GEKOZEN 🇬🇷 Griekenland</option>
+                        <option value="spanje">MEEST GEKOZEN 🇪🇸 Spanje</option>
+                        <option value="egypte">MEEST GEKOZEN 🇪🇬 Egypte</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div style="margin-bottom: 14px;">
+                <label>Vertrekdatum</label>
+                <input type="date" id="departureDate" min="">
+            </div>
+            <div>
+                <label>Duur: <span id="durationDisplay" style="color: #1E7F5C; font-weight: 700;">1 dag</span></label>
+                <input type="range" id="duration" min="1" max="30" value="1" style="width: 100%; height: 8px; border-radius: 4px; background: #E5E7EB; outline: none; -webkit-appearance: none;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: #6B7280; margin-top: 4px;">
+                    <span>1 dag</span>
+                    <span>30 dagen</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. VERVOER -->
+        <div class="section">
+            <div class="section-title">3. Vervoer</div>
+            <div class="radio-group">
+                <div class="radio-option" data-transport="flight">
+                    <input type="radio" name="transport" value="flight">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">✈️ Vliegtuig</label>
+                </div>
+                <div class="radio-option" data-transport="own">
+                    <input type="radio" name="transport" value="own">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🚗 Eigen vervoer</label>
+                </div>
+                <div class="radio-option" data-transport="bus">
+                    <input type="radio" name="transport" value="bus">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🚌 Bus</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. ACCOMMODATIE -->
+        <div class="section">
+            <div class="section-title">4. Accommodatie</div>
+            <div style="margin-bottom: 14px;">
+                <label>Type</label>
+                <div class="radio-group">
+                    <div class="radio-option" data-accommodation="hotel">
+                        <input type="radio" name="accommodation" value="hotel">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">🏨 Hotel</label>
+                    </div>
+                    <div class="radio-option" data-accommodation="apartment">
+                        <input type="radio" name="accommodation" value="apartment">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">🏠 Appartement</label>
+                    </div>
+                    <div class="radio-option" data-accommodation="resort">
+                        <input type="radio" name="accommodation" value="resort">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">🏖️ Resort</label>
+                    </div>
+                    <div class="radio-option" data-accommodation="park">
+                        <input type="radio" name="accommodation" value="park">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">🏡 Vakantiepark</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label>Hotel categorie (sterren)</label>
+                <div class="radio-group">
+                    <div class="radio-option" data-stars="3">
+                        <input type="radio" name="stars" value="3">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">⭐⭐⭐ 3 sterren</label>
+                    </div>
+                    <div class="radio-option" data-stars="4">
+                        <input type="radio" name="stars" value="4">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">⭐⭐⭐⭐ 4 sterren</label>
+                    </div>
+                    <div class="radio-option" data-stars="5">
+                        <input type="radio" name="stars" value="5">
+                        <label style="margin: 0; flex: 1; cursor: pointer;">⭐⭐⭐⭐⭐ 5 sterren</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. VERBLIJF TYPE -->
+        <div class="section">
+            <div class="section-title">5. Verblijf type</div>
+            <div class="radio-group">
+                <div class="radio-option" data-board="bb">
+                    <input type="radio" name="board" value="bb">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🍳 Logies & Ontbijt</label>
+                </div>
+                <div class="radio-option" data-board="hb">
+                    <input type="radio" name="board" value="hb">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🍽️ Halfpension</label>
+                </div>
+                <div class="radio-option" data-board="fb">
+                    <input type="radio" name="board" value="fb">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🍽️🍽️ Volpension</label>
+                </div>
+                <div class="radio-option" data-board="ai">
+                    <input type="radio" name="board" value="ai">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🍹 All Inclusive</label>
+                </div>
+                <div class="radio-option" data-board="uai">
+                    <input type="radio" name="board" value="uai">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🍹+ Ultra All Inclusive</label>
+                </div>
+                <div class="radio-option" data-board="adults_only" id="adultsOnlyOption" style="display: none;">
+                    <input type="radio" name="board" value="adults_only">
+                    <label style="margin: 0; flex: 1; cursor: pointer;">🔞 Adults Only</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. EXTRA VOORKEUREN (OPTIONAL) -->
+        <div style="margin-bottom: 24px;">
+            <div style="font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 12px;">6. Extra voorkeuren</div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <div class="checkbox-option" data-extra="pool">
+                    <input type="checkbox" value="pool">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">🏊 Zwembad</label>
+                </div>
+                <div class="checkbox-option" data-extra="wifi">
+                    <input type="checkbox" value="wifi">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">📶 Wifi</label>
+                </div>
+                <div class="checkbox-option" data-extra="parking">
+                    <input type="checkbox" value="parking">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">🅿️ Parkeren</label>
+                </div>
+                <div class="checkbox-option" data-extra="kids">
+                    <input type="checkbox" value="kids">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">👶 Kinderclub</label>
+                </div>
+                <div class="checkbox-option" data-extra="spa">
+                    <input type="checkbox" value="spa">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">💆 Spa/Wellness</label>
+                </div>
+                <div class="checkbox-option" data-extra="beach">
+                    <input type="checkbox" value="beach">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">🏖️ Strand</label>
+                </div>
+                <div class="checkbox-option" data-extra="adults" id="adultsOnlyExtra" style="display: none;">
+                    <input type="checkbox" value="adults">
+                    <label style="margin: 0; font-size: 13px; font-weight: 500; cursor: pointer;">🔞 Adults Only</label>
+                </div>
+            </div>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" disabled>Zoek beste vakantie →</button>
+    </div>
+
+    <script>
+        let state = {
+            adults: 0,
+            children: 0,
+            childrenAges: [],
+            destination: '',
+            departureDate: '',
+            duration: 1,
+            transport: '',
+            accommodation: '',
+            stars: '',
+            board: '',
+            filter: ''
+        };
+
+        let touchedFields = new Set();
+        let validFields = new Set();
+
+        function validateAndMark(field, value, validator) {
+            touchedFields.add(field);
+            const isValid = validator ? validator(value) : (value !== '' && value !== 0);
+            if (isValid) {
+                validFields.add(field);
+            } else {
+                validFields.delete(field);
+            }
+            return isValid;
+        }
+
+        function updateProgress() {
+            let requiredFields = 9; // filter, adults, destination, date, duration, transport, accommodation, stars, board
+            if (state.children > 0) {
+                requiredFields += 1; // childrenAges
+            }
+            
+            const percent = Math.round((validFields.size / requiredFields) * 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('validCount').textContent = validFields.size;
+            document.getElementById('totalCount').textContent = requiredFields;
+            
+            document.getElementById('submitBtn').disabled = validFields.size < requiredFields;
+            document.getElementById('warningBox').style.display = validFields.size < requiredFields ? 'block' : 'none';
+        }
+
+        // Set minimum date to today (block past dates)
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departureDate').setAttribute('min', today);
+        
+        updateProgress();
+
+        function changeAdults(delta) {
+            state.adults = Math.max(0, Math.min(9, state.adults + delta));
+            document.getElementById('adultsValue').textContent = state.adults;
+            const counter = document.getElementById('adultsCounter');
+            const isValid = state.adults >= 1;
+            validateAndMark('adults', state.adults, (v) => v >= 1);
+            counter.classList.toggle('valid', isValid);
+            updateProgress();
+        }
+
+        function changeChildren(delta) {
+            state.children = Math.max(0, Math.min(4, state.children + delta));
+            document.getElementById('childrenValue').textContent = state.children;
+            const counter = document.getElementById('childrenCounter');
+            counter.classList.toggle('valid', state.children > 0);
+            
+            // Reset childrenAges with default value 1 (Baby)
+            state.childrenAges = Array(state.children).fill(1);
+            
+            if (state.children === 0) {
+                validFields.delete('childrenAges');
+                document.getElementById('childrenAgesContainer').style.display = 'none';
+                document.getElementById('adultsOnlyOption').style.display = 'block';
+                document.getElementById('adultsOnlyExtra').style.display = 'block';
+                if (state.board === 'adults_only') {
+                    state.board = '';
+                    validFields.delete('board');
+                    document.querySelectorAll('[data-board]').forEach(el => el.classList.remove('selected'));
+                }
+            } else {
+                // Auto-validate childrenAges since all are set to 1 (Baby)
+                validateAndMark('childrenAges', state.childrenAges, () => true);
+                document.getElementById('adultsOnlyOption').style.display = 'none';
+                document.getElementById('adultsOnlyExtra').style.display = 'none';
+                if (state.board === 'adults_only') {
+                    state.board = '';
+                    validFields.delete('board');
+                    document.querySelectorAll('[data-board]').forEach(el => el.classList.remove('selected'));
+                }
+                updateChildrenAges();
+            }
+            updateProgress();
+        }
+
+        function updateChildrenAges() {
+            const container = document.getElementById('childrenAgesContainer');
+            if (state.children === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.gap = '6px';
+            container.innerHTML = '';
+            
+            state.childrenAges.forEach((age, i) => {
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.alignItems = 'center';
+                div.style.gap = '10px';
+                
+                const label = document.createElement('label');
+                label.textContent = `Kind ${i + 1}:`;
+                label.style.margin = '0';
+                label.style.minWidth = '70px';
+                label.style.fontSize = '13px';
+                
+                const select = document.createElement('select');
+                select.style.flex = '1';
+                select.style.padding = '8px 10px';
+                select.style.border = '2px solid #1E7F5C';
+                select.style.borderRadius = '8px';
+                select.style.fontSize = '13px';
+                select.style.background = '#E6F4EE';
+                
+                // Start from Baby (1 jaar)
+                const babyOption = document.createElement('option');
+                babyOption.value = '1';
+                babyOption.textContent = '👶 Baby (0-1 jaar)';
+                select.appendChild(babyOption);
+                
+                for (let j = 2; j <= 17; j++) {
+                    const option = document.createElement('option');
+                    option.value = j;
+                    option.textContent = `${j} jaar`;
+                    select.appendChild(option);
+                }
+                
+                select.value = age || 1;
+                select.addEventListener('change', (e) => {
+                    state.childrenAges[i] = parseInt(e.target.value);
+                    const allValid = state.childrenAges.every(a => a >= 1 && a <= 17);
+                    if (allValid) {
+                        validateAndMark('childrenAges', state.childrenAges, () => true);
+                    } else {
+                        validFields.delete('childrenAges');
+                    }
+                    updateProgress();
+                });
+                
+                div.appendChild(label);
+                div.appendChild(select);
+                container.appendChild(div);
+            });
+        }
+
+        // Destination
+        document.getElementById('destination').addEventListener('change', (e) => {
+            state.destination = e.target.value;
+            validateAndMark('destination', e.target.value);
+            e.target.classList.toggle('valid', e.target.value !== '');
+            updateProgress();
+        });
+
+        // Departure Date
+        document.getElementById('departureDate').addEventListener('change', (e) => {
+            state.departureDate = e.target.value;
+            validateAndMark('departureDate', e.target.value);
+            e.target.classList.toggle('valid', e.target.value !== '');
+            updateProgress();
+        });
+
+        // Duration slider - update display and validate
+        document.getElementById('duration').addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            state.duration = value;
+            document.getElementById('durationDisplay').textContent = value + (value === 1 ? ' dag' : ' dagen');
+            validateAndMark('duration', value, (v) => v >= 1 && v <= 30);
+            updateProgress();
+        });
+
+        // Filter selection - REQUIRED
+        document.querySelectorAll('[data-filter]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.filter = el.dataset.filter;
+                validateAndMark('filter', state.filter);
+                document.querySelectorAll('[data-filter]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+                updateProgress();
+            });
+        });
+
+        // Radio groups
+        document.querySelectorAll('[data-transport]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.transport = el.dataset.transport;
+                validateAndMark('transport', state.transport);
+                document.querySelectorAll('[data-transport]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+                updateProgress();
+            });
+        });
+
+        document.querySelectorAll('[data-accommodation]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.accommodation = el.dataset.accommodation;
+                validateAndMark('accommodation', state.accommodation);
+                document.querySelectorAll('[data-accommodation]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+                updateProgress();
+            });
+        });
+
+        document.querySelectorAll('[data-stars]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.stars = el.dataset.stars;
+                validateAndMark('stars', state.stars);
+                document.querySelectorAll('[data-stars]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+                updateProgress();
+            });
+        });
+
+        document.querySelectorAll('[data-board]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.board = el.dataset.board;
+                validateAndMark('board', state.board);
+                document.querySelectorAll('[data-board]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+                updateProgress();
+            });
+        });
+
+        // Extra voorkeuren checkboxes (OPTIONAL - not required for validation)
+        document.querySelectorAll('[data-extra]').forEach(el => {
+            const checkbox = el.querySelector('input[type="checkbox"]');
+            
+            el.addEventListener('click', (e) => {
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                if (checkbox.checked) {
+                    el.classList.add('selected');
+                } else {
+                    el.classList.remove('selected');
+                }
+            });
+            
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    el.classList.add('selected');
+                } else {
+                    el.classList.remove('selected');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-filter]').forEach(el => {
+            el.addEventListener('click', () => {
+                state.filter = el.dataset.filter;
+                document.querySelectorAll('[data-filter]').forEach(e => e.classList.remove('selected'));
+                el.classList.add('selected');
+            });
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            alert('✅ Configuratie compleet! Progress: ' + validFields.size + '/' + document.getElementById('totalCount').textContent);
+        });
+    </script>
+</body>
+</html>
