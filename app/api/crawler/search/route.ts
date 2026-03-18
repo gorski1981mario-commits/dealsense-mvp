@@ -159,11 +159,9 @@ function getMaxOffers(packageType: string): number {
   switch (packageType) {
     case 'free':
     case 'plus':
-      return 3  // TOP 3
     case 'pro':
-      return 10 // TOP 10
     case 'finance':
-      return 10 // TOP 10
+      return 3  // TOP 3 for all B2C packages
     case 'zakelijk':
       return 2  // TOP 2 for B2B (large transactions)
     default:
