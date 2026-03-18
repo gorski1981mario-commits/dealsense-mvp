@@ -1,19 +1,37 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard } from 'lucide-react'
+import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard, Lock } from 'lucide-react'
+import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
+import { getDeviceId } from '../_lib/utils'
+import PaywallMessage from '../components/PaywallMessage'
 
 export default function VasteLastenPage() {
+  const [userPackage, setUserPackage] = useState<PackageType>('free')
+  const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
+
+  useEffect(() => {
+    // Get user package from localStorage
+    if (typeof window !== 'undefined') {
+      const savedPackage = localStorage.getItem(`package_${userId}`) as PackageType
+      setUserPackage(savedPackage || 'free')
+    }
+  }, [userId])
+
   const configurators = [
-    { href: '/vacations', Icon: Sun, title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO' },
-    { href: '/insurance', Icon: ShieldCheck, title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO' },
-    { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO' },
-    { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO' },
-    { href: '/mortgage', Icon: Home, title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE' },
-    { href: '/leasing', Icon: Car, title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE' },
-    { href: '/loan', Icon: Banknote, title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE' },
-    { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE' }
+    { href: '/vacations', Icon: Sun, title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO', requiredPackage: 'pro' as const },
+    { href: '/insurance', Icon: ShieldCheck, title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO', requiredPackage: 'pro' as const },
+    { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO', requiredPackage: 'pro' as const },
+    { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO', requiredPackage: 'pro' as const },
+    { href: '/mortgage', Icon: Home, title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE', requiredPackage: 'finance' as const },
+    { href: '/leasing', Icon: Car, title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE', requiredPackage: 'finance' as const },
+    { href: '/loan', Icon: Banknote, title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE', requiredPackage: 'finance' as const },
+    { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE', requiredPackage: 'finance' as const }
   ]
+
+  const hasProAccess = hasConfiguratorAccess(userPackage, 'pro')
+  const hasFinanceAccess = hasConfiguratorAccess(userPackage, 'finance')
 
   return (
     <div>
