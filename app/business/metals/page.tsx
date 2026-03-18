@@ -12,7 +12,7 @@ export default function MetalsConfiguratorPage() {
     grade: '',
     delivery: '',
     paymentTerms: '',
-    certification: [],
+    certification: [] as string[],
     destination: '',
     urgency: 'standard',
     deliveryMethod: '',

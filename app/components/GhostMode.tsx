@@ -8,10 +8,17 @@ interface GhostModeProps {
   userId: string
 }
 
+interface MonitoredProduct {
+  id: string
+  name: string
+  price: number
+  timestamp: number
+}
+
 export default function GhostMode({ packageType, userId }: GhostModeProps) {
   const [isActive, setIsActive] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState(0)
-  const [monitoredProducts, setMonitoredProducts] = useState<any[]>([])
+  const [monitoredProducts, setMonitoredProducts] = useState<MonitoredProduct[]>([])
 
   // Duration based on package
   const getDuration = () => {

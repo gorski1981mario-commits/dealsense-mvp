@@ -183,7 +183,7 @@ Of klik hier: ${shareUrl}
           </button>
 
           {/* Native Share (if available) */}
-          {navigator.share && (
+          {typeof navigator !== 'undefined' && 'share' in navigator && (
             <button
               onClick={handleNativeShare}
               style={{
