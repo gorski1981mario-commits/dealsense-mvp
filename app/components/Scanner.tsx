@@ -197,14 +197,14 @@ export default function Scanner({ type }: ScannerProps) {
           style={{
             width: '100%',
             padding: '12px',
-            background: '#1E7F5C',
+            background: '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
             fontSize: '14px',
             fontWeight: 600,
             cursor: 'pointer',
-            boxShadow: '0 4px 6px rgba(30, 127, 92, 0.3)'
+            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
           }}
         >
           Start Camera
