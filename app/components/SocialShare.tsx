@@ -16,6 +16,7 @@ export default function SocialShare({
 }: SocialShareProps) {
   const [withCode, setWithCode] = useState(false)
   const [referralCode, setReferralCode] = useState<string | null>(null)
+  const [shareMode, setShareMode] = useState<'text' | 'image'>('text')
   
   const baseUrl = 'https://dealsense.nl'
   const hasPackage = userPackage !== 'free'
@@ -62,13 +63,40 @@ export default function SocialShare({
     }
   }
   
+  // Generate mixed hashtags (category-specific + viral)
+  const getHashtags = () => {
+    const coreHashtags = ['#DealSense', '#Besparen', '#Deals', '#Nederland']
+    const viralHashtags = ['#GeldBesparen', '#SmartShoppen', '#Korting', '#Aanbieding']
+    
+    // Category-specific hashtags based on product name
+    let categoryHashtags: string[] = []
+    const productLower = productName.toLowerCase()
+    
+    if (productLower.includes('iphone') || productLower.includes('samsung') || productLower.includes('telefoon')) {
+      categoryHashtags = ['#Smartphone', '#Tech', '#Mobiel']
+    } else if (productLower.includes('vakantie') || productLower.includes('reis') || productLower.includes('hotel')) {
+      categoryHashtags = ['#Vakantie', '#Reizen', '#Zomer']
+    } else if (productLower.includes('energie') || productLower.includes('stroom') || productLower.includes('gas')) {
+      categoryHashtags = ['#Energie', '#Stroom', '#Duurzaam']
+    } else if (productLower.includes('verzekering') || productLower.includes('insurance')) {
+      categoryHashtags = ['#Verzekering', '#Financieel', '#Zekerheid']
+    } else {
+      categoryHashtags = ['#Shopping', '#Online', '#Voordeel']
+    }
+    
+    // Mix category + viral hashtags
+    const mixedHashtags = [...categoryHashtags.slice(0, 2), ...viralHashtags.slice(0, 2)]
+    return [...coreHashtags, ...mixedHashtags].join(' ')
+  }
+  
   const shareUrl = (platform: string) => {
     const amount = `€${savingsAfterCommission.toFixed(2)}`
     const url = withCode && referralCode ? `${baseUrl}?ref=${referralCode}` : baseUrl
+    const hashtags = getHashtags()
     
     const text = withCode && referralCode
-      ? `💰 ${productName} - ${amount} bespaard! 🎉\n🎁 Code: ${referralCode} (2% korting!)\nProbeer: ${url}`
-      : `💰 ${productName} - ${amount} bespaard! 🎉\nGevonden met DealSense\nProbeer gratis: ${url}`
+      ? `💰 ${productName} - ${amount} bespaard! 🎉\n🎁 Code: ${referralCode} (2% korting!)\n\n${hashtags}\n\nProbeer: ${url}`
+      : `💰 ${productName} - ${amount} bespaard! 🎉\nGevonden met DealSense 🔍\n\n${hashtags}\n\nProbeer gratis: ${url}`
     
     switch(platform) {
       case 'whatsapp':
@@ -102,6 +130,79 @@ export default function SocialShare({
         </div>
       </div>
       
+      {/* Share Mode Toggle */}
+      <div style={{
+        display: 'flex',
+        gap: '8px',
+        marginBottom: '16px',
+        padding: '4px',
+        background: 'white',
+        borderRadius: '10px',
+        border: '1px solid #d1d5db'
+      }}>
+        <button
+          onClick={() => setShareMode('text')}
+          style={{
+            flex: 1,
+            padding: '10px',
+            background: shareMode === 'text' ? '#15803d' : 'transparent',
+            color: shareMode === 'text' ? 'white' : '#6b7280',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+        >
+          📝 Tekst (snel)
+        </button>
+        <button
+          onClick={() => setShareMode('image')}
+          style={{
+            flex: 1,
+            padding: '10px',
+            background: shareMode === 'image' ? '#15803d' : 'transparent',
+            color: shareMode === 'image' ? 'white' : '#6b7280',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '13px',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+        >
+          🖼️ Afbeelding (opvallend)
+        </button>
+      </div>
+      
+      {/* Screenshot Preview (if image mode) */}
+      {shareMode === 'image' && (
+        <div style={{
+          marginBottom: '16px',
+          padding: '20px',
+          background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+          borderRadius: '12px',
+          textAlign: 'center',
+          color: 'white'
+        }}>
+          <div style={{ fontSize: '14px', marginBottom: '8px', opacity: 0.9 }}>DealSense</div>
+          <div style={{ fontSize: '36px', fontWeight: 700, marginBottom: '4px' }}>
+            €{savingsAfterCommission.toFixed(2)}
+          </div>
+          <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px' }}>
+            BESPAARD! 🎉
+          </div>
+          <div style={{ fontSize: '13px', marginBottom: '8px', opacity: 0.9 }}>
+            {productName}
+          </div>
+          <div style={{ fontSize: '11px', opacity: 0.8 }}>
+            dealsense.nl
+          </div>
+        </div>
+      )}
+      
+      {/* Share Buttons */}
       <div style={{ 
         display: 'grid', 
         gridTemplateColumns: '1fr 1fr', 
