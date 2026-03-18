@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download } from 'lucide-react'
+import { Lock, Unlock, Download, Zap } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -225,7 +225,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   return (
     <div>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>⚡ Energie Configurator</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={24} strokeWidth={2} /> Energie Configurator</h2>
 
       <ProgressTracker 
         percentage={progress}

@@ -1,3 +1,5 @@
+import { Zap, ShieldCheck, EyeOff } from 'lucide-react'
+
 export const revalidate = 60
 
 export default function HoeHetWerktPage() {
@@ -111,8 +113,8 @@ export default function HoeHetWerktPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
-              ⚡ Supersnel vergelijken
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Zap size={20} strokeWidth={2} color="#1E7F5C" /> Supersnel vergelijken
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Binnen 2-8 seconden scannen we 1000+ Nederlandse webshops. Jij ziet meteen de beste 3 deals met de grootste besparingen. Geen eindeloos zoeken meer.
@@ -125,8 +127,8 @@ export default function HoeHetWerktPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
-              🛡️ Betrouwbaar & veilig
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ShieldCheck size={20} strokeWidth={2} color="#1E7F5C" /> Betrouwbaar & veilig
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Onze AI filtert automatisch verdachte aanbiedingen en scams. Je ziet alleen betrouwbare winkels met goede ratings. Veilig winkelen, altijd.
@@ -139,8 +141,8 @@ export default function HoeHetWerktPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
-              👁️ Ghost Mode monitoring
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <EyeOff size={20} strokeWidth={2} color="#1E7F5C" /> Ghost Mode monitoring
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Laat ons 24/7 de prijs monitoren. Zodra het product goedkoper wordt, krijg je een melding. Zo mis je nooit meer een deal.

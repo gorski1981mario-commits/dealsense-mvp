@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download } from 'lucide-react'
+import { Lock, Unlock, Download, Banknote } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -141,7 +141,7 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   return (
     <div>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>💰 Lening Configurator</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><Banknote size={24} strokeWidth={2} /> Lening Configurator</h2>
 
       <ProgressTracker percentage={progress} validCount={validFields.size} totalFields={totalFields} showWarning={validFields.size < totalFields} />
       <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />

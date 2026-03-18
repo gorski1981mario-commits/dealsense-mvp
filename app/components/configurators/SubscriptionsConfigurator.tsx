@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download } from 'lucide-react'
+import { Lock, Unlock, Download, Tv } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -191,7 +191,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   return (
     <div>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>� Abonnementen Configurator</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><Tv size={24} strokeWidth={2} /> Abonnementen Configurator</h2>
 
       <ProgressTracker percentage={progress} validCount={validFields.size} totalFields={totalFields} showWarning={validFields.size < totalFields} />
       <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />

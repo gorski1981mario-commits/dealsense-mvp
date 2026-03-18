@@ -1,5 +1,7 @@
 export const revalidate = 60
 
+import { Lock, ShieldCheck, Mail } from 'lucide-react'
+
 export default function VeiligheidPage() {
   return (
     <div>
@@ -12,8 +14,8 @@ export default function VeiligheidPage() {
       </p>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          🔒 Gegevensbeveiliging
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Lock size={20} strokeWidth={2} color="#1E7F5C" /> Gegevensbeveiliging
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           We slaan geen persoonlijke gegevens op. Alle scans zijn anoniem en worden alleen in-memory verwerkt. 
@@ -22,8 +24,8 @@ export default function VeiligheidPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          ✓ GDPR Compliant
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ShieldCheck size={20} strokeWidth={2} color="#1E7F5C" /> GDPR Compliant
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           We voldoen aan alle GDPR-richtlijnen. Je hebt altijd het recht om je gegevens in te zien, 
@@ -32,8 +34,8 @@ export default function VeiligheidPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          🛡️ Anti-Scam Bescherming
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ShieldCheck size={20} strokeWidth={2} color="#1E7F5C" /> Anti-Scam Bescherming
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           Onze TrustDelta-algoritme controleert alle winkels op betrouwbaarheid. We filteren automatisch 
@@ -55,8 +57,8 @@ export default function VeiligheidPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>
-          📧 Contact
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Mail size={20} strokeWidth={2} color="#1E7F5C" /> Contact
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
           Vragen over privacy of veiligheid? Neem contact op via{' '}

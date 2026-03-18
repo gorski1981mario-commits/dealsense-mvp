@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download } from 'lucide-react'
+import { Lock, Unlock, Download, ShieldCheck } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -516,7 +516,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   return (
     <div>
       <AgentEchoLogo />
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px' }}>🛡️ Verzekering Configurator</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><ShieldCheck size={24} strokeWidth={2} /> Verzekering Configurator</h2>
 
       {/* Progress Tracker */}
       <ProgressTracker 

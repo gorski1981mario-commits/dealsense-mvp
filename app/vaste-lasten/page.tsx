@@ -1,17 +1,18 @@
 'use client'
 
 import Link from 'next/link'
+import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard } from 'lucide-react'
 
 export default function VasteLastenPage() {
   const configurators = [
-    { href: '/vacations', icon: '🏖️', title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO' },
-    { href: '/insurance', icon: '🛡️', title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO' },
-    { href: '/energy', icon: '⚡', title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO' },
-    { href: '/telecom', icon: '📱', title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO' },
-    { href: '/mortgage', icon: '🏠', title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE' },
-    { href: '/leasing', icon: '🚗', title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE' },
-    { href: '/loan', icon: '💰', title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE' },
-    { href: '/creditcard', icon: '💳', title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE' }
+    { href: '/vacations', Icon: Sun, title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO' },
+    { href: '/insurance', Icon: ShieldCheck, title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO' },
+    { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO' },
+    { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO' },
+    { href: '/mortgage', Icon: Home, title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE' },
+    { href: '/leasing', Icon: Car, title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE' },
+    { href: '/loan', Icon: Banknote, title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE' },
+    { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE' }
   ]
 
   return (
@@ -51,7 +52,7 @@ export default function VasteLastenPage() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '32px' }}>{config.icon}</span>
+              <config.Icon size={32} strokeWidth={2} color="#1E7F5C" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
                   {config.title}

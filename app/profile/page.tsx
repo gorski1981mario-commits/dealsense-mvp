@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { BarChart3, ClipboardList, Settings } from 'lucide-react'
 import MyConfigurations from '../components/profile/MyConfigurations'
 import AgentEchoLogo from '../components/AgentEchoLogo'
 
@@ -90,7 +91,7 @@ export default function ProfilePage() {
                 transition: 'all 0.2s'
               }}
             >
-              📊 Overzicht
+              <BarChart3 size={18} strokeWidth={2} style={{ marginRight: '6px' }} /> Overzicht
             </button>
             <button
               onClick={() => setActiveTab('configurations')}
@@ -107,7 +108,7 @@ export default function ProfilePage() {
                 transition: 'all 0.2s'
               }}
             >
-              📋 Mijn Configuraties
+              <ClipboardList size={18} strokeWidth={2} style={{ marginRight: '6px' }} /> Mijn Configuraties
             </button>
             <button
               onClick={() => setActiveTab('settings')}
@@ -124,7 +125,7 @@ export default function ProfilePage() {
                 transition: 'all 0.2s'
               }}
             >
-              ⚙️ Instellingen
+              <Settings size={18} strokeWidth={2} style={{ marginRight: '6px' }} /> Instellingen
             </button>
           </div>
         </div>

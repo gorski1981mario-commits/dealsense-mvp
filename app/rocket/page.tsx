@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Rocket, Zap, Target, Smartphone } from 'lucide-react'
 
 export default function RocketPage() {
   const [url, setUrl] = useState('')
@@ -30,8 +31,8 @@ export default function RocketPage() {
         }}>ROCKET</span>
       </div>
 
-      <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-        🚀 Rocket Scan
+      <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Rocket size={28} strokeWidth={2} color="#1E7F5C" /> Rocket Scan
       </h1>
       
       <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
@@ -45,8 +46,8 @@ export default function RocketPage() {
         border: '1px solid #fca5a5',
         marginBottom: '32px'
       }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-          ⚡ Supersnel
+        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <Zap size={16} strokeWidth={2} color="#1E7F5C" /> Supersnel
         </div>
         <div style={{ fontSize: '13px', color: '#374151' }}>
           Rocket Scan scant alleen de top 10 winkels voor maximale snelheid. Resultaat in 3 seconden gegarandeerd.
@@ -118,8 +119,8 @@ export default function RocketPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '10px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              🎯 Populaire producten
+            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Target size={16} strokeWidth={2} color="#1E7F5C" /> Populaire producten
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>
               Voor bekende merken en producten die overal verkocht worden.
@@ -132,8 +133,8 @@ export default function RocketPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '10px'
           }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
-              📱 Mobiel
+            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Smartphone size={16} strokeWidth={2} color="#1E7F5C" /> Mobiel
             </div>
             <div style={{ fontSize: '13px', color: '#374151' }}>
               Ideaal voor onderweg - snel scannen in de winkel.
