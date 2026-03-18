@@ -12,12 +12,7 @@ interface FilterOptionsProps {
 
 export default function FilterOptions({ selectedFilter, onFilterChange, disabled = false }: FilterOptionsProps) {
   return (
-    <div style={{ 
-      marginBottom: '24px', 
-      background: '#F7F9F8', 
-      borderRadius: '12px',
-      border: '2px solid #E5E7EB'
-    }}>
+    <div style={{ marginBottom: '24px' }}>
       <div style={{ 
         fontSize: '15px', 
         fontWeight: 600, 
