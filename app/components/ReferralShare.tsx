@@ -6,7 +6,7 @@ import { Share2, Copy, Check } from 'lucide-react'
 interface ReferralShareProps {
   tokenId: string
   shareUrl: string
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
 }
 
 export default function ReferralShare({ tokenId, shareUrl, packageType }: ReferralShareProps) {
@@ -15,7 +15,8 @@ export default function ReferralShare({ tokenId, shareUrl, packageType }: Referr
   const packageNames = {
     plus: 'PLUS',
     pro: 'PRO',
-    finance: 'FINANCE'
+    finance: 'FINANCE',
+    zakelijk: 'ZAKELIJK B2B'
   }
 
   const shareMessage = `🎉 Ik gebruik DealSense ${packageNames[packageType]} en bespaar geld!

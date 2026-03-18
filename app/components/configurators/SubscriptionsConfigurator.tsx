@@ -10,7 +10,7 @@ import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface SubscriptionsConfiguratorProps {
-  packageType?: 'plus' | 'pro' | 'finance'
+  packageType?: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId?: string
 }
 
@@ -293,3 +293,4 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
     </div>
   )
 }
+

@@ -48,6 +48,11 @@ const serviceCategories: MenuItem[] = [
   { icon: BarChart3, title: 'Diensten Configurators', path: '/vaste-lasten' }
 ]
 
+// B2B - Zakelijk (nowa sekcja)
+const b2bCategories: MenuItem[] = [
+  { icon: Building, title: 'B2B Configurators', path: '/zakelijk' }
+]
+
 // FUNCTIES
 const otherItems: MenuItem[] = [
   { icon: BarChart3, title: 'Mijn statistieken', path: '/statistics' },
@@ -285,6 +290,51 @@ export default function HamburgerMenu() {
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {serviceCategories.map((item, idx) => {
+                  const IconComponent = item.icon
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => handleItemClick(item.path)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'background 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#E6F4EE'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <IconComponent size={18} color="#111827" strokeWidth={2} />
+                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                        {item.title}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* B2B */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#6B7280',
+                letterSpacing: '0.5px',
+                marginBottom: '12px',
+                textTransform: 'uppercase'
+              }}>
+                B2B
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {b2bCategories.map((item, idx) => {
                   const IconComponent = item.icon
                   return (
                     <div

@@ -10,7 +10,7 @@ import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators, formatters } from '../../utils/validators'
 
 interface EnergyConfiguratorProps {
-  packageType?: 'plus' | 'pro' | 'finance'
+  packageType?: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId?: string
 }
 
@@ -439,3 +439,4 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     </div>
   )
 }
+

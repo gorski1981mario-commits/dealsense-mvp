@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { EyeOff } from 'lucide-react'
 
 interface GhostModeProps {
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId: string
 }
 

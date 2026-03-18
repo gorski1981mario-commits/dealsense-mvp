@@ -10,7 +10,7 @@ import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface LeasingConfiguratorProps {
-  packageType?: 'plus' | 'pro' | 'finance'
+  packageType?: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId?: string
 }
 
@@ -265,3 +265,4 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
     </div>
   )
 }
+

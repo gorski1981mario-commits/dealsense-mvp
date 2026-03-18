@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 
 interface BiometricAuthProps {
-  packageType: 'free' | 'plus' | 'pro' | 'finance'
+  packageType: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
   onSuccess: () => void
   onCancel?: () => void
   actionName?: string

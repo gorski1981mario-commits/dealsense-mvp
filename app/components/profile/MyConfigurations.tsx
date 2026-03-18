@@ -32,7 +32,7 @@ interface Configuration {
 
 interface MyConfigurationsProps {
   userId: string
-  packageType: 'free' | 'plus' | 'pro' | 'finance'
+  packageType: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 }
 
 export default function MyConfigurations({ userId, packageType }: MyConfigurationsProps) {

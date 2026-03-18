@@ -23,7 +23,7 @@ export default function EchoChat() {
   const [isListening, setIsListening] = useState(false)
   const [messagesLeft, setMessagesLeft] = useState(0)
   const [dailyLimit, setDailyLimit] = useState(0)
-  const [userPackage, setUserPackage] = useState<'free' | 'plus' | 'pro' | 'finance'>('free')
+  const [userPackage, setUserPackage] = useState<'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'>('free')
   const [isLoading, setIsLoading] = useState(false)
   const [context, setContext] = useState<ConversationContext>({
     mode: 'idle',
@@ -35,7 +35,7 @@ export default function EchoChat() {
 
   // Detect user package and set daily limits
   useEffect(() => {
-    const pkg = (localStorage.getItem('dealsense_package') || 'free') as 'free' | 'plus' | 'pro' | 'finance'
+    const pkg = (localStorage.getItem('dealsense_package') || 'free') as 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
     setUserPackage(pkg)
     
     // Daily limits based on package (reduced by 35%)
@@ -43,7 +43,8 @@ export default function EchoChat() {
       free: 0,      // No Echo for FREE without subscription
       plus: 65,     // €0.72/month cost
       pro: 130,     // €1.43/month cost
-      finance: 195  // €2.15/month cost
+      finance: 195, // €2.15/month cost
+      zakelijk: 195 // Same as FINANCE - €2.15/month cost
     }
     
     const limit = limits[pkg]
@@ -97,7 +98,7 @@ export default function EchoChat() {
     if (!input.trim()) return
 
     if (userPackage === 'free') {
-      alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS, PRO en FINANCE abonnees. Upgrade om Echo te gebruiken!')
+      alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS, PRO, FINANCE en ZAKELIJK abonnees. Upgrade om Echo te gebruiken!')
       return
     }
 
@@ -152,7 +153,7 @@ export default function EchoChat() {
       optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i,
       // Help & Knowledge base
       help: /help|hulp|hoe werkt|uitleg|wat is|wat betekent|waar vind ik/i,
-      packages: /pakket|abonnement|free|plus|pro|finance|verschil|upgrade/i,
+      packages: /pakiet|abonnement|free|plus|pro|finance|zakelijk|b2b|verschil|upgrade/i,
       usp: /waarom dealsense|verschil met|beter dan|concurrent|andere app|vergelijk/i,
       howItWorks: /hoe werkt|ranking|algoritme|paywall|commissie|verdien/i
     }
@@ -181,7 +182,7 @@ export default function EchoChat() {
     if (intents.packages.test(userInput)) {
       return {
         role: 'assistant',
-        content: '📦 **DealSense Pakketten:**\n\n**FREE** - Gratis\n• Basis toegang tot app\n• Geen Echo AI\n\n**PLUS** - €X/mies\n• Echo AI chat (65 berichten/dag)\n• Advies & tips\n• Handmatige configuraties\n\n**PRO** - €X/mies\n• Alles van PLUS +\n• Auto-fill configuraties\n• Persoonlijke analyse\n• TOP 3 deals\n\n**FINANCE** - €X/mies\n• Alles van PRO +\n• Beheer alle rekeningen\n• Documenten analyse\n• Priority support\n\nWil je upgraden?',
+        content: '📦 **DealSense Pakketten:**\n\n**FREE** - Gratis\n• Basis toegang\n\n**PLUS** - €19,99/mnd\n• Echo AI chat\n• Advies & tips\n\n**PRO** - €29,99/mnd\n• Alles van PLUS +\n• Diensten configurators\n\n**FINANCE** - €39,99/mnd\n• Alles van PRO +\n• Financiële producten\n\n**ZAKELIJK B2B** - €59,99/mnd\n• B2B Procurement\n• 10 industrieën\n• RFQ systeem\n\nWil je upgraden?',
         suggestions: ['Upgrade naar PRO', 'Upgrade naar FINANCE', 'Meer info']
       }
     }

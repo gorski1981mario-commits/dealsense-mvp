@@ -82,7 +82,7 @@ const packages: Package[] = [
     price: '€59,99/mnd',
     features: [
       '✓ B2B Procurement - alle 10 industrieën',
-      '✓ Metale, Chemicaliën, Energie, Zboże, Bouwmaterialen',
+      '✓ Metale, Chemicaliën, Energie, Granen, Bouwmaterialen',
       '✓ Machines, Elektronika, Transport, Verpakking, Gereedschap',
       '✓ Vergelijk alle B2B leveranciers',
       '✓ Slechts 10% commissie op transacties',
@@ -254,7 +254,7 @@ export default function PricingAccordion() {
                       {loading === pkg.id ? 'Laden...' : 'Koop nu →'}
                     </button>
                     
-                    {(pkg.id === 'plus' || pkg.id === 'pro' || pkg.id === 'finance') && (
+                    {(pkg.id === 'plus' || pkg.id === 'pro' || pkg.id === 'finance' || pkg.id === 'zakelijk') && (
                       <button
                         onClick={() => handlePromptsPurchase()}
                         style={{

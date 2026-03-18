@@ -47,8 +47,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Recipient not found' }, { status: 404 })
     }
 
-    if (!['plus', 'pro', 'finance'].includes(recipient.package_type)) {
-      return NextResponse.json({ error: 'Recipient must have PLUS/PRO/FINANCE' }, { status: 400 })
+    if (!['plus', 'pro', 'finance', 'zakelijk'].includes(recipient.package_type)) {
+      return NextResponse.json({ error: 'Recipient must have PLUS/PRO/FINANCE/ZAKELIJK' }, { status: 400 })
     }
 
     // Step 3: Create in-app notification

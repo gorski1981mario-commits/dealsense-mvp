@@ -1,5 +1,5 @@
 interface PackageBadgeProps {
-  type: 'free' | 'plus' | 'pro' | 'finance'
+  type: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
   label: string
 }
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 interface AgentEchoProps {
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId: string
 }
 
@@ -54,9 +54,10 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
   // Determine which packages user has access to
   const hasAccessTo = {
     free: true, // All paid packages have access to FREE
-    plus: packageType === 'plus' || packageType === 'pro' || packageType === 'finance',
-    pro: packageType === 'pro' || packageType === 'finance',
-    finance: packageType === 'finance'
+    plus: packageType === 'plus' || packageType === 'pro' || packageType === 'finance' || packageType === 'zakelijk',
+    pro: packageType === 'pro' || packageType === 'finance' || packageType === 'zakelijk',
+    finance: packageType === 'finance' || packageType === 'zakelijk',
+    zakelijk: packageType === 'zakelijk'
   }
 
   return (

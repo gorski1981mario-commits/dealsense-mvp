@@ -18,10 +18,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Only PLUS/PRO/FINANCE users get referral codes after purchase
+    // Only PLUS/PRO/FINANCE/ZAKELIJK users get referral codes after purchase
     if (userPackage === 'free') {
       return NextResponse.json(
-        { error: 'Only PLUS/PRO/FINANCE users receive referral codes' },
+        { error: 'Only PLUS/PRO/FINANCE/ZAKELIJK users receive referral codes' },
         { status: 403 }
       )
     }

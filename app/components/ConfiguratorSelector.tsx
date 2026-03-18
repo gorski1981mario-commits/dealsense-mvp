@@ -11,7 +11,7 @@ import LoanConfigurator from './configurators/LoanConfigurator'
 import CreditCardConfigurator from './configurators/CreditCardConfigurator'
 
 interface ConfiguratorSelectorProps {
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId: string
 }
 

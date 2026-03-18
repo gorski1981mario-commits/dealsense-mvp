@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import jsQR from 'jsqr'
 import { BiometricAuth } from '../_lib/biometric'
 
-type ScannerType = 'free' | 'plus' | 'pro' | 'finance'
+type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
 interface ScannerProps {
   type: ScannerType
@@ -24,7 +24,7 @@ export default function Scanner({ type }: ScannerProps) {
     try {
       setError(null)
       
-      // Biometric auth required for PLUS/PRO/FINANCE
+      // Biometric auth required for PLUS/PRO/FINANCE/ZAKELIJK
       if (type !== 'free') {
         setBiometricRequired(true)
         const verified = await BiometricAuth.authenticate()

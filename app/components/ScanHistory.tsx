@@ -5,7 +5,7 @@ import { Storage, ScanRecord } from '../_lib/storage'
 
 interface ScanHistoryProps {
   userId: string
-  packageType: 'free' | 'plus' | 'pro' | 'finance'
+  packageType: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 }
 
 export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {

@@ -7,13 +7,13 @@ interface User {
   id: string
   name: string
   email: string
-  packageType: 'plus' | 'pro' | 'finance'
+  packageType: 'plus' | 'pro' | 'finance' | 'zakelijk'
   deviceId: string
 }
 
 interface InAppReferralProps {
   currentUserId: string
-  currentUserPackage: 'plus' | 'pro' | 'finance'
+  currentUserPackage: 'plus' | 'pro' | 'finance' | 'zakelijk'
   onClose: () => void
 }
 
@@ -105,13 +105,15 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
   const packageNames = {
     plus: 'PLUS',
     pro: 'PRO',
-    finance: 'FINANCE'
+    finance: 'FINANCE',
+    zakelijk: 'ZAKELIJK'
   }
 
   const packageColors = {
-    plus: '#3B82F6',
-    pro: '#8B5CF6',
-    finance: '#F59E0B'
+    plus: '#3b82f6',
+    pro: '#8b5cf6',
+    finance: '#f59e0b',
+    zakelijk: '#1e40af'
   }
 
   if (sent) {

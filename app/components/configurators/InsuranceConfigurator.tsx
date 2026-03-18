@@ -10,7 +10,7 @@ import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators, formatters } from '../../utils/validators'
 
 interface InsuranceConfiguratorProps {
-  packageType?: 'plus' | 'pro' | 'finance'
+  packageType?: 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId?: string
 }
 
@@ -1424,3 +1424,4 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     </div>
   )
 }
+

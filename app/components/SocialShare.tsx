@@ -7,7 +7,7 @@ import { COMMISSION } from '../_lib/constants'
 interface SocialShareProps {
   savings: number
   productName?: string
-  userPackage: 'free' | 'plus' | 'pro' | 'finance'
+  userPackage: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 }
 
 export default function SocialShare({ 

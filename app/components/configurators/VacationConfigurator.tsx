@@ -9,7 +9,7 @@ import FilterOptions, { FilterType } from '../shared/FilterOptions'
 import { validators } from '../../utils/validators'
 
 interface VacationConfiguratorProps {
-  packageType?: 'free' | 'plus' | 'pro' | 'finance'
+  packageType?: 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
   userId?: string
 }
 
@@ -82,10 +82,11 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const progress = Math.round((validFields.size / totalFields) * 100)
 
   const limits = {
-    free: 3,
-    plus: 10,
-    pro: 20,
-    finance: 30
+    free: 1,
+    plus: 3,
+    pro: 5,
+    finance: 10,
+    zakelijk: 10
   }
 
   const maxDestinations = limits[packageType || 'pro']
@@ -470,3 +471,4 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     </div>
   )
 }
+
