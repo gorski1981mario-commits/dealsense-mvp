@@ -70,8 +70,9 @@
             font-size: 12px;
             font-weight: 600;
             border-radius: 10px;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            will-change: transform, background-color, color;
         }
         
         .nav-item:hover {
@@ -90,6 +91,7 @@
             height: 6px;
             background: #D1D5DB;
             border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .option1 .nav-item.active::before {
@@ -105,6 +107,7 @@
             height: 3px;
             background: #D1D5DB;
             border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .option2 .nav-item.active::before {
@@ -135,6 +138,7 @@
             font-size: 11px;
             font-weight: 700;
             color: #6B7280;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .option4 .nav-item.active::before {
@@ -150,6 +154,7 @@
             height: 18px;
             border: 2px solid #D1D5DB;
             border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .option5 .nav-item.active::before {
@@ -160,6 +165,7 @@
         /* Opcja 6: Tylko border bottom */
         .option6 .nav-item {
             border-bottom: 3px solid transparent;
+            transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .option6 .nav-item.active {
