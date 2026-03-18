@@ -494,7 +494,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         
         {/* FILTER OPTIONS */}
         <FilterOptions 
