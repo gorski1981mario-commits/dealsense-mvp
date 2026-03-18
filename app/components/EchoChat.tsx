@@ -149,9 +149,52 @@ export default function EchoChat() {
       energy: /energia|energie|stroom|gas|elektriciteit/i,
       telecom: /internet|telefon|mobiel|tv|ziggo|kpn/i,
       subscriptions: /abonnement|netflix|spotify|disney/i,
-      optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i
+      optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i,
+      // Help & Knowledge base
+      help: /help|hulp|hoe werkt|uitleg|wat is|wat betekent|waar vind ik/i,
+      packages: /pakket|abonnement|free|plus|pro|finance|verschil|upgrade/i,
+      usp: /waarom dealsense|verschil met|beter dan|concurrent|andere app|vergelijk/i,
+      howItWorks: /hoe werkt|ranking|algoritme|paywall|commissie|verdien/i
     }
 
+    // KNOWLEDGE BASE: Help & Information (all packages can access)
+    
+    // USP - Why DealSense is different
+    if (intents.usp.test(userInput)) {
+      return {
+        role: 'assistant',
+        content: '🚀 **DealSense - Anders dan de rest**\n\n❌ **Andere vergelijkers:**\n• Tientallen verwarrende aanbiedingen\n• Verdienmodel: advertenties & sponsoring\n• Jij moet alles zelf uitzoeken\n\n✅ **DealSense:**\n• Deal Score → TOP 3 beste deals\n• Wij verdienen alleen als jij bespaart (9% commissie)\n• Alles in één app\n• Echo helpt je persoonlijk\n\n💡 **Het verschil:**\nWij werken VOOR jou, niet voor bedrijven.\nGeen sponsoring. Geen advertenties.\nAlleen de beste deals. Gegarandeerd.',
+        suggestions: ['Hoe werkt Deal Score?', 'Wat zijn de pakketten?', 'Ik wil besparen']
+      }
+    }
+    
+    // How it works - Deal Score, Paywall, Commission
+    if (intents.howItWorks.test(userInput)) {
+      return {
+        role: 'assistant',
+        content: '⚙️ **Hoe DealSense werkt:**\n\n**1. Deal Score**\nOns algoritme analyseert de markt en selecteert TOP 3 beste deals op basis van:\n• Prijs (60%)\n• Rating (20%)\n• Reviews (20%)\n• Scam filter (min 4.0★)\n\n**2. Paywall (9% commissie)**\nJe betaalt alleen als je bespaart.\nCommissie = 9% van jaarlijkse besparing.\n\n**3. Jouw voordeel**\nToegang tot beste deals + PDF bewijs + redirect naar aanbieder.\n\nVragen?',
+        suggestions: ['Wat zijn de pakketten?', 'Waarom DealSense?', 'Start configuratie']
+      }
+    }
+    
+    // Packages explanation
+    if (intents.packages.test(userInput)) {
+      return {
+        role: 'assistant',
+        content: '📦 **DealSense Pakketten:**\n\n**FREE** - Gratis\n• Basis toegang tot app\n• Geen Echo AI\n\n**PLUS** - €X/mies\n• Echo AI chat (65 berichten/dag)\n• Advies & tips\n• Handmatige configuraties\n\n**PRO** - €X/mies\n• Alles van PLUS +\n• Auto-fill configuraties\n• Persoonlijke analyse\n• TOP 3 deals\n\n**FINANCE** - €X/mies\n• Alles van PRO +\n• Beheer alle rekeningen\n• Documenten analyse\n• Priority support\n\nWil je upgraden?',
+        suggestions: ['Upgrade naar PRO', 'Upgrade naar FINANCE', 'Meer info']
+      }
+    }
+    
+    // General help
+    if (intents.help.test(userInput)) {
+      return {
+        role: 'assistant',
+        content: '👋 **Ik help je graag!**\n\nWat wil je weten?\n\n🎯 **Populaire vragen:**\n• Hoe werkt DealSense?\n• Wat zijn de pakketten?\n• Waarom DealSense beter is?\n• Hoe gebruik ik configuraties?\n• Waar vind ik mijn opgeslagen deals?\n\nStel je vraag!',
+        suggestions: ['Hoe werkt het?', 'Pakketten uitleg', 'Waarom DealSense?']
+      }
+    }
+    
     // PLUS: Can chat, but needs upgrade for configurators
     if (userPackage === 'plus') {
       // PLUS users want to use configurators → upgrade prompt
