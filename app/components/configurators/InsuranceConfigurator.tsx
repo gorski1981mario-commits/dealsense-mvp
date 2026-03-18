@@ -23,12 +23,45 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [coverage, setCoverage] = useState('')
   const [age, setAge] = useState<number | ''>('')
   const [postcode, setPostcode] = useState('')
+  const [houseNumber, setHouseNumber] = useState('')
+  
+  // Auto-specific fields
   const [bonusMalus, setBonusMalus] = useState<number | ''>('')
   const [vehicleValue, setVehicleValue] = useState<number | ''>('')
   const [annualMileage, setAnnualMileage] = useState<number | ''>('')
   const [parkingLocation, setParkingLocation] = useState('')
   const [youngDrivers, setYoungDrivers] = useState(false)
   const [businessUse, setBusinessUse] = useState(false)
+  
+  // Levensverzekering fields
+  const [gender, setGender] = useState('')
+  const [smoker, setSmoker] = useState('')
+  const [insuredAmount, setInsuredAmount] = useState<number | ''>('')
+  const [duration, setDuration] = useState<number | ''>('')
+  const [insuranceForm, setInsuranceForm] = useState('')
+  const [purpose, setPurpose] = useState('')
+  
+  // Zorgverzekering fields
+  const [bsn, setBsn] = useState('')
+  const [additionalCoverage, setAdditionalCoverage] = useState('')
+  
+  // Woonverzekering fields
+  const [propertyType, setPropertyType] = useState('')
+  const [buildYear, setBuildYear] = useState<number | ''>('')
+  const [propertyValue, setPropertyValue] = useState<number | ''>('')
+  const [contentsValue, setContentsValue] = useState<number | ''>('')
+  
+  // Reisverzekering fields
+  const [numberOfPersons, setNumberOfPersons] = useState<number | ''>('')
+  const [travelDuration, setTravelDuration] = useState<number | ''>('')
+  const [destination, setDestination] = useState('')
+  const [travelType, setTravelType] = useState('')
+  
+  // AVP fields
+  const [familyComposition, setFamilyComposition] = useState('')
+  const [specialActivities, setSpecialActivities] = useState(false)
+  
+  // General extras
   const [legalAid, setLegalAid] = useState(false)
   const [searching, setSearching] = useState(false)
   
@@ -43,9 +76,34 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   
+  // Auto-fill from user account (without auto-validation)
+  useEffect(() => {
+    const userData = { postcode: '1943BR', houseNumber: '42' }
+    if (userData.postcode) {
+      setPostcode(userData.postcode)
+    }
+    if (userData.houseNumber) {
+      setHouseNumber(userData.houseNumber)
+    }
+  }, [])
+  
   const getTotalFields = () => {
-    let total = 7 // filterType, insuranceType, coverage, age, postcode, bonusMalus, extras
-    if (insuranceType === 'auto') total += 1 // parkingLocation
+    let total = 3 // filterType, insuranceType, age (base fields for all)
+    
+    if (insuranceType === 'auto' || insuranceType === 'motor') {
+      total += 4 // coverage, bonusMalus, parkingLocation, postcode
+    } else if (insuranceType === 'leven') {
+      total += 5 // gender, smoker, insuredAmount, duration, insuranceForm
+    } else if (insuranceType === 'zorg') {
+      total += 2 // bsn, postcode
+    } else if (insuranceType === 'woon') {
+      total += 4 // propertyType, buildYear, propertyValue, postcode
+    } else if (insuranceType === 'reis') {
+      total += 3 // numberOfPersons, travelDuration, destination
+    } else if (insuranceType === 'aansprakelijkheid') {
+      total += 2 // familyComposition, postcode
+    }
+    
     return total
   }
   const totalFields = getTotalFields()
@@ -94,16 +152,43 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         userId: userId || 'anonymous',
         sector: 'insurance',
         parameters: {
+          filterType,
           insuranceType,
+          // Auto/Motor fields
           coverage,
-          age,
-          postcode,
           bonusMalus,
+          parkingLocation,
           vehicleValue,
           annualMileage,
-          parkingLocation,
           youngDrivers,
           businessUse,
+          // Levensverzekering fields
+          gender,
+          smoker,
+          insuredAmount,
+          duration,
+          insuranceForm,
+          purpose,
+          // Zorgverzekering fields
+          bsn,
+          additionalCoverage,
+          // Woonverzekering fields
+          propertyType,
+          buildYear,
+          propertyValue,
+          contentsValue,
+          // Reisverzekering fields
+          numberOfPersons,
+          travelDuration,
+          destination,
+          travelType,
+          // AVP fields
+          familyComposition,
+          specialActivities,
+          // Common fields
+          age,
+          postcode,
+          houseNumber,
           legalAid
         },
         timestamp: new Date().toISOString()
@@ -121,9 +206,11 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         setConfigId(result.configId)
         setConfigTimestamp(configData.timestamp)
         setIsLocked(true)
+        alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${result.configId}`)
       }
     } catch (error) {
       console.error('Error saving configuration:', error)
+      alert('❌ Fout bij opslaan configuratie')
     } finally {
       setSaving(false)
     }
@@ -141,16 +228,36 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       userId: userId || 'anonymous',
       sector: 'insurance',
       parameters: {
+        filterType,
         insuranceType,
         coverage,
-        age,
-        postcode,
         bonusMalus,
+        parkingLocation,
         vehicleValue,
         annualMileage,
-        parkingLocation,
         youngDrivers,
         businessUse,
+        gender,
+        smoker,
+        insuredAmount,
+        duration,
+        insuranceForm,
+        purpose,
+        bsn,
+        additionalCoverage,
+        propertyType,
+        buildYear,
+        propertyValue,
+        contentsValue,
+        numberOfPersons,
+        travelDuration,
+        destination,
+        travelType,
+        familyComposition,
+        specialActivities,
+        age,
+        postcode,
+        houseNumber,
         legalAid
       },
       timestamp: configTimestamp
@@ -369,216 +476,672 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           </div>
         </div>
 
-        {/* 2. DEKKING */}
-        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Dekking</div>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {[
-              {value: 'wa', label: '💼 WA (Wettelijke Aansprakelijkheid)', desc: 'Basis dekking, verplicht'},
-              {value: 'wa-beperkt', label: '🔒 WA + Beperkt Casco', desc: 'Incl. diefstal, brand, storm'},
-              {value: 'allrisk', label: '🛡️ All-risk / Volledig Casco', desc: 'Volledige dekking'}
-            ].map(c => (
-              <div 
-                key={c.value} 
-                onClick={() => {
-                  if (!isLocked) {
-                    setCoverage(c.value)
-                    validateAndMark('coverage', c.value)
-                  }
-                }} 
-                onFocus={() => setActiveField('coverage')} 
-                onBlur={() => setActiveField(null)} 
-                tabIndex={0} 
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '10px', 
-                  padding: '10px 12px', 
-                  border: coverage === c.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
-                  borderRadius: '8px', 
-                  cursor: isLocked ? 'not-allowed' : 'pointer', 
-                  background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), 
-                  opacity: isLocked ? 0.6 : 1, 
-                  transition: 'all 0.2s' 
-                }}>
-                <input type="radio" name="coverage" value={c.value} checked={coverage === c.value} onChange={() => !isLocked && setCoverage(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
-                  <div style={{ fontSize: '11px', color: '#6B7280' }}>{c.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 3. PERSOONLIJKE GEGEVENS */}
-        <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Persoonlijke gegevens</div>
-          
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
-            <input 
-              type="number" 
-              min="18" 
-              max="80" 
-              value={age} 
-              onChange={(e) => {
-                const val = e.target.value ? parseInt(e.target.value) : ''
-                setAge(val)
-                if (val) validateAndMark('age', val, (v) => validators.age(v, 18, 80))
-              }} 
-              onFocus={() => setActiveField('age')} 
-              onBlur={() => setActiveField(null)} 
-              disabled={isLocked} 
-              placeholder="35" 
-              style={{ 
-                width: '100%', 
-                padding: '10px 14px', 
-                border: validFields.has('age') ? '2px solid #1E7F5C' : (touchedFields.has('age') ? '2px solid #DC2626' : '2px solid #E5E7EB'),
-                borderRadius: '10px', 
-                fontSize: '14px', 
-                fontWeight: 500, 
-                color: '#111827', 
-                background: isLocked ? '#F3F4F6' : (validFields.has('age') ? '#E6F4EE' : (touchedFields.has('age') && !validFields.has('age') ? '#FEE2E2' : 'white')), 
-                cursor: isLocked ? 'not-allowed' : 'text', 
-                transition: 'all 0.2s' 
-              }} />
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-            <input 
-              type="text" 
-              value={postcode} 
-              onChange={(e) => {
-                const formatted = formatters.postcode(e.target.value)
-                setPostcode(formatted)
-                validateAndMark('postcode', formatted, validators.postcode)
-              }} 
-              onFocus={() => setActiveField('postcode')} 
-              onBlur={() => setActiveField(null)} 
-              disabled={isLocked} 
-              placeholder="1234 AB" 
-              maxLength={7}
-              style={{ 
-                width: '100%', 
-                padding: '10px 14px', 
-                border: validFields.has('postcode') ? '2px solid #1E7F5C' : (touchedFields.has('postcode') ? '2px solid #DC2626' : '2px solid #E5E7EB'),
-                borderRadius: '10px', 
-                fontSize: '14px', 
-                fontWeight: 500, 
-                color: '#111827', 
-                background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : (touchedFields.has('postcode') && !validFields.has('postcode') ? '#FEE2E2' : 'white')), 
-                cursor: isLocked ? 'not-allowed' : 'text', 
-                transition: 'all 0.2s' 
-              }} />
-            {touchedFields.has('postcode') && !validFields.has('postcode') && (
-              <span style={{ fontSize: '11px', color: '#DC2626', marginTop: '4px', display: 'block' }}>❌ Gebruik format: 1234 AB</span>
-            )}
-            {validFields.has('postcode') && (
-              <span style={{ fontSize: '11px', color: '#1E7F5C', marginTop: '4px', display: 'block' }}>✅ Geldige postcode</span>
-            )}
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bonus-malus (schadevrije jaren)</label>
-            <input 
-              type="number" 
-              min="0" 
-              max="15" 
-              value={bonusMalus} 
-              onChange={(e) => {
-                const val = e.target.value ? parseInt(e.target.value) : ''
-                setBonusMalus(val)
-                if (val !== '') validateAndMark('bonusMalus', val, validators.bonusMalus)
-              }} 
-              onFocus={() => setActiveField('bonusMalus')} 
-              onBlur={() => setActiveField(null)} 
-              disabled={isLocked} 
-              placeholder="0" 
-              style={{ 
-                width: '100%', 
-                padding: '10px 14px', 
-                border: validFields.has('bonusMalus') ? '2px solid #1E7F5C' : (touchedFields.has('bonusMalus') ? '2px solid #DC2626' : '2px solid #E5E7EB'),
-                borderRadius: '10px', 
-                fontSize: '14px', 
-                fontWeight: 500, 
-                color: '#111827', 
-                background: isLocked ? '#F3F4F6' : (validFields.has('bonusMalus') ? '#E6F4EE' : (touchedFields.has('bonusMalus') && !validFields.has('bonusMalus') ? '#FEE2E2' : 'white')), 
-                cursor: isLocked ? 'not-allowed' : 'text', 
-                transition: 'all 0.2s' 
-              }} />
-          </div>
-
-          {insuranceType === 'auto' && (
-            <>
-              <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Waarde voertuig (€)</label>
-                <input type="number" min="1000" max="100000" step="1000" value={vehicleValue} onChange={(e) => setVehicleValue(e.target.value ? parseInt(e.target.value) : '')} onFocus={() => setActiveField('vehicleValue')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="25000" style={{ width: '100%', padding: '10px 14px', border: activeField === 'vehicleValue' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'vehicleValue' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
-              </div>
-
-              <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
-                <input type="number" min="5000" max="50000" step="5000" value={annualMileage} onChange={(e) => setAnnualMileage(e.target.value ? parseInt(e.target.value) : '')} onFocus={() => setActiveField('annualMileage')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="15000" style={{ width: '100%', padding: '10px 14px', border: activeField === 'annualMileage' ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'annualMileage' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Parkeerlocatie</label>
-                <select 
-                  value={parkingLocation} 
-                  onChange={(e) => {
-                    const val = e.target.value
-                    setParkingLocation(val)
-                    validateAndMark('parkingLocation', val)
+        {/* 2. DEKKING - Only for Auto/Motor */}
+        {(insuranceType === 'auto' || insuranceType === 'motor') && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Dekking</div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {[
+                {value: 'wa', label: '💼 WA (Wettelijke Aansprakelijkheid)', desc: 'Basis dekking, verplicht'},
+                {value: 'wa-beperkt', label: '🔒 WA + Beperkt Casco', desc: 'Incl. diefstal, brand, storm'},
+                {value: 'allrisk', label: '🛡️ All-risk / Volledig Casco', desc: 'Volledige dekking'}
+              ].map(c => (
+                <div 
+                  key={c.value} 
+                  onClick={() => {
+                    if (!isLocked) {
+                      setCoverage(c.value)
+                      validateAndMark('coverage', c.value)
+                    }
                   }} 
-                  onFocus={() => setActiveField('parkingLocation')} 
-                  onBlur={() => setActiveField(null)} 
-                  disabled={isLocked} 
+                  tabIndex={0} 
                   style={{ 
-                    width: '100%', 
-                    padding: '10px 14px', 
-                    border: validFields.has('parkingLocation') ? '2px solid #1E7F5C' : (touchedFields.has('parkingLocation') ? '2px solid #F59E0B' : '2px solid #E5E7EB'),
-                    borderRadius: '10px', 
-                    fontSize: '14px', 
-                    fontWeight: 500, 
-                    color: '#111827', 
-                    background: isLocked ? '#F3F4F6' : (validFields.has('parkingLocation') ? '#E6F4EE' : (touchedFields.has('parkingLocation') ? '#FEF3C7' : 'white')), 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '10px', 
+                    padding: '10px 12px', 
+                    border: coverage === c.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                    borderRadius: '8px', 
                     cursor: isLocked ? 'not-allowed' : 'pointer', 
+                    background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), 
+                    opacity: isLocked ? 0.6 : 1, 
                     transition: 'all 0.2s' 
                   }}>
-                  <option value="">Selecteer locatie...</option>
-                  <option value="straat">🚗 Op straat</option>
-                  <option value="parkeerplaats">🅿️ Openbare parkeerplaats</option>
-                  <option value="carport">🏚️ Carport</option>
-                  <option value="garage">🏠 Afgesloten garage</option>
-                </select>
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* 4. EXTRA OPTIES */}
-        <div style={{ marginBottom: '24px' }}>
-          <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Extra opties</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {[
-              {value: youngDrivers, setter: setYoungDrivers, label: '👶 Jonge bestuurders', desc: 'Bestuurders onder 25 jaar'},
-              {value: businessUse, setter: setBusinessUse, label: '💼 Zakelijk gebruik', desc: 'Ook voor zakelijke ritten'},
-              {value: legalAid, setter: setLegalAid, label: '⚖️ Rechtsbijstand', desc: 'Juridische hulp bij schade'}
-            ].map((item, i) => (
-              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); markFieldTouched('extras'); markFieldValid('extras', true); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #1E7F5C' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
-                <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
-                  <div style={{ fontSize: '11px', color: '#6B7280' }}>{item.desc}</div>
+                  <input type="radio" name="coverage" value={c.value} checked={coverage === c.value} onChange={() => !isLocked && setCoverage(c.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{c.label}</div>
+                    <div style={{ fontSize: '11px', color: '#6B7280' }}>{c.desc}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {!insuranceType && !coverage && (
+        {/* AUTO/MOTOR SPECIFIC FIELDS */}
+        {(insuranceType === 'auto' || insuranceType === 'motor') && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>
+              {insuranceType === 'auto' ? '3. Auto gegevens' : '3. Motor gegevens'}
+            </div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
+              <input 
+                type="number" 
+                min="18" 
+                max="80" 
+                value={age} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setAge(val)
+                  if (val) validateAndMark('age', val, (v) => validators.age(v, 18, 80))
+                }} 
+                disabled={isLocked} 
+                placeholder="35" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('age') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('age') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('age') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
+              <input 
+                type="text" 
+                value={postcode} 
+                onChange={(e) => {
+                  const formatted = formatters.postcode(e.target.value)
+                  setPostcode(formatted)
+                  validateAndMark('postcode', formatted, validators.postcode)
+                }} 
+                disabled={isLocked} 
+                placeholder="1234 AB" 
+                maxLength={7}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('postcode') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('postcode') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Schadevrije jaren (Bonus-Malus)</label>
+              <input 
+                type="number" 
+                min="0" 
+                max="15" 
+                value={bonusMalus} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setBonusMalus(val)
+                  if (val !== '') validateAndMark('bonusMalus', val, validators.bonusMalus)
+                }} 
+                disabled={isLocked} 
+                placeholder="0" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('bonusMalus') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('bonusMalus') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('bonusMalus') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Meer jaren = lagere premie</div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Parkeerlocatie</label>
+              <select 
+                value={parkingLocation} 
+                onChange={(e) => {
+                  const val = e.target.value
+                  setParkingLocation(val)
+                  validateAndMark('parkingLocation', val)
+                }} 
+                disabled={isLocked} 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('parkingLocation') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('parkingLocation') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('parkingLocation') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'pointer', 
+                  transition: 'all 0.2s' 
+                }}>
+                <option value="">Selecteer locatie...</option>
+                <option value="straat">🚗 Op straat</option>
+                <option value="parkeerplaats">🅿️ Openbare parkeerplaats</option>
+                <option value="carport">🏚️ Carport</option>
+                <option value="garage">🏠 Afgesloten garage</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {/* LEVENSVERZEKERING SPECIFIC FIELDS */}
+        {insuranceType === 'leven' && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Persoonlijke gegevens</div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
+              <input 
+                type="number" 
+                min="18" 
+                max="75" 
+                value={age} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setAge(val)
+                  if (val) validateAndMark('age', val, (v) => validators.age(v, 18, 75))
+                }} 
+                disabled={isLocked} 
+                placeholder="35" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('age') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('age') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('age') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Geslacht</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'man', label: '👨 Man'},
+                  {value: 'vrouw', label: '👩 Vrouw'}
+                ].map(g => (
+                  <div key={g.value} onClick={() => { if (!isLocked) { setGender(g.value); validateAndMark('gender', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gender === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gender === g.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="gender" value={g.value} checked={gender === g.value} onChange={() => { if (!isLocked) { setGender(g.value); validateAndMark('gender', g.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ fontSize: '13px', fontWeight: 500 }}>{g.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Rookgedrag</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'niet-roker', label: '🚭 Niet-roker', desc: 'Extra korting!'},
+                  {value: 'roker', label: '🚬 Roker', desc: 'Hogere premie'}
+                ].map(s => (
+                  <div key={s.value} onClick={() => { if (!isLocked) { setSmoker(s.value); validateAndMark('smoker', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: smoker === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: smoker === s.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="smoker" value={s.value} checked={smoker === s.value} onChange={() => { if (!isLocked) { setSmoker(s.value); validateAndMark('smoker', s.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{s.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{s.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Verzekerd bedrag (€)</label>
+              <select 
+                value={insuredAmount} 
+                onChange={(e) => {
+                  const val = parseInt(e.target.value)
+                  setInsuredAmount(val)
+                  validateAndMark('insuredAmount', val)
+                }} 
+                disabled={isLocked} 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('insuredAmount') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('insuredAmount') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('insuredAmount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'pointer', 
+                  transition: 'all 0.2s' 
+                }}>
+                <option value="">Kies bedrag...</option>
+                <option value="50000">€ 50.000</option>
+                <option value="100000">€ 100.000</option>
+                <option value="200000">€ 200.000</option>
+                <option value="300000">€ 300.000</option>
+                <option value="500000">€ 500.000</option>
+              </select>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (jaren)</label>
+              <input 
+                type="number" 
+                min="1" 
+                max="30" 
+                value={duration} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setDuration(val)
+                  if (val) validateAndMark('duration', val, (v) => v >= 1 && v <= 30)
+                }} 
+                disabled={isLocked} 
+                placeholder="20" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('duration') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Bijvoorbeeld voor hypotheek: 20-30 jaar</div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Verzekeringsvorm</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'gelijkblijvend', label: '📊 Gelijkblijvend', desc: 'Vast bedrag gedurende looptijd'},
+                  {value: 'annuitair', label: '📉 Annuïtair dalend', desc: 'Voor annuïtaire hypotheek'},
+                  {value: 'lineair', label: '📉 Lineair dalend', desc: 'Voor lineaire hypotheek'}
+                ].map(f => (
+                  <div key={f.value} onClick={() => { if (!isLocked) { setInsuranceForm(f.value); validateAndMark('insuranceForm', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: insuranceForm === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: insuranceForm === f.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="insuranceForm" value={f.value} checked={insuranceForm === f.value} onChange={() => { if (!isLocked) { setInsuranceForm(f.value); validateAndMark('insuranceForm', f.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{f.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{f.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ZORGVERZEKERING SPECIFIC FIELDS */}
+        {insuranceType === 'zorg' && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Persoonlijke gegevens</div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
+              <input 
+                type="number" 
+                min="18" 
+                max="100" 
+                value={age} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setAge(val)
+                  if (val) validateAndMark('age', val, (v) => validators.age(v, 18, 100))
+                }} 
+                disabled={isLocked} 
+                placeholder="35" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('age') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('age') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('age') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
+              <input 
+                type="text" 
+                value={postcode} 
+                onChange={(e) => {
+                  const formatted = formatters.postcode(e.target.value)
+                  setPostcode(formatted)
+                  validateAndMark('postcode', formatted, validators.postcode)
+                }} 
+                disabled={isLocked} 
+                placeholder="1234 AB" 
+                maxLength={7}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('postcode') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('postcode') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Aanvullende dekking</label>
+              <select 
+                value={additionalCoverage} 
+                onChange={(e) => {
+                  const val = e.target.value
+                  setAdditionalCoverage(val)
+                  validateAndMark('additionalCoverage', val)
+                }} 
+                disabled={isLocked} 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('additionalCoverage') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('additionalCoverage') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('additionalCoverage') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'pointer', 
+                  transition: 'all 0.2s' 
+                }}>
+                <option value="">Kies aanvullende dekking...</option>
+                <option value="basis">Basis aanvullend</option>
+                <option value="uitgebreid">Uitgebreid</option>
+                <option value="compleet">Compleet pakket</option>
+              </select>
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Optioneel - voor extra dekking</div>
+            </div>
+          </div>
+        )}
+
+        {/* WOONVERZEKERING SPECIFIC FIELDS */}
+        {insuranceType === 'woon' && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Woning gegevens</div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type woning</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'koop', label: '🏠 Koopwoning', desc: 'Ik ben eigenaar'},
+                  {value: 'huur', label: '🏘️ Huurwoning', desc: 'Ik huur de woning'}
+                ].map(t => (
+                  <div key={t.value} onClick={() => { if (!isLocked) { setPropertyType(t.value); validateAndMark('propertyType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: propertyType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: propertyType === t.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="propertyType" value={t.value} checked={propertyType === t.value} onChange={() => { if (!isLocked) { setPropertyType(t.value); validateAndMark('propertyType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{t.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{t.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
+              <input 
+                type="text" 
+                value={postcode} 
+                onChange={(e) => {
+                  const formatted = formatters.postcode(e.target.value)
+                  setPostcode(formatted)
+                  validateAndMark('postcode', formatted, validators.postcode)
+                }} 
+                disabled={isLocked} 
+                placeholder="1234 AB" 
+                maxLength={7}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('postcode') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('postcode') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bouwjaar</label>
+              <input 
+                type="number" 
+                min="1900" 
+                max="2026" 
+                value={buildYear} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setBuildYear(val)
+                  if (val) validateAndMark('buildYear', val, (v) => v >= 1900 && v <= 2026)
+                }} 
+                disabled={isLocked} 
+                placeholder="1990" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('buildYear') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('buildYear') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('buildYear') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Woningwaarde (€)</label>
+              <input 
+                type="number" 
+                min="50000" 
+                max="2000000" 
+                step="10000" 
+                value={propertyValue} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setPropertyValue(val)
+                  if (val) validateAndMark('propertyValue', val, (v) => v >= 50000)
+                }} 
+                disabled={isLocked} 
+                placeholder="350000" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('propertyValue') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('propertyValue') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('propertyValue') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor opstalverzekering</div>
+            </div>
+          </div>
+        )}
+
+        {/* REISVERZEKERING SPECIFIC FIELDS */}
+        {insuranceType === 'reis' && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Reis gegevens</div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Aantal personen</label>
+              <input 
+                type="number" 
+                min="1" 
+                max="10" 
+                value={numberOfPersons} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setNumberOfPersons(val)
+                  if (val) validateAndMark('numberOfPersons', val, (v) => v >= 1)
+                }} 
+                disabled={isLocked} 
+                placeholder="2" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('numberOfPersons') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('numberOfPersons') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('numberOfPersons') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Reisduur (dagen)</label>
+              <input 
+                type="number" 
+                min="1" 
+                max="365" 
+                value={travelDuration} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setTravelDuration(val)
+                  if (val) validateAndMark('travelDuration', val, (v) => v >= 1)
+                }} 
+                disabled={isLocked} 
+                placeholder="14" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('travelDuration') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('travelDuration') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('travelDuration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bestemming</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'europa', label: '🇪🇺 Europa', desc: 'Binnen Europa'},
+                  {value: 'wereld', label: '🌍 Wereldwijd', desc: 'Wereldwijde dekking'}
+                ].map(d => (
+                  <div key={d.value} onClick={() => { if (!isLocked) { setDestination(d.value); validateAndMark('destination', d.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: destination === d.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: destination === d.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="destination" value={d.value} checked={destination === d.value} onChange={() => { if (!isLocked) { setDestination(d.value); validateAndMark('destination', d.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{d.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{d.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* AANSPRAKELIJKHEIDSVERZEKERING (AVP) SPECIFIC FIELDS */}
+        {insuranceType === 'aansprakelijkheid' && (
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>2. Gezinssamenstelling</div>
+            
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Samenstelling</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'alleenstaand', label: '� Alleenstaand', desc: 'Voor 1 persoon'},
+                  {value: 'gezin', label: '👨‍👩‍👧‍� Gezin', desc: 'Voor gezin met kinderen'},
+                  {value: 'samenwonend', label: '👫 Samenwonend', desc: 'Voor 2 personen'}
+                ].map(f => (
+                  <div key={f.value} onClick={() => { if (!isLocked) { setFamilyComposition(f.value); validateAndMark('familyComposition', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: familyComposition === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: familyComposition === f.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="familyComposition" value={f.value} checked={familyComposition === f.value} onChange={() => { if (!isLocked) { setFamilyComposition(f.value); validateAndMark('familyComposition', f.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{f.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{f.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
+              <input 
+                type="text" 
+                value={postcode} 
+                onChange={(e) => {
+                  const formatted = formatters.postcode(e.target.value)
+                  setPostcode(formatted)
+                  validateAndMark('postcode', formatted, validators.postcode)
+                }} 
+                disabled={isLocked} 
+                placeholder="1234 AB" 
+                maxLength={7}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('postcode') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('postcode') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('postcode') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+            </div>
+          </div>
+        )}
+
+        {!insuranceType && (
           <div style={{ padding: '12px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', marginBottom: '16px' }}>
             <div style={{ fontSize: '13px', color: '#92400e' }}>💡 <strong>Tip:</strong> Vul type verzekering en dekking in voor betere resultaten!</div>
           </div>
