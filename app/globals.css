@@ -104,17 +104,23 @@ body {
   font-size: 11px;
   font-weight: 600;
   border-radius: 10px;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .nav-item svg {
   stroke: #6B7280;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-item:hover {
-  background: #f0fdf4;
+/* Hover only on desktop and only for non-active items */
+@media (hover: hover) and (pointer: fine) {
+  .nav-item:not(.active):hover {
+    background: #f0fdf4;
+  }
 }
 
 .nav-item.active {
@@ -124,6 +130,11 @@ body {
 
 .nav-item.active svg {
   stroke: #1E7F5C;
+}
+
+/* Prevent hover on active item */
+.nav-item.active:hover {
+  background: #E6F4EE;
 }
 
 /* Hamburger Menu */
