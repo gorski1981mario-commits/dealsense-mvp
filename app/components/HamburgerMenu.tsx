@@ -102,7 +102,7 @@ export default function HamburgerMenu() {
       // Smart redirect based on package
       setIsOpen(false)
       if (hasFinanceAccess) {
-        // FINANCE/ZAKELIJK: Go to finance page (8 cards)
+        // FINANCE: Go to finance page (8 cards)
         router.push('/finance')
       } else if (hasProAccess) {
         // PRO: Go to pro page (4 cards)

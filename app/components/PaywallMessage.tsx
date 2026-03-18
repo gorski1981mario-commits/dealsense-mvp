@@ -6,12 +6,21 @@ import { PackageType } from '../_lib/package-access'
 
 interface PaywallMessageProps {
   currentPackage: PackageType
-  requiredPackage: 'pro' | 'finance'
+  requiredPackage: 'plus' | 'pro' | 'finance'
   featureName: string
 }
 
 export default function PaywallMessage({ currentPackage, requiredPackage, featureName }: PaywallMessageProps) {
   const upgradeInfo = {
+    plus: {
+      price: '€19.99',
+      features: [
+        'Onbeperkt scans - alle categorieën',
+        'Ghost Mode (10 dagen)',
+        'Echo AI Assistent',
+        'Slechts 12% commissie'
+      ]
+    },
     pro: {
       price: '€29.99',
       features: [

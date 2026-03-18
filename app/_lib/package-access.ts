@@ -1,7 +1,7 @@
 // Package Access Control
 // Determines which features/configurators are available for each package tier
 
-export type PackageType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
+export type PackageType = 'free' | 'plus' | 'pro' | 'finance'
 
 export interface PackageAccess {
   hasQRScanner: boolean
@@ -59,17 +59,6 @@ export const PACKAGE_ACCESS: Record<PackageType, PackageAccess> = {
     hasFinanceConfigurators: true,
     hasBillsOptimizer: true,
     commission: 9
-  },
-  zakelijk: {
-    hasQRScanner: true,
-    hasUnlimitedScans: true,
-    hasGhostMode: true,
-    ghostModeDays: 90,
-    hasConfigurators: true,
-    hasProConfigurators: true,
-    hasFinanceConfigurators: true,
-    hasBillsOptimizer: true,
-    commission: 5
   }
 }
 
