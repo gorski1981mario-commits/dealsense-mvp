@@ -25,6 +25,14 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [postcode, setPostcode] = useState('')
   const [houseNumber, setHouseNumber] = useState('')
   
+  // User profile fields (auto-filled from account)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  
   // Auto-specific fields
   const [kenteken, setKenteken] = useState('')
   const [meldcode, setMeldcode] = useState('')
@@ -104,11 +112,33 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     setTouchedFields(new Set())
   }, [insuranceType])
   
-  // Ensure clean start on mount
+  // Ensure clean start on mount + autofill user profile data
   useEffect(() => {
     // Force reset on initial load
     setValidFields(new Set())
     setTouchedFields(new Set())
+    
+    // Auto-fill user profile data from account (mock data - replace with API call)
+    const userProfile = {
+      firstName: 'Jan',
+      lastName: 'de Vries',
+      email: 'jan.devries@example.nl',
+      phone: '+31 6 12345678',
+      postcode: '1012 AB',
+      houseNumber: '42',
+      street: 'Damstraat',
+      city: 'Amsterdam'
+    }
+    
+    // Fill user data
+    setFirstName(userProfile.firstName)
+    setLastName(userProfile.lastName)
+    setEmail(userProfile.email)
+    setPhone(userProfile.phone)
+    setPostcode(userProfile.postcode)
+    setHouseNumber(userProfile.houseNumber)
+    setStreet(userProfile.street)
+    setCity(userProfile.city)
   }, [])
   
   const getTotalFields = () => {
@@ -172,9 +202,25 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     try {
       setSaving(true)
       
+      // Generate unique Configuration ID
+      const timestamp = Date.now()
+      const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase()
+      const generatedConfigId = `INS-${new Date().getFullYear()}-${randomSuffix}-${timestamp.toString().slice(-6)}`
+      
       const configData = {
+        configId: generatedConfigId,
         userId: userId || 'anonymous',
         sector: 'insurance',
+        userProfile: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          postcode,
+          houseNumber,
+          street,
+          city
+        },
         parameters: {
           filterType,
           insuranceType,
@@ -248,10 +294,10 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       const result = await response.json()
       
       if (result.success) {
-        setConfigId(result.configId)
+        setConfigId(generatedConfigId)
         setConfigTimestamp(configData.timestamp)
         setIsLocked(true)
-        alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${result.configId}`)
+        alert(`✅ Configuratie opgeslagen!\n\nConfiguration ID: ${generatedConfigId}\n\nJe kunt nu:\n• PDF downloaden\n• Versturen naar verzekeraar`)
       }
     } catch (error) {
       console.error('Error saving configuration:', error)
@@ -272,6 +318,16 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       configId,
       userId: userId || 'anonymous',
       sector: 'insurance',
+      userProfile: {
+        firstName,
+        lastName,
+        email,
+        phone,
+        postcode,
+        houseNumber,
+        street,
+        city
+      },
       parameters: {
         filterType,
         insuranceType,
