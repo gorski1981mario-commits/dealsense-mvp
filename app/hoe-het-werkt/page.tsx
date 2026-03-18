@@ -155,9 +155,9 @@ export default function HoeHetWerktPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ color: '#1E7F5C', fontWeight: 700 }}>E</span><span style={{ color: '#3b82f6', fontWeight: 700 }}>ch</span><span style={{ color: '#111827', fontWeight: 700 }}>o</span>
-              <span style={{ color: '#374151', fontWeight: 600 }}>jouw AI assistent</span>
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px' }}>E</span><span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '18px' }}>ch</span><span style={{ color: '#000', fontSize: '21px' }}>●</span>
+              <span style={{ color: '#374151', fontWeight: 600, marginLeft: '4px' }}>jouw AI assistent</span>
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
               Stel vragen over producten, garanties of besparingen. Echo helpt je de beste keuze maken met persoonlijk advies. Beschikbaar in PLUS, PRO en FINANCE pakketten.
