@@ -152,7 +152,29 @@ export default function EchoChat() {
       optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i
     }
 
-    // PRO/FINANCE: Start configurator conversation
+    // PLUS: Can chat, but needs upgrade for configurators
+    if (userPackage === 'plus') {
+      // PLUS users want to use configurators → upgrade prompt
+      if (intents.vacation.test(userInput) || intents.insurance.test(userInput) || 
+          intents.energy.test(userInput) || intents.telecom.test(userInput)) {
+        return {
+          role: 'assistant',
+          content: '🔒 Automatische configuraties zijn beschikbaar vanaf PRO pakket.\n\n**Upgrade naar PRO voor:**\n✨ Auto-fill configuraties\n🤖 AI assistentie bij invullen\n📊 Persoonlijke analyse\n🎯 TOP 3 beste deals\n\n**Of gebruik handmatig:**\nJe kunt ook zelf de configurator invullen zonder Echo.',
+          suggestions: ['⬆️ Upgrade naar PRO', 'Handmatig invullen', 'Vertel meer']
+        }
+      }
+      
+      // PLUS users asking about optimization
+      if (intents.optimize.test(userInput)) {
+        return {
+          role: 'assistant',
+          content: '💡 Ik kan je adviseren over besparen!\n\nMaar voor automatische configuraties en diepgaande analyse heb je PRO of FINANCE nodig.\n\n**PRO pakket:**\n✨ Auto-fill configuraties\n📊 Persoonlijke analyse\n🎯 Beste deals\n\n**FINANCE pakket:**\n✨ Alles van PRO +\n💼 Beheer alle rekeningen\n📄 Documenten analyse\n🤝 Uitgebreide ondersteuning\n\nWaar kan ik je nu mee helpen?',
+          suggestions: ['Upgrade naar PRO', 'Algemeen advies', 'Prijzen vergelijken']
+        }
+      }
+    }
+    
+    // PRO/FINANCE: Full access to configurators
     if (userPackage === 'pro' || userPackage === 'finance') {
       // Detect which configurator user wants
       if (intents.vacation.test(userInput) && ctx.mode === 'idle') {
@@ -185,17 +207,7 @@ export default function EchoChat() {
       // IMPORTANT: Echo can SUGGEST and CONFIGURE, but CANNOT execute final actions
       // Final confirmations (payments, uploads, contracts) MUST be done by user
       // This is for security and legal protection
-    }
-
-    // PLUS: Show potential savings, suggest upgrade
-    if (userPackage === 'plus') {
-      if (intents.optimize.test(userInput)) {
-        return {
-          role: 'assistant',
-          content: '� Ik kan je helpen besparen! Maar om automatisch configuraties in te vullen, heb je PRO of FINANCE nodig.\n\nUpgrade naar PRO voor:\n✨ Auto-fill configuraties\n📊 Persoonlijke analyse\n🎯 Beste deals\n\nWil je upgraden?',
-          suggestions: ['Upgrade naar PRO', 'Vertel meer', 'Nee, bedankt']
-        }
-      }
+      // This applies to ALL packages including FINANCE - no one-click execution
     }
 
     // Default helpful response
