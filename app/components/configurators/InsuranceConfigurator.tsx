@@ -99,13 +99,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   
   // Auto-fill from user account (without auto-validation)
   useEffect(() => {
-    const userData = { postcode: '1943BR', houseNumber: '42' }
-    if (userData.postcode) {
-      setPostcode(userData.postcode)
-    }
-    if (userData.houseNumber) {
-      setHouseNumber(userData.houseNumber)
-    }
+    // Auto-fill disabled - user must fill all fields manually
   }, [])
   
   const getTotalFields = () => {
@@ -114,15 +108,15 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     if (insuranceType === 'auto' || insuranceType === 'motor') {
       total += 7 // coverage, kenteken, bonusMalus, parkingLocation, postcode, age, annualMileage
     } else if (insuranceType === 'leven') {
-      total += 6 // age, gender, smoker, insuredAmount, duration, insuranceForm
+      total += 8 // age, gender, smoker, insuredAmount, duration, insuranceForm, purpose, postcode
     } else if (insuranceType === 'zorg') {
       total += 5 // age, postcode, eigenRisico, polissoort, gezinssamenstelling
     } else if (insuranceType === 'woon') {
-      total += 5 // verzekeringType, propertyType, buildYear, postcode, propertyValue/inboedelwaarde
+      total += 10 // propertyType, postcode, buildYear, propertyValue, contentsValue, verzekeringType, eigenRisicoWoon, beveiliging, inboedelwaarde, herbouwwaarde
     } else if (insuranceType === 'reis') {
-      total += 4 // reisverzekeringType, numberOfPersons, travelDuration, destination
+      total += 6 // reisverzekeringType, numberOfPersons, travelDuration, destination, annulering, wintersport
     } else if (insuranceType === 'aansprakelijkheid') {
-      total += 3 // familyComposition, postcode, dekkingBedrag
+      total += 5 // familyComposition, postcode, dekkingBedrag, rechtsbijstandAVP, motorrijtuigen
     }
     
     return total
