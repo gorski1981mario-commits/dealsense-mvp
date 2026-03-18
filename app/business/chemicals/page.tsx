@@ -14,7 +14,12 @@ export default function ChemicalsConfiguratorPage() {
     packaging: '',
     delivery: '',
     msds: false,
-    paymentTerms: ''
+    coa: false,
+    paymentTerms: '',
+    deliveryMethod: '',
+    leadTime: 'standard',
+    hazardClass: '',
+    storageTemp: ''
   })
 
   const categories = [
@@ -176,23 +181,64 @@ export default function ChemicalsConfiguratorPage() {
               </div>
 
               <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Leveringsmethode</label>
+                <select value={formData.deliveryMethod} onChange={(e) => setFormData({ ...formData, deliveryMethod: e.target.value })} style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px' }}>
+                  <option value="">Selecteer</option>
+                  <option value="tanker">Tanker truck</option>
+                  <option value="ibc">IBC pallets</option>
+                  <option value="drums">Drums (200L)</option>
+                  <option value="bags">Zakken (25kg)</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Betalingsvoorwaarden</label>
                 <select value={formData.paymentTerms} onChange={(e) => setFormData({ ...formData, paymentTerms: e.target.value })} style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px' }}>
                   <option value="">Selecteer</option>
                   <option value="prepaid">Vooruitbetaling</option>
                   <option value="net30">Net 30</option>
-                  <option value="lc">L/C</option>
+                  <option value="net60">Net 60</option>
                 </select>
               </div>
 
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', border: '1px solid #e5e7eb', borderRadius: '8px', cursor: 'pointer', marginBottom: '24px' }}>
-                <input type="checkbox" checked={formData.msds} onChange={(e) => setFormData({ ...formData, msds: e.target.checked })} style={{ width: '18px', height: '18px' }} />
-                <span style={{ fontSize: '14px', fontWeight: 500' }}>MSDS & COA vereist</span>
-              </label>
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Urgentie levering</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'standard' })} style={{ padding: '12px', background: formData.leadTime === 'standard' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'standard' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>30 dagen</button>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'urgent' })} style={{ padding: '12px', background: formData.leadTime === 'urgent' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'urgent' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>7 dagen</button>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'spot' })} style={{ padding: '12px', background: formData.leadTime === 'spot' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'spot' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>24 uur</button>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Gevaarklasse (optioneel)</label>
+                <select value={formData.hazardClass} onChange={(e) => setFormData({ ...formData, hazardClass: e.target.value })} style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px' }}>
+                  <option value="">Geen</option>
+                  <option value="class3">Klasse 3 (Brandbaar)</option>
+                  <option value="class8">Klasse 8 (Corrosief)</option>
+                  <option value="class6">Klasse 6 (Giftig)</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Opslagtemperatuur (optioneel)</label>
+                <input type="text" value={formData.storageTemp} onChange={(e) => setFormData({ ...formData, storageTemp: e.target.value })} placeholder="Bijv. 15-25°C" style={{ width: '100%', padding: '12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px' }} />
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', border: '1px solid #e5e7eb', borderRadius: '8px', cursor: 'pointer', marginBottom: '12px' }}>
+                  <input type="checkbox" checked={formData.msds} onChange={(e) => setFormData({ ...formData, msds: e.target.checked })} style={{ width: '18px', height: '18px' }} />
+                  <span style={{ fontSize: '14px', fontWeight: '500' }}>MSDS (Material Safety Data Sheet) vereist</span>
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', border: '1px solid #e5e7eb', borderRadius: '8px', cursor: 'pointer' }}>
+                  <input type="checkbox" checked={formData.coa} onChange={(e) => setFormData({ ...formData, coa: e.target.checked })} style={{ width: '18px', height: '18px' }} />
+                  <span style={{ fontSize: '14px', fontWeight: '500' }}>COA (Certificate of Analysis) vereist</span>
+                </label>
+              </div>
 
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button onClick={() => setStep(2)} style={{ flex: 1, padding: '16px', background: 'white', color: '#374151', border: '1px solid #d1d5db', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: 'pointer' }}>← Terug</button>
-                <button onClick={handleSubmit} disabled={!formData.delivery || !formData.paymentTerms} style={{ flex: 2, padding: '16px', background: formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed', boxShadow: formData.delivery && formData.paymentTerms ? '0 4px 12px rgba(16,185,129,0.3)' : 'none' }}>🔍 Zoek beste prijzen</button>
+                <button onClick={handleSubmit} disabled={!formData.delivery || !formData.paymentTerms || !formData.deliveryMethod} style={{ flex: 2, padding: '16px', background: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed', boxShadow: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(16,185,129,0.3)' : 'none' }}>� Request for Quote (RFQ)</button>
               </div>
             </div>
           )}

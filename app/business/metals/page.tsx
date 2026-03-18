@@ -14,7 +14,10 @@ export default function MetalsConfiguratorPage() {
     paymentTerms: '',
     certification: [],
     destination: '',
-    urgency: 'standard'
+    urgency: 'standard',
+    deliveryMethod: '',
+    surfaceTreatment: '',
+    dimensions: ''
   })
 
   const materials = [
@@ -329,6 +332,28 @@ export default function MetalsConfiguratorPage() {
 
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Leveringsmethode
+                </label>
+                <select
+                  value={formData.deliveryMethod}
+                  onChange={(e) => setFormData({ ...formData, deliveryMethod: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                >
+                  <option value="">Selecteer</option>
+                  <option value="truck">Vrachtwagen</option>
+                  <option value="rail">Trein</option>
+                  <option value="barge">Binnenvaart</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
                   Betalingsvoorwaarden
                 </label>
                 <select
@@ -346,9 +371,49 @@ export default function MetalsConfiguratorPage() {
                   <option value="prepaid">Vooruitbetaling</option>
                   <option value="net30">Net 30 dagen</option>
                   <option value="net60">Net 60 dagen</option>
-                  <option value="net90">Net 90 dagen</option>
-                  <option value="lc">Letter of Credit</option>
                 </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Oppervlaktebehandeling (optioneel)
+                </label>
+                <select
+                  value={formData.surfaceTreatment}
+                  onChange={(e) => setFormData({ ...formData, surfaceTreatment: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                >
+                  <option value="">Geen</option>
+                  <option value="galvanized">Gegalvaniseerd</option>
+                  <option value="painted">Gelakt</option>
+                  <option value="polished">Gepolijst</option>
+                  <option value="anodized">Geanodiseerd</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Afmetingen (optioneel)
+                </label>
+                <input
+                  type="text"
+                  value={formData.dimensions}
+                  onChange={(e) => setFormData({ ...formData, dimensions: e.target.value })}
+                  placeholder="Bijv. 2000x1000x3mm"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                />
               </div>
 
               <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
@@ -370,17 +435,17 @@ export default function MetalsConfiguratorPage() {
                 </button>
                 <button
                   onClick={() => setStep(4)}
-                  disabled={!formData.destination || !formData.paymentTerms}
+                  disabled={!formData.destination || !formData.paymentTerms || !formData.deliveryMethod}
                   style={{
                     flex: 1,
                     padding: '16px',
-                    background: formData.destination && formData.paymentTerms ? '#1e40af' : '#e5e7eb',
+                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#1e40af' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
                     borderRadius: '12px',
                     fontSize: '16px',
                     fontWeight: 600,
-                    cursor: formData.destination && formData.paymentTerms ? 'pointer' : 'not-allowed'
+                    cursor: formData.destination && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed'
                   }}
                 >
                   Volgende →
@@ -493,7 +558,7 @@ export default function MetalsConfiguratorPage() {
                     boxShadow: '0 4px 12px rgba(16,185,129,0.3)'
                   }}
                 >
-                  🔍 Zoek beste prijzen
+                  � Request for Quote (RFQ)
                 </button>
               </div>
             </div>

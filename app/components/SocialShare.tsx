@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { getDeviceId } from '../_lib/utils'
+import { COMMISSION } from '../_lib/constants'
 
 interface SocialShareProps {
   savings: number
@@ -21,9 +22,10 @@ export default function SocialShare({
   const baseUrl = 'https://dealsense.nl'
   const hasPackage = userPackage !== 'free'
   
+  const commissionRate = parseFloat(COMMISSION[userPackage].replace('%', '')) / 100
   const savingsAfterCommission = withCode 
-    ? savings * 0.98
-    : savings * 0.90
+    ? savings * (1 - commissionRate + 0.02)
+    : savings * (1 - commissionRate)
   
   const handleToggleCode = async () => {
     if (!withCode && !referralCode) {

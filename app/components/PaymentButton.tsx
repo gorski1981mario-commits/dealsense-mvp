@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { COMMISSION } from '../_lib/constants'
 
 interface PaymentButtonProps {
   packageType: 'plus' | 'pro' | 'finance'
@@ -19,7 +20,8 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
   const basePrice = price
   const referralDiscount = codeValidated ? basePrice * 0.02 : 0 // -2% if code valid
   const priceAfterDiscount = basePrice - referralDiscount
-  const commission = priceAfterDiscount * 0.09 // +9% commission
+  const commissionRate = parseFloat(COMMISSION[packageType].replace('%', '')) / 100
+  const commission = priceAfterDiscount * commissionRate
   const finalPrice = priceAfterDiscount + commission
 
   const handleValidateCode = async () => {

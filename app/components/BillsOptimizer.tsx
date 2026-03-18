@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import AgentEchoLogo from './AgentEchoLogo'
+import { COMMISSION } from '../_lib/constants'
 
 interface BillsOptimizerProps {
   userId?: string
@@ -71,7 +72,8 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
   const totalSavings = results.reduce((sum, r) => sum + r.savings, 0)
   const totalPenalties = results.reduce((sum, r) => sum + r.penalty, 0)
   const netSavings = (totalSavings * 12) - totalPenalties
-  const commission = Math.round(netSavings * 0.1)
+  const commissionRate = parseFloat(COMMISSION.zakelijk.replace('%', '')) / 100
+  const commission = Math.round(netSavings * commissionRate)
 
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px' }}>

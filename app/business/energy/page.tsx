@@ -13,7 +13,10 @@ export default function EnergyConfiguratorPage() {
     contractLength: '',
     destination: '',
     storageCapacity: '',
-    paymentTerms: ''
+    paymentTerms: '',
+    deliveryMethod: '',
+    tankType: '',
+    qualitySpec: ''
   })
 
   const fuelTypes = [
@@ -347,6 +350,28 @@ export default function EnergyConfiguratorPage() {
 
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Leveringsmethode
+                </label>
+                <select
+                  value={formData.deliveryMethod}
+                  onChange={(e) => setFormData({ ...formData, deliveryMethod: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                >
+                  <option value="">Selecteer</option>
+                  <option value="tanker">Tankwagen</option>
+                  <option value="pipeline">Pipeline</option>
+                  <option value="barge">Binnenvaart</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
                   Betalingsvoorwaarden
                 </label>
                 <select
@@ -364,8 +389,48 @@ export default function EnergyConfiguratorPage() {
                   <option value="prepaid">Vooruitbetaling</option>
                   <option value="net15">Net 15 dagen</option>
                   <option value="net30">Net 30 dagen</option>
-                  <option value="lc">Letter of Credit</option>
                 </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Type opslagtank (optioneel)
+                </label>
+                <select
+                  value={formData.tankType}
+                  onChange={(e) => setFormData({ ...formData, tankType: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                >
+                  <option value="">Geen</option>
+                  <option value="above">Bovengronds</option>
+                  <option value="underground">Ondergronds</option>
+                  <option value="mobile">Mobiel</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                  Kwaliteitsspecificatie (optioneel)
+                </label>
+                <input
+                  type="text"
+                  value={formData.qualitySpec}
+                  onChange={(e) => setFormData({ ...formData, qualitySpec: e.target.value })}
+                  placeholder="Bijv. EN 590, ISO 8217"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                />
               </div>
 
               {/* Summary */}
@@ -422,21 +487,21 @@ export default function EnergyConfiguratorPage() {
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={!formData.destination || !formData.paymentTerms}
+                  disabled={!formData.destination || !formData.paymentTerms || !formData.deliveryMethod}
                   style={{
                     flex: 2,
                     padding: '16px',
-                    background: formData.destination && formData.paymentTerms ? '#10b981' : '#e5e7eb',
+                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#10b981' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
                     borderRadius: '12px',
                     fontSize: '16px',
                     fontWeight: 600,
-                    cursor: formData.destination && formData.paymentTerms ? 'pointer' : 'not-allowed',
-                    boxShadow: formData.destination && formData.paymentTerms ? '0 4px 12px rgba(16,185,129,0.3)' : 'none'
+                    cursor: formData.destination && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed',
+                    boxShadow: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(16,185,129,0.3)' : 'none'
                   }}
                 >
-                  🔍 Zoek beste prijzen
+                  � Request for Quote (RFQ)
                 </button>
               </div>
             </div>
