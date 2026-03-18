@@ -34,7 +34,7 @@ body {
 }
 
 .container {
-  padding: 0 12px;
+  padding: 0 8px;
   height: calc(100dvh - 130px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
