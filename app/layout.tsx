@@ -12,26 +12,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [currentPackage, setCurrentPackage] = useState<string>('free')
 
   useEffect(() => {
-    // Zapisz aktualny pakiet gdy użytkownik wchodzi na stronę pakietu
+    // Ustaw aktywny pakiet na podstawie pathname
     if (pathname === '/') {
-      localStorage.setItem('dealsense_current_package', 'free')
       setCurrentPackage('free')
     } else if (pathname === '/plus') {
-      localStorage.setItem('dealsense_current_package', 'plus')
       setCurrentPackage('plus')
     } else if (pathname === '/pro') {
-      localStorage.setItem('dealsense_current_package', 'pro')
       setCurrentPackage('pro')
     } else if (pathname === '/finance') {
-      localStorage.setItem('dealsense_current_package', 'finance')
       setCurrentPackage('finance')
-    } else {
-      // Na innych stronach (statystyki, configuratory) - załaduj zapisany pakiet
-      const saved = localStorage.getItem('dealsense_current_package')
-      if (saved) {
-        setCurrentPackage(saved)
-      }
     }
+    // Na innych stronach (configuratory, settings) - nie zmieniaj currentPackage
+    // Pozostaje ostatni ustawiony pakiet
   }, [pathname])
 
   return (
