@@ -86,6 +86,9 @@ export async function POST(request: NextRequest) {
     const maxOffers = getMaxOffers(packageType)
     const filteredOffers = offers.slice(0, maxOffers)
 
+    const scansUsed = packageType === 'free' && ean ? await getScanCount(userId) : 0
+    const scansRemaining = 3 - scansUsed
+
     return NextResponse.json({
       offers: filteredOffers,
       cached: false,
@@ -93,7 +96,10 @@ export async function POST(request: NextRequest) {
       packageType,
       commission: getCommission(packageType),
       ...(packageType === 'free' && ean ? {
-        scansRemaining: 3 - (await getScanCount(userId))
+        scansRemaining,
+        scansUsed,
+        // Proactive warning after 2nd scan
+        warning: scansUsed === 2 ? '⚠️ Laatste gratis scan! Upgrade naar PLUS voor onbeperkt scannen.' : null
       } : {})
     })
 

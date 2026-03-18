@@ -127,9 +127,21 @@ export default function Scanner({ type }: ScannerProps) {
 
       if (response.ok && result.offers) {
         // Success - show results
-        const message = type === 'free' 
+        let message = type === 'free' 
           ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans: ${result.scansRemaining || 0}/3 over. Commissie: ${result.commission}`
           : `✅ Gevonden! ${result.offers.length} aanbiedingen (TOP ${result.offers.length})`
+        
+        // Show proactive warning after 2nd scan
+        if (result.warning) {
+          message += `\n\n${result.warning}`
+          
+          // Show upgrade prompt after short delay
+          setTimeout(() => {
+            if (confirm(`${result.warning}\n\nUpgrade nu naar PLUS voor €19,99/mnd?`)) {
+              window.location.href = '/packages'
+            }
+          }, 2000)
+        }
         
         setError(message)
         
