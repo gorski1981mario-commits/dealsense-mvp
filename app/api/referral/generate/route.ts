@@ -26,6 +26,57 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // ZAKELIJK B2B has additional requirements to prevent abuse
+    if (userPackage === 'zakelijk') {
+      // In production, check Supabase for:
+      // 1. Account age: minimum 3 months active
+      // 2. Transaction count: minimum 5 completed deals
+      // 3. Total revenue: minimum €25,000 transaction value
+      
+      /* MOCK - Replace with Supabase:
+      const { data: userStats } = await supabase
+        .from('user_stats')
+        .select('account_created_at, transaction_count, total_revenue')
+        .eq('user_id', userId)
+        .single()
+
+      const accountAgeMonths = Math.floor((Date.now() - new Date(userStats.account_created_at).getTime()) / (1000 * 60 * 60 * 24 * 30))
+      
+      if (accountAgeMonths < 3) {
+        return NextResponse.json({
+          error: 'Referral code beschikbaar na 3 maanden actief partnerschap',
+          requirements: {
+            accountAge: `${accountAgeMonths}/3 maanden`,
+            transactions: `${userStats.transaction_count}/5 deals`,
+            revenue: `€${userStats.total_revenue.toLocaleString()}/€25.000`
+          }
+        }, { status: 403 })
+      }
+
+      if (userStats.transaction_count < 5) {
+        return NextResponse.json({
+          error: 'Referral code beschikbaar na 5 gerealiseerde transacties',
+          requirements: {
+            accountAge: `${accountAgeMonths}/3 maanden`,
+            transactions: `${userStats.transaction_count}/5 deals`,
+            revenue: `€${userStats.total_revenue.toLocaleString()}/€25.000`
+          }
+        }, { status: 403 })
+      }
+
+      if (userStats.total_revenue < 25000) {
+        return NextResponse.json({
+          error: 'Referral code beschikbaar na €25.000 totale omzet',
+          requirements: {
+            accountAge: `${accountAgeMonths}/3 maanden`,
+            transactions: `${userStats.transaction_count}/5 deals`,
+            revenue: `€${userStats.total_revenue.toLocaleString()}/€25.000`
+          }
+        }, { status: 403 })
+      }
+      */
+    }
+
     // Generate device-bound referral token (no physical code!)
     // Token = deviceId + timestamp for uniqueness
     const timestamp = Date.now()

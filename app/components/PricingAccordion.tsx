@@ -90,7 +90,7 @@ const packages: Package[] = [
       '✓ Dedicated account manager',
       '✓ Certificaten & documentatie (MSDS, COA, ISO)',
       '✓ 1000+ Nederlandse leveranciers',
-      '🎁 Referral B2B2026: deel code, andere bedrijven -2% op eerste maand, jij -2% bij verlenging'
+      '🎁 Referral B2B2026: voor actieve zakelijke partners - deel code, -2% korting (zie FAQ)'
     ],
     color: '#1E7F5C'
   }
