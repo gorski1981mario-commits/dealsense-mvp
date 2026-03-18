@@ -45,7 +45,8 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-subscriptions', 'view', packageType || 'pro')
+    const pkg = ((packageType || 'pro') === 'zakelijk' ? 'finance' : (packageType || 'pro')) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-subscriptions', 'view', pkg)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +54,8 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-subscriptions', 'action', packageType || 'pro', {
+    const pkg = ((packageType || 'pro') === 'zakelijk' ? 'finance' : (packageType || 'pro')) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-subscriptions', 'action', pkg, {
       subscriptionType, servicesCount: services.length
     })
     

@@ -52,7 +52,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'view', pkg)
   }, [])
   
   // Auto-fill from user account (without auto-validation)
@@ -91,7 +92,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'action', pkg, {
       energyType, electricityUsage, gasUsage
     })
     

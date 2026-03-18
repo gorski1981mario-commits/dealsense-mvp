@@ -23,7 +23,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'free' | 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'view', pkg)
   }, [])
   const [adults, setAdults] = useState(0)
   const [children, setChildren] = useState(0)
@@ -108,7 +109,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'free' | 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'action', pkg, {
       adults, children, destination, duration
     })
     

@@ -50,7 +50,8 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-loan', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-loan', 'view', pkg)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,7 +59,8 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-loan', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-loan', 'action', pkg, {
       amount, duration, purpose
     })
     

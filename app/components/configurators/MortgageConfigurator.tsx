@@ -58,7 +58,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'view', pkg)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +67,8 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'action', pkg, {
       mortgageAmount, houseValue, duration
     })
     

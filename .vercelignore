@@ -3,7 +3,8 @@
 server/
 server/**/*
 
-# Exclude B2B backup module
+# ⚠️ EXCLUDE B2B MODULE - NOT READY FOR PRODUCTION
+# This is industrial B2B module (metals, grain, zakelijk) - DO NOT DEPLOY
 _BACKUP_B2B_MODULE/
 _BACKUP_B2B_MODULE/**/*
 

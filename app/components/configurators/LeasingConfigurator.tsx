@@ -53,7 +53,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-leasing', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-leasing', 'view', pkg)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,7 +62,8 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-leasing', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-leasing', 'action', pkg, {
       vehicleType, amount, duration, kilometers
     })
     

@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { ArrowLeft, Lock, Download } from 'lucide-react'
-import ProgressTracker from '../../components/shared/ProgressTracker'
-import LockPanel from '../../components/shared/LockPanel'
-import { generateConfigurationPDF } from '../../components/ConfigurationPDFGenerator'
-import { validators } from '../../utils/validators'
+import ProgressTracker from '../../../app/components/shared/ProgressTracker'
+import LockPanel from '../../../app/components/shared/LockPanel'
+import { generateConfigurationPDF } from '../../../app/components/ConfigurationPDFGenerator'
+import { validators } from '../../../app/utils/validators'
 
 export default function GrainConfiguratorPage() {
   const [step, setStep] = useState(1)

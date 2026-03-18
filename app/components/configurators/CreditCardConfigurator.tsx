@@ -51,7 +51,8 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'view', pkg)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,7 +60,8 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'action', pkg, {
       cardType, limit, usage
     })
     

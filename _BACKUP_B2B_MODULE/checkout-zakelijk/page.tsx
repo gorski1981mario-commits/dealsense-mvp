@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import PaymentButton from '../../components/PaymentButton'
+import PaymentButton from '../../../app/components/PaymentButton'
 
 export default function ZakelijkCheckoutPage() {
   const [userId] = useState('demo-user') // TODO: Get from auth

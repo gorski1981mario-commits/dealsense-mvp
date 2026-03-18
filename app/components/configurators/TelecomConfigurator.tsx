@@ -36,7 +36,8 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   // Track view on mount
   useEffect(() => {
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'view', packageType)
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'view', pkg)
   }, [])
   
   // Auto-fill from user account (without auto-validation)
@@ -106,7 +107,8 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
     
     // Track action
     const uid = userId || 'anonymous'
-    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'action', packageType, {
+    const pkg = (packageType === 'zakelijk' ? 'finance' : packageType) as 'plus' | 'pro' | 'finance'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'action', pkg, {
       serviceType, mobileData, internetSpeed
     })
     
