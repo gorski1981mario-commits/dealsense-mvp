@@ -2,6 +2,7 @@
 // Covers: Auto, Zorg, Woning verzekeringen
 
 const cheerio = require('cheerio')
+const CartUrlBuilder = require('../../lib/cart-url-builder')
 
 module.exports = {
   name: 'independer.nl',
@@ -34,7 +35,9 @@ module.exports = {
       const deductible = $(el).find('.eigen-risico, .deductible').text().trim()
       const rating = $(el).find('.rating, .score').text().trim()
 
-      if (provider && premium) {
+      const providerUrl = $(el).find('a').attr('href')
+      
+      if (provider && premium && providerUrl) {
         providers.push({
           provider,
           monthlyPremium: this.parsePrice(premium),
@@ -42,7 +45,8 @@ module.exports = {
           deductible: this.parsePrice(deductible) || 0,
           rating: parseFloat(rating) || 0,
           features: this.extractFeatures($, el),
-          url: $(el).find('a').attr('href')
+          url: providerUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('independer.nl', providerUrl, {})
         })
       }
     })
@@ -69,7 +73,9 @@ module.exports = {
       const coverage = $(el).find('.dekking, .coverage').text().trim()
       const rating = $(el).find('.rating').text().trim()
 
-      if (provider && premium) {
+      const providerUrl = $(el).find('a').attr('href')
+      
+      if (provider && premium && providerUrl) {
         providers.push({
           provider,
           monthlyPremium: this.parsePrice(premium),
@@ -77,7 +83,8 @@ module.exports = {
           coverage: coverage || 'Basis',
           rating: parseFloat(rating) || 0,
           features: this.extractFeatures($, el),
-          url: $(el).find('a').attr('href')
+          url: providerUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('independer.nl', providerUrl, {})
         })
       }
     })
@@ -103,14 +110,17 @@ module.exports = {
       const coverage = $(el).find('.dekking').text().trim()
       const rating = $(el).find('.rating').text().trim()
 
-      if (provider && premium) {
+      const providerUrl = $(el).find('a').attr('href')
+      
+      if (provider && premium && providerUrl) {
         providers.push({
           provider,
           monthlyPremium: this.parsePrice(premium),
           coverage: coverage || 'Inboedel',
           rating: parseFloat(rating) || 0,
           features: this.extractFeatures($, el),
-          url: $(el).find('a').attr('href')
+          url: providerUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('independer.nl', providerUrl, {})
         })
       }
     })

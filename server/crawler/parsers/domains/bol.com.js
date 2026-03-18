@@ -31,7 +31,9 @@ module.exports = {
 
     // Main offer (Bol.com direct)
     const mainPrice = $('.promo-price, .price-block__highlight').first().text().trim()
-    if (mainPrice) {
+    const productUrl = $('link[rel="canonical"]').attr('href')
+    
+    if (mainPrice && productUrl) {
       offers.push({
         seller: 'Bol.com',
         price: this.parsePrice(mainPrice),
@@ -40,7 +42,8 @@ module.exports = {
         rating: 4.5,
         reviews: 1000,
         inStock: true,
-        url: $('link[rel="canonical"]').attr('href')
+        url: productUrl,
+        cartUrl: CartUrlBuilder.buildCartUrl('bol.com', productUrl, { quantity: 1 })
       })
     }
 
@@ -50,8 +53,9 @@ module.exports = {
       const price = $(el).find('.offer-price').text().trim()
       const condition = $(el).find('.offer-condition').text().trim()
       const shipping = $(el).find('.offer-shipping').text().trim()
+      const offerUrl = $(el).find('a').attr('href')
 
-      if (seller && price) {
+      if (seller && price && offerUrl) {
         offers.push({
           seller,
           price: this.parsePrice(price),
@@ -60,7 +64,8 @@ module.exports = {
           rating: 4.0,
           reviews: 0,
           inStock: true,
-          url: $(el).find('a').attr('href')
+          url: offerUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('bol.com', offerUrl, { quantity: 1 })
         })
       }
     })
@@ -86,11 +91,13 @@ module.exports = {
       const image = $(el).find('img').first().attr('src')
       const rating = $(el).find('.rating__value').text().trim()
 
-      if (title && price) {
+      if (title && price && url) {
+        const fullUrl = url?.startsWith('http') ? url : `https://www.bol.com${url}`
         products.push({
           title,
           price: this.parsePrice(price),
-          url: url?.startsWith('http') ? url : `https://www.bol.com${url}`,
+          url: fullUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('bol.com', fullUrl, { quantity: 1 }),
           image,
           rating: parseFloat(rating) || 0,
           seller: 'Bol.com'

@@ -2,6 +2,7 @@
 // Known for excellent service and competitive prices
 
 const cheerio = require('cheerio')
+const CartUrlBuilder = require('../../lib/cart-url-builder')
 
 module.exports = {
   name: 'coolblue.nl',
@@ -28,7 +29,9 @@ module.exports = {
     const reviews = $('.review-rating__count').text().trim()
     const inStock = !$('.out-of-stock, .not-available').length
 
-    if (price) {
+    const productUrl = $('link[rel="canonical"]').attr('href')
+    
+    if (price && productUrl) {
       offers.push({
         seller: 'Coolblue',
         price: this.parsePrice(price),
@@ -37,7 +40,8 @@ module.exports = {
         rating: parseFloat(rating) || 4.5,
         reviews: parseInt(reviews) || 0,
         inStock,
-        url: $('link[rel="canonical"]').attr('href'),
+        url: productUrl,
+        cartUrl: CartUrlBuilder.buildCartUrl('coolblue.nl', productUrl, { quantity: 1 }),
         title
       })
     }
@@ -47,7 +51,9 @@ module.exports = {
       const usedPrice = $(el).find('.used-price').text().trim()
       const condition = $(el).find('.condition-label').text().trim()
 
-      if (usedPrice) {
+      const usedUrl = $(el).find('a').attr('href')
+      
+      if (usedPrice && usedUrl) {
         offers.push({
           seller: 'Coolblue Tweedehands',
           price: this.parsePrice(usedPrice),
@@ -56,7 +62,8 @@ module.exports = {
           rating: 4.0,
           reviews: 0,
           inStock: true,
-          url: $(el).find('a').attr('href')
+          url: usedUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('coolblue.nl', usedUrl, { quantity: 1 })
         })
       }
     })
@@ -79,11 +86,13 @@ module.exports = {
       const image = $(el).find('img').first().attr('src')
       const rating = $(el).find('.review-rating__score').text().trim()
 
-      if (title && price) {
+      if (title && price && url) {
+        const fullUrl = url?.startsWith('http') ? url : `https://www.coolblue.nl${url}`
         products.push({
           title,
           price: this.parsePrice(price),
-          url: url?.startsWith('http') ? url : `https://www.coolblue.nl${url}`,
+          url: fullUrl,
+          cartUrl: CartUrlBuilder.buildCartUrl('coolblue.nl', fullUrl, { quantity: 1 }),
           image,
           rating: parseFloat(rating) || 0,
           seller: 'Coolblue'
