@@ -13,6 +13,7 @@ import PaywallMessage from '../components/PaywallMessage'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
+import { checkAccess, FEATURE_FLAGS } from '../_lib/feature-flags'
 
 export default function ProPage() {
   const [biometricRegistered, setBiometricRegistered] = useState(false)
@@ -33,26 +34,12 @@ export default function ProPage() {
     }
   }, [userId])
 
-  // Paywall check
-  const hasAccess = hasConfiguratorAccess(userPackage, 'pro')
+  // Paywall check (respects PAYWALL_ENABLED flag)
+  const userHasAccess = hasConfiguratorAccess(userPackage, 'pro')
+  const hasAccess = checkAccess(userHasAccess)
   
   if (isLoading) {
     return <div style={{ padding: '40px', textAlign: 'center' }}>Laden...</div>
-  }
-
-  if (!hasAccess) {
-    return (
-      <div>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
-          PRO Pakket
-        </h1>
-        <PaywallMessage 
-          currentPackage={userPackage}
-          requiredPackage="pro"
-          featureName="PRO Pakket Features"
-        />
-      </div>
-    )
   }
 
   return (
@@ -151,9 +138,10 @@ export default function ProPage() {
             { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas' },
             { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV' }
           ].map((config) => (
-            <Link
-              key={config.href}
-              href={config.href}
+            hasAccess ? (
+              <Link
+                key={config.href}
+                href={config.href}
               style={{
                 display: 'block',
                 padding: '20px',
@@ -190,6 +178,35 @@ export default function ProPage() {
                 {config.desc}
               </p>
             </Link>
+            ) : (
+              <div
+                key={config.href}
+                style={{
+                  position: 'relative',
+                  padding: '20px',
+                  background: '#F9FAFB',
+                  border: '2px dashed #D1D5DB',
+                  borderRadius: '12px',
+                  opacity: 0.6,
+                  cursor: 'not-allowed'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                  <config.Icon size={32} strokeWidth={2} color="#9CA3AF" />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '16px', fontWeight: 600, color: '#6B7280', marginBottom: '4px' }}>
+                      {config.title}
+                    </div>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#9CA3AF', background: '#E5E7EB', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                      🔒 PRO
+                    </div>
+                  </div>
+                </div>
+                <p style={{ fontSize: '13px', color: '#9CA3AF', margin: 0 }}>
+                  {config.desc}
+                </p>
+              </div>
+            )
           ))}
         </div>
       </div>

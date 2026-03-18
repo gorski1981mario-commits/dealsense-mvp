@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import PaywallMessage from '../PaywallMessage'
 import { PackageType, hasConfiguratorAccess } from '../../_lib/package-access'
 import { getDeviceId } from '../../_lib/utils'
+import { checkAccess, FEATURE_FLAGS } from '../../_lib/feature-flags'
 
 interface ConfiguratorGuardProps {
   requiredPackage: 'pro' | 'finance'
@@ -26,7 +27,8 @@ export default function ConfiguratorGuard({ requiredPackage, configuratorName, c
     }
   }, [userId])
 
-  const hasAccess = hasConfiguratorAccess(userPackage, requiredPackage)
+  const userHasAccess = hasConfiguratorAccess(userPackage, requiredPackage)
+  const hasAccess = checkAccess(userHasAccess)
 
   if (isLoading) {
     return (
