@@ -81,19 +81,18 @@ const packages: Package[] = [
     name: 'ZAKELIJK B2B',
     price: '€59,99/mnd',
     features: [
-      '✓ B2B Procurement Platform - 10 industrieën',
+      '✓ B2B Procurement - alle 10 industrieën',
       '✓ Metale, Chemicaliën, Energie, Zboże, Bouwmaterialen',
       '✓ Machines, Elektronika, Transport, Verpakking, Gereedschap',
-      '✓ Kwant AI - automatisch 50/50 giganten/niszowi leveranciers',
-      '✓ Bulk pricing - beste prijzen voor grote volumes',
-      '✓ 10% commissie op B2B transacties',
-      '✓ Dedicated account manager',
+      '✓ Vergelijk alle B2B leveranciers',
+      '✓ Slechts 10% commissie op transacties',
       '✓ RFQ (Request for Quote) systeem',
+      '✓ Dedicated account manager',
       '✓ Certificaten & documentatie (MSDS, COA, ISO)',
-      '✓ Lokale NL leveranciers + internationale sourcing',
+      '✓ 1000+ Nederlandse leveranciers',
       '🎁 Referral B2B2026: deel code, andere bedrijven -2% op eerste maand, jij -2% bij verlenging!'
     ],
-    color: '#1e40af'
+    color: '#1E7F5C'
   }
 ]
 
