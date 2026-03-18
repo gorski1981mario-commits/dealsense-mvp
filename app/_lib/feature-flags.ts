@@ -38,7 +38,7 @@ export const FEATURE_FLAGS = {
    * 
    * Pokazuje informacje debugowania w konsoli
    */
-  DEBUG_MODE: false  // 🚀 PRODUCTION - logi wyłączone
+  DEBUG_MODE: true  // � TESTING MODE - logi włączone
 }
 
 /**
