@@ -153,7 +153,7 @@
 
     <script>
         const validFields = new Set();
-        const totalFields = 5; // filterType, serviceType, mobileData, internetSpeed, postcode+houseNumber (extras nie liczy się)
+        const totalFields = 4; // filter, serviceType, mobileData, internet (extras nie liczy się)
         
         function updateProgress() {
             const percent = Math.round((validFields.size / totalFields) * 100);
@@ -252,7 +252,7 @@
             checkInternetSection();
         });
         
-        // Auto-fill from user account (without auto-validation)
+        // Auto-fill from user account WITH validation
         const userData = {
             postcode: '1943BR',
             houseNumber: '42'
@@ -260,12 +260,13 @@
         
         if (userData.postcode) {
             postcode.value = userData.postcode;
-            // NOTE: We don't add 'filled' class or validate - user must click/edit to validate
         }
         if (userData.houseNumber) {
             houseNumber.value = userData.houseNumber;
-            // NOTE: We don't add 'filled' class or validate - user must click/edit to validate
         }
+        
+        // Trigger validation after auto-fill
+        checkInternetSection();
         
         // Extras checkbox - nie wpływa na progress (opcjonalne pole)
         

@@ -65,7 +65,7 @@
             <div class="progress-bar-bg">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <div class="progress-text"><span id="valid">0</span> van <span id="total">4</span> velden correct ingevuld</div>
+            <div class="progress-text"><span id="valid">0</span> van <span id="total">7</span> velden correct ingevuld</div>
         </div>
 
         <h2>⚡ Energie Configurator</h2>
@@ -193,6 +193,13 @@
             document.getElementById('valid').textContent = validFields.size;
             document.getElementById('progressBar').style.width = percent + '%';
             
+            console.log('DEBUG Progress:', {
+                validFields: Array.from(validFields),
+                count: validFields.size,
+                total: totalFields,
+                percent: percent
+            });
+            
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = percent !== 100;
         }
@@ -227,18 +234,15 @@
         const postcode = document.getElementById('postcode');
         const houseNumber = document.getElementById('houseNumber');
         
-        // Multiple events to ensure immediate highlighting
-        ['change', 'input'].forEach(eventType => {
-            energyType.addEventListener(eventType, function() {
-                if (this.value) {
-                    validFields.add('energyType');
-                    this.classList.add('filled');
-                } else {
-                    validFields.delete('energyType');
-                    this.classList.remove('filled');
-                }
-                updateProgress();
-            });
+        energyType.addEventListener('change', function() {
+            if (this.value) {
+                validFields.add('energyType');
+                this.classList.add('filled');
+            } else {
+                validFields.delete('energyType');
+                this.classList.remove('filled');
+            }
+            updateProgress();
         });
         
         // Electricity usage validation
@@ -292,7 +296,7 @@
             updateProgress();
         });
         
-        // Auto-fill from user account (without auto-validation)
+        // Auto-fill from user account WITH validation
         const userData = {
             postcode: '1943BR',
             houseNumber: '42'
@@ -300,12 +304,21 @@
         
         if (userData.postcode) {
             postcode.value = userData.postcode;
-            // NOTE: We don't add 'filled' class or validate - user must click/edit to validate
+            const postcodePattern = /^[1-9][0-9]{3}\s?[A-Z]{2}$/i;
+            if (postcodePattern.test(userData.postcode.trim())) {
+                validFields.add('postcode');
+                postcode.classList.add('filled');
+            }
         }
         if (userData.houseNumber) {
             houseNumber.value = userData.houseNumber;
-            // NOTE: We don't add 'filled' class or validate - user must click/edit to validate
+            if (userData.houseNumber.trim().length > 0) {
+                validFields.add('houseNumber');
+                houseNumber.classList.add('filled');
+            }
         }
+        
+        updateProgress();
         
         // Green energy checkbox - nie wpływa na progress (opcjonalne)
         

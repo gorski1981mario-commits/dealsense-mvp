@@ -48,9 +48,9 @@ export default function ZakelijkCheckoutPage() {
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8' }}>
               ✓ B2B Procurement Platform - 10 industrieën<br />
-              ✓ Metale, Chemicaliën, Energie, Zboże, Bouwmaterialen<br />
+              ✓ Metale, Chemicaliën, Energie, Granen, Bouwmaterialen<br />
               ✓ Machines, Elektronika, Transport, Verpakking, Gereedschap<br />
-              ✓ Kwant AI - automatisch 50/50 giganten/niszowi<br />
+              ✓ Vergelijk 1000+ Nederlandse leveranciers<br />
               ✓ 10% commissie op B2B transacties<br />
               ✓ RFQ (Request for Quote) systeem<br />
               ✓ Dedicated account manager<br />

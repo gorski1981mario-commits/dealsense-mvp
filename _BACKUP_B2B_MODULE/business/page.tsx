@@ -129,8 +129,8 @@ export default function BusinessPage() {
           margin: '0 auto 32px',
           lineHeight: '1.6'
         }}>
-          Kwant-powered comparison engine voor bulk procurement.<br />
-          Bespaar 5-18% op industriële inkoop met AI-driven sourcing.
+          Professioneel vergelijkingsplatform voor bulk procurement.<br />
+          Bespaar 5-18% op industriële inkoop met slimme sourcing.
         </p>
 
         {/* Stats */}
