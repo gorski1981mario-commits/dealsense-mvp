@@ -21,7 +21,8 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         '✓ Ghost Mode - prijsmonitoring (10 dagen)',
         '✓ Prioriteit support',
         '✓ 1000+ Nederlandse webshops',
-        '✓ Echo - AI productadvies & garanties'
+        '✓ Echo - AI productadvies & garanties',
+        '🎁 Referral PLUS2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
       ]
     },
     pro: {
@@ -33,7 +34,8 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         '✓ Ghost Mode - prijsmonitoring (20 dagen)',
         '✓ Prioriteit support',
         '✓ 1000+ Nederlandse webshops',
-        '✓ Echo - volledige AI assistent'
+        '✓ Echo - volledige AI assistent',
+        '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
       ]
     },
     finance: {
@@ -46,7 +48,9 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         '✓ Ghost Mode - anonieme vergelijking (30 dagen)',
         '✓ VIP support - directe hulp',
         '✓ 1000+ Nederlandse webshops',
-        '✓ Echo - premium AI assistent + financieel advies'
+        '✓ Echo - premium AI assistent + financieel advies',
+        '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
+        '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
       ]
     }
   }
