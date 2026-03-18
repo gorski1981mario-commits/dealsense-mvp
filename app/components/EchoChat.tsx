@@ -551,19 +551,30 @@ export default function EchoChat() {
                 <Mic size={18} color={isListening ? 'white' : '#6B7280'} />
               </button>
 
-              <input
-                type="text"
+              <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Type een bericht..."
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    handleSend()
+                  }
+                }}
+                placeholder="Type een bericht... (Shift+Enter voor nieuwe regel)"
+                rows={2}
                 style={{
                   flex: 1,
                   padding: '8px 12px',
                   border: '1px solid #E5E7EB',
                   borderRadius: '8px',
                   fontSize: '14px',
-                  outline: 'none'
+                  outline: 'none',
+                  resize: 'none',
+                  minHeight: '40px',
+                  maxHeight: '100px',
+                  overflowY: 'auto',
+                  fontFamily: 'inherit',
+                  lineHeight: '1.5'
                 }}
               />
 
