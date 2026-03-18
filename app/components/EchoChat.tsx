@@ -361,12 +361,12 @@ export default function EchoChat() {
       {isOpen && (
         <div style={{
           position: 'fixed',
-          bottom: '80px',
+          bottom: '69px',
           right: '10px',
           width: '95vw',
           maxWidth: '500px',
-          height: '500px',
-          maxHeight: '75vh',
+          height: '520px',
+          maxHeight: '76vh',
           background: 'white',
           borderRadius: '16px',
           boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
