@@ -7,13 +7,17 @@ import { Mail, Lock, ArrowRight, Github } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
-  const [mode, setMode] = useState<'signin' | 'signup' | 'magic'>('signin')
+  const [mode, setMode] = useState<'signin' | 'signup' | 'magic' | 'forgot'>('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [postcode, setPostcode] = useState('')
+  const [huisnummer, setHuisnummer] = useState('')
+  const [telefoon, setTelefoon] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [magicLinkSent, setMagicLinkSent] = useState(false)
+  const [resetLinkSent, setResetLinkSent] = useState(false)
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,6 +60,21 @@ export default function LoginPage() {
       setMagicLinkSent(true)
     } else {
       setError(result.error || 'Kon geen magic link versturen')
+    }
+    setLoading(false)
+  }
+
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+
+    const result = await AuthService.sendPasswordReset(email)
+    
+    if (result.success) {
+      setResetLinkSent(true)
+    } else {
+      setError(result.error || 'Kon geen reset link versturen')
     }
     setLoading(false)
   }
@@ -246,6 +265,23 @@ export default function LoginPage() {
               </div>
             </div>
 
+            <div style={{ textAlign: 'right', marginBottom: '16px' }}>
+              <button
+                type="button"
+                onClick={() => setMode('forgot')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#258b52',
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  textDecoration: 'underline'
+                }}
+              >
+                Wachtwoord vergeten?
+              </button>
+            </div>
+
             <button
               type="submit"
               disabled={loading}
@@ -319,7 +355,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '16px' }}>
               <label style={{ fontSize: '14px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '8px' }}>
                 Wachtwoord
               </label>
@@ -342,6 +378,67 @@ export default function LoginPage() {
                   }}
                 />
               </div>
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '8px' }}>
+                Postcode (optioneel)
+              </label>
+              <input
+                type="text"
+                value={postcode}
+                onChange={(e) => setPostcode(e.target.value)}
+                placeholder="1234 AB"
+                pattern="[0-9]{4}\s?[A-Za-z]{2}"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '8px' }}>
+                Huisnummer (optioneel)
+              </label>
+              <input
+                type="text"
+                value={huisnummer}
+                onChange={(e) => setHuisnummer(e.target.value)}
+                placeholder="42"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '8px' }}>
+                Telefoon (optioneel)
+              </label>
+              <input
+                type="tel"
+                value={telefoon}
+                onChange={(e) => setTelefoon(e.target.value)}
+                placeholder="+31 6 12345678"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
             </div>
 
             <button
@@ -419,6 +516,108 @@ export default function LoginPage() {
               {loading ? 'Bezig...' : 'Verstuur Magic Link'}
             </button>
           </form>
+        )}
+
+        {/* Forgot Password Form */}
+        {mode === 'forgot' && !resetLinkSent && (
+          <form onSubmit={handlePasswordReset}>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '8px' }}>
+                Email
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Mail size={18} style={{ position: 'absolute', left: '12px', top: '12px', color: '#6B7280' }} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="jouw@email.nl"
+                  style={{
+                    width: '100%',
+                    padding: '12px 12px 12px 40px',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: '12px', color: '#6B7280', marginTop: '8px' }}>
+                We sturen je een link om je wachtwoord te resetten
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '14px',
+                background: '#258b52',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading ? 0.6 : 1
+              }}
+            >
+              {loading ? 'Bezig...' : 'Verstuur Reset Link'}
+            </button>
+
+            <div style={{ marginTop: '16px', textAlign: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setMode('signin')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#6B7280',
+                  fontSize: '13px',
+                  cursor: 'pointer'
+                }}
+              >
+                ← Terug naar inloggen
+              </button>
+            </div>
+          </form>
+        )}
+
+        {/* Reset Link Success */}
+        {resetLinkSent && (
+          <div style={{
+            padding: '16px',
+            background: '#dcfce7',
+            borderRadius: '8px',
+            fontSize: '14px',
+            color: '#15803d',
+            marginBottom: '16px',
+            textAlign: 'center'
+          }}>
+            ✓ Reset link verstuurd naar {email}
+            <br />
+            <span style={{ fontSize: '12px' }}>Check je inbox en klik op de link om je wachtwoord te resetten</span>
+            <div style={{ marginTop: '16px' }}>
+              <button
+                onClick={() => {
+                  setResetLinkSent(false)
+                  setMode('signin')
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#15803d',
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  textDecoration: 'underline'
+                }}
+              >
+                Terug naar inloggen
+              </button>
+            </div>
+          </div>
         )}
 
         {/* OAuth Buttons */}
