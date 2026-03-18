@@ -84,7 +84,7 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5', trust: '🛡️ 9/10', score: 'Score: 9.4', badge: 'BESTE DEAL', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.0'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5', trust: '🛡️ 8/10', score: 'Score: 8.9'}].map((sub, i) => (
           <div key={i} style={{ background: sub.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${sub.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

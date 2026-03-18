@@ -71,7 +71,7 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '💰 ING Persoonlijke Lening', price: '4.2% rente', plan: '€15.000 | 60 mnd | €276/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.2', badge: 'BESTE DEAL', best: true}, {name: '💰 ABN AMRO Doorlopend Krediet', price: '5.1% rente', plan: '€15.000 | 60 mnd | €283/mnd', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '💰 Rabobank Lening', price: '5.8% rente', plan: '€15.000 | 60 mnd | €289/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((loan, i) => (
           <div key={i} style={{ background: loan.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${loan.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

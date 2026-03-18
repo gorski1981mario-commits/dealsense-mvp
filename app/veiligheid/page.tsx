@@ -40,7 +40,7 @@ export default function VeiligheidPage() {
           verdachte aanbiedingen en waarschuwen je voor mogelijke scams.
         </p>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', fontWeight: 600 }}>
-          Gemiddelde rating: 4.0 volgens DealScore
+          Deal Score: zorgvuldig geselecteerde parameters voor maximale veiligheid
         </p>
       </div>
 

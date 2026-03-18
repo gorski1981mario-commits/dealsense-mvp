@@ -392,7 +392,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Ranking 4.0 (AI + kwant)</p>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🛡️ Zilveren Kruis Basis', price: '€89/mnd', coverage: 'WA + Beperkt Casco', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🛡️ FBTO Compleet', price: '€112/mnd', coverage: 'All-risk dekking', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🛡️ Centraal Beheer Premium', price: '€135/mnd', coverage: 'All-risk + extra\'s', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}].map((ins, i) => (
           <div key={i} style={{ background: ins.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${ins.best ? '#1E7F5C' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

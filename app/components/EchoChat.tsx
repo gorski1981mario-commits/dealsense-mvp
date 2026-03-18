@@ -172,7 +172,7 @@ export default function EchoChat() {
     if (intents.howItWorks.test(userInput)) {
       return {
         role: 'assistant',
-        content: '⚙️ **Hoe DealSense werkt:**\n\n**1. Deal Score**\nOns algoritme analyseert de markt en selecteert TOP 3 beste deals op basis van:\n• Prijs (60%)\n• Rating (20%)\n• Reviews (20%)\n• Scam filter (min 4.0★)\n\n**2. Paywall (9% commissie)**\nJe betaalt alleen als je bespaart.\nCommissie = 9% van jaarlijkse besparing.\n\n**3. Jouw voordeel**\nToegang tot beste deals + PDF bewijs + redirect naar aanbieder.\n\nVragen?',
+        content: '⚙️ **Hoe DealSense werkt:**\n\n**1. Deal Score**\nDeal Score is ons unieke beoordelingssysteem, gebaseerd op zorgvuldig geselecteerde parameters. Het garandeert maximale veiligheid, gemak en zekerheid bij het kiezen van de beste deals voor jou.\n\nWe selecteren TOP 3 beste deals op basis van:\n• Prijs\n• Kwaliteit\n• Betrouwbaarheid\n• Gebruikerservaringen\n\n**2. Paywall (9% commissie)**\nJe betaalt alleen als je bespaart.\nCommissie = 9% van jaarlijkse besparing.\n\n**3. Jouw voordeel**\nToegang tot beste deals + PDF bewijs + redirect naar aanbieder.\n\nVragen?',
         suggestions: ['Wat zijn de pakketten?', 'Waarom DealSense?', 'Start configuratie']
       }
     }
@@ -307,7 +307,7 @@ export default function EchoChat() {
       
       return {
         role: 'assistant',
-        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n🎯 ${userInput}\n\nIk doorzoek nu de markt met Ranking 4.0 (AI + kwant)...\n\n⏳ Analyseer 50% e-commerce giganten + 50% niszowe biura...`,
+        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n🎯 ${userInput}\n\nIk doorzoek nu de markt met Deal Score...\n\n⏳ Analyseer 50% e-commerce giganten + 50% niszowe biura...`,
         suggestions: ['Bekijk TOP 3 deals', 'Wijzig gegevens']
       }
     }

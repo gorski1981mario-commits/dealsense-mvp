@@ -395,7 +395,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% e-commerce giganten + 50% niszowe biura met Ranking 4.0 (AI + kwant)</p>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% e-commerce giganten + 50% niszowe biura met Deal Score</p>
 
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
 
