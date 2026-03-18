@@ -1,7 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, TrendingDown, Globe, Shield, CheckCircle } from 'lucide-react'
+import { ArrowLeft, Lock, Unlock, Download } from 'lucide-react'
+import ProgressTracker from '../../components/shared/ProgressTracker'
+import LockPanel from '../../components/shared/LockPanel'
+import { generateConfigurationPDF } from '../../components/ConfigurationPDFGenerator'
+import { validators } from '../../utils/validators'
 
 export default function MetalsConfiguratorPage() {
   const [step, setStep] = useState(1)
@@ -10,15 +14,51 @@ export default function MetalsConfiguratorPage() {
     quantity: '',
     unit: 'tons',
     grade: '',
-    delivery: '',
+    destination: '',
     paymentTerms: '',
     certification: [] as string[],
-    destination: '',
     urgency: 'standard',
     deliveryMethod: '',
     surfaceTreatment: '',
     dimensions: ''
   })
+
+  // Lock/unlock state
+  const [isLocked, setIsLocked] = useState(false)
+  const [configId, setConfigId] = useState<string | null>(null)
+  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
+
+  // Progress tracking
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
+  const [validFields, setValidFields] = useState<Set<string>>(new Set())
+
+  const totalFields = 7 // material, grade, quantity, urgency, destination, deliveryMethod, paymentTerms
+
+  const markFieldTouched = (fieldName: string) => {
+    setTouchedFields(prev => new Set(prev).add(fieldName))
+  }
+
+  const markFieldValid = (fieldName: string, isValid: boolean) => {
+    setValidFields(prev => {
+      const newSet = new Set(prev)
+      if (isValid) {
+        newSet.add(fieldName)
+      } else {
+        newSet.delete(fieldName)
+      }
+      return newSet
+    })
+  }
+
+  const validateAndMark = (fieldName: string, value: any) => {
+    markFieldTouched(fieldName)
+    const isValid = validators.required(value)
+    markFieldValid(fieldName, isValid)
+    return isValid
+  }
+
+  const progress = Math.round((validFields.size / totalFields) * 100)
 
   const materials = [
     { id: 'steel', name: 'Stal', grades: ['S235', 'S355', 'Stainless 304', 'Stainless 316'] },
@@ -32,8 +72,55 @@ export default function MetalsConfiguratorPage() {
     'ISO 9001', 'ISO 14001', 'EN 10204 3.1', 'EN 10204 3.2', 'REACH', 'RoHS'
   ]
 
-  const handleSubmit = async () => {
-    // Call crawler API for B2B search
+  const handleLockConfiguration = async () => {
+    try {
+      setSaving(true)
+      const configData = {
+        userId: 'business_user',
+        sector: 'metals',
+        parameters: formData,
+        timestamp: new Date().toISOString()
+      }
+      const response = await fetch('/api/configurations/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(configData)
+      })
+      const result = await response.json()
+      if (result.success) {
+        setConfigId(result.configId)
+        setConfigTimestamp(configData.timestamp)
+        setIsLocked(true)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleUnlockConfiguration = () => {
+    setIsLocked(false)
+  }
+
+  const handleDownloadPDF = () => {
+    if (!configId || !configTimestamp) return
+    generateConfigurationPDF({
+      configId,
+      userId: 'business_user',
+      sector: 'metals',
+      parameters: formData,
+      timestamp: configTimestamp
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!isLocked) {
+      await handleLockConfiguration()
+    }
+
     const response = await fetch('/api/crawler/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,16 +134,14 @@ export default function MetalsConfiguratorPage() {
 
     const results = await response.json()
     console.log('B2B Results:', results)
-    
-    // Navigate to results
+
     window.location.href = `/business/metals/results?data=${encodeURIComponent(JSON.stringify(formData))}`
   }
 
   const selectedMaterial = materials.find(m => m.id === formData.material)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f9fafb', padding: '40px 20px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ minHeight: '100vh' }}>
         {/* Header */}
         <button
           onClick={() => window.location.href = '/business'}
@@ -78,46 +163,43 @@ export default function MetalsConfiguratorPage() {
           Terug naar overzicht
         </button>
 
-        <div style={{
-          background: 'white',
-          borderRadius: '16px',
-          padding: '32px',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-        }}>
-          <div style={{ marginBottom: '32px' }}>
-            <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '8px' }}>
-              METALE & STAL
-            </div>
-            <h1 style={{ fontSize: '32px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>
-              Bulk Procurement Configurator
-            </h1>
-            <p style={{ fontSize: '16px', color: '#6b7280' }}>
-              Vind de beste prijzen voor industriële metalen wereldwijd
-            </p>
-          </div>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+          🔩 Metale & Stal Configurator
+        </h2>
 
-          {/* Progress */}
-          <div style={{
-            display: 'flex',
-            gap: '8px',
-            marginBottom: '32px',
-            padding: '16px',
-            background: '#f9fafb',
-            borderRadius: '10px'
-          }}>
-            {[1, 2, 3, 4].map((s) => (
-              <div
-                key={s}
-                style={{
-                  flex: 1,
-                  height: '4px',
-                  background: s <= step ? '#1e40af' : '#e5e7eb',
-                  borderRadius: '2px',
-                  transition: 'all 0.3s'
-                }}
-              />
-            ))}
+        {/* Progress Tracker */}
+        <ProgressTracker
+          percentage={progress}
+          validCount={validFields.size}
+          totalFields={totalFields}
+          showWarning={validFields.size < totalFields}
+        />
+
+        {/* Lock Panel */}
+        <LockPanel
+          isLocked={isLocked}
+          configId={configId}
+          onUnlock={handleUnlockConfiguration}
+          onDownloadPDF={handleDownloadPDF}
+        />
+
+        {isLocked && configId && (
+          <div style={{ background: '#E6F4EE', border: '1px solid #1E7F5C', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Lock size={16} color="#1E7F5C" />
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#1E7F5C' }}>Configuratie opgeslagen</div>
+                <div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #1E7F5C', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
+              <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#1E7F5C', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
+            </div>
           </div>
+        )}
+
+          <form onSubmit={handleSubmit}>
 
           {/* Step 1: Material Selection */}
           {step === 1 && (
@@ -129,16 +211,22 @@ export default function MetalsConfiguratorPage() {
                 {materials.map((material) => (
                   <button
                     key={material.id}
-                    onClick={() => setFormData({ ...formData, material: material.id, grade: '' })}
+                    onClick={() => {
+                      if (!isLocked) {
+                        setFormData({ ...formData, material: material.id, grade: '' })
+                        validateAndMark('material', material.id)
+                      }
+                    }}
+                    disabled={isLocked}
                     style={{
                       padding: '16px',
-                      background: formData.material === material.id ? '#eff6ff' : 'white',
-                      border: `2px solid ${formData.material === material.id ? '#1e40af' : '#e5e7eb'}`,
+                      background: formData.material === material.id ? '#E6F4EE' : 'white',
+                      border: `2px solid ${formData.material === material.id ? '#1E7F5C' : '#e5e7eb'}`,
                       borderRadius: '10px',
                       cursor: 'pointer',
                       fontSize: '16px',
                       fontWeight: 600,
-                      color: formData.material === material.id ? '#1e40af' : '#374151',
+                      color: formData.material === material.id ? '#1E7F5C' : '#374151',
                       transition: 'all 0.2s'
                     }}
                   >
@@ -154,7 +242,11 @@ export default function MetalsConfiguratorPage() {
                   </label>
                   <select
                     value={formData.grade}
-                    onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, grade: e.target.value })
+                      validateAndMark('grade', e.target.value)
+                    }}
+                    disabled={isLocked}
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -178,7 +270,7 @@ export default function MetalsConfiguratorPage() {
                   marginTop: '24px',
                   width: '100%',
                   padding: '16px',
-                  background: formData.material && formData.grade ? '#1e40af' : '#e5e7eb',
+                  background: formData.material && formData.grade ? '#1E7F5C' : '#e5e7eb',
                   color: 'white',
                   border: 'none',
                   borderRadius: '10px',
@@ -206,7 +298,11 @@ export default function MetalsConfiguratorPage() {
                   <input
                     type="number"
                     value={formData.quantity}
-                    onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, quantity: e.target.value })
+                      validateAndMark('quantity', e.target.value)
+                    }}
+                    disabled={isLocked}
                     placeholder="Bijv. 100"
                     style={{
                       width: '100%',
@@ -248,16 +344,22 @@ export default function MetalsConfiguratorPage() {
                   {['standard', 'urgent', 'spot'].map((urg) => (
                     <button
                       key={urg}
-                      onClick={() => setFormData({ ...formData, urgency: urg })}
+                      onClick={() => {
+                        if (!isLocked) {
+                          setFormData({ ...formData, urgency: urg })
+                          validateAndMark('urgency', urg)
+                        }
+                      }}
+                      disabled={isLocked}
                       style={{
                         padding: '12px',
-                        background: formData.urgency === urg ? '#eff6ff' : 'white',
-                        border: `2px solid ${formData.urgency === urg ? '#1e40af' : '#e5e7eb'}`,
+                        background: formData.urgency === urg ? '#E6F4EE' : 'white',
+                        border: `2px solid ${formData.urgency === urg ? '#1E7F5C' : '#e5e7eb'}`,
                         borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '14px',
                         fontWeight: 600,
-                        color: formData.urgency === urg ? '#1e40af' : '#374151'
+                        color: formData.urgency === urg ? '#1E7F5C' : '#374151'
                       }}
                     >
                       {urg === 'standard' ? 'Standaard (30d)' : urg === 'urgent' ? 'Urgent (7d)' : 'Spot (24h)'}
@@ -289,7 +391,7 @@ export default function MetalsConfiguratorPage() {
                   style={{
                     flex: 1,
                     padding: '16px',
-                    background: formData.quantity ? '#1e40af' : '#e5e7eb',
+                    background: formData.quantity ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
                     borderRadius: '10px',
@@ -318,7 +420,11 @@ export default function MetalsConfiguratorPage() {
                 <input
                   type="text"
                   value={formData.destination}
-                  onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, destination: e.target.value })
+                    validateAndMark('destination', e.target.value)
+                  }}
+                  disabled={isLocked}
                   placeholder="Bijv. Rotterdam, Nederland"
                   style={{
                     width: '100%',
@@ -336,7 +442,11 @@ export default function MetalsConfiguratorPage() {
                 </label>
                 <select
                   value={formData.deliveryMethod}
-                  onChange={(e) => setFormData({ ...formData, deliveryMethod: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, deliveryMethod: e.target.value })
+                    validateAndMark('deliveryMethod', e.target.value)
+                  }}
+                  disabled={isLocked}
                   style={{
                     width: '100%',
                     padding: '12px',
@@ -358,7 +468,11 @@ export default function MetalsConfiguratorPage() {
                 </label>
                 <select
                   value={formData.paymentTerms}
-                  onChange={(e) => setFormData({ ...formData, paymentTerms: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, paymentTerms: e.target.value })
+                    validateAndMark('paymentTerms', e.target.value)
+                  }}
+                  disabled={isLocked}
                   style={{
                     width: '100%',
                     padding: '12px',
@@ -439,7 +553,7 @@ export default function MetalsConfiguratorPage() {
                   style={{
                     flex: 1,
                     padding: '16px',
-                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#1e40af' : '#e5e7eb',
+                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
                     borderRadius: '10px',
@@ -544,28 +658,29 @@ export default function MetalsConfiguratorPage() {
                   ← Terug
                 </button>
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
+                  disabled={isLocked || validFields.size < totalFields}
                   style={{
                     flex: 2,
                     padding: '16px',
-                    background: '#1E7F5C',
+                    background: (isLocked || validFields.size < totalFields) ? '#e5e7eb' : '#1E7F5C',
                     color: 'white',
                     border: 'none',
                     borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
-                    cursor: 'pointer',
+                    cursor: (isLocked || validFields.size < totalFields) ? 'not-allowed' : 'pointer',
                     boxShadow: '0 4px 12px rgba(30,127,92,0.3)'
                   }}
                 >
-                  � Request for Quote (RFQ)
+                  🔍 Request for Quote (RFQ)
                 </button>
               </div>
             </div>
           )}
-        </div>
-      </div>
+          </form>
     </div>
   )
 }
+
 

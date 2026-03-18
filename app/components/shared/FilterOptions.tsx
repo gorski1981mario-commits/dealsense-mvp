@@ -14,7 +14,6 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
   return (
     <div style={{ 
       marginBottom: '24px', 
-      padding: '20px', 
       background: '#F7F9F8', 
       borderRadius: '12px',
       border: '2px solid #E5E7EB'

@@ -34,9 +34,6 @@ body {
 }
 
 .container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 20px;
   height: calc(100dvh - 130px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

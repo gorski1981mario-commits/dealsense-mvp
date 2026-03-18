@@ -20,7 +20,6 @@ export default function ProgressTracker({
         background: '#E6F4EE',
         border: '2px solid #1E7F5C',
         borderRadius: '12px',
-        padding: '16px',
         marginBottom: '24px'
       }}>
         <div style={{
@@ -75,7 +74,6 @@ export default function ProgressTracker({
           background: '#FEF3C7',
           border: '2px solid #F59E0B',
           borderRadius: '12px',
-          padding: '12px 16px',
           marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',

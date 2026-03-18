@@ -20,8 +20,7 @@ export default function ZakelijkPage() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)', padding: '40px 20px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <div style={{
@@ -56,8 +55,8 @@ export default function ZakelijkPage() {
             margin: '0 auto 32px',
             lineHeight: '1.6'
           }}>
-            Kwant-powered vergelijkingsplatform voor bulk inkoop.<br />
-            Bespaar 5-18% op industriële procurement met AI-driven sourcing.
+            Professioneel vergelijkingsplatform voor bulk inkoop.<br />
+            Bespaar 5-18% op industriële procurement met slimme sourcing.
           </p>
 
           {/* Stats */}
@@ -124,8 +123,8 @@ export default function ZakelijkPage() {
             <div style={{ display: 'flex', gap: '12px' }}>
               <TrendingUp size={24} color="#10b981" style={{ flexShrink: 0 }} />
               <div>
-                <div style={{ fontWeight: 600, marginBottom: '4px' }}>Kwant AI Sourcing</div>
-                <div style={{ fontSize: '14px', color: '#6b7280' }}>Automatisch 50% giganten + 50% niszowi leveranciers</div>
+                <div style={{ fontWeight: 600, marginBottom: '4px' }}>Slimme Sourcing</div>
+                <div style={{ fontSize: '14px', color: '#6b7280' }}>Vergelijk prijzen van 1000+ Nederlandse leveranciers</div>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '12px' }}>
@@ -226,7 +225,6 @@ export default function ZakelijkPage() {
             Activeer nu →
           </button>
         </div>
-      </div>
     </div>
   )
 }
