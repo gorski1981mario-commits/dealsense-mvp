@@ -30,18 +30,29 @@ export default function VasteLastenPage() {
     { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE', requiredPackage: 'finance' as const }
   ]
 
-  const hasProAccess = hasConfiguratorAccess(userPackage, 'pro')
-  const hasFinanceAccess = hasConfiguratorAccess(userPackage, 'finance')
-
   return (
     <div>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
         Vaste lasten configurators
       </h1>
       
-      <p style={{ fontSize: '16px', color: '#374151', marginBottom: '32px', lineHeight: '1.6' }}>
+      <p style={{ fontSize: '16px', color: '#374151', marginBottom: '16px', lineHeight: '1.6' }}>
         Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.
       </p>
+
+      <div style={{ 
+        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', 
+        border: '2px solid #86efac',
+        borderRadius: '12px',
+        padding: '16px',
+        marginBottom: '24px'
+      }}>
+        <div style={{ fontSize: '14px', color: '#166534', lineHeight: '1.6' }}>
+          <strong>📦 Pakket PRO:</strong> 4 configurators (Vakanties, Verzekeringen, Energie, Telecom)
+          <br />
+          <strong>💰 Pakket FINANCE:</strong> 8 configurators (alle PRO + Hypotheek, Leasing, Lening, Creditcard)
+        </div>
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
         {configurators.map((config) => (

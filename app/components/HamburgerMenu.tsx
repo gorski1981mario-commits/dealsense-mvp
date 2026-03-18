@@ -88,29 +88,8 @@ export default function HamburgerMenu() {
   }, [userId])
 
   const handleItemClick = (path: string) => {
-    // Check if clicking on Diensten Configurators
-    if (path === '/vaste-lasten') {
-      const hasProAccess = hasConfiguratorAccess(userPackage, 'pro')
-      const hasFinanceAccess = hasConfiguratorAccess(userPackage, 'finance')
-      
-      if (!hasProAccess && !hasFinanceAccess) {
-        // FREE/PLUS: Show upgrade prompt
-        setShowUpgradePrompt(true)
-        return
-      }
-      
-      // Smart redirect based on package
-      setIsOpen(false)
-      if (hasFinanceAccess) {
-        // FINANCE: Go to finance page (8 cards)
-        router.push('/finance')
-      } else if (hasProAccess) {
-        // PRO: Go to pro page (4 cards)
-        router.push('/pro')
-      }
-      return
-    }
-    
+    // Always close menu and navigate
+    // /vaste-lasten shows all options with package info for everyone
     setIsOpen(false)
     router.push(path)
   }
