@@ -20,7 +20,7 @@ export default function ZakelijkPage() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)', padding: '40px 20px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -87,7 +87,7 @@ export default function ZakelijkPage() {
               borderRadius: '12px',
               backdropFilter: 'blur(10px)'
             }}>
-              <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', marginBottom: '4px' }}>
+              <div style={{ fontSize: '32px', fontWeight: 700, color: '#86efac', marginBottom: '4px' }}>
                 10
               </div>
               <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
@@ -100,7 +100,7 @@ export default function ZakelijkPage() {
               borderRadius: '12px',
               backdropFilter: 'blur(10px)'
             }}>
-              <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', marginBottom: '4px' }}>
+              <div style={{ fontSize: '32px', fontWeight: 700, color: '#86efac', marginBottom: '4px' }}>
                 50/50
               </div>
               <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
