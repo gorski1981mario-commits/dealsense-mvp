@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
         owner_id: userId,
         owner_device_id: deviceId,
         status: 'active',
-        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days auto-expire
+        expires_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days auto-expire
       })
       .select()
       .single()
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       newCode: {
         code: newCode,
         message: '🎁 Jouw nieuwe code om te delen!',
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days
       }
     })
 

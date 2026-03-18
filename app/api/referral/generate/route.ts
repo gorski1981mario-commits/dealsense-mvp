@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     // - usedAt: null
     // - status: 'active' | 'used' | 'expired'
     // - createdAt: timestamp
-    // - expiresAt: 7 days from now (AUTO-EXPIRE after 1 week)
+    // - expiresAt: 14 days from now (AUTO-EXPIRE after 2 weeks)
 
     /* MOCK - Replace with Supabase:
     const { data, error } = await supabase
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         owner_device_id: deviceId,
         share_url: `https://dealsense.nl/ref/${tokenId}`,
         status: 'active',
-        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days auto-expire
+        expires_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days auto-expire
       })
       .select()
       .single()
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       tokenId,
       shareUrl,
       message: 'Deel deze link met vrienden! Zij klikken "Gebruik code" en krijgen 2% korting!',
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days auto-expire
+      expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days auto-expire
       ownerId: userId,
       deviceId,
       instructions: 'Stuur deze link → Vriend opent op zijn device → Klikt "Gebruik code" → Automatisch geactiveerd!'

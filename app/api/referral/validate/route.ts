@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     // IMPORTANT: In production, check Supabase:
     // 1. Token exists and is active
-    // 2. Token is not expired (< 7 days old)
+    // 2. Token is not expired (< 14 days old)
     // 3. Token was not used yet (usedBy === null)
     // 4. Device is NOT the owner's device (prevent self-activation)
 
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (new Date(referralToken.expires_at) < new Date()) {
-      return NextResponse.json({ valid: false, error: 'Token is verlopen (max 7 dagen)' }, { status: 400 })
+      return NextResponse.json({ valid: false, error: 'Token is verlopen (max 14 dagen)' }, { status: 400 })
     }
 
     if (referralToken.owner_device_id === deviceId) {
