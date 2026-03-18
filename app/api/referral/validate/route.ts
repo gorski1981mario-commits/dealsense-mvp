@@ -1,47 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// VALIDATE REFERRAL CODE - Viral Chain
-// Check if code is valid and can be used by this device
+// VALIDATE REFERRAL TOKEN - Device-Bound
+// Check if token is valid and can be activated by this device
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { code, deviceId, userId } = body
+    const { tokenId, deviceId, userId } = body
 
-    if (!code || !deviceId) {
+    if (!tokenId || !deviceId) {
       return NextResponse.json(
-        { error: 'Code and device ID required' },
+        { error: 'Token ID and device ID required' },
         { status: 400 }
       )
     }
 
     // IMPORTANT: In production, check Supabase:
-    // 1. Code exists and is active
-    // 2. Code is not expired
-    // 3. Code was not used yet (usedBy === null)
-    // 4. Device is NOT the owner's device (prevent self-use)
+    // 1. Token exists and is active
+    // 2. Token is not expired (< 7 days old)
+    // 3. Token was not used yet (usedBy === null)
+    // 4. Device is NOT the owner's device (prevent self-activation)
 
     /* MOCK - Replace with Supabase:
-    const { data: referralCode, error } = await supabase
-      .from('referral_codes')
+    const { data: referralToken, error } = await supabase
+      .from('referral_tokens')
       .select('*')
-      .eq('code', code)
+      .eq('token_id', tokenId)
       .single()
 
-    if (error || !referralCode) {
-      return NextResponse.json({ valid: false, error: 'Code niet gevonden' }, { status: 404 })
+    if (error || !referralToken) {
+      return NextResponse.json({ valid: false, error: 'Token niet gevonden' }, { status: 404 })
     }
 
-    if (referralCode.status !== 'active') {
-      return NextResponse.json({ valid: false, error: 'Code is al gebruikt' }, { status: 400 })
+    if (referralToken.status !== 'active') {
+      return NextResponse.json({ valid: false, error: 'Token is al gebruikt' }, { status: 400 })
     }
 
-    if (new Date(referralCode.expires_at) < new Date()) {
-      return NextResponse.json({ valid: false, error: 'Code is verlopen' }, { status: 400 })
+    if (new Date(referralToken.expires_at) < new Date()) {
+      return NextResponse.json({ valid: false, error: 'Token is verlopen (max 7 dagen)' }, { status: 400 })
     }
 
-    if (referralCode.owner_device_id === deviceId) {
-      return NextResponse.json({ valid: false, error: 'Je kunt je eigen code niet gebruiken' }, { status: 400 })
+    if (referralToken.owner_device_id === deviceId) {
+      return NextResponse.json({ valid: false, error: 'Je kunt je eigen referral niet gebruiken' }, { status: 400 })
     }
     */
 
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       valid: true,
       discount: 2, // 2% discount
-      message: '🎉 Code geldig! Je krijgt 2% korting op je eerste maand!'
+      message: '🎉 Token geldig! Klik "Gebruik code" om 2% korting te activeren!'
     })
 
   } catch (error) {
