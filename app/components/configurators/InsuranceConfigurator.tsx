@@ -26,10 +26,13 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   const [houseNumber, setHouseNumber] = useState('')
   
   // Auto-specific fields
+  const [kenteken, setKenteken] = useState('')
+  const [meldcode, setMeldcode] = useState('')
   const [bonusMalus, setBonusMalus] = useState<number | ''>('')
   const [vehicleValue, setVehicleValue] = useState<number | ''>('')
   const [annualMileage, setAnnualMileage] = useState<number | ''>('')
   const [parkingLocation, setParkingLocation] = useState('')
+  const [hoofdbestuurder, setHoofdbestuurder] = useState('')
   const [youngDrivers, setYoungDrivers] = useState(false)
   const [businessUse, setBusinessUse] = useState(false)
   
@@ -43,22 +46,40 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   
   // Zorgverzekering fields
   const [bsn, setBsn] = useState('')
+  const [eigenRisico, setEigenRisico] = useState<number | ''>('')
+  const [polissoort, setPolissoort] = useState('')
+  const [betaalwijze, setBetaalwijze] = useState('')
+  const [gezinssamenstelling, setGezinssamenstelling] = useState('')
   const [additionalCoverage, setAdditionalCoverage] = useState('')
+  const [tandartsPakket, setTandartsPakket] = useState('')
+  const [fysioPakket, setFysioPakket] = useState('')
   
   // Woonverzekering fields
+  const [verzekeringType, setVerzekeringType] = useState('') // inboedel, opstal, beide
   const [propertyType, setPropertyType] = useState('')
   const [buildYear, setBuildYear] = useState<number | ''>('')
   const [propertyValue, setPropertyValue] = useState<number | ''>('')
+  const [herbouwwaarde, setHerbouwwaarde] = useState<number | ''>('')
   const [contentsValue, setContentsValue] = useState<number | ''>('')
+  const [inboedelwaarde, setInboedelwaarde] = useState<number | ''>('')
+  const [eigenRisicoWoon, setEigenRisicoWoon] = useState<number | ''>('')
+  const [beveiliging, setBeveiliging] = useState('')
   
   // Reisverzekering fields
+  const [reisverzekeringType, setReisverzekeringType] = useState('') // doorlopend, eenmalig
   const [numberOfPersons, setNumberOfPersons] = useState<number | ''>('')
   const [travelDuration, setTravelDuration] = useState<number | ''>('')
   const [destination, setDestination] = useState('')
   const [travelType, setTravelType] = useState('')
+  const [annulering, setAnnulering] = useState(false)
+  const [wintersport, setWintersport] = useState(false)
+  const [maxBedrag, setMaxBedrag] = useState<number | ''>('')
   
   // AVP fields
   const [familyComposition, setFamilyComposition] = useState('')
+  const [dekkingBedrag, setDekkingBedrag] = useState<number | ''>('')
+  const [rechtsbijstandAVP, setRechtsbijstandAVP] = useState(false)
+  const [motorrijtuigen, setMotorrijtuigen] = useState(false)
   const [specialActivities, setSpecialActivities] = useState(false)
   
   // General extras
@@ -88,20 +109,20 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
   }, [])
   
   const getTotalFields = () => {
-    let total = 3 // filterType, insuranceType, age (base fields for all)
+    let total = 2 // filterType, insuranceType (base fields for all)
     
     if (insuranceType === 'auto' || insuranceType === 'motor') {
-      total += 4 // coverage, bonusMalus, parkingLocation, postcode
+      total += 7 // coverage, kenteken, bonusMalus, parkingLocation, postcode, age, annualMileage
     } else if (insuranceType === 'leven') {
-      total += 5 // gender, smoker, insuredAmount, duration, insuranceForm
+      total += 6 // age, gender, smoker, insuredAmount, duration, insuranceForm
     } else if (insuranceType === 'zorg') {
-      total += 2 // bsn, postcode
+      total += 5 // age, postcode, eigenRisico, polissoort, gezinssamenstelling
     } else if (insuranceType === 'woon') {
-      total += 4 // propertyType, buildYear, propertyValue, postcode
+      total += 5 // verzekeringType, propertyType, buildYear, postcode, propertyValue/inboedelwaarde
     } else if (insuranceType === 'reis') {
-      total += 3 // numberOfPersons, travelDuration, destination
+      total += 4 // reisverzekeringType, numberOfPersons, travelDuration, destination
     } else if (insuranceType === 'aansprakelijkheid') {
-      total += 2 // familyComposition, postcode
+      total += 3 // familyComposition, postcode, dekkingBedrag
     }
     
     return total
@@ -155,11 +176,14 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           filterType,
           insuranceType,
           // Auto/Motor fields
+          kenteken,
+          meldcode,
           coverage,
           bonusMalus,
           parkingLocation,
           vehicleValue,
           annualMileage,
+          hoofdbestuurder,
           youngDrivers,
           businessUse,
           // Levensverzekering fields
@@ -171,19 +195,37 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           purpose,
           // Zorgverzekering fields
           bsn,
+          eigenRisico,
+          polissoort,
+          betaalwijze,
+          gezinssamenstelling,
           additionalCoverage,
+          tandartsPakket,
+          fysioPakket,
           // Woonverzekering fields
+          verzekeringType,
           propertyType,
           buildYear,
           propertyValue,
+          herbouwwaarde,
           contentsValue,
+          inboedelwaarde,
+          eigenRisicoWoon,
+          beveiliging,
           // Reisverzekering fields
+          reisverzekeringType,
           numberOfPersons,
           travelDuration,
           destination,
           travelType,
+          annulering,
+          wintersport,
+          maxBedrag,
           // AVP fields
           familyComposition,
+          dekkingBedrag,
+          rechtsbijstandAVP,
+          motorrijtuigen,
           specialActivities,
           // Common fields
           age,
@@ -230,11 +272,14 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       parameters: {
         filterType,
         insuranceType,
+        kenteken,
+        meldcode,
         coverage,
         bonusMalus,
         parkingLocation,
         vehicleValue,
         annualMileage,
+        hoofdbestuurder,
         youngDrivers,
         businessUse,
         gender,
@@ -244,16 +289,34 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         insuranceForm,
         purpose,
         bsn,
+        eigenRisico,
+        polissoort,
+        betaalwijze,
+        gezinssamenstelling,
         additionalCoverage,
+        tandartsPakket,
+        fysioPakket,
+        verzekeringType,
         propertyType,
         buildYear,
         propertyValue,
+        herbouwwaarde,
         contentsValue,
+        inboedelwaarde,
+        eigenRisicoWoon,
+        beveiliging,
+        reisverzekeringType,
         numberOfPersons,
         travelDuration,
         destination,
         travelType,
+        annulering,
+        wintersport,
+        maxBedrag,
         familyComposition,
+        dekkingBedrag,
+        rechtsbijstandAVP,
+        motorrijtuigen,
         specialActivities,
         age,
         postcode,
@@ -527,6 +590,35 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
             </div>
             
             <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kenteken</label>
+              <input 
+                type="text" 
+                value={kenteken} 
+                onChange={(e) => {
+                  const val = e.target.value.toUpperCase()
+                  setKenteken(val)
+                  validateAndMark('kenteken', val, (v) => v.length >= 6)
+                }} 
+                disabled={isLocked} 
+                placeholder="AB-123-C" 
+                maxLength={8}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('kenteken') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('kenteken') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('kenteken') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Vul het kenteken van je {insuranceType === 'auto' ? 'auto' : 'motor'} in</div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Leeftijd (jaar)</label>
               <input 
                 type="number" 
@@ -611,6 +703,37 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   transition: 'all 0.2s' 
                 }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Meer jaren = lagere premie</div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
+              <input 
+                type="number" 
+                min="1000" 
+                max="100000" 
+                step="1000"
+                value={annualMileage} 
+                onChange={(e) => {
+                  const val = e.target.value ? parseInt(e.target.value) : ''
+                  setAnnualMileage(val)
+                  if (val) validateAndMark('annualMileage', val, (v) => v >= 1000)
+                }} 
+                disabled={isLocked} 
+                placeholder="15000" 
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 14px', 
+                  border: validFields.has('annualMileage') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
+                  borderRadius: '10px', 
+                  fontSize: '14px', 
+                  fontWeight: 500, 
+                  color: '#111827', 
+                  background: isLocked ? '#F3F4F6' : (validFields.has('annualMileage') ? '#E6F4EE' : 'white'), 
+                  boxShadow: validFields.has('annualMileage') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
+                  cursor: isLocked ? 'not-allowed' : 'text', 
+                  transition: 'all 0.2s' 
+                }} />
+              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Gemiddeld: 10.000-20.000 km/jaar</div>
             </div>
 
             <div>
@@ -858,35 +981,58 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 }} />
             </div>
 
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Eigen risico 2026</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 385, label: '€ 385 (Verplicht)', desc: 'Standaard eigen risico'},
+                  {value: 500, label: '€ 500 (Vrijwillig)', desc: 'Lagere premie'},
+                  {value: 885, label: '€ 885 (Vrijwillig)', desc: 'Laagste premie'}
+                ].map(er => (
+                  <div key={er.value} onClick={() => { if (!isLocked) { setEigenRisico(er.value); validateAndMark('eigenRisico', er.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: eigenRisico === er.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: eigenRisico === er.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="eigenRisico" value={er.value} checked={eigenRisico === er.value} onChange={() => { if (!isLocked) { setEigenRisico(er.value); validateAndMark('eigenRisico', er.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{er.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{er.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Polissoort</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'natura', label: '🏥 Naturapolis', desc: 'Alleen bij contractzorg'},
+                  {value: 'restitutie', label: '💰 Restitutiepolis', desc: 'Vrije keuze zorgverlener'},
+                  {value: 'combinatie', label: '🔄 Combinatiepolis', desc: 'Mix van beide'}
+                ].map(p => (
+                  <div key={p.value} onClick={() => { if (!isLocked) { setPolissoort(p.value); validateAndMark('polissoort', p.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: polissoort === p.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: polissoort === p.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="polissoort" value={p.value} checked={polissoort === p.value} onChange={() => { if (!isLocked) { setPolissoort(p.value); validateAndMark('polissoort', p.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 500 }}>{p.label}</div>
+                      <div style={{ fontSize: '11px', color: '#6B7280' }}>{p.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Aanvullende dekking</label>
-              <select 
-                value={additionalCoverage} 
-                onChange={(e) => {
-                  const val = e.target.value
-                  setAdditionalCoverage(val)
-                  validateAndMark('additionalCoverage', val)
-                }} 
-                disabled={isLocked} 
-                style={{ 
-                  width: '100%', 
-                  padding: '10px 14px', 
-                  border: validFields.has('additionalCoverage') ? '2px solid #1E7F5C' : '2px solid #E5E7EB',
-                  borderRadius: '10px', 
-                  fontSize: '14px', 
-                  fontWeight: 500, 
-                  color: '#111827', 
-                  background: isLocked ? '#F3F4F6' : (validFields.has('additionalCoverage') ? '#E6F4EE' : 'white'), 
-                  boxShadow: validFields.has('additionalCoverage') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none',
-                  cursor: isLocked ? 'not-allowed' : 'pointer', 
-                  transition: 'all 0.2s' 
-                }}>
-                <option value="">Kies aanvullende dekking...</option>
-                <option value="basis">Basis aanvullend</option>
-                <option value="uitgebreid">Uitgebreid</option>
-                <option value="compleet">Compleet pakket</option>
-              </select>
-              <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Optioneel - voor extra dekking</div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gezinssamenstelling</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {[
+                  {value: 'alleenstaand', label: '👤 Alleenstaand'},
+                  {value: 'gezin', label: '👨‍👩‍👧‍👦 Gezin met kinderen'},
+                  {value: 'samenwonend', label: '👫 Samenwonend (2 personen)'}
+                ].map(g => (
+                  <div key={g.value} onClick={() => { if (!isLocked) { setGezinssamenstelling(g.value); validateAndMark('gezinssamenstelling', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gezinssamenstelling === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gezinssamenstelling === g.value ? '#1E7F5C' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                    <input type="radio" name="gezinssamenstelling" value={g.value} checked={gezinssamenstelling === g.value} onChange={() => { if (!isLocked) { setGezinssamenstelling(g.value); validateAndMark('gezinssamenstelling', g.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                    <div style={{ fontSize: '13px', fontWeight: 500 }}>{g.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
