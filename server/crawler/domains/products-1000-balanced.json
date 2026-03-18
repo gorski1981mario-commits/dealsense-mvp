@@ -1,0 +1,13 @@
+{
+  \"category\": \"products\",
+  \"description\": \"1000 NL domains - 50% GIGANCI + 50% NISZOWE (NO used items, NO food)\",
+  \"strategy\": \"Balanced approach - big brands for baseline, specialists for best deals\",
+  \"version\": \"2.0\",
+  \"totalDomains\": 1000,
+  \"balance\": {
+    \"giganci\": 500,
+    \"niszowe\": 500
+  },
+  \"excluded\": [\"marktplaats.nl\", \"2dehands.be\", \"vinted.nl\", \"united-wardrobe.com\", \"food stores\"],
+  \"domains\": []
+}
