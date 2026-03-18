@@ -15,7 +15,7 @@ export default function VeiligheidPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Lock size={20} strokeWidth={2} color="#10b981" /> Gegevensbeveiliging
+          <Lock size={20} strokeWidth={2} color="#15803d" /> Gegevensbeveiliging
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           We slaan geen persoonlijke gegevens op. Alle scans zijn anoniem en worden alleen in-memory verwerkt. 
@@ -25,7 +25,7 @@ export default function VeiligheidPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ShieldCheck size={20} strokeWidth={2} color="#10b981" /> GDPR Compliant
+          <ShieldCheck size={20} strokeWidth={2} color="#15803d" /> GDPR Compliant
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           We voldoen aan alle GDPR-richtlijnen. Je hebt altijd het recht om je gegevens in te zien, 
@@ -35,7 +35,7 @@ export default function VeiligheidPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ShieldCheck size={20} strokeWidth={2} color="#10b981" /> Anti-Scam Bescherming
+          <ShieldCheck size={20} strokeWidth={2} color="#15803d" /> Anti-Scam Bescherming
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           Onze TrustDelta-algoritme controleert alle winkels op betrouwbaarheid. We filteren automatisch 
@@ -48,7 +48,7 @@ export default function VeiligheidPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ShieldCheck size={20} strokeWidth={2} color="#10b981" /> Veilige Betalingen
+          <ShieldCheck size={20} strokeWidth={2} color="#15803d" /> Veilige Betalingen
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '16px' }}>
           Alle betalingen worden verwerkt via Stripe, een van de veiligste betalingsproviders ter wereld. 
@@ -58,7 +58,7 @@ export default function VeiligheidPage() {
 
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Mail size={20} strokeWidth={2} color="#10b981" /> Contact
+          <Mail size={20} strokeWidth={2} color="#15803d" /> Contact
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
           Vragen over privacy of veiligheid? Neem contact op via{' '}
@@ -85,3 +85,5 @@ export default function VeiligheidPage() {
     </div>
   )
 }
+
+

@@ -395,10 +395,10 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🛡️ Zilveren Kruis Basis', price: '€89/mnd', coverage: 'WA + Beperkt Casco', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🛡️ FBTO Compleet', price: '€112/mnd', coverage: 'All-risk dekking', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🛡️ Centraal Beheer Premium', price: '€135/mnd', coverage: 'All-risk + extra\'s', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}].map((ins, i) => (
-          <div key={i} style={{ background: ins.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${ins.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+          <div key={i} style={{ background: ins.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${ins.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{ins.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{ins.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{ins.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{ins.coverage}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
@@ -406,14 +406,14 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               <span>{ins.trust}</span>
               <span>{ins.score}</span>
             </div>
-            {ins.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{ins.badge}</span>}
+            {ins.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{ins.badge}</span>}
           </div>
         ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€96,12</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€96,12</div>
           <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €1.068 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
         </div>
       </div>
     )
@@ -475,11 +475,11 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€96,12</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€96,12</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={handlePayment} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={handlePayment} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>
@@ -493,18 +493,18 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
         {[{name: '🛡️ Zilveren Kruis Basis', price: '€89/mnd', coverage: 'WA + Beperkt Casco', rating: '⭐ 4.6/5 (8.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €420/jaar', url: 'https://www.zilverenkruis.nl', best: true}, {name: '🛡️ FBTO Compleet', price: '€112/mnd', coverage: 'All-risk dekking', rating: '⭐ 4.4/5 (5.891 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.fbto.nl'}, {name: '🛡️ Centraal Beheer Premium', price: '€135/mnd', coverage: 'All-risk + extra\'s', rating: '⭐ 4.5/5 (12.456 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.centraalbeheer.nl'}].map((ins, i) => (
-          <div key={i} style={{ background: ins.best ? '#E6F4EE' : 'white', border: `2px solid ${ins.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+          <div key={i} style={{ background: ins.best ? '#E6F4EE' : 'white', border: `2px solid ${ins.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{ins.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{ins.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{ins.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{ins.coverage}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
               <span>{ins.rating}</span>
               <span>{ins.trust}</span>
             </div>
-            {ins.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{ins.badge}</span>}
-            <button onClick={() => window.open(ins.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
+            {ins.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{ins.badge}</span>}
+            <button onClick={() => window.open(ins.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
           </div>
         ))}
       </div>
@@ -538,7 +538,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       {false && isLocked && configId && (
         <div style={{
           background: '#E6F4EE',
-          border: '1px solid #10b981',
+          border: '1px solid #15803d',
           borderRadius: '8px',
           padding: '12px',
           marginBottom: '16px',
@@ -547,9 +547,9 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           justifyContent: 'space-between'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Lock size={16} color="#10b981" />
+            <Lock size={16} color="#15803d" />
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#10b981' }}>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#15803d' }}>
                 Configuratie opgeslagen
               </div>
               <div style={{ fontSize: '11px', color: '#6B7280' }}>
@@ -569,7 +569,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 width: '36px',
                 height: '36px',
                 background: 'white',
-                border: '2px solid #10b981',
+                border: '2px solid #15803d',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
@@ -587,7 +587,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 justifyContent: 'center',
                 width: '36px',
                 height: '36px',
-                background: '#10b981',
+                background: '#15803d',
                 border: 'none',
                 borderRadius: '8px',
                 cursor: 'pointer',
@@ -628,7 +628,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
               style={{ 
                 width: '100%', 
                 padding: '10px 14px', 
-                border: validFields.has('insuranceType') ? '2px solid #10b981' : (touchedFields.has('insuranceType') ? '2px solid #F59E0B' : '2px solid #E5E7EB'),
+                border: validFields.has('insuranceType') ? '2px solid #15803d' : (touchedFields.has('insuranceType') ? '2px solid #F59E0B' : '2px solid #E5E7EB'),
                 borderRadius: '10px', 
                 fontSize: '14px', 
                 fontWeight: 500, 
@@ -674,7 +674,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                     alignItems: 'center', 
                     gap: '10px', 
                     padding: '10px 12px', 
-                    border: coverage === c.value ? '2px solid #10b981' : '2px solid #E5E7EB',
+                    border: coverage === c.value ? '2px solid #15803d' : '2px solid #E5E7EB',
                     borderRadius: '8px', 
                     cursor: isLocked ? 'not-allowed' : 'pointer', 
                     background: coverage === c.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), 
@@ -715,7 +715,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('kenteken') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('kenteken') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -745,7 +745,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('age') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('age') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -773,7 +773,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('postcode') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('postcode') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -802,7 +802,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('bonusMalus') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('bonusMalus') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -833,7 +833,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('annualMileage') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('annualMileage') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -859,7 +859,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('parkingLocation') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('parkingLocation') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -901,7 +901,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('age') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('age') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -920,7 +920,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'man', label: '👨 Man'},
                   {value: 'vrouw', label: '👩 Vrouw'}
                 ].map(g => (
-                  <div key={g.value} onClick={() => { if (!isLocked) { setGender(g.value); validateAndMark('gender', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gender === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gender === g.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={g.value} onClick={() => { if (!isLocked) { setGender(g.value); validateAndMark('gender', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gender === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gender === g.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="gender" value={g.value} checked={gender === g.value} onChange={() => { if (!isLocked) { setGender(g.value); validateAndMark('gender', g.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ fontSize: '13px', fontWeight: 500 }}>{g.label}</div>
                   </div>
@@ -935,7 +935,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'niet-roker', label: '🚭 Niet-roker', desc: 'Extra korting!'},
                   {value: 'roker', label: '🚬 Roker', desc: 'Hogere premie'}
                 ].map(s => (
-                  <div key={s.value} onClick={() => { if (!isLocked) { setSmoker(s.value); validateAndMark('smoker', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: smoker === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: smoker === s.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={s.value} onClick={() => { if (!isLocked) { setSmoker(s.value); validateAndMark('smoker', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: smoker === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: smoker === s.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="smoker" value={s.value} checked={smoker === s.value} onChange={() => { if (!isLocked) { setSmoker(s.value); validateAndMark('smoker', s.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{s.label}</div>
@@ -959,7 +959,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('insuredAmount') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('insuredAmount') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -995,7 +995,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('duration') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('duration') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1016,7 +1016,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'annuitair', label: '📉 Annuïtair dalend', desc: 'Voor annuïtaire hypotheek'},
                   {value: 'lineair', label: '📉 Lineair dalend', desc: 'Voor lineaire hypotheek'}
                 ].map(f => (
-                  <div key={f.value} onClick={() => { if (!isLocked) { setInsuranceForm(f.value); validateAndMark('insuranceForm', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: insuranceForm === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: insuranceForm === f.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={f.value} onClick={() => { if (!isLocked) { setInsuranceForm(f.value); validateAndMark('insuranceForm', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: insuranceForm === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: insuranceForm === f.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="insuranceForm" value={f.value} checked={insuranceForm === f.value} onChange={() => { if (!isLocked) { setInsuranceForm(f.value); validateAndMark('insuranceForm', f.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{f.label}</div>
@@ -1051,7 +1051,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('age') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('age') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1079,7 +1079,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('postcode') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('postcode') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1099,7 +1099,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 500, label: '€ 500 (Vrijwillig)', desc: 'Lagere premie'},
                   {value: 885, label: '€ 885 (Vrijwillig)', desc: 'Laagste premie'}
                 ].map(er => (
-                  <div key={er.value} onClick={() => { if (!isLocked) { setEigenRisico(er.value); validateAndMark('eigenRisico', er.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: eigenRisico === er.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: eigenRisico === er.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={er.value} onClick={() => { if (!isLocked) { setEigenRisico(er.value); validateAndMark('eigenRisico', er.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: eigenRisico === er.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: eigenRisico === er.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="eigenRisico" value={er.value} checked={eigenRisico === er.value} onChange={() => { if (!isLocked) { setEigenRisico(er.value); validateAndMark('eigenRisico', er.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{er.label}</div>
@@ -1118,7 +1118,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'restitutie', label: '💰 Restitutiepolis', desc: 'Vrije keuze zorgverlener'},
                   {value: 'combinatie', label: '🔄 Combinatiepolis', desc: 'Mix van beide'}
                 ].map(p => (
-                  <div key={p.value} onClick={() => { if (!isLocked) { setPolissoort(p.value); validateAndMark('polissoort', p.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: polissoort === p.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: polissoort === p.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={p.value} onClick={() => { if (!isLocked) { setPolissoort(p.value); validateAndMark('polissoort', p.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: polissoort === p.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: polissoort === p.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="polissoort" value={p.value} checked={polissoort === p.value} onChange={() => { if (!isLocked) { setPolissoort(p.value); validateAndMark('polissoort', p.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{p.label}</div>
@@ -1137,7 +1137,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'gezin', label: '👨‍👩‍👧‍👦 Gezin met kinderen'},
                   {value: 'samenwonend', label: '👫 Samenwonend (2 personen)'}
                 ].map(g => (
-                  <div key={g.value} onClick={() => { if (!isLocked) { setGezinssamenstelling(g.value); validateAndMark('gezinssamenstelling', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gezinssamenstelling === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gezinssamenstelling === g.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={g.value} onClick={() => { if (!isLocked) { setGezinssamenstelling(g.value); validateAndMark('gezinssamenstelling', g.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: gezinssamenstelling === g.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: gezinssamenstelling === g.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="gezinssamenstelling" value={g.value} checked={gezinssamenstelling === g.value} onChange={() => { if (!isLocked) { setGezinssamenstelling(g.value); validateAndMark('gezinssamenstelling', g.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ fontSize: '13px', fontWeight: 500 }}>{g.label}</div>
                   </div>
@@ -1159,7 +1159,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'koop', label: '🏠 Koopwoning', desc: 'Ik ben eigenaar'},
                   {value: 'huur', label: '🏘️ Huurwoning', desc: 'Ik huur de woning'}
                 ].map(t => (
-                  <div key={t.value} onClick={() => { if (!isLocked) { setPropertyType(t.value); validateAndMark('propertyType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: propertyType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: propertyType === t.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={t.value} onClick={() => { if (!isLocked) { setPropertyType(t.value); validateAndMark('propertyType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: propertyType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: propertyType === t.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="propertyType" value={t.value} checked={propertyType === t.value} onChange={() => { if (!isLocked) { setPropertyType(t.value); validateAndMark('propertyType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{t.label}</div>
@@ -1186,7 +1186,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('postcode') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('postcode') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1215,7 +1215,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('buildYear') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('buildYear') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1245,7 +1245,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('propertyValue') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('propertyValue') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1282,7 +1282,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('numberOfPersons') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('numberOfPersons') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1311,7 +1311,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('travelDuration') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('travelDuration') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1330,7 +1330,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'europa', label: '🇪🇺 Europa', desc: 'Binnen Europa'},
                   {value: 'wereld', label: '🌍 Wereldwijd', desc: 'Wereldwijde dekking'}
                 ].map(d => (
-                  <div key={d.value} onClick={() => { if (!isLocked) { setDestination(d.value); validateAndMark('destination', d.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: destination === d.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: destination === d.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={d.value} onClick={() => { if (!isLocked) { setDestination(d.value); validateAndMark('destination', d.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: destination === d.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: destination === d.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="destination" value={d.value} checked={destination === d.value} onChange={() => { if (!isLocked) { setDestination(d.value); validateAndMark('destination', d.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{d.label}</div>
@@ -1356,7 +1356,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                   {value: 'gezin', label: '👨‍👩‍👧‍� Gezin', desc: 'Voor gezin met kinderen'},
                   {value: 'samenwonend', label: '👫 Samenwonend', desc: 'Voor 2 personen'}
                 ].map(f => (
-                  <div key={f.value} onClick={() => { if (!isLocked) { setFamilyComposition(f.value); validateAndMark('familyComposition', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: familyComposition === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: familyComposition === f.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={f.value} onClick={() => { if (!isLocked) { setFamilyComposition(f.value); validateAndMark('familyComposition', f.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: familyComposition === f.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: familyComposition === f.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="familyComposition" value={f.value} checked={familyComposition === f.value} onChange={() => { if (!isLocked) { setFamilyComposition(f.value); validateAndMark('familyComposition', f.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500 }}>{f.label}</div>
@@ -1383,7 +1383,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
                 style={{ 
                   width: '100%', 
                   padding: '10px 14px', 
-                  border: validFields.has('postcode') ? '2px solid #10b981' : '2px solid #E5E7EB',
+                  border: validFields.has('postcode') ? '2px solid #15803d' : '2px solid #E5E7EB',
                   borderRadius: '10px', 
                   fontSize: '14px', 
                   fontWeight: 500, 
@@ -1403,7 +1403,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
           </div>
         )}
 
-        <button type="submit" disabled={isLocked || validFields.size < totalFields} style={{ width: '100%', padding: '14px', background: (isLocked || validFields.size < totalFields) ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || validFields.size < totalFields) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+        <button type="submit" disabled={isLocked || validFields.size < totalFields} style={{ width: '100%', padding: '14px', background: (isLocked || validFields.size < totalFields) ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || validFields.size < totalFields) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
           {isLocked ? 'Configuratie vergrendeld' : 'Vergelijk verzekeringen →'}
         </button>
         
@@ -1424,4 +1424,6 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     </div>
   )
 }
+
+
 

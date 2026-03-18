@@ -130,7 +130,7 @@ export default function AdminConfigurationsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '20px' }}>
           <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E5E7EB' }}>
             <div style={{ fontSize: '14px', color: '#6B7280', marginBottom: '8px' }}>Totaal configuraties</div>
-            <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981' }}>{configurations.length}</div>
+            <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d' }}>{configurations.length}</div>
           </div>
           <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E5E7EB' }}>
             <div style={{ fontSize: '14px', color: '#6B7280', marginBottom: '8px' }}>Vandaag</div>
@@ -194,7 +194,7 @@ export default function AdminConfigurationsPage() {
                       alignItems: 'center',
                       gap: '8px',
                       padding: '10px 16px',
-                      background: '#10b981',
+                      background: '#15803d',
                       color: 'white',
                       border: 'none',
                       borderRadius: '8px',
@@ -226,3 +226,5 @@ export default function AdminConfigurationsPage() {
     </div>
   )
 }
+
+

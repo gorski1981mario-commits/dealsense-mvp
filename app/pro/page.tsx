@@ -153,7 +153,7 @@ export default function ProPage() {
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#10b981'
+                e.currentTarget.style.borderColor = '#15803d'
                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.15)'
                 e.currentTarget.style.transform = 'translateY(-2px)'
               }}
@@ -164,12 +164,12 @@ export default function ProPage() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                <config.Icon size={32} strokeWidth={2} color="#10b981" />
+                <config.Icon size={32} strokeWidth={2} color="#15803d" />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
                     {config.title}
                   </div>
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#10b981', background: '#E6F4EE', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#15803d', background: '#E6F4EE', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
                     PRO
                   </div>
                 </div>
@@ -216,3 +216,5 @@ export default function ProPage() {
     </div>
   )
 }
+
+

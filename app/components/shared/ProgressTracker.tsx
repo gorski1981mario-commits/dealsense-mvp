@@ -18,7 +18,7 @@ export default function ProgressTracker({
       {/* Progress Container */}
       <div style={{
         background: '#E6F4EE',
-        border: '2px solid #10b981',
+        border: '2px solid #15803d',
         borderRadius: '12px',
         marginBottom: '24px'
       }}>
@@ -31,14 +31,14 @@ export default function ProgressTracker({
           <div style={{
             fontSize: '14px',
             fontWeight: 600,
-            color: '#10b981'
+            color: '#15803d'
           }}>
             Voortgang configuratie
           </div>
           <div style={{
             fontSize: '18px',
             fontWeight: 700,
-            color: '#10b981'
+            color: '#15803d'
           }}>
             {percentage}%
           </div>
@@ -51,7 +51,7 @@ export default function ProgressTracker({
           overflow: 'hidden'
         }}>
           <div style={{
-            background: 'linear-gradient(90deg, #10b981 0%, #15803d 100%)',
+            background: 'linear-gradient(90deg, #15803d 0%, #15803d 100%)',
             height: '100%',
             width: `${percentage}%`,
             transition: 'width 0.3s ease',
@@ -92,3 +92,5 @@ export default function ProgressTracker({
     </>
   )
 }
+
+

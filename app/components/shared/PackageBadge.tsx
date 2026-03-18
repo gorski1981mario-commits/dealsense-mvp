@@ -18,3 +18,5 @@ export default function PackageBadge({ type, label }: PackageBadgeProps) {
     </span>
   )
 }
+
+

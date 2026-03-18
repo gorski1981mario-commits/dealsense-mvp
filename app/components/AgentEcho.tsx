@@ -356,3 +356,5 @@ export default function AgentEcho({ packageType, userId }: AgentEchoProps) {
     </div>
   )
 }
+
+

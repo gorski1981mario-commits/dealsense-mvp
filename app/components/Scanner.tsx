@@ -197,7 +197,7 @@ export default function Scanner({ type }: ScannerProps) {
           style={{
             width: '100%',
             padding: '12px',
-            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            background: 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -276,3 +276,5 @@ export default function Scanner({ type }: ScannerProps) {
     </div>
   )
 }
+
+

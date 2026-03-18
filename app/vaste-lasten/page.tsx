@@ -70,7 +70,7 @@ export default function VasteLastenPage() {
               cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#10b981'
+              e.currentTarget.style.borderColor = '#15803d'
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(30, 127, 92, 0.15)'
               e.currentTarget.style.transform = 'translateY(-2px)'
             }}
@@ -81,12 +81,12 @@ export default function VasteLastenPage() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <config.Icon size={32} strokeWidth={2} color="#10b981" />
+              <config.Icon size={32} strokeWidth={2} color="#15803d" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
                   {config.title}
                 </div>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: config.package === 'PRO' ? '#10b981' : '#258b52', background: config.package === 'PRO' ? '#E6F4EE' : 'rgba(37,139,82,0.12)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                <div style={{ fontSize: '12px', fontWeight: 600, color: config.package === 'PRO' ? '#15803d' : '#258b52', background: config.package === 'PRO' ? '#E6F4EE' : 'rgba(37,139,82,0.12)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
                   {config.package}
                 </div>
               </div>
@@ -100,3 +100,5 @@ export default function VasteLastenPage() {
     </div>
   )
 }
+
+

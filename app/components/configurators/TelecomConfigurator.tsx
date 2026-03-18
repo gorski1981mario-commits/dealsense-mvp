@@ -145,10 +145,10 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '📱 KPN Compleet', price: '€45/mnd', plan: 'Onbeperkt + 100 Mbps', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 9.0', badge: 'BESTE DEAL', best: true}, {name: '📱 Ziggo All-in-One', price: '€52/mnd', plan: 'Mobiel + Internet + TV', rating: '⭐ 4.3/5', trust: '🛡️ 8/10', score: 'Score: 8.6'}, {name: '📱 T-Mobile Premium', price: '€58/mnd', plan: 'Onbeperkt 5G + 500 Mbps', rating: '⭐ 4.4/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((tel, i) => (
-          <div key={i} style={{ background: tel.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${tel.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+          <div key={i} style={{ background: tel.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${tel.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{tel.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{tel.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{tel.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{tel.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
@@ -156,14 +156,14 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
               <span>{tel.trust}</span>
               <span>{tel.score}</span>
             </div>
-            {tel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{tel.badge}</span>}
+            {tel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{tel.badge}</span>}
           </div>
         ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€48,60</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€48,60</div>
           <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €540 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
         </div>
       </div>
     )
@@ -174,11 +174,11 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€48,60</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€48,60</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>
@@ -191,18 +191,18 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
         {[{name: '📱 KPN Compleet', price: '€45/mnd', plan: 'Onbeperkt + 100 Mbps', rating: '⭐ 4.5/5 (12.456 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €156/jaar', url: 'https://www.kpn.com', best: true}, {name: '📱 Ziggo All-in-One', price: '€52/mnd', plan: 'Mobiel + Internet + TV', rating: '⭐ 4.3/5 (8.234 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.ziggo.nl'}, {name: '📱 T-Mobile Premium', price: '€58/mnd', plan: 'Onbeperkt 5G + 500 Mbps', rating: '⭐ 4.4/5 (9.871 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.t-mobile.nl'}].map((tel, i) => (
-          <div key={i} style={{ background: tel.best ? '#E6F4EE' : 'white', border: `2px solid ${tel.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+          <div key={i} style={{ background: tel.best ? '#E6F4EE' : 'white', border: `2px solid ${tel.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{tel.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{tel.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{tel.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{tel.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
               <span>{tel.rating}</span>
               <span>{tel.trust}</span>
             </div>
-            {tel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{tel.badge}</span>}
-            <button onClick={() => window.open(tel.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
+            {tel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{tel.badge}</span>}
+            <button onClick={() => window.open(tel.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
           </div>
         ))}
       </div>
@@ -229,17 +229,17 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       />
 
       {false && isLocked && configId && (
-        <div style={{ background: '#E6F4EE', border: '1px solid #10b981', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ background: '#E6F4EE', border: '1px solid #15803d', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Lock size={16} color="#10b981" />
+            <Lock size={16} color="#15803d" />
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#10b981' }}>Configuratie opgeslagen</div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#15803d' }}>Configuratie opgeslagen</div>
               <div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div>
             </div>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen om te wijzigen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #10b981', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>👆</button>
-            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#10b981', border: 'none', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}><Download size={18} color="white" /></button>
+            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen om te wijzigen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #15803d', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>👆</button>
+            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#15803d', border: 'none', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}><Download size={18} color="white" /></button>
           </div>
         </div>
       )}
@@ -259,7 +259,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Wat wil je vergelijken?</label>
-            <select value={serviceType} onChange={(e) => { const val = e.target.value; setServiceType(val); validateAndMark('serviceType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('serviceType') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('serviceType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('serviceType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={serviceType} onChange={(e) => { const val = e.target.value; setServiceType(val); validateAndMark('serviceType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('serviceType') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('serviceType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('serviceType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="">Kies dienst...</option>
               <option value="mobiel-internet">📱📡 Mobiel + Internet</option>
               <option value="mobiel">📱 Alleen mobiel</option>
@@ -276,7 +276,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Data per maand (GB)</label>
-              <input type="number" min="1" max="100" value={mobileData} onChange={(e) => { const val = parseInt(e.target.value); setMobileData(val); validateAndMark('mobileData', val, (v) => v > 0); }} disabled={isLocked} placeholder="10" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mobileData') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mobileData') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mobileData') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="number" min="1" max="100" value={mobileData} onChange={(e) => { const val = parseInt(e.target.value); setMobileData(val); validateAndMark('mobileData', val, (v) => v > 0); }} disabled={isLocked} placeholder="10" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mobileData') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mobileData') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mobileData') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Of kies onbeperkt hieronder</div>
             </div>
 
@@ -296,7 +296,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
                   {value: 1, label: '1 SIM-kaart', desc: 'Voor 1 persoon'},
                   {value: 2, label: '2 SIM-kaarten', desc: 'Voor 2 personen'}
                 ].map(s => (
-                  <div key={s.value} onClick={() => { if (!isLocked) { setNumberOfSims(s.value); validateAndMark('numberOfSims', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: numberOfSims === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: numberOfSims === s.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <div key={s.value} onClick={() => { if (!isLocked) { setNumberOfSims(s.value); validateAndMark('numberOfSims', s.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: numberOfSims === s.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: numberOfSims === s.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                     <input type="radio" name="numberOfSims" value={s.value} checked={numberOfSims === s.value} onChange={() => { if (!isLocked) { setNumberOfSims(s.value); validateAndMark('numberOfSims', s.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{s.label}</div>
@@ -316,7 +316,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
             
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Gewenste snelheid (Mbps)</label>
-              <select value={internetSpeed} onChange={(e) => { const val = parseInt(e.target.value); setInternetSpeed(val); validateAndMark('internetSpeed', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('internetSpeed') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('internetSpeed') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('internetSpeed') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+              <select value={internetSpeed} onChange={(e) => { const val = parseInt(e.target.value); setInternetSpeed(val); validateAndMark('internetSpeed', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('internetSpeed') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('internetSpeed') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('internetSpeed') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                 <option value="50">50 Mbps - Basis</option>
                 <option value="100">100 Mbps - Standaard</option>
                 <option value="200">200 Mbps - Snel</option>
@@ -327,11 +327,11 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode</label>
-              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="text" value={postcode} onChange={(e) => { const val = e.target.value; setPostcode(val); }} disabled={isLocked} placeholder="1234AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             </div>
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Huisnummer</label>
-              <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${houseNumber ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (houseNumber ? '#E6F4EE' : 'white'), boxShadow: houseNumber ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="text" value={houseNumber} onChange={(e) => { const val = e.target.value; setHouseNumber(val); }} disabled={isLocked} placeholder="123" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${houseNumber ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (houseNumber ? '#E6F4EE' : 'white'), boxShadow: houseNumber ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Voor beschikbaarheid glasvezel/kabel</div>
             </div>
           </div>
@@ -347,7 +347,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
               {value: tvChannels, setter: setTvChannels, label: '📺 TV pakket', desc: 'Digitale TV zenders'},
               {value: fixedPhone, setter: setFixedPhone, label: '☎️ Vaste telefonie', desc: 'Vaste lijn voor thuis'}
             ].map((item, i) => (
-              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #10b981' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+              <div key={i} onClick={() => { if (!isLocked) { item.setter(!item.value); } }} tabIndex={0} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: item.value ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
@@ -364,7 +364,7 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
           </div>
         )}
 
-        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
           {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk telecom aanbiedingen →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
@@ -380,4 +380,6 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
     </div>
   )
 }
+
+
 

@@ -30,7 +30,7 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
           gap: '12px', 
           padding: '12px 16px', 
           background: selectedFilter === 'cheapest' ? '#E6F4EE' : 'white',
-          border: selectedFilter === 'cheapest' ? '2px solid #10b981' : '2px solid #E5E7EB',
+          border: selectedFilter === 'cheapest' ? '2px solid #15803d' : '2px solid #E5E7EB',
           borderRadius: '10px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s',
@@ -62,7 +62,7 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
           gap: '12px', 
           padding: '12px 16px', 
           background: selectedFilter === 'balanced' ? '#E6F4EE' : 'white',
-          border: selectedFilter === 'balanced' ? '2px solid #10b981' : '2px solid #E5E7EB',
+          border: selectedFilter === 'balanced' ? '2px solid #15803d' : '2px solid #E5E7EB',
           borderRadius: '10px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s',
@@ -83,7 +83,7 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
               <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 700, 
-                color: '#10b981', 
+                color: '#15803d', 
                 background: '#E6F4EE', 
                 padding: '2px 8px', 
                 borderRadius: '6px'
@@ -102,7 +102,7 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
           gap: '12px', 
           padding: '12px 16px', 
           background: selectedFilter === 'quality' ? '#E6F4EE' : 'white',
-          border: selectedFilter === 'quality' ? '2px solid #10b981' : '2px solid #E5E7EB',
+          border: selectedFilter === 'quality' ? '2px solid #15803d' : '2px solid #E5E7EB',
           borderRadius: '10px',
           cursor: disabled ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s',
@@ -130,3 +130,5 @@ export default function FilterOptions({ selectedFilter, onFilterChange, disabled
     </div>
   )
 }
+
+

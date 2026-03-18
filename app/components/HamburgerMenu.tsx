@@ -312,7 +312,7 @@ export default function HamburgerMenu() {
             <h3 style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#10b981',
+              color: '#15803d',
               letterSpacing: '0.5px',
               marginBottom: '16px'
             }}>
@@ -333,7 +333,7 @@ export default function HamburgerMenu() {
               <button
                 onClick={() => handleItemClick('/packages')}
                 style={{
-                  background: '#10b981',
+                  background: '#15803d',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
@@ -353,7 +353,7 @@ export default function HamburgerMenu() {
             <h3 style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#10b981',
+              color: '#15803d',
               letterSpacing: '0.5px',
               marginBottom: '16px'
             }}>
@@ -365,7 +365,7 @@ export default function HamburgerMenu() {
               <div style={{
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#10b981',
+                color: '#15803d',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
                 textTransform: 'uppercase'
@@ -403,7 +403,7 @@ export default function HamburgerMenu() {
               <div style={{
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#10b981',
+                color: '#15803d',
                 letterSpacing: '0.5px',
                 marginBottom: '12px',
                 textTransform: 'uppercase'
@@ -444,8 +444,8 @@ export default function HamburgerMenu() {
                   lineHeight: '1.6'
                 }}>
                   <div style={{ marginBottom: '12px' }}>
-                    <div style={{ fontWeight: 600, color: '#10b981', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Star size={16} color="#10b981" strokeWidth={2} />
+                    <div style={{ fontWeight: 600, color: '#15803d', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Star size={16} color="#15803d" strokeWidth={2} />
                       PRO Pakket:
                     </div>
                     <div style={{ color: '#374151', paddingLeft: '12px' }}>
@@ -527,7 +527,7 @@ export default function HamburgerMenu() {
                 marginBottom: '8px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                  <span style={{ color: '#10b981', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
+                  <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
                   <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
                   <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
                 </div>
@@ -548,3 +548,5 @@ export default function HamburgerMenu() {
     </>
   )
 }
+
+

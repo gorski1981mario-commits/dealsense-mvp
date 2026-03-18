@@ -92,7 +92,7 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'opgeslagen': return '#F59E0B'
-      case 'betaald': return '#10b981'
+      case 'betaald': return '#15803d'
       case 'voltooid': return '#6B7280'
       default: return '#6B7280'
     }
@@ -140,7 +140,7 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
         </p>
         <button style={{
           padding: '12px 24px',
-          background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)',
+          background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
@@ -187,11 +187,11 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
             style={{
               padding: '8px 16px',
               background: selectedSector === sector ? '#E6F4EE' : 'white',
-              border: `2px solid ${selectedSector === sector ? '#10b981' : '#E5E7EB'}`,
+              border: `2px solid ${selectedSector === sector ? '#15803d' : '#E5E7EB'}`,
               borderRadius: '8px',
               fontSize: '13px',
               fontWeight: 600,
-              color: selectedSector === sector ? '#10b981' : '#6B7280',
+              color: selectedSector === sector ? '#15803d' : '#6B7280',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -275,7 +275,7 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
                   {config.paymentAmount && (
                     <div>
                       <span style={{ color: '#6B7280' }}>Betaald bedrag:</span>
-                      <div style={{ fontWeight: 600, color: '#10b981' }}>€{config.paymentAmount.toFixed(2)}</div>
+                      <div style={{ fontWeight: 600, color: '#15803d' }}>€{config.paymentAmount.toFixed(2)}</div>
                     </div>
                   )}
                 </div>
@@ -289,7 +289,7 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
                     flex: 1,
                     minWidth: '150px',
                     padding: '10px 16px',
-                    background: '#10b981',
+                    background: '#15803d',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -314,8 +314,8 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
                       minWidth: '150px',
                       padding: '10px 16px',
                       background: 'white',
-                      color: '#10b981',
-                      border: '2px solid #10b981',
+                      color: '#15803d',
+                      border: '2px solid #15803d',
                       borderRadius: '8px',
                       fontSize: '13px',
                       fontWeight: 600,
@@ -338,3 +338,5 @@ export default function MyConfigurations({ userId, packageType }: MyConfiguratio
     </div>
   )
 }
+
+

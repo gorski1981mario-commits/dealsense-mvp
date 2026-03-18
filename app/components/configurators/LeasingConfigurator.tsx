@@ -75,10 +75,10 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🚗 Athlon All-in', price: '€425/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🚗 LeasePlan Flex', price: '€465/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🚗 Alphabet Premium', price: '€495/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((lease, i) => (
-          <div key={i} style={{ background: lease.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${lease.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+          <div key={i} style={{ background: lease.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${lease.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{lease.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{lease.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{lease.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{lease.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
@@ -86,14 +86,14 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
               <span>{lease.trust}</span>
               <span>{lease.score}</span>
             </div>
-            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
+            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
           </div>
         ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€458,40</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€458,40</div>
           <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €5.100 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
         </div>
       </div>
     )
@@ -104,11 +104,11 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€458,40</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€458,40</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>
@@ -121,18 +121,18 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
         {[{name: '🚗 Athlon All-in', price: '€425/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.6/5 (9.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €840/jaar', url: 'https://www.athlon.com', best: true}, {name: '🚗 LeasePlan Flex', price: '€465/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.4/5 (7.891 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.leaseplan.com'}, {name: '🚗 Alphabet Premium', price: '€495/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.5/5 (8.456 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.alphabet.com'}].map((lease, i) => (
-          <div key={i} style={{ background: lease.best ? '#E6F4EE' : 'white', border: `2px solid ${lease.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+          <div key={i} style={{ background: lease.best ? '#E6F4EE' : 'white', border: `2px solid ${lease.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{lease.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{lease.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{lease.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{lease.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
               <span>{lease.rating}</span>
               <span>{lease.trust}</span>
             </div>
-            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
-            <button onClick={() => window.open(lease.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
+            {lease.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{lease.badge}</span>}
+            <button onClick={() => window.open(lease.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Bekijk aanbieding</button>
           </div>
         ))}
       </div>
@@ -148,11 +148,11 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
       <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />
 
       {false && isLocked && configId && (
-        <div style={{ background: '#E6F4EE', border: '1px solid #10b981', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#10b981" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#10b981' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
+        <div style={{ background: '#E6F4EE', border: '1px solid #15803d', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Lock size={16} color="#15803d" /><div><div style={{ fontSize: '13px', fontWeight: 600, color: '#15803d' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div></div>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #10b981', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
-            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#10b981', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
+            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #15803d', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
+            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#15803d', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
           </div>
         </div>
       )}
@@ -172,7 +172,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Type</label>
-            <select value={vehicleType} onChange={(e) => { const val = e.target.value; setVehicleType(val); validateAndMark('vehicleType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('vehicleType') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('vehicleType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('vehicleType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={vehicleType} onChange={(e) => { const val = e.target.value; setVehicleType(val); validateAndMark('vehicleType', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('vehicleType') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('vehicleType') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('vehicleType') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="">Kies type...</option>
               <option value="auto">🚗 Auto</option>
               <option value="elektrisch">⚡ Elektrische auto</option>
@@ -185,12 +185,12 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Merk (optioneel)</label>
-            <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} onFocus={() => setActiveField('brand')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Volkswagen, Tesla, BMW..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'brand' ? '2px solid #10b981' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'brand' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} onFocus={() => setActiveField('brand')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Volkswagen, Tesla, BMW..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'brand' ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'brand' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Model (optioneel)</label>
-            <input type="text" value={model} onChange={(e) => setModel(e.target.value)} onFocus={() => setActiveField('model')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Golf, Model 3, X5..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'model' ? '2px solid #10b981' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'model' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="text" value={model} onChange={(e) => setModel(e.target.value)} onFocus={() => setActiveField('model')} onBlur={() => setActiveField(null)} disabled={isLocked} placeholder="Bijv. Golf, Model 3, X5..." style={{ width: '100%', padding: '10px 14px', border: activeField === 'model' ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (activeField === 'model' ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
         </div>
 
@@ -200,17 +200,17 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Cataloguswaarde (€)</label>
-            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => { const val = parseInt(e.target.value); setAmount(val); validateAndMark('amount', val, (v) => v > 0); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('amount') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('amount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('amount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="10000" max="100000" step="1000" value={amount} onChange={(e) => { const val = parseInt(e.target.value); setAmount(val); validateAndMark('amount', val, (v) => v > 0); }} disabled={isLocked} placeholder="30000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('amount') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('amount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('amount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (maanden)</label>
-            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="12" max="60" step="12" value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} placeholder="48" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Kilometers per jaar</label>
-            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => { const val = parseInt(e.target.value); setKilometers(val); validateAndMark('kilometers', val, (v) => v > 0); }} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('kilometers') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('kilometers') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('kilometers') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="10000" max="50000" step="5000" value={kilometers} onChange={(e) => { const val = parseInt(e.target.value); setKilometers(val); validateAndMark('kilometers', val, (v) => v > 0); }} disabled={isLocked} placeholder="20000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('kilometers') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('kilometers') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('kilometers') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
         </div>
 
@@ -219,7 +219,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>3. Type leasing</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {[{value: 'operational', label: '💼 Operational Lease', desc: 'All-in, incl. onderhoud'}, {value: 'financial', label: '📊 Financial Lease', desc: 'Voertuig wordt eigendom'}].map(t => (
-              <div key={t.value} onClick={() => { if (!isLocked) { setLeasingType(t.value); validateAndMark('leasingType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: leasingType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: leasingType === t.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+              <div key={t.value} onClick={() => { if (!isLocked) { setLeasingType(t.value); validateAndMark('leasingType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: leasingType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: leasingType === t.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
                 <input type="radio" name="leasingType" value={t.value} checked={leasingType === t.value} onChange={() => { if (!isLocked) { setLeasingType(t.value); validateAndMark('leasingType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{t.label}</div>
@@ -235,7 +235,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>4. Extra services</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[{value: maintenance, setter: setMaintenance, label: '🔧 Onderhoud & reparaties'}, {value: insurance, setter: setInsurance, label: '🛡️ Verzekering (WA, Casco)'}, {value: tires, setter: setTires, label: '🛞 Banden (zomer & winter)'}, {value: fuelCard, setter: setFuelCard, label: '⛽ Tankpas'}].map((item, i) => (
-              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
+              <div key={i} onClick={() => !isLocked && item.setter(!item.value)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: item.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: item.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1 }}>
                 <input type="checkbox" checked={item.value} onChange={() => !isLocked && item.setter(!item.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{item.label}</label>
               </div>
@@ -249,7 +249,7 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
           </div>
         )}
 
-        <button type="submit" disabled={searching || isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (searching || isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+        <button type="submit" disabled={searching || isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (searching || isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (searching || isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
           {searching ? 'Zoeken & opslaan...' : (isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk leasing aanbiedingen →' : `Vul alle velden in (${progress}%)`))}  
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
@@ -265,4 +265,6 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
     </div>
   )
 }
+
+
 

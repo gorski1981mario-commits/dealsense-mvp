@@ -138,7 +138,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
           textAlign: 'center'
         }}>
           <div style={{ fontSize: '64px', marginBottom: '16px' }}>✅</div>
-          <div style={{ fontSize: '20px', fontWeight: 700, color: '#10B981', marginBottom: '8px' }}>
+          <div style={{ fontSize: '20px', fontWeight: 700, color: '#15803d', marginBottom: '8px' }}>
             Referral verzonden!
           </div>
           <div style={{ fontSize: '14px', color: '#6B7280' }}>
@@ -225,7 +225,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
               disabled={searching || !searchQuery.trim()}
               style={{
                 padding: '12px 20px',
-                background: searching ? '#9CA3AF' : '#10b981',
+                background: searching ? '#9CA3AF' : '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -259,7 +259,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
                   onClick={() => setSelectedUser(user)}
                   style={{
                     padding: '12px',
-                    border: `2px solid ${selectedUser?.id === user.id ? '#10b981' : '#E5E7EB'}`,
+                    border: `2px solid ${selectedUser?.id === user.id ? '#15803d' : '#E5E7EB'}`,
                     borderRadius: '8px',
                     cursor: 'pointer',
                     background: selectedUser?.id === user.id ? '#F0FDF4' : 'white',
@@ -287,7 +287,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
                     </div>
                   </div>
                   {selectedUser?.id === user.id && (
-                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#10B981', fontWeight: 600 }}>
+                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#15803d', fontWeight: 600 }}>
                       <Check size={14} style={{ display: 'inline', marginRight: '4px' }} />
                       Geselecteerd
                     </div>
@@ -323,7 +323,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
             style={{
               width: '100%',
               padding: '14px',
-              background: sending ? '#9CA3AF' : '#10B981',
+              background: sending ? '#9CA3AF' : '#15803d',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -350,3 +350,5 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
     </div>
   )
 }
+
+

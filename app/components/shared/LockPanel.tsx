@@ -20,7 +20,7 @@ export default function LockPanel({
   return (
     <div style={{
       background: '#E6F4EE',
-      border: '1px solid #10b981',
+      border: '1px solid #15803d',
       borderRadius: '8px',
       padding: '12px',
       marginBottom: '16px',
@@ -33,12 +33,12 @@ export default function LockPanel({
         alignItems: 'center',
         gap: '10px'
       }}>
-        <Lock size={16} color="#10b981" />
+        <Lock size={16} color="#15803d" />
         <div>
           <div style={{
             fontSize: '13px',
             fontWeight: 600,
-            color: '#10b981'
+            color: '#15803d'
           }}>
             Configuratie opgeslagen
           </div>
@@ -66,7 +66,7 @@ export default function LockPanel({
             width: '36px',
             height: '36px',
             background: 'white',
-            border: '2px solid #10b981',
+            border: '2px solid #15803d',
             borderRadius: '8px',
             cursor: 'pointer'
           }}
@@ -83,7 +83,7 @@ export default function LockPanel({
             justifyContent: 'center',
             width: '36px',
             height: '36px',
-            background: '#10b981',
+            background: '#15803d',
             border: 'none',
             borderRadius: '8px',
             cursor: 'pointer'
@@ -95,3 +95,5 @@ export default function LockPanel({
     </div>
   )
 }
+
+

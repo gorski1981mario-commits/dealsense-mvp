@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="nl">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="theme-color" content="#10b981" />
+        <meta name="theme-color" content="#15803d" />
         <title>DealSense.nl – AI aankoop assistent</title>
       </head>
       <body>
@@ -68,11 +68,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             color: '#6B7280'
           }}>
             © 2026 DealSense.nl | {' '}
-            <a href="/voorwaarden" style={{ color: '#10b981', textDecoration: 'none' }}>
+            <a href="/voorwaarden" style={{ color: '#15803d', textDecoration: 'none' }}>
               Algemene voorwaarden
             </a>
             {' '} | {' '}
-            <a href="/privacy" style={{ color: '#10b981', textDecoration: 'none' }}>
+            <a href="/privacy" style={{ color: '#15803d', textDecoration: 'none' }}>
               Privacy
             </a>
           </div>
@@ -101,3 +101,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   )
 }
+
+

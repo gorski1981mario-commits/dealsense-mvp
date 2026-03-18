@@ -87,10 +87,10 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🏠 ING Hypotheek', price: '3.2% rente', plan: '€350.000 | 30 jaar | €1.512/mnd', rating: '⭐ 4.7/5', trust: '🛡️ 9/10', score: 'Score: 9.3', badge: 'BESTE DEAL', best: true}, {name: '🏠 Rabobank Woonhypotheek', price: '3.5% rente', plan: '€350.000 | 30 jaar | €1.571/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}, {name: '🏠 ABN AMRO Hypotheek', price: '3.8% rente', plan: '€350.000 | 30 jaar | €1.629/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}].map((mtg, i) => (
-          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${mtg.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${mtg.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{mtg.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{mtg.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{mtg.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{mtg.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
@@ -98,14 +98,14 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
               <span>{mtg.trust}</span>
               <span>{mtg.score}</span>
             </div>
-            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
+            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
           </div>
         ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€1.632,96</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€1.632,96</div>
           <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €18.144 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
+          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
         </div>
       </div>
     )
@@ -116,11 +116,11 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
       <div>
         <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #10b981', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
           <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981', margin: '12px 0' }}>€1.632,96</div>
+          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€1.632,96</div>
           <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>9% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
+          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
         </div>
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
       </div>
@@ -133,18 +133,18 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Je hebt nu toegang tot de 3 beste deals</p>
         {[{name: '🏠 ING Hypotheek', price: '3.2% rente', plan: '€350.000 | 30 jaar | €1.512/mnd', rating: '⭐ 4.7/5 (22.234 reviews)', trust: '🛡️ Betrouwbaar 9/10', badge: 'BESTE DEAL - BESPAAR €4.212/jaar', url: 'https://www.ing.nl', best: true}, {name: '🏠 Rabobank Woonhypotheek', price: '3.5% rente', plan: '€350.000 | 30 jaar | €1.571/mnd', rating: '⭐ 4.5/5 (18.891 reviews)', trust: '🛡️ Betrouwbaar 9/10', url: 'https://www.rabobank.nl'}, {name: '🏠 ABN AMRO Hypotheek', price: '3.8% rente', plan: '€350.000 | 30 jaar | €1.629/mnd', rating: '⭐ 4.6/5 (20.456 reviews)', trust: '🛡️ Betrouwbaar 8/10', url: 'https://www.abnamro.nl'}].map((mtg, i) => (
-          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : 'white', border: `2px solid ${mtg.best ? '#10b981' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+          <div key={i} style={{ background: mtg.best ? '#E6F4EE' : 'white', border: `2px solid ${mtg.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{mtg.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#10b981' }}>{mtg.price}</div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{mtg.price}</div>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{mtg.plan}</div>
             <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
               <span>{mtg.rating}</span>
               <span>{mtg.trust}</span>
             </div>
-            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#10b981', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
-            <button onClick={() => window.open(mtg.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Aanvragen</button>
+            {mtg.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{mtg.badge}</span>}
+            <button onClick={() => window.open(mtg.url, '_blank')} style={{ width: '100%', marginTop: '12px', padding: '10px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>🌐 Aanvragen</button>
           </div>
         ))}
       </div>
@@ -160,14 +160,14 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
       <LockPanel isLocked={isLocked} configId={configId} onUnlock={handleUnlockConfiguration} onDownloadPDF={handleDownloadPDF} />
 
       {false && isLocked && configId && (
-        <div style={{ background: '#E6F4EE', border: '1px solid #10b981', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ background: '#E6F4EE', border: '1px solid #15803d', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Lock size={16} color="#10b981" />
-            <div><div style={{ fontSize: '13px', fontWeight: 600, color: '#10b981' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div>
+            <Lock size={16} color="#15803d" />
+            <div><div style={{ fontSize: '13px', fontWeight: 600, color: '#15803d' }}>Configuratie opgeslagen</div><div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {configId}</div></div>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #10b981', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
-            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#10b981', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
+            <button type="button" onClick={handleUnlockConfiguration} title="Ontgrendelen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: 'white', border: '2px solid #15803d', borderRadius: '8px', cursor: 'pointer' }}>👆</button>
+            <button type="button" onClick={handleDownloadPDF} title="Download PDF" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', background: '#15803d', border: 'none', borderRadius: '8px', cursor: 'pointer' }}><Download size={18} color="white" /></button>
           </div>
         </div>
       )}
@@ -187,12 +187,12 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Waarde woning (€)</label>
-            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => { const val = parseInt(e.target.value); setHouseValue(val); validateAndMark('houseValue', val, (v) => v > 0); }} disabled={isLocked} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('houseValue') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('houseValue') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('houseValue') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="100000" max="2000000" step="10000" value={houseValue} onChange={(e) => { const val = parseInt(e.target.value); setHouseValue(val); validateAndMark('houseValue', val, (v) => v > 0); }} disabled={isLocked} placeholder="350000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('houseValue') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('houseValue') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('houseValue') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hypotheekbedrag (€)</label>
-            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => { const val = parseInt(e.target.value); setMortgageAmount(val); validateAndMark('mortgageAmount', val, (v) => v > 0); }} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mortgageAmount') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mortgageAmount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mortgageAmount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="50000" max="1500000" step="10000" value={mortgageAmount} onChange={(e) => { const val = parseInt(e.target.value); setMortgageAmount(val); validateAndMark('mortgageAmount', val, (v) => v > 0); }} disabled={isLocked} placeholder="250000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('mortgageAmount') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('mortgageAmount') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('mortgageAmount') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             {typeof mortgageAmount === 'number' && typeof houseValue === 'number' && houseValue > 0 && (
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Loan-to-Value: {Math.round((mortgageAmount / houseValue) * 100)}%</div>
             )}
@@ -200,7 +200,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Looptijd (jaren)</label>
-            <select value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={duration} onChange={(e) => { const val = parseInt(e.target.value); setDuration(val); validateAndMark('duration', val, (v) => v > 0); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('duration') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('duration') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('duration') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="">Kies looptijd...</option>
               <option value="10">10 jaar</option>
               <option value="15">15 jaar</option>
@@ -221,7 +221,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
               {value: 'lineair', label: '📉 Lineair', desc: 'Dalende maandlasten'},
               {value: 'aflossingsvrij', label: '💰 Aflossingsvrij', desc: 'Alleen rente betalen'}
             ].map(t => (
-              <div key={t.value} onClick={() => { if (!isLocked) { setMortgageType(t.value); validateAndMark('mortgageType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: mortgageType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: mortgageType === t.value ? '#10b981' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+              <div key={t.value} onClick={() => { if (!isLocked) { setMortgageType(t.value); validateAndMark('mortgageType', t.value); } }} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: mortgageType === t.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), borderColor: mortgageType === t.value ? '#15803d' : '#E5E7EB', opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                 <input type="radio" name="mortgageType" value={t.value} checked={mortgageType === t.value} onChange={() => { if (!isLocked) { setMortgageType(t.value); validateAndMark('mortgageType', t.value); } }} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{t.label}</div>
@@ -238,12 +238,12 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Bruto jaarinkomen (€)</label>
-            <input type="number" min="20000" max="200000" step="5000" value={income} onChange={(e) => { const val = parseInt(e.target.value); setIncome(val); validateAndMark('income', val, (v) => v > 0); }} disabled={isLocked} placeholder="50000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('income') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('income') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('income') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="20000" max="200000" step="5000" value={income} onChange={(e) => { const val = parseInt(e.target.value); setIncome(val); validateAndMark('income', val, (v) => v > 0); }} disabled={isLocked} placeholder="50000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('income') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('income') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('income') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Partner inkomen (€, optioneel)</label>
-            <input type="number" min="0" max="200000" step="5000" value={partnerIncome} onChange={(e) => setPartnerIncome(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof partnerIncome === 'number' && partnerIncome > 0 ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof partnerIncome === 'number' && partnerIncome > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof partnerIncome === 'number' && partnerIncome > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="number" min="0" max="200000" step="5000" value={partnerIncome} onChange={(e) => setPartnerIncome(parseInt(e.target.value))} disabled={isLocked} placeholder="0" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof partnerIncome === 'number' && partnerIncome > 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof partnerIncome === 'number' && partnerIncome > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof partnerIncome === 'number' && partnerIncome > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
             {typeof income === 'number' && typeof partnerIncome === 'number' && (
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Totaal inkomen: €{(income + partnerIncome).toLocaleString()}</div>
             )}
@@ -256,7 +256,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Hoelang wil je de rente vastzetten?</label>
-            <select value={fixedRate} onChange={(e) => { const val = e.target.value; setFixedRate(val); validateAndMark('fixedRate', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('fixedRate') ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('fixedRate') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('fixedRate') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+            <select value={fixedRate} onChange={(e) => { const val = e.target.value; setFixedRate(val); validateAndMark('fixedRate', val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${validFields.has('fixedRate') ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('fixedRate') ? '#E6F4EE' : 'white'), boxShadow: validFields.has('fixedRate') ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
               <option value="">Kies rentevaste periode...</option>
               <option value="1">1 jaar</option>
               <option value="5">5 jaar</option>
@@ -274,7 +274,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           
           <div style={{ marginBottom: '14px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Postcode woning</label>
-            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} disabled={isLocked} placeholder="1234 AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            <input type="text" value={postcode} onChange={(e) => setPostcode(e.target.value)} disabled={isLocked} placeholder="1234 AB" maxLength={7} style={{ width: '100%', padding: '10px 14px', border: `2px solid ${postcode ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (postcode ? '#E6F4EE' : 'white'), boxShadow: postcode ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -283,7 +283,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
               {value: refinancing, setter: setRefinancing, label: '🔄 Oversluiten', desc: 'Ik wil mijn huidige hypotheek oversluiten'},
               {value: nhg, setter: setNhg, label: '🛡️ NHG', desc: 'Nationale Hypotheek Garantie (tot €435.000)'}
             ].map((item, i) => (
-              <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#10b981' : '#E5E7EB' }}>
+              <div key={i} onClick={() => item.setter(!item.value)} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '10px 12px', border: '2px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', background: item.value ? '#E6F4EE' : 'white', borderColor: item.value ? '#15803d' : '#E5E7EB' }}>
                 <input type="checkbox" checked={item.value} onChange={() => item.setter(!item.value)} style={{ width: '16px', height: '16px', cursor: 'pointer', marginTop: '2px' }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{item.label}</div>
@@ -296,7 +296,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           {refinancing && (
             <div style={{ marginTop: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Restschuld huidige hypotheek (€)</label>
-              <input type="number" min="0" max="1500000" step="10000" value={currentMortgageDebt} onChange={(e) => setCurrentMortgageDebt(parseInt(e.target.value))} disabled={isLocked} placeholder="200000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#10b981' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+              <input type="number" min="0" max="1500000" step="10000" value={currentMortgageDebt} onChange={(e) => setCurrentMortgageDebt(parseInt(e.target.value))} disabled={isLocked} placeholder="200000" style={{ width: '100%', padding: '10px 14px', border: `2px solid ${typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '#E6F4EE' : 'white'), boxShadow: typeof currentMortgageDebt === 'number' && currentMortgageDebt > 0 ? '0 0 0 3px rgba(30, 127, 92, 0.1)' : 'none', cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
               <div style={{ fontSize: '11px', color: '#6B7280', marginTop: '4px' }}>Hoeveel moet je nog afbetalen op je huidige hypotheek?</div>
             </div>
           )}
@@ -308,7 +308,7 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
           </div>
         )}
 
-        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #10b981 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
+        <button type="submit" disabled={isLocked || progress !== 100} style={{ width: '100%', padding: '14px', background: (isLocked || progress !== 100) ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: (isLocked || progress !== 100) ? 'not-allowed' : 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>
           {isLocked ? 'Configuratie vergrendeld' : (progress === 100 ? 'Vergelijk hypotheken →' : `Vul alle velden in (${progress}%)`)}
         </button>
         {isLocked && <div style={{ marginTop: '12px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>👆 Klik op het vinger-icoon hierboven om te wijzigen</div>}
@@ -324,4 +324,6 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
     </div>
   )
 }
+
+
 

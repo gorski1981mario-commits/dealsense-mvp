@@ -24,7 +24,7 @@ const packages: Package[] = [
       '⚠️ Na 3 scans: 10% commissie op besparingen',
       '🎁 Referral: deel je unieke code, vrienden krijgen 2% korting op hun eerste aankoop, jij krijgt 2% korting bij verlenging - win-win!'
     ],
-    color: '#10b981'
+    color: '#15803d'
   },
   {
     id: 'plus',
@@ -40,7 +40,7 @@ const packages: Package[] = [
       '✓ Echo - AI productadvies & garanties',
       '🎁 Referral PLUS2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
-    color: '#10b981'
+    color: '#15803d'
   },
   {
     id: 'pro',
@@ -56,7 +56,7 @@ const packages: Package[] = [
       '✓ Echo - volledige AI assistent',
       '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
     ],
-    color: '#10b981'
+    color: '#15803d'
   },
   {
     id: 'finance',
@@ -74,7 +74,7 @@ const packages: Package[] = [
       '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
       '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
     ],
-    color: '#10b981'
+    color: '#15803d'
   }
 ]
 
@@ -244,8 +244,8 @@ export default function PricingAccordion() {
                           marginTop: '8px',
                           padding: '10px',
                           background: 'white',
-                          color: '#10b981',
-                          border: '2px solid #10b981',
+                          color: '#15803d',
+                          border: '2px solid #15803d',
                           borderRadius: '8px',
                           fontSize: '13px',
                           fontWeight: 600,
@@ -274,7 +274,7 @@ export default function PricingAccordion() {
       <div style={{
         marginTop: '32px',
         padding: '24px',
-        background: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)',
+        background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
         borderRadius: '16px',
         textAlign: 'center',
         color: 'white'
@@ -298,7 +298,7 @@ export default function PricingAccordion() {
         fontSize: '13px',
         color: '#64748b'
       }}>
-        <a href="/voorwaarden" style={{ color: '#10b981', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
+        <a href="/voorwaarden" style={{ color: '#15803d', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
           Algemene Voorwaarden
         </a>
         <div>
@@ -308,3 +308,5 @@ export default function PricingAccordion() {
     </div>
   )
 }
+
+

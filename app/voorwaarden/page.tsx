@@ -114,7 +114,7 @@ export default function VoorwaardenPage() {
           (scans hebt uitgevoerd) of expliciet hebt verzocht om directe toegang.
         </p>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          Voor herroeping neem je contact op via <a href="mailto:info@dealsense.nl" style={{ color: '#10b981', textDecoration: 'underline' }}>info@dealsense.nl</a>. 
+          Voor herroeping neem je contact op via <a href="mailto:info@dealsense.nl" style={{ color: '#15803d', textDecoration: 'underline' }}>info@dealsense.nl</a>. 
           Restitutie vindt plaats binnen 14 dagen.
         </p>
       </div>
@@ -134,7 +134,7 @@ export default function VoorwaardenPage() {
           <li>Je hebt recht op inzage, correctie en verwijdering van je gegevens</li>
         </ul>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          Zie onze <a href="/veiligheid" style={{ color: '#10b981', textDecoration: 'underline' }}>Privacy & Veiligheid pagina</a> voor meer informatie.
+          Zie onze <a href="/veiligheid" style={{ color: '#15803d', textDecoration: 'underline' }}>Privacy & Veiligheid pagina</a> voor meer informatie.
         </p>
       </div>
 
@@ -361,8 +361,8 @@ export default function VoorwaardenPage() {
           Voor vragen, klachten of opmerkingen over deze voorwaarden kun je contact met ons opnemen:
         </p>
         <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', marginBottom: '12px' }}>
-          <li>Algemene vragen: <a href="mailto:info@dealsense.nl" style={{ color: '#10b981', textDecoration: 'underline' }}>info@dealsense.nl</a></li>
-          <li>Privacy gerelateerd: <a href="mailto:privacy@dealsense.nl" style={{ color: '#10b981', textDecoration: 'underline' }}>privacy@dealsense.nl</a></li>
+          <li>Algemene vragen: <a href="mailto:info@dealsense.nl" style={{ color: '#15803d', textDecoration: 'underline' }}>info@dealsense.nl</a></li>
+          <li>Privacy gerelateerd: <a href="mailto:privacy@dealsense.nl" style={{ color: '#15803d', textDecoration: 'underline' }}>privacy@dealsense.nl</a></li>
         </ul>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
           We streven ernaar om binnen 48 uur te reageren op alle vragen.
@@ -388,3 +388,5 @@ export default function VoorwaardenPage() {
     </div>
   )
 }
+
+

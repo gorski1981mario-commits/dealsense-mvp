@@ -104,7 +104,7 @@ export default function MyConfigurationsPage() {
             border: '1px solid #E5E7EB' 
           }}>
             <div style={{ fontSize: '14px', color: '#6B7280', marginBottom: '8px' }}>Totaal configuraties</div>
-            <div style={{ fontSize: '32px', fontWeight: 700, color: '#10b981' }}>{configurations.length}</div>
+            <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d' }}>{configurations.length}</div>
           </div>
           <div style={{ 
             background: 'transparent', 
@@ -244,7 +244,7 @@ export default function MyConfigurationsPage() {
                           borderRadius: '6px',
                           fontSize: '11px',
                           fontWeight: 600,
-                          color: '#10b981'
+                          color: '#15803d'
                         }}>
                           <Lock size={12} />
                           Vergrendeld
@@ -275,7 +275,7 @@ export default function MyConfigurationsPage() {
                       alignItems: 'center',
                       gap: '8px',
                       padding: '10px 16px',
-                      background: '#10b981',
+                      background: '#15803d',
                       color: 'white',
                       border: 'none',
                       borderRadius: '8px',
@@ -307,3 +307,5 @@ export default function MyConfigurationsPage() {
     </div>
   )
 }
+
+

@@ -3,3 +3,5 @@ import SubscriptionsConfigurator from '../components/configurators/Subscriptions
 export default function SubscriptionsPage() {
   return <SubscriptionsConfigurator packageType="pro" />
 }
+
+

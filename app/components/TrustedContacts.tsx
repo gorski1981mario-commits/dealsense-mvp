@@ -215,7 +215,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
             style={{
               width: '100%',
               padding: '12px',
-              background: '#10b981',
+              background: '#15803d',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -238,7 +238,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
             padding: '16px',
             background: '#F0FDF4',
             borderRadius: '8px',
-            border: '2px solid #10B981'
+            border: '2px solid #15803d'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 600, color: '#065F46', marginBottom: '12px' }}>
               Nieuw Contact
@@ -275,9 +275,9 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
                     onClick={() => setNewContact({ ...newContact, relationship: rel })}
                     style={{
                       padding: '8px',
-                      background: newContact.relationship === rel ? '#10B981' : 'white',
+                      background: newContact.relationship === rel ? '#15803d' : 'white',
                       color: newContact.relationship === rel ? 'white' : '#065F46',
-                      border: `1px solid ${newContact.relationship === rel ? '#10B981' : '#D1FAE5'}`,
+                      border: `1px solid ${newContact.relationship === rel ? '#15803d' : '#D1FAE5'}`,
                       borderRadius: '6px',
                       fontSize: '11px',
                       fontWeight: 600,
@@ -331,7 +331,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
                 style={{
                   flex: 1,
                   padding: '10px',
-                  background: (saving || !newContact.name || !newContact.relationship) ? '#9CA3AF' : '#10B981',
+                  background: (saving || !newContact.name || !newContact.relationship) ? '#9CA3AF' : '#15803d',
                   color: 'white',
                   border: 'none',
                   borderRadius: '6px',
@@ -376,3 +376,5 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
     </div>
   )
 }
+
+

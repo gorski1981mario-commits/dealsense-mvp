@@ -74,7 +74,7 @@ Of klik hier: ${shareUrl}
       padding: '20px',
       background: '#F0FDF4',
       borderRadius: '12px',
-      border: '2px solid #10B981',
+      border: '2px solid #15803d',
       marginTop: '20px'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '16px' }}>
@@ -189,7 +189,7 @@ Of klik hier: ${shareUrl}
               onClick={handleNativeShare}
               style={{
                 padding: '12px',
-                background: '#10B981',
+                background: '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -215,9 +215,9 @@ Of klik hier: ${shareUrl}
         style={{
           width: '100%',
           padding: '12px',
-          background: copied ? '#10B981' : 'white',
+          background: copied ? '#15803d' : 'white',
           color: copied ? 'white' : '#065F46',
-          border: `2px solid ${copied ? '#10B981' : '#D1FAE5'}`,
+          border: `2px solid ${copied ? '#15803d' : '#D1FAE5'}`,
           borderRadius: '8px',
           fontSize: '14px',
           fontWeight: 600,
@@ -262,3 +262,5 @@ Of klik hier: ${shareUrl}
     </div>
   )
 }
+
+

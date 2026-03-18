@@ -191,7 +191,7 @@ export default function SettingsPage() {
                   width: '44px',
                   height: '24px',
                   borderRadius: '12px',
-                  background: emailNotifications ? '#10b981' : '#E5E7EB',
+                  background: emailNotifications ? '#15803d' : '#E5E7EB',
                   border: 'none',
                   cursor: 'pointer',
                   position: 'relative',
@@ -232,7 +232,7 @@ export default function SettingsPage() {
                   width: '44px',
                   height: '24px',
                   borderRadius: '12px',
-                  background: newDeals ? '#10b981' : '#E5E7EB',
+                  background: newDeals ? '#15803d' : '#E5E7EB',
                   border: 'none',
                   cursor: 'pointer',
                   position: 'relative',
@@ -273,7 +273,7 @@ export default function SettingsPage() {
                   width: '44px',
                   height: '24px',
                   borderRadius: '12px',
-                  background: priceDrops ? '#10b981' : '#E5E7EB',
+                  background: priceDrops ? '#15803d' : '#E5E7EB',
                   border: 'none',
                   cursor: 'pointer',
                   position: 'relative',
@@ -315,7 +315,7 @@ export default function SettingsPage() {
                   width: '44px',
                   height: '24px',
                   borderRadius: '12px',
-                  background: ghostModeAlerts ? '#10b981' : '#E5E7EB',
+                  background: ghostModeAlerts ? '#15803d' : '#E5E7EB',
                   border: 'none',
                   cursor: 'pointer',
                   position: 'relative',
@@ -360,7 +360,7 @@ export default function SettingsPage() {
             background: 'transparent'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '8px' }}>
-              Huidig pakket: <span style={{ color: '#10b981' }}>{packageNames[userPackage]}</span>
+              Huidig pakket: <span style={{ color: '#15803d' }}>{packageNames[userPackage]}</span>
             </div>
             <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '4px' }}>
               Prijs: {packagePrices[userPackage]}
@@ -373,7 +373,7 @@ export default function SettingsPage() {
                 <button 
                   onClick={() => router.push('/packages')}
                   style={{
-                    background: '#10b981',
+                    background: '#15803d',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -440,7 +440,7 @@ export default function SettingsPage() {
                       width: '44px',
                       height: '24px',
                       borderRadius: '12px',
-                      background: biometricEnabled ? '#10b981' : '#E5E7EB',
+                      background: biometricEnabled ? '#15803d' : '#E5E7EB',
                       border: 'none',
                       cursor: 'pointer',
                       position: 'relative',
@@ -509,7 +509,7 @@ export default function SettingsPage() {
                     onClick={() => setShowBackupCodes(!showBackupCodes)}
                     style={{
                       fontSize: '13px',
-                      color: '#10b981',
+                      color: '#15803d',
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
@@ -638,7 +638,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -663,7 +663,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -688,7 +688,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -713,7 +713,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -738,7 +738,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -763,7 +763,7 @@ export default function SettingsPage() {
               </div>
               <button style={{
                 fontSize: '13px',
-                color: '#10b981',
+                color: '#15803d',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer'
@@ -783,7 +783,7 @@ export default function SettingsPage() {
             gap: '2px'
           }}>
             <span style={{
-              color: '#10b981',
+              color: '#15803d',
               fontWeight: 700,
               fontSize: '20px',
               lineHeight: 1
@@ -844,7 +844,7 @@ export default function SettingsPage() {
                       width: '44px',
                       height: '24px',
                       borderRadius: '12px',
-                      background: echoNotifications ? '#10b981' : '#E5E7EB',
+                      background: echoNotifications ? '#15803d' : '#E5E7EB',
                       border: 'none',
                       cursor: 'pointer',
                       position: 'relative',
@@ -886,7 +886,7 @@ export default function SettingsPage() {
                     <div style={{
                       width: `${echoLimit > 0 ? (echoUsed / echoLimit) * 100 : 0}%`,
                       height: '100%',
-                      background: echoUsed >= echoLimit ? '#DC2626' : '#10b981',
+                      background: echoUsed >= echoLimit ? '#DC2626' : '#15803d',
                       transition: 'width 0.3s'
                     }} />
                   </div>
@@ -1022,3 +1022,5 @@ export default function SettingsPage() {
     </div>
   )
 }
+
+

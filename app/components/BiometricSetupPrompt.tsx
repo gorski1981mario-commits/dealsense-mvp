@@ -372,3 +372,5 @@ export default function BiometricSetupPrompt({ onComplete, onSkip }: BiometricSe
 
   return null
 }
+
+
