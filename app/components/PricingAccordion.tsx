@@ -54,7 +54,7 @@ const packages: Package[] = [
       '✓ Prioriteit support',
       '✓ 1000+ Nederlandse webshops',
       '✓ Echo - volledige AI assistent',
-      '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
+      '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
     ],
     color: '#1E7F5C'
   },
@@ -72,7 +72,7 @@ const packages: Package[] = [
       '✓ 1000+ Nederlandse webshops',
       '✓ Echo - premium AI assistent + financieel advies',
       '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
-      '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
+      '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
     ],
     color: '#1E7F5C'
   },
@@ -90,7 +90,7 @@ const packages: Package[] = [
       '✓ Dedicated account manager',
       '✓ Certificaten & documentatie (MSDS, COA, ISO)',
       '✓ 1000+ Nederlandse leveranciers',
-      '🎁 Referral B2B2026: deel code, andere bedrijven -2% op eerste maand, jij -2% bij verlenging!'
+      '🎁 Referral B2B2026: deel code, andere bedrijven -2% op eerste maand, jij -2% bij verlenging'
     ],
     color: '#1E7F5C'
   }
