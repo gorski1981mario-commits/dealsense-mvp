@@ -46,10 +46,8 @@ const productCategories: MenuItem[] = [
   { icon: Laptop, title: 'Scan producten (alle categorieën)', path: '/' }
 ]
 
-// DIENSTEN - Vergelijken (uproszczone)
-const serviceCategories: MenuItem[] = [
-  { icon: ListChecks, title: 'Diensten Configurators', path: '/vaste-lasten' }
-]
+// DIENSTEN - Vergelijken (info only, no navigation)
+// This is now handled as expandable section, not navigation
 
 // FUNCTIES
 const otherItems: MenuItem[] = [
@@ -77,6 +75,7 @@ export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [userPackage, setUserPackage] = useState<PackageType>('free')
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
+  const [showDienstenInfo, setShowDienstenInfo] = useState(false)
   const router = useRouter()
   const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
 
@@ -88,8 +87,6 @@ export default function HamburgerMenu() {
   }, [userId])
 
   const handleItemClick = (path: string) => {
-    // Always close menu and navigate
-    // /vaste-lasten shows all options with package info for everyone
     setIsOpen(false)
     router.push(path)
   }
@@ -397,7 +394,7 @@ export default function HamburgerMenu() {
               </div>
             </div>
 
-            {/* USŁUGI */}
+            {/* DIENSTEN CONFIGURATORS - Expandable Info */}
             <div style={{ marginBottom: '24px' }}>
               <div style={{
                 fontSize: '12px',
@@ -409,30 +406,65 @@ export default function HamburgerMenu() {
               }}>
                 DIENSTEN (Vergelijken)
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {serviceCategories.map((item, idx) => {
-                  const IconComponent = item.icon
-                  return (
-                    <div
-                      key={idx}
-                      onClick={() => handleItemClick(item.path)}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        padding: '10px 16px',
-                        borderRadius: '8px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <IconComponent size={18} color="#111827" strokeWidth={2} />
-                      <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
-                        {item.title}
-                      </div>
-                    </div>
-                  )
-                })}
+              
+              {/* Clickable header to expand/collapse */}
+              <div
+                onClick={() => setShowDienstenInfo(!showDienstenInfo)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '10px 16px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  background: showDienstenInfo ? '#F0FDF4' : 'transparent'
+                }}
+              >
+                <ListChecks size={18} color="#111827" strokeWidth={2} />
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', flex: 1 }}>
+                  Diensten Configurators
+                </div>
+                <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                  {showDienstenInfo ? '▼' : '▶'}
+                </div>
               </div>
+
+              {/* Expandable content */}
+              {showDienstenInfo && (
+                <div style={{ 
+                  marginTop: '8px', 
+                  padding: '12px 16px',
+                  background: '#F9FAFB',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  lineHeight: '1.6'
+                }}>
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ fontWeight: 600, color: '#1E7F5C', marginBottom: '6px' }}>
+                      📦 PRO Pakket:
+                    </div>
+                    <div style={{ color: '#374151', paddingLeft: '12px' }}>
+                      • Vakanties<br />
+                      • Verzekeringen<br />
+                      • Energie<br />
+                      • Telecom
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div style={{ fontWeight: 600, color: '#258b52', marginBottom: '6px' }}>
+                      💰 FINANCE Pakket:
+                    </div>
+                    <div style={{ color: '#374151', paddingLeft: '12px' }}>
+                      • Alle PRO configurators +<br />
+                      • Hypotheek<br />
+                      • Leasing<br />
+                      • Lening<br />
+                      • Creditcard
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* INNE FUNCTIES */}
