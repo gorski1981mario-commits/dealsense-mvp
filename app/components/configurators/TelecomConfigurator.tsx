@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Smartphone } from 'lucide-react'
+import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
 import AgentEchoLogo from '../AgentEchoLogo'
-import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -43,11 +43,16 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
     }
   }, [])
   
-  // Lock/unlock state
-  const [isLocked, setIsLocked] = useState(false)
-  const [configId, setConfigId] = useState<string | null>(null)
-  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
-  const [saving, setSaving] = useState(false)
+  // Lock/unlock state using custom hook
+  const { 
+    isLocked,
+    saving,
+    configId,
+    configTimestamp,
+    handleLockConfiguration: lockConfig,
+    handleUnlockConfiguration: unlockConfig,
+    handleDownloadPDF: downloadPDF
+  } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'telecom' })
   const [activeField, setActiveField] = useState<string | null>(null)
   
   // Progress tracking
@@ -91,50 +96,25 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!isLocked) { await handleLockConfiguration() }
+    if (!isLocked) {
+      const parameters = { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone }
+      await lockConfig(parameters)
+    }
     setView('results')
   }
 
   const handleLockConfiguration = async () => {
-    try {
-      setSaving(true)
-      const configData = {
-        userId: userId || 'anonymous',
-        sector: 'telecom',
-        parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone },
-        timestamp: new Date().toISOString()
-      }
-      const response = await fetch('/api/configurations/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(configData)
-      })
-      const result = await response.json()
-      if (result.success) {
-        setConfigId(result.configId)
-        setConfigTimestamp(configData.timestamp)
-        setIsLocked(true)
-      }
-    } catch (error) {
-      console.error('Error saving configuration:', error)
-    } finally {
-      setSaving(false)
-    }
+    const parameters = { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone }
+    await lockConfig(parameters)
   }
 
   const handleUnlockConfiguration = () => {
-    setIsLocked(false)
+    unlockConfig()
   }
 
   const handleDownloadPDF = () => {
-    if (!configId || !configTimestamp) return
-    generateConfigurationPDF({
-      configId,
-      userId: userId || 'anonymous',
-      sector: 'telecom',
-      parameters: { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone },
-      timestamp: configTimestamp
-    })
+    const parameters = { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone }
+    downloadPDF(parameters)
   }
 
   if (view === 'results') {

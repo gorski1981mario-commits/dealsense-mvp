@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Sun } from 'lucide-react'
-import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
+import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -30,11 +30,16 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [board, setBoard] = useState('')
   const [extras, setExtras] = useState<string[]>([])
   
-  // Lock/unlock state
-  const [isLocked, setIsLocked] = useState(false)
-  const [configId, setConfigId] = useState<string | null>(null)
-  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
-  const [saving, setSaving] = useState(false)
+  // Lock/unlock state using custom hook
+  const {
+    isLocked,
+    saving,
+    configId,
+    configTimestamp,
+    handleLockConfiguration: lockConfig,
+    handleUnlockConfiguration: unlockConfig,
+    handleDownloadPDF: downloadPDF
+  } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'vacation' })
   
   // Active field tracking for visual highlight
   const [activeField, setActiveField] = useState<string | null>(null)
@@ -96,32 +101,25 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     
     // Auto-lock configuration on submit
     if (!isLocked) {
-      await handleLockConfiguration()
+      const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+      await lockConfig(parameters)
     }
     
     setView('results')
   }
 
   const handleLockConfiguration = async () => {
-    try {
-      setSaving(true)
-      const configData = {
-        userId: userId || 'anonymous',
-        sector: 'vacation',
-        parameters: { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras },
-        timestamp: new Date().toISOString()
-      }
-      const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-      const result = await response.json()
-      if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
-    } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+    const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+    await lockConfig(parameters)
   }
 
-  const handleUnlockConfiguration = () => { setIsLocked(false) }
+  const handleUnlockConfiguration = () => {
+    unlockConfig()
+  }
 
   const handleDownloadPDF = () => {
-    if (!configId || !configTimestamp) return
-    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'vacation', parameters: { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }, timestamp: configTimestamp })
+    const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+    downloadPDF(parameters)
   }
 
   const updateChildren = (newCount: number) => {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Zap } from 'lucide-react'
+import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -30,11 +31,16 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const [smartMeter, setSmartMeter] = useState(false)
   const [searching, setSearching] = useState(false)
   
-  // Lock/unlock state
-  const [isLocked, setIsLocked] = useState(false)
-  const [configId, setConfigId] = useState<string | null>(null)
-  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
-  const [saving, setSaving] = useState(false)
+  // Lock/unlock state using custom hook
+  const {
+    isLocked,
+    saving,
+    configId,
+    configTimestamp,
+    handleLockConfiguration: lockConfig,
+    handleUnlockConfiguration: unlockConfig,
+    handleDownloadPDF: downloadPDF
+  } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'energy' })
   const [activeField, setActiveField] = useState<string | null>(null)
   
   // Progress tracking
@@ -76,78 +82,34 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!isLocked) {
-      await handleLockConfiguration()
+      const parameters = { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }
+      const success = await lockConfig(parameters)
+      if (success) {
+        alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${configId}`)
+      } else {
+        alert('❌ Fout bij opslaan configuratie')
+      }
     }
     setView('results')
   }
 
   const handleLockConfiguration = async () => {
-    try {
-      setSaving(true)
-      
-      const configData = {
-        userId: userId || 'anonymous',
-        sector: 'energy',
-        parameters: {
-          energyType,
-          electricityUsage,
-          gasUsage,
-          contractType,
-          postcode,
-          houseNumber,
-          greenEnergy,
-          solarPanels,
-          smartMeter
-        },
-        timestamp: new Date().toISOString()
-      }
-
-      const response = await fetch('/api/configurations/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(configData)
-      })
-
-      const result = await response.json()
-      
-      if (result.success) {
-        setConfigId(result.configId)
-        setConfigTimestamp(configData.timestamp)
-        setIsLocked(true)
-        alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${result.configId}`)
-      }
-    } catch (error) {
-      console.error('Error saving configuration:', error)
+    const parameters = { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }
+    const success = await lockConfig(parameters)
+    if (success) {
+      alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${configId}`)
+    } else {
       alert('❌ Fout bij opslaan configuratie')
-    } finally {
-      setSaving(false)
     }
   }
 
   const handleUnlockConfiguration = () => {
-    setIsLocked(false)
+    unlockConfig()
   }
 
   const handleDownloadPDF = () => {
-    if (!configId || !configTimestamp) return
-
-    generateConfigurationPDF({
-      configId,
-      userId: userId || 'anonymous',
-      sector: 'energy',
-      parameters: {
-        energyType,
-        electricityUsage,
-        gasUsage,
-        contractType,
-        postcode,
-        houseNumber,
-        greenEnergy,
-        solarPanels,
-        smartMeter
-      },
-      timestamp: configTimestamp
-    })
+    const parameters = { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }
+    downloadPDF(parameters)
   }
 
   if (view === 'results') {

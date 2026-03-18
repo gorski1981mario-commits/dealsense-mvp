@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Banknote } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
-import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
+import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -29,10 +29,15 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   const [homeOwner, setHomeOwner] = useState(false)
   const [searching, setSearching] = useState(false)
   
-  const [isLocked, setIsLocked] = useState(false)
-  const [configId, setConfigId] = useState<string | null>(null)
-  const [configTimestamp, setConfigTimestamp] = useState<string | null>(null)
-  const [saving, setSaving] = useState(false)
+  const {
+    isLocked,
+    saving,
+    configId,
+    configTimestamp,
+    handleLockConfiguration: lockConfig,
+    handleUnlockConfiguration: unlockConfig,
+    handleDownloadPDF: downloadPDF
+  } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'loan' })
   const [activeField, setActiveField] = useState<string | null>(null)
   
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
@@ -44,26 +49,22 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!isLocked) {
-      await handleLockConfiguration()
+      const parameters = { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }
+      await lockConfig(parameters)
     }
     setView('results')
   }
 
   const handleLockConfiguration = async () => {
-    try {
-      setSaving(true)
-      const configData = { userId: userId || 'anonymous', sector: 'loan', parameters: { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }, timestamp: new Date().toISOString() }
-      const response = await fetch('/api/configurations/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configData) })
-      const result = await response.json()
-      if (result.success) { setConfigId(result.configId); setConfigTimestamp(configData.timestamp); setIsLocked(true) }
-    } catch (error) { console.error('Error:', error) } finally { setSaving(false) }
+    const parameters = { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }
+    await lockConfig(parameters)
   }
 
-  const handleUnlockConfiguration = () => { setIsLocked(false) }
+  const handleUnlockConfiguration = () => { unlockConfig() }
 
   const handleDownloadPDF = () => {
-    if (!configId || !configTimestamp) return
-    generateConfigurationPDF({ configId, userId: userId || 'anonymous', sector: 'loan', parameters: { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }, timestamp: configTimestamp })
+    const parameters = { amount, duration, purpose, income, employmentType, bkr, coApplicant, homeOwner }
+    downloadPDF(parameters)
   }
 
   if (view === 'results') {
