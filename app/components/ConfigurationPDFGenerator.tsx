@@ -7,6 +7,16 @@ interface ConfigurationData {
   configId: string
   userId: string
   sector: string
+  userProfile?: {
+    firstName?: string
+    lastName?: string
+    email?: string
+    phone?: string
+    postcode?: string
+    houseNumber?: string
+    street?: string
+    city?: string
+  }
   parameters: Record<string, any>
   timestamp: string
 }
