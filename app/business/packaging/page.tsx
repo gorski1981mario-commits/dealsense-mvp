@@ -29,7 +29,7 @@ export default function PackagingConfiguratorPage() {
           <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '32px' }}>Dozen, pallets, folie en meer</p>
           <div style={{ marginBottom: '24px' }}>
             {types.map((t) => (
-              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id, size: '' })} style={{ padding: '16px', background: formData.type === t.id ? '#fce7f3' : 'white', border: `2px solid ${formData.type === t.id ? '#ec4899' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
+              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id, size: '' })} style={{ padding: '16px', background: formData.type === t.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.type === t.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
             ))}
           </div>
           {selected && (
@@ -61,7 +61,7 @@ export default function PackagingConfiguratorPage() {
                   <option value="net30">Net 30</option>
                 </select>
               </div>
-              <button onClick={handleSubmit} disabled={!formData.size || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.size && formData.quantity && formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.size && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
+              <button onClick={handleSubmit} disabled={!formData.size || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.size && formData.quantity && formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.size && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
             </>
           )}
         </div>
@@ -69,3 +69,4 @@ export default function PackagingConfiguratorPage() {
     </div>
   )
 }
+

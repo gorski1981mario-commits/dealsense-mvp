@@ -29,7 +29,7 @@ export default function TransportConfiguratorPage() {
           <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '32px' }}>Vrachtwagens, trailers, heftrucks en containers</p>
           <div style={{ marginBottom: '24px' }}>
             {types.map((t) => (
-              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id, brand: '' })} style={{ padding: '16px', background: formData.type === t.id ? '#fef3c7' : 'white', border: `2px solid ${formData.type === t.id ? '#f59e0b' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
+              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id, brand: '' })} style={{ padding: '16px', background: formData.type === t.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.type === t.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
             ))}
           </div>
           {selected && (
@@ -45,7 +45,7 @@ export default function TransportConfiguratorPage() {
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Conditie</label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                   {['new', 'used'].map((c) => (
-                    <button key={c} onClick={() => setFormData({ ...formData, condition: c })} style={{ padding: '12px', background: formData.condition === c ? '#fef3c7' : 'white', border: `2px solid ${formData.condition === c ? '#f59e0b' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>{c === 'new' ? 'Nieuw' : 'Gebruikt'}</button>
+                    <button key={c} onClick={() => setFormData({ ...formData, condition: c })} style={{ padding: '12px', background: formData.condition === c ? '#E6F4EE' : 'white', border: `2px solid ${formData.condition === c ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>{c === 'new' ? 'Nieuw' : 'Gebruikt'}</button>
                   ))}
                 </div>
               </div>
@@ -66,7 +66,7 @@ export default function TransportConfiguratorPage() {
                   <option value="cash">Contant</option>
                 </select>
               </div>
-              <button onClick={handleSubmit} disabled={!formData.brand || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.brand && formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.brand && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
+              <button onClick={handleSubmit} disabled={!formData.brand || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.brand && formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.brand && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
             </>
           )}
         </div>
@@ -74,3 +74,4 @@ export default function TransportConfiguratorPage() {
     </div>
   )
 }
+

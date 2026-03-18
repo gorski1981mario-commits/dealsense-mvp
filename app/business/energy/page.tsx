@@ -99,7 +99,7 @@ export default function EnergyConfiguratorPage() {
             marginBottom: '32px',
             padding: '16px',
             background: '#f9fafb',
-            borderRadius: '12px'
+            borderRadius: '10px'
           }}>
             {[1, 2, 3].map((s) => (
               <div
@@ -107,7 +107,7 @@ export default function EnergyConfiguratorPage() {
                 style={{
                   flex: 1,
                   height: '4px',
-                  background: s <= step ? '#f59e0b' : '#e5e7eb',
+                  background: s <= step ? '#1E7F5C' : '#e5e7eb',
                   borderRadius: '2px'
                 }}
               />
@@ -128,13 +128,13 @@ export default function EnergyConfiguratorPage() {
                     style={{
                       padding: '20px',
                       background: formData.fuelType === fuel.id ? '#fffbeb' : 'white',
-                      border: `2px solid ${formData.fuelType === fuel.id ? '#f59e0b' : '#e5e7eb'}`,
-                      borderRadius: '12px',
+                      border: `2px solid ${formData.fuelType === fuel.id ? '#1E7F5C' : '#e5e7eb'}`,
+                      borderRadius: '10px',
                       cursor: 'pointer',
                       textAlign: 'left',
                       fontSize: '18px',
                       fontWeight: 600,
-                      color: formData.fuelType === fuel.id ? '#f59e0b' : '#374151'
+                      color: formData.fuelType === fuel.id ? '#1E7F5C' : '#374151'
                     }}
                   >
                     {fuel.name}
@@ -172,10 +172,10 @@ export default function EnergyConfiguratorPage() {
                   marginTop: '24px',
                   width: '100%',
                   padding: '16px',
-                  background: formData.fuelType ? '#f59e0b' : '#e5e7eb',
+                  background: formData.fuelType ? '#1E7F5C' : '#e5e7eb',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   fontSize: '16px',
                   fontWeight: 600,
                   cursor: formData.fuelType ? 'pointer' : 'not-allowed'
@@ -224,12 +224,12 @@ export default function EnergyConfiguratorPage() {
                       style={{
                         padding: '16px',
                         background: formData.deliveryFrequency === freq.id ? '#fffbeb' : 'white',
-                        border: `2px solid ${formData.deliveryFrequency === freq.id ? '#f59e0b' : '#e5e7eb'}`,
+                        border: `2px solid ${formData.deliveryFrequency === freq.id ? '#1E7F5C' : '#e5e7eb'}`,
                         borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '14px',
                         fontWeight: 600,
-                        color: formData.deliveryFrequency === freq.id ? '#f59e0b' : '#374151'
+                        color: formData.deliveryFrequency === freq.id ? '#1E7F5C' : '#374151'
                       }}
                     >
                       <div>{freq.name}</div>
@@ -274,7 +274,7 @@ export default function EnergyConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -288,10 +288,10 @@ export default function EnergyConfiguratorPage() {
                   style={{
                     flex: 1,
                     padding: '16px',
-                    background: formData.quantity && formData.deliveryFrequency && formData.contractLength ? '#f59e0b' : '#e5e7eb',
+                    background: formData.quantity && formData.deliveryFrequency && formData.contractLength ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.quantity && formData.deliveryFrequency && formData.contractLength ? 'pointer' : 'not-allowed'
@@ -437,7 +437,7 @@ export default function EnergyConfiguratorPage() {
               <div style={{
                 padding: '20px',
                 background: '#fffbeb',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 marginBottom: '24px',
                 border: '2px solid #fde68a'
               }}>
@@ -477,7 +477,7 @@ export default function EnergyConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -491,14 +491,14 @@ export default function EnergyConfiguratorPage() {
                   style={{
                     flex: 2,
                     padding: '16px',
-                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#10b981' : '#e5e7eb',
+                    background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.destination && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed',
-                    boxShadow: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(16,185,129,0.3)' : 'none'
+                    boxShadow: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(30,127,92,0.3)' : 'none'
                   }}
                 >
                   � Request for Quote (RFQ)
@@ -511,3 +511,4 @@ export default function EnergyConfiguratorPage() {
     </div>
   )
 }
+

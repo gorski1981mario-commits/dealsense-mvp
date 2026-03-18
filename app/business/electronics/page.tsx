@@ -31,7 +31,7 @@ export default function ElectronicsConfiguratorPage() {
             <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Categorie</label>
             <div style={{ display: 'grid', gap: '12px' }}>
               {categories.map((c) => (
-                <button key={c.id} onClick={() => setFormData({ ...formData, category: c.id, product: '' })} style={{ padding: '16px', background: formData.category === c.id ? '#dbeafe' : 'white', border: `2px solid ${formData.category === c.id ? '#3b82f6' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>{c.name}</button>
+                <button key={c.id} onClick={() => setFormData({ ...formData, category: c.id, product: '' })} style={{ padding: '16px', background: formData.category === c.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.category === c.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>{c.name}</button>
               ))}
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function ElectronicsConfiguratorPage() {
                   <option value="net30">Net 30</option>
                 </select>
               </div>
-              <button onClick={handleSubmit} disabled={!formData.product || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.product && formData.quantity && formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
+              <button onClick={handleSubmit} disabled={!formData.product || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.product && formData.quantity && formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
             </>
           )}
         </div>
@@ -77,3 +77,4 @@ export default function ElectronicsConfiguratorPage() {
     </div>
   )
 }
+

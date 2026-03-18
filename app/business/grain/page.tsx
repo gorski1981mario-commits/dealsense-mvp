@@ -122,7 +122,7 @@ export default function GrainConfiguratorPage() {
             marginBottom: '32px',
             padding: '16px',
             background: '#f9fafb',
-            borderRadius: '12px'
+            borderRadius: '10px'
           }}>
             {[1, 2, 3].map((s) => (
               <div
@@ -130,7 +130,7 @@ export default function GrainConfiguratorPage() {
                 style={{
                   flex: 1,
                   height: '4px',
-                  background: s <= step ? '#10b981' : '#e5e7eb',
+                  background: s <= step ? '#1E7F5C' : '#e5e7eb',
                   borderRadius: '2px'
                 }}
               />
@@ -150,13 +150,13 @@ export default function GrainConfiguratorPage() {
                     onClick={() => setFormData({ ...formData, commodity: commodity.id, quality: '', origin: '' })}
                     style={{
                       padding: '16px',
-                      background: formData.commodity === commodity.id ? '#ecfdf5' : 'white',
-                      border: `2px solid ${formData.commodity === commodity.id ? '#10b981' : '#e5e7eb'}`,
-                      borderRadius: '12px',
+                      background: formData.commodity === commodity.id ? '#E6F4EE' : 'white',
+                      border: `2px solid ${formData.commodity === commodity.id ? '#1E7F5C' : '#e5e7eb'}`,
+                      borderRadius: '10px',
                       cursor: 'pointer',
                       fontSize: '16px',
                       fontWeight: 600,
-                      color: formData.commodity === commodity.id ? '#10b981' : '#374151'
+                      color: formData.commodity === commodity.id ? '#1E7F5C' : '#374151'
                     }}
                   >
                     {commodity.name}
@@ -218,10 +218,10 @@ export default function GrainConfiguratorPage() {
                 style={{
                   width: '100%',
                   padding: '16px',
-                  background: formData.commodity && formData.quality ? '#10b981' : '#e5e7eb',
+                  background: formData.commodity && formData.quality ? '#1E7F5C' : '#e5e7eb',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   fontSize: '16px',
                   fontWeight: 600,
                   cursor: formData.commodity && formData.quality ? 'pointer' : 'not-allowed'
@@ -269,14 +269,14 @@ export default function GrainConfiguratorPage() {
                       onClick={() => setFormData({ ...formData, packaging: pkg.id })}
                       style={{
                         padding: '16px',
-                        background: formData.packaging === pkg.id ? '#ecfdf5' : 'white',
-                        border: `2px solid ${formData.packaging === pkg.id ? '#10b981' : '#e5e7eb'}`,
+                        background: formData.packaging === pkg.id ? '#E6F4EE' : 'white',
+                        border: `2px solid ${formData.packaging === pkg.id ? '#1E7F5C' : '#e5e7eb'}`,
                         borderRadius: '8px',
                         cursor: 'pointer',
                         textAlign: 'left'
                       }}
                     >
-                      <div style={{ fontSize: '14px', fontWeight: 600, color: formData.packaging === pkg.id ? '#10b981' : '#374151' }}>
+                      <div style={{ fontSize: '14px', fontWeight: 600, color: formData.packaging === pkg.id ? '#1E7F5C' : '#374151' }}>
                         {pkg.name}
                       </div>
                       <div style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>
@@ -296,7 +296,7 @@ export default function GrainConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -310,10 +310,10 @@ export default function GrainConfiguratorPage() {
                   style={{
                     flex: 1,
                     padding: '16px',
-                    background: formData.quantity && formData.packaging ? '#10b981' : '#e5e7eb',
+                    background: formData.quantity && formData.packaging ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.quantity && formData.packaging ? 'pointer' : 'not-allowed'
@@ -400,10 +400,10 @@ export default function GrainConfiguratorPage() {
               {/* Summary */}
               <div style={{
                 padding: '20px',
-                background: '#ecfdf5',
-                borderRadius: '12px',
+                background: '#E6F4EE',
+                borderRadius: '10px',
                 marginBottom: '24px',
-                border: '2px solid #a7f3d0'
+                border: '2px solid #86efac'
               }}>
                 <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#065f46' }}>
                   Samenvatting
@@ -443,7 +443,7 @@ export default function GrainConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -457,14 +457,14 @@ export default function GrainConfiguratorPage() {
                   style={{
                     flex: 2,
                     padding: '16px',
-                    background: formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb',
+                    background: formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed',
-                    boxShadow: formData.delivery && formData.paymentTerms ? '0 4px 12px rgba(16,185,129,0.3)' : 'none'
+                    boxShadow: formData.delivery && formData.paymentTerms ? '0 4px 12px rgba(30,127,92,0.3)' : 'none'
                   }}
                 >
                   🔍 Zoek beste prijzen
@@ -477,3 +477,4 @@ export default function GrainConfiguratorPage() {
     </div>
   )
 }
+

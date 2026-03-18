@@ -91,7 +91,7 @@ export default function ChemicalsConfiguratorPage() {
 
           <div style={{ display: 'flex', gap: '8px', marginBottom: '32px', padding: '16px', background: '#f9fafb', borderRadius: '12px' }}>
             {[1, 2, 3].map((s) => (
-              <div key={s} style={{ flex: 1, height: '4px', background: s <= step ? '#8b5cf6' : '#e5e7eb', borderRadius: '2px' }} />
+              <div key={s} style={{ flex: 1, height: '4px', background: s <= step ? '#1E7F5C' : '#e5e7eb', borderRadius: '2px' }} />
             ))}
           </div>
 
@@ -100,7 +100,7 @@ export default function ChemicalsConfiguratorPage() {
               <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px' }}>Categorie & Product</h2>
               <div style={{ display: 'grid', gap: '12px', marginBottom: '24px' }}>
                 {categories.map((cat) => (
-                  <button key={cat.id} onClick={() => setFormData({ ...formData, category: cat.id, product: '', unit: cat.units[0] })} style={{ padding: '16px', background: formData.category === cat.id ? '#f5f3ff' : 'white', border: `2px solid ${formData.category === cat.id ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', textAlign: 'left', fontSize: '16px', fontWeight: 600, color: formData.category === cat.id ? '#8b5cf6' : '#374151' }}>
+                  <button key={cat.id} onClick={() => setFormData({ ...formData, category: cat.id, product: '', unit: cat.units[0] })} style={{ padding: '16px', background: formData.category === cat.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.category === cat.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', textAlign: 'left', fontSize: '16px', fontWeight: 600, color: formData.category === cat.id ? '#1E7F5C' : '#374151' }}>
                     {cat.name}
                   </button>
                 ))}
@@ -129,7 +129,7 @@ export default function ChemicalsConfiguratorPage() {
                 </>
               )}
 
-              <button onClick={() => setStep(2)} disabled={!formData.product || !formData.purity} style={{ width: '100%', padding: '16px', background: formData.product && formData.purity ? '#8b5cf6' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.purity ? 'pointer' : 'not-allowed' }}>
+              <button onClick={() => setStep(2)} disabled={!formData.product || !formData.purity} style={{ width: '100%', padding: '16px', background: formData.product && formData.purity ? 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.purity ? 'pointer' : 'not-allowed', boxShadow: formData.product && formData.purity ? '0 4px 12px rgba(30, 127, 92, 0.3)' : 'none' }}>
                 Volgende →
               </button>
             </div>
@@ -157,7 +157,7 @@ export default function ChemicalsConfiguratorPage() {
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Verpakking</label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                   {packagingOptions.map((pkg) => (
-                    <button key={pkg.id} onClick={() => setFormData({ ...formData, packaging: pkg.id })} style={{ padding: '12px', background: formData.packaging === pkg.id ? '#f5f3ff' : 'white', border: `2px solid ${formData.packaging === pkg.id ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600, color: formData.packaging === pkg.id ? '#8b5cf6' : '#374151' }}>
+                    <button key={pkg.id} onClick={() => setFormData({ ...formData, packaging: pkg.id })} style={{ padding: '12px', background: formData.packaging === pkg.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.packaging === pkg.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600, color: formData.packaging === pkg.id ? '#1E7F5C' : '#374151' }}>
                       <div>{pkg.name}</div>
                       <div style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>Min. {pkg.min} kg</div>
                     </button>
@@ -167,7 +167,7 @@ export default function ChemicalsConfiguratorPage() {
 
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button onClick={() => setStep(1)} style={{ flex: 1, padding: '16px', background: 'white', color: '#374151', border: '1px solid #d1d5db', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: 'pointer' }}>← Terug</button>
-                <button onClick={() => setStep(3)} disabled={!formData.quantity || !formData.packaging} style={{ flex: 1, padding: '16px', background: formData.quantity && formData.packaging ? '#8b5cf6' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.quantity && formData.packaging ? 'pointer' : 'not-allowed' }}>Volgende →</button>
+                <button onClick={() => setStep(3)} disabled={!formData.quantity || !formData.packaging} style={{ flex: 1, padding: '16px', background: formData.quantity && formData.packaging ? 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.quantity && formData.packaging ? 'pointer' : 'not-allowed', boxShadow: formData.quantity && formData.packaging ? '0 4px 12px rgba(30, 127, 92, 0.3)' : 'none' }}>Volgende →</button>
               </div>
             </div>
           )}
@@ -204,9 +204,9 @@ export default function ChemicalsConfiguratorPage() {
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Urgentie levering</label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                  <button onClick={() => setFormData({ ...formData, leadTime: 'standard' })} style={{ padding: '12px', background: formData.leadTime === 'standard' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'standard' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>30 dagen</button>
-                  <button onClick={() => setFormData({ ...formData, leadTime: 'urgent' })} style={{ padding: '12px', background: formData.leadTime === 'urgent' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'urgent' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>7 dagen</button>
-                  <button onClick={() => setFormData({ ...formData, leadTime: 'spot' })} style={{ padding: '12px', background: formData.leadTime === 'spot' ? '#f5f3ff' : 'white', border: `2px solid ${formData.leadTime === 'spot' ? '#8b5cf6' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>24 uur</button>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'standard' })} style={{ padding: '12px', background: formData.leadTime === 'standard' ? '#E6F4EE' : 'white', border: `2px solid ${formData.leadTime === 'standard' ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>30 dagen</button>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'urgent' })} style={{ padding: '12px', background: formData.leadTime === 'urgent' ? '#E6F4EE' : 'white', border: `2px solid ${formData.leadTime === 'urgent' ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>7 dagen</button>
+                  <button onClick={() => setFormData({ ...formData, leadTime: 'spot' })} style={{ padding: '12px', background: formData.leadTime === 'spot' ? '#E6F4EE' : 'white', border: `2px solid ${formData.leadTime === 'spot' ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>24 uur</button>
                 </div>
               </div>
 
@@ -238,7 +238,7 @@ export default function ChemicalsConfiguratorPage() {
 
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button onClick={() => setStep(2)} style={{ flex: 1, padding: '16px', background: 'white', color: '#374151', border: '1px solid #d1d5db', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: 'pointer' }}>← Terug</button>
-                <button onClick={handleSubmit} disabled={!formData.delivery || !formData.paymentTerms || !formData.deliveryMethod} style={{ flex: 2, padding: '16px', background: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed', boxShadow: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(16,185,129,0.3)' : 'none' }}>� Request for Quote (RFQ)</button>
+                <button onClick={handleSubmit} disabled={!formData.delivery || !formData.paymentTerms || !formData.deliveryMethod} style={{ flex: 2, padding: '16px', background: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? 'linear-gradient(135deg, #1E7F5C 0%, #15803d 100%)' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed', boxShadow: formData.delivery && formData.paymentTerms && formData.deliveryMethod ? '0 4px 12px rgba(30, 127, 92, 0.3)' : 'none' }}>🔍 Request for Quote (RFQ)</button>
               </div>
             </div>
           )}

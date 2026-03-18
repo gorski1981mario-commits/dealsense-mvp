@@ -47,7 +47,7 @@ export default function ConstructionConfiguratorPage() {
             <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Materiaal</label>
             <div style={{ display: 'grid', gap: '12px' }}>
               {materials.map((m) => (
-                <button key={m.id} onClick={() => setFormData({ ...formData, material: m.id, specification: '', unit: m.units[0] })} style={{ padding: '16px', background: formData.material === m.id ? '#fef3c7' : 'white', border: `2px solid ${formData.material === m.id ? '#f59e0b' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>{m.name}</button>
+                <button key={m.id} onClick={() => setFormData({ ...formData, material: m.id, specification: '', unit: m.units[0] })} style={{ padding: '16px', background: formData.material === m.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.material === m.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>{m.name}</button>
               ))}
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function ConstructionConfiguratorPage() {
                 </select>
               </div>
 
-              <button onClick={handleSubmit} disabled={!formData.specification || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.specification && formData.quantity && formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.specification && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
+              <button onClick={handleSubmit} disabled={!formData.specification || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.specification && formData.quantity && formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.specification && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
             </>
           )}
         </div>
@@ -102,3 +102,4 @@ export default function ConstructionConfiguratorPage() {
     </div>
   )
 }
+

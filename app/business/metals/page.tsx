@@ -103,7 +103,7 @@ export default function MetalsConfiguratorPage() {
             marginBottom: '32px',
             padding: '16px',
             background: '#f9fafb',
-            borderRadius: '12px'
+            borderRadius: '10px'
           }}>
             {[1, 2, 3, 4].map((s) => (
               <div
@@ -134,7 +134,7 @@ export default function MetalsConfiguratorPage() {
                       padding: '16px',
                       background: formData.material === material.id ? '#eff6ff' : 'white',
                       border: `2px solid ${formData.material === material.id ? '#1e40af' : '#e5e7eb'}`,
-                      borderRadius: '12px',
+                      borderRadius: '10px',
                       cursor: 'pointer',
                       fontSize: '16px',
                       fontWeight: 600,
@@ -181,7 +181,7 @@ export default function MetalsConfiguratorPage() {
                   background: formData.material && formData.grade ? '#1e40af' : '#e5e7eb',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   fontSize: '16px',
                   fontWeight: 600,
                   cursor: formData.material && formData.grade ? 'pointer' : 'not-allowed'
@@ -275,7 +275,7 @@ export default function MetalsConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -292,7 +292,7 @@ export default function MetalsConfiguratorPage() {
                     background: formData.quantity ? '#1e40af' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.quantity ? 'pointer' : 'not-allowed'
@@ -425,7 +425,7 @@ export default function MetalsConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -442,7 +442,7 @@ export default function MetalsConfiguratorPage() {
                     background: formData.destination && formData.paymentTerms && formData.deliveryMethod ? '#1e40af' : '#e5e7eb',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: formData.destination && formData.paymentTerms && formData.deliveryMethod ? 'pointer' : 'not-allowed'
@@ -496,7 +496,7 @@ export default function MetalsConfiguratorPage() {
               <div style={{
                 padding: '20px',
                 background: '#f9fafb',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 marginBottom: '24px'
               }}>
                 <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#6b7280' }}>
@@ -535,7 +535,7 @@ export default function MetalsConfiguratorPage() {
                     background: 'white',
                     color: '#374151',
                     border: '1px solid #d1d5db',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer'
@@ -548,14 +548,14 @@ export default function MetalsConfiguratorPage() {
                   style={{
                     flex: 2,
                     padding: '16px',
-                    background: '#10b981',
+                    background: '#1E7F5C',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px',
                     fontSize: '16px',
                     fontWeight: 600,
                     cursor: 'pointer',
-                    boxShadow: '0 4px 12px rgba(16,185,129,0.3)'
+                    boxShadow: '0 4px 12px rgba(30,127,92,0.3)'
                   }}
                 >
                   � Request for Quote (RFQ)
@@ -568,3 +568,4 @@ export default function MetalsConfiguratorPage() {
     </div>
   )
 }
+

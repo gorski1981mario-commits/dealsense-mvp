@@ -29,7 +29,7 @@ export default function ToolsConfiguratorPage() {
           <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '32px' }}>Elektrisch, hand, veiligheid en meetgereedschap</p>
           <div style={{ marginBottom: '24px' }}>
             {categories.map((c) => (
-              <button key={c.id} onClick={() => setFormData({ ...formData, category: c.id, product: '', brand: '' })} style={{ padding: '16px', background: formData.category === c.id ? '#fef2f2' : 'white', border: `2px solid ${formData.category === c.id ? '#ef4444' : '#e5e7eb'}`, borderRadius: '12px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{c.name}</button>
+              <button key={c.id} onClick={() => setFormData({ ...formData, category: c.id, product: '', brand: '' })} style={{ padding: '16px', background: formData.category === c.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.category === c.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{c.name}</button>
             ))}
           </div>
           {selected && (
@@ -64,7 +64,7 @@ export default function ToolsConfiguratorPage() {
                   <option value="net30">Net 30</option>
                 </select>
               </div>
-              <button onClick={handleSubmit} disabled={!formData.product || !formData.brand || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.product && formData.brand && formData.quantity && formData.delivery && formData.paymentTerms ? '#10b981' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.brand && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
+              <button onClick={handleSubmit} disabled={!formData.product || !formData.brand || !formData.quantity || !formData.delivery || !formData.paymentTerms} style={{ width: '100%', padding: '16px', background: formData.product && formData.brand && formData.quantity && formData.delivery && formData.paymentTerms ? '#1E7F5C' : '#e5e7eb', color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px', fontWeight: 600, cursor: formData.product && formData.brand && formData.quantity && formData.delivery && formData.paymentTerms ? 'pointer' : 'not-allowed' }}>🔍 Zoek beste prijzen</button>
             </>
           )}
         </div>
@@ -72,3 +72,4 @@ export default function ToolsConfiguratorPage() {
     </div>
   )
 }
+
