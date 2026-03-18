@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { 
   Laptop, 
@@ -29,8 +29,11 @@ import {
   Settings,
   ShieldCheck,
   HelpCircle,
-  Users
+  Users,
+  Lock
 } from 'lucide-react'
+import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
+import { getDeviceId } from '../_lib/utils'
 
 interface MenuItem {
   icon: any
@@ -72,9 +75,42 @@ const aiAssistantItem = {
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const [userPackage, setUserPackage] = useState<PackageType>('free')
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
   const router = useRouter()
+  const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedPackage = localStorage.getItem(`package_${userId}`) as PackageType
+      setUserPackage(savedPackage || 'free')
+    }
+  }, [userId])
 
   const handleItemClick = (path: string) => {
+    // Check if clicking on Diensten Configurators
+    if (path === '/vaste-lasten') {
+      const hasProAccess = hasConfiguratorAccess(userPackage, 'pro')
+      const hasFinanceAccess = hasConfiguratorAccess(userPackage, 'finance')
+      
+      if (!hasProAccess && !hasFinanceAccess) {
+        // FREE/PLUS: Show upgrade prompt
+        setShowUpgradePrompt(true)
+        return
+      }
+      
+      // Smart redirect based on package
+      setIsOpen(false)
+      if (hasFinanceAccess) {
+        // FINANCE/ZAKELIJK: Go to finance page (8 cards)
+        router.push('/finance')
+      } else if (hasProAccess) {
+        // PRO: Go to pro page (4 cards)
+        router.push('/pro')
+      }
+      return
+    }
+    
     setIsOpen(false)
     router.push(path)
   }
@@ -145,6 +181,124 @@ export default function HamburgerMenu() {
             zIndex: 999
           }}
         />
+      )}
+
+      {/* Upgrade Prompt Modal */}
+      {showUpgradePrompt && (
+        <div
+          onClick={() => setShowUpgradePrompt(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.7)',
+            zIndex: 1002,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
+              borderRadius: '16px',
+              padding: '32px',
+              maxWidth: '400px',
+              width: '100%',
+              border: '2px solid #F59E0B'
+            }}
+          >
+            <div style={{
+              width: '64px',
+              height: '64px',
+              background: '#F59E0B',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 24px'
+            }}>
+              <Lock size={32} color="white" strokeWidth={2} />
+            </div>
+
+            <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#92400E', marginBottom: '12px', textAlign: 'center' }}>
+              Diensten Configurators
+            </h3>
+
+            <p style={{ fontSize: '16px', color: '#78350F', marginBottom: '24px', textAlign: 'center', lineHeight: '1.6' }}>
+              Je hebt momenteel het <strong>{userPackage.toUpperCase()}</strong> pakket.
+              <br />
+              Upgrade naar <strong>PRO</strong> voor toegang tot configurators.
+            </p>
+
+            <div style={{
+              background: 'white',
+              borderRadius: '12px',
+              padding: '20px',
+              marginBottom: '24px',
+              textAlign: 'left'
+            }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#92400E', marginBottom: '12px' }}>
+                PRO pakket - €29.99/maand:
+              </div>
+              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
+                ✓ Onbeperkt scans - producten én diensten
+              </div>
+              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
+                ✓ Ghost Mode (20 dagen)
+              </div>
+              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
+                ✓ 4 Diensten Configurators
+              </div>
+              <div style={{ fontSize: '14px', color: '#78350F' }}>
+                ✓ Slechts 9% commissie
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setShowUpgradePrompt(false)
+                setIsOpen(false)
+                router.push('/pro')
+              }}
+              style={{
+                width: '100%',
+                padding: '14px 32px',
+                background: '#F59E0B',
+                color: 'white',
+                border: 'none',
+                borderRadius: '10px',
+                fontSize: '16px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 4px 6px rgba(245, 158, 11, 0.3)',
+                marginBottom: '12px'
+              }}
+            >
+              Upgrade naar PRO →
+            </button>
+
+            <button
+              onClick={() => setShowUpgradePrompt(false)}
+              style={{
+                width: '100%',
+                padding: '10px',
+                background: 'transparent',
+                color: '#92400E',
+                border: 'none',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Sluiten
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Menu Panel */}
