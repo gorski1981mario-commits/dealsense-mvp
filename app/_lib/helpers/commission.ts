@@ -1,17 +1,17 @@
 /**
  * Commission Helper
  * 
- * Wspólna logika obliczania komisji dla wszystkich pakietów
- * Eliminuje ~40 linii duplikowanego kodu
+ * Gedeelde logica voor commissie berekening voor alle pakketten
+ * Elimineert ~40 regels gedupliceerde code
  */
 
 import { COMMISSION } from '../constants'
 import { PackageType } from '../package-access'
 
 interface CommissionResult {
-  rate: number        // Procent (np. 10 dla 10%)
-  rateDecimal: number // Dziesiętny (np. 0.1 dla 10%)
-  amount: number      // Kwota komisji
+  rate: number        // Percentage (bijv. 10 voor 10%)
+  rateDecimal: number // Decimaal (bijv. 0.1 voor 10%)
+  amount: number      // Commissie bedrag
 }
 
 /**

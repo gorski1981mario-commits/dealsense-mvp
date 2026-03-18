@@ -1,18 +1,18 @@
 /**
  * Universal Flow Tracker
  * 
- * System trackowania wszystkich flow w aplikacji:
- * - Scanner (produkty)
- * - Configurators (9 konfiguratorów)
- * - Packages (abonament)
- * - Referrals (polecenia)
- * - Bills Optimizer (rachunki)
- * - Gold Investment (złoto)
+ * Tracking systeem voor alle flows in de applicatie:
+ * - Scanner (producten)
+ * - Configurators (9 configurators)
+ * - Packages (abonnement)
+ * - Referrals (verwijzingen)
+ * - Bills Optimizer (rekeningen)
+ * - Gold Investment (goud)
  * 
- * Funkcje:
- * 1. Track view/action/purchase dla każdego flow
- * 2. Blokada pustych przejrzeń (user tylko patrzy, nie kupuje)
- * 3. Metryki konwersji
+ * Functies:
+ * 1. Track view/action/purchase voor elke flow
+ * 2. Blokkade van lege views (gebruiker kijkt alleen, koopt niet)
+ * 3. Conversie metrics
  */
 
 import { PackageType } from './package-access'
@@ -49,27 +49,23 @@ interface FlowLimits {
   actionsWithoutPurchase: number
 }
 
-// Limity dla każdego pakietu (anti-abuse)
+// Limieten per pakket (anti-misbruik)
 const PACKAGE_LIMITS: Record<PackageType, FlowLimits> = {
   free: {
     viewsWithoutPurchase: 3,      // FREE: 3 views max (paywall)
     actionsWithoutPurchase: 3
   },
   plus: {
-    viewsWithoutPurchase: 10,     // PLUS: 10 views bez zakupu
+    viewsWithoutPurchase: 10,     // PLUS: 10 views zonder aankoop
     actionsWithoutPurchase: 10
   },
   pro: {
-    viewsWithoutPurchase: 20,     // PRO: 20 views bez zakupu
+    viewsWithoutPurchase: 20,     // PRO: 20 views zonder aankoop
     actionsWithoutPurchase: 20
   },
   finance: {
-    viewsWithoutPurchase: 30,     // FINANCE: 30 views bez zakupu
+    viewsWithoutPurchase: 30,     // FINANCE: 30 views zonder aankoop
     actionsWithoutPurchase: 30
-  },
-  zakelijk: {
-    viewsWithoutPurchase: 50,     // ZAKELIJK: 50 views bez zakupu
-    actionsWithoutPurchase: 50
   }
 }
 
@@ -99,7 +95,7 @@ export class FlowTracker {
   }
 
   /**
-   * Track VIEW - user zobaczył wyniki/oferty
+   * Track VIEW - gebruiker heeft resultaten/aanbiedingen bekeken
    */
   async trackView(
     userId: string,
@@ -130,7 +126,7 @@ export class FlowTracker {
   }
 
   /**
-   * Track ACTION - user kliknął/wypełnił/wysłał
+   * Track ACTION - gebruiker heeft geklikt/ingevuld/verzonden
    */
   async trackAction(
     userId: string,
@@ -161,7 +157,7 @@ export class FlowTracker {
   }
 
   /**
-   * Track PURCHASE - user kupił/potwierdził
+   * Track PURCHASE - gebruiker heeft gekocht/bevestigd
    */
   async trackPurchase(
     userId: string,
@@ -182,7 +178,7 @@ export class FlowTracker {
     events.push(event)
     this.saveFlowEvents(userId, events)
 
-    // Reset counter po zakupie
+    // Reset teller na aankoop
     this.resetViewsWithoutPurchase(userId, flowType)
 
     // TODO: Send to backend analytics
@@ -249,8 +245,8 @@ export class FlowTracker {
    * Reset views counter after purchase
    */
   private resetViewsWithoutPurchase(userId: string, flowType: FlowType): void {
-    // Counter resetuje się automatycznie przez logikę getViewsWithoutPurchase
-    // (liczy tylko views po ostatnim purchase)
+    // Teller reset automatisch via getViewsWithoutPurchase logica
+    // (telt alleen views na laatste aankoop)
   }
 
   /**

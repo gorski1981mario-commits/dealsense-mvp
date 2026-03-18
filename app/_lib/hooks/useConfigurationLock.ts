@@ -1,8 +1,8 @@
 /**
  * Custom Hook - Configuration Lock
  * 
- * Wspólna logika dla wszystkich konfiguratorów (9 plików)
- * Eliminuje ~800 linii duplikowanego kodu
+ * Gedeelde logica voor alle configurators (9 bestanden)
+ * Elimineert ~800 regels gedupliceerde code
  */
 
 import { useState } from 'react'
