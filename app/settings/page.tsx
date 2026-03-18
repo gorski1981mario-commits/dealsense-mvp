@@ -22,6 +22,7 @@ export default function SettingsPage() {
   const [showBackupCodes, setShowBackupCodes] = useState(false)
   const [backupCodes, setBackupCodes] = useState<string[]>([])
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false)
   
   useEffect(() => {
     checkBiometric()
@@ -152,174 +153,6 @@ export default function SettingsPage() {
       }}>
         Instellingen
       </h1>
-
-        {/* ACCOUNT */}
-        <div style={{
-          marginBottom: '16px'
-        }}>
-          <div style={{
-            fontSize: '14px',
-            fontWeight: 600,
-            color: '#6B7280',
-            letterSpacing: '0.5px',
-            marginBottom: '16px',
-            textTransform: 'uppercase'
-          }}>
-            ACCOUNT
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <Mail size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Email</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>user@example.com</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <Lock size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Wachtwoord</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>••••••••</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <User size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Naam</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>Jan de Vries</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <MapPin size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Postcode</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>1234 AB</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <Home size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Huisnummer</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>42</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              background: 'transparent'
-            }}>
-              <Phone size={18} color="#6B7280" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Telefoon</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>+31 6 12345678</div>
-              </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#1E7F5C',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* NOTIFICATIES */}
         <div style={{
@@ -773,6 +606,174 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* ACCOUNT */}
+        <div style={{
+          marginBottom: '16px'
+        }}>
+          <div style={{
+            fontSize: '14px',
+            fontWeight: 600,
+            color: '#6B7280',
+            letterSpacing: '0.5px',
+            marginBottom: '16px',
+            textTransform: 'uppercase'
+          }}>
+            ACCOUNT
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <Mail size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Email</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>user@example.com</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <Lock size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Wachtwoord</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>••••••••</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <User size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Naam</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>Jan de Vries</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <MapPin size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Postcode</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>1234 AB</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <Home size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Huisnummer</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>42</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              background: 'transparent'
+            }}>
+              <Phone size={18} color="#6B7280" />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Telefoon</div>
+                <div style={{ fontSize: '13px', color: '#6B7280' }}>+31 6 12345678</div>
+              </div>
+              <button style={{
+                fontSize: '13px',
+                color: '#1E7F5C',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                Wijzig
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* ECHO */}
         <div>
           <div style={{
@@ -912,60 +913,111 @@ export default function SettingsPage() {
             GEVAARLIJKE ZONE
           </div>
 
-          <div style={{
-            padding: '20px',
-            borderRadius: '12px',
-            border: '2px solid #FEE2E2',
-            background: '#FEF2F2'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
-              <Trash2 size={24} color="#DC2626" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: '#DC2626', marginBottom: '8px' }}>
+          {/* Collapsed button */}
+          {!showDeleteAccount && (
+            <button
+              onClick={() => setShowDeleteAccount(true)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '16px',
+                borderRadius: '12px',
+                border: '2px solid #FEE2E2',
+                background: '#FEF2F2',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Trash2 size={20} color="#DC2626" />
+              <div style={{ flex: 1, textAlign: 'left' }}>
+                <div style={{ fontSize: '15px', fontWeight: 600, color: '#DC2626' }}>
                   Account permanent verwijderen
                 </div>
-                <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
-                  ⚠️ <strong>Let op:</strong> Deze actie kan NIET ongedaan worden gemaakt!
+                <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '4px' }}>
+                  Klik om details te bekijken
                 </div>
-                <div style={{ 
-                  fontSize: '13px', 
-                  color: '#6B7280', 
-                  lineHeight: '1.6',
-                  paddingLeft: '16px',
-                  borderLeft: '3px solid #FEE2E2'
-                }}>
-                  <div style={{ marginBottom: '6px' }}>
-                    <strong>Je verliest permanent:</strong>
+              </div>
+              <div style={{ fontSize: '20px', color: '#DC2626' }}>›</div>
+            </button>
+          )}
+
+          {/* Expanded content */}
+          {showDeleteAccount && (
+            <div style={{
+              padding: '20px',
+              borderRadius: '12px',
+              border: '2px solid #FEE2E2',
+              background: '#FEF2F2'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                <Trash2 size={24} color="#DC2626" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#DC2626', marginBottom: '8px' }}>
+                    Account permanent verwijderen
                   </div>
-                  <div style={{ marginBottom: '4px' }}>• Alle toegang tot je Agent Echo AI assistent</div>
-                  <div style={{ marginBottom: '4px' }}>• Al je opgeslagen configuraties en scans</div>
-                  <div style={{ marginBottom: '4px' }}>• Je scan geschiedenis en besparingen</div>
-                  <div style={{ marginBottom: '4px' }}>• Ghost Mode monitoring en prijsalerts</div>
-                  <div style={{ marginBottom: '4px' }}>• Je pakket abonnement (PLUS/PRO/FINANCE)</div>
-                  <div style={{ marginBottom: '4px' }}>• Alle persoonlijke instellingen en voorkeuren</div>
-                  <div style={{ marginBottom: '4px' }}>• Biometrische authenticatie en backup codes</div>
-                  <div style={{ marginBottom: '12px' }}>• Referral codes en commissies</div>
-                  <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#DC2626' }}>
-                    Deze data kan NOOIT meer worden hersteld na verwijdering.
+                  <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', marginBottom: '12px' }}>
+                    ⚠️ <strong>Let op:</strong> Deze actie kan NIET ongedaan worden gemaakt!
+                  </div>
+                  <div style={{ 
+                    fontSize: '13px', 
+                    color: '#6B7280', 
+                    lineHeight: '1.6',
+                    paddingLeft: '16px',
+                    borderLeft: '3px solid #FEE2E2'
+                  }}>
+                    <div style={{ marginBottom: '6px' }}>
+                      <strong>Je verliest permanent:</strong>
+                    </div>
+                    <div style={{ marginBottom: '4px' }}>• Alle toegang tot je Agent Echo AI assistent</div>
+                    <div style={{ marginBottom: '4px' }}>• Al je opgeslagen configuraties en scans</div>
+                    <div style={{ marginBottom: '4px' }}>• Je scan geschiedenis en besparingen</div>
+                    <div style={{ marginBottom: '4px' }}>• Ghost Mode monitoring en prijsalerts</div>
+                    <div style={{ marginBottom: '4px' }}>• Je pakket abonnement (PLUS/PRO/FINANCE)</div>
+                    <div style={{ marginBottom: '4px' }}>• Alle persoonlijke instellingen en voorkeuren</div>
+                    <div style={{ marginBottom: '4px' }}>• Biometrische authenticatie en backup codes</div>
+                    <div style={{ marginBottom: '12px' }}>• Referral codes en commissies</div>
+                    <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#DC2626' }}>
+                      Deze data kan NOOIT meer worden hersteld na verwijdering.
+                    </div>
                   </div>
                 </div>
               </div>
+              
+              <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+                <button 
+                  onClick={() => setShowDeleteAccount(false)}
+                  style={{
+                    flex: 1,
+                    padding: '12px 16px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    color: '#6B7280',
+                    background: 'white',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Annuleren
+                </button>
+                <button style={{
+                  flex: 1,
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: 'white',
+                  background: '#DC2626',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer'
+                }}>
+                  Verwijder mijn account
+                </button>
+              </div>
             </div>
-            <button style={{
-              width: '100%',
-              padding: '12px 16px',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: 'white',
-              background: '#DC2626',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              marginTop: '8px'
-            }}>
-              Ik begrijp het - Verwijder mijn account permanent
-            </button>
-          </div>
+          )}
         </div>
     </div>
   )
