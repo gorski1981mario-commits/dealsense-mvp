@@ -355,10 +355,10 @@ export default function HamburgerMenu() {
                 gap: '8px',
                 marginBottom: '8px'
               }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px' }}>
-                  <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
+                <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                  <span style={{ color: '#1E7F5C', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
                   <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
-                  <span style={{ color: '#000', fontSize: '24px', lineHeight: 0 }}>●</span>
+                  <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
                 </div>
                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>AI Assistent</span>
               </div>

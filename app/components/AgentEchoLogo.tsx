@@ -15,12 +15,11 @@ export default function AgentEchoLogo() {
       {/* Logo Echo - BETONOWY DESIGN */}
       <div style={{
         display: 'flex',
-        alignItems: 'baseline',
-        gap: '2px'
+        alignItems: 'baseline'
       }}>
-        {/* E - ciemna zieleń */}
+        {/* E - standard brand green */}
         <span style={{
-          color: '#15803d',
+          color: '#1E7F5C',
           fontWeight: 700,
           fontSize: '28px',
           lineHeight: 1
@@ -41,10 +40,10 @@ export default function AgentEchoLogo() {
         {/* o - czarne kółko, wielkość proporcjonalna do ch */}
         <span style={{
           color: '#000',
-          fontSize: '29px',
+          fontSize: '26px',
           lineHeight: 1,
           position: 'relative',
-          top: '0px'
+          top: '-2px'
         }}>
           ●
         </span>

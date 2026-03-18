@@ -7,21 +7,21 @@
  */
 export const COLORS = {
   // Primary greens
-  primary: '#258b52',
-  primaryDark: '#15803d',
+  primary: '#1E7F5C',
+  primaryDark: '#1E7F5C',
   primaryLight: '#166534',
   primaryExtraLight: '#14532d',
   
   // Success/positive
-  success: '#258b52',
+  success: '#1E7F5C',
   successBg: '#f0fdf4',
   successBorder: '#86efac',
   
   // Gradients
   gradientGreenStart: '#f0fdf4',
   gradientGreenEnd: '#dcfce7',
-  gradientPrimaryStart: '#258b52',
-  gradientPrimaryEnd: '#1e7043',
+  gradientPrimaryStart: '#1E7F5C',
+  gradientPrimaryEnd: '#1E7F5C',
   
   // Neutral colors
   gray50: '#f8fafc',
@@ -47,7 +47,7 @@ export const COLORS = {
   
   // Package badge colors
   packageBadgeBg: 'rgba(37,139,82,0.12)',
-  packageBadgeText: '#258b52',
+  packageBadgeText: '#1E7F5C',
 } as const
 
 /**

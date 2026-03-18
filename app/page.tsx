@@ -150,7 +150,7 @@ export default function HomePage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: '#15803d',
+          background: '#1E7F5C',
           color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
@@ -158,7 +158,7 @@ export default function HomePage() {
         }}>FREE</span>
         <span style={{ 
           fontSize: '14px', 
-          color: scansRemaining === 0 ? '#ef4444' : '#15803d', 
+          color: scansRemaining === 0 ? '#ef4444' : '#1E7F5C', 
           fontWeight: 700,
           padding: '4px 12px',
           background: scansRemaining === 0 ? '#fee2e2' : '#f0fdf4',
@@ -199,13 +199,13 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#258b52', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>100+ winkels</span>
         </div>
         <div style={{
@@ -213,13 +213,13 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#258b52', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>Veilig & betrouwbaar</span>
         </div>
         <div style={{
@@ -227,13 +227,13 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
-          <span style={{ color: '#258b52', fontSize: '16px' }}>✓</span>
+          <span style={{ color: '#1E7F5C', fontSize: '16px' }}>✓</span>
           <span style={{ fontWeight: 600 }}>3 gratis scans</span>
         </div>
       </div>
@@ -345,7 +345,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading || scansRemaining === 0 ? '#9ca3af' : '#258b52',
+            background: loading || scansRemaining === 0 ? '#9ca3af' : '#1E7F5C',
             color: 'white',
             border: 'none',
             borderRadius: '10px',
@@ -383,7 +383,7 @@ export default function HomePage() {
             {result.message || 'Scan voltooid!'}
           </p>
           {result.savings && (
-            <div style={{ fontSize: '24px', fontWeight: 900, color: '#258b52', marginBottom: '8px' }}>
+            <div style={{ fontSize: '24px', fontWeight: 900, color: '#1E7F5C', marginBottom: '8px' }}>
               €{result.savings.toFixed(2)} besparing
             </div>
           )}
@@ -433,7 +433,7 @@ export default function HomePage() {
             </p>
             
             <div style={{ marginBottom: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px' }}>
-              <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '4px' }}>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: '#1E7F5C', marginBottom: '4px' }}>
                 €19,99/maand
               </div>
               <div style={{ fontSize: '12px', color: '#374151' }}>
@@ -494,7 +494,7 @@ export default function HomePage() {
                 onClick={acceptCookies}
                 style={{
                   padding: '8px 16px',
-                  background: '#258b52',
+                  background: '#1E7F5C',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
@@ -598,7 +598,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -622,7 +622,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -646,7 +646,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -670,7 +670,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #c6f6d5 100%)',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -704,7 +704,7 @@ export default function HomePage() {
           Algemene Voorwaarden
         </a>
         <div>
-          © 2026 DealSense.nl
+          &copy; 2026 DealSense.nl
         </div>
       </div>
     </div>

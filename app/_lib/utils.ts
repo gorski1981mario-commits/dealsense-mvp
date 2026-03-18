@@ -38,7 +38,7 @@ export function showToast(message: string): void {
  * Creates falling confetti effect for celebrations
  */
 export function createConfetti(): void {
-  const colors = ['#258b52', '#15803d', '#166534', '#14532d']
+  const colors = ['#1E7F5C', '#1E7F5C', '#1E7F5C', '#1E7F5C']
   for (let i = 0; i < 50; i++) {
     const confetti = document.createElement('div')
     confetti.className = 'confetti'
