@@ -560,7 +560,7 @@ export default function EchoChat() {
                     handleSend()
                   }
                 }}
-                placeholder="Type een bericht... (Shift+Enter voor nieuwe regel)"
+                placeholder="Type een bericht..."
                 rows={2}
                 style={{
                   flex: 1,
