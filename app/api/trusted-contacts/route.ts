@@ -26,7 +26,14 @@ export async function GET(request: NextRequest) {
     */
 
     // MOCK data
-    const mockContacts = []
+    const mockContacts: Array<{
+      id: string
+      user_id: string
+      name: string
+      relationship: string
+      phone_number: string
+      created_at: string
+    }> = []
 
     return NextResponse.json({ contacts: mockContacts })
 
