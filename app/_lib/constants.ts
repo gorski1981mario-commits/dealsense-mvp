@@ -64,6 +64,7 @@ export const TEXTS = {
   packagePlus: 'PLUS',
   packagePro: 'PRO',
   packageFinance: 'FINANCE',
+  packageZakelijk: 'ZAKELIJK B2B',
   
   // Common actions
   upgradeNow: 'Upgrade nu',
@@ -86,19 +87,24 @@ export const TEXTS = {
  */
 export const PRICING = {
   free: '€0',
-  plus: '€19,99',
-  pro: '€29,99',
+  plus: '€9,99',
+  pro: '€19,99',
   finance: '€39,99',
+  zakelijk: '€59,99',
 } as const
 
 /**
- * Commission rates
+ * Commission rates (on transaction value, not subscription price)
+ * FREE: 10% commission on transaction
+ * PLUS/PRO/FINANCE: 9% commission on transaction
+ * ZAKELIJK B2B: 10% commission on B2B transaction
  */
 export const COMMISSION = {
   free: '10%',
-  plus: '10%',
-  pro: '5%',
-  finance: '0%',
+  plus: '9%',
+  pro: '9%',
+  finance: '9%',
+  zakelijk: '10%',
 } as const
 
 /**

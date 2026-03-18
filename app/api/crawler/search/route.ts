@@ -164,24 +164,28 @@ function getMaxOffers(packageType: string): number {
       return 10 // TOP 10
     case 'finance':
       return 10 // TOP 10
+    case 'zakelijk':
+      return 2  // TOP 2 for B2B (large transactions)
     default:
       return 3
   }
 }
 
 /**
- * Get commission rate based on package
+ * Get commission rate based on package (on transaction value)
  */
 function getCommission(packageType: string): string {
   switch (packageType) {
     case 'free':
       return '10%'
     case 'plus':
-      return '10%'
+      return '9%'
     case 'pro':
-      return '5%'
+      return '9%'
     case 'finance':
-      return '0%'
+      return '9%'
+    case 'zakelijk':
+      return '10%'  // B2B package
     default:
       return '10%'
   }
