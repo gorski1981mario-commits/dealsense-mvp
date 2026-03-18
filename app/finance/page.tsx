@@ -100,20 +100,6 @@ export default function FinancePage() {
         <PaymentButton packageType="finance" userId={userId} price={39.99} />
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>Wat krijg je:</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Alles inclusief</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Shopping + Services</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Hypotheken</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leningen</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Leasing</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (30 dagen)</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>🎁 Referral: -2% korting</div>
-        </div>
-      </div>
-
       {/* Bills Optimizer - FINANCE Exclusive */}
       <BillsOptimizer userId={userId} />
 

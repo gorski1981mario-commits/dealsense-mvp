@@ -102,67 +102,7 @@ export default function PaymentButton({ packageType, userId, price }: PaymentBut
 
   return (
     <div style={{ width: '100%' }}>
-      {/* Referral Code Input */}
-      <div style={{ 
-        marginBottom: '16px', 
-        padding: '16px', 
-        background: '#F9FAFB', 
-        borderRadius: '8px',
-        border: '1px solid #E5E7EB'
-      }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>
-          Heb je een referral code?
-        </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <input
-            type="text"
-            value={referralCode}
-            onChange={(e) => {
-              setReferralCode(e.target.value)
-              setCodeValidated(false)
-              setCodeError('')
-            }}
-            placeholder="Voer code in..."
-            disabled={codeValidated}
-            style={{
-              flex: 1,
-              padding: '10px 12px',
-              border: `1px solid ${codeError ? '#EF4444' : codeValidated ? '#10B981' : '#D1D5DB'}`,
-              borderRadius: '6px',
-              fontSize: '14px',
-              outline: 'none',
-              background: codeValidated ? '#F0FDF4' : 'white'
-            }}
-          />
-          <button
-            onClick={handleValidateCode}
-            disabled={validatingCode || codeValidated || !referralCode.trim()}
-            style={{
-              padding: '10px 16px',
-              background: codeValidated ? '#10B981' : validatingCode ? '#9CA3AF' : '#1E7F5C',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: (validatingCode || codeValidated || !referralCode.trim()) ? 'not-allowed' : 'pointer',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            {validatingCode ? '...' : codeValidated ? '✓ Geldig' : 'Gebruik'}
-          </button>
-        </div>
-        {codeError && (
-          <div style={{ marginTop: '8px', fontSize: '12px', color: '#EF4444' }}>
-            ⚠️ {codeError}
-          </div>
-        )}
-        {codeValidated && (
-          <div style={{ marginTop: '8px', fontSize: '12px', color: '#10B981', fontWeight: 600 }}>
-            ✓ Code geactiveerd! Je krijgt 2% korting
-          </div>
-        )}
-      </div>
+      {/* Referral discount is applied automatically via device-bound token from URL */}
 
       {/* Price Breakdown */}
       <div style={{

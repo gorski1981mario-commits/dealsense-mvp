@@ -99,17 +99,6 @@ export default function PlusPage() {
         <PaymentButton packageType="plus" userId={userId} price={19.99} />
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>Wat krijg je:</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Onbeperkt scans</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Shopping</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (10 dagen)</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>🎁 Referral: -2% korting</div>
-        </div>
-      </div>
-
       {/* Scan History */}
       <ScanHistory userId={userId} packageType="plus" />
     </div>

@@ -100,19 +100,6 @@ export default function ProPage() {
         <PaymentButton packageType="pro" userId={userId} price={29.99} />
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>Wat krijg je:</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Onbeperkt scans</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Shopping + Services</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Vakanties</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Verzekeringen</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Energie</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ Ghost Mode (20 dagen)</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>✓ 9% commissie</div>
-          <div style={{ fontSize: '13px', color: '#374151' }}>🎁 Referral: -2% korting</div>
-        </div>
-      </div>
 
       {/* PRO Configurators - 4 Services */}
       <ConfiguratorSelector packageType="pro" userId={userId} />
