@@ -3,6 +3,10 @@
 server/
 server/**/*
 
+# Exclude B2B backup module
+_BACKUP_B2B_MODULE/
+_BACKUP_B2B_MODULE/**/*
+
 # Exclude other non-Next.js files
 *.html
 !app/**/*.html
