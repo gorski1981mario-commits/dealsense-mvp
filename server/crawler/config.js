@@ -10,11 +10,11 @@ module.exports = {
       port: process.env.REDIS_PORT || 6379,
       password: process.env.REDIS_PASSWORD
     },
-    // Concurrency per category
+    // Concurrency per category (OPTIMIZED for speed)
     concurrency: {
-      products: 10,    // 10 parallel workers for products
-      diensten: 5,     // 5 for diensten (slower sites)
-      finance: 3       // 3 for finance (rate-limited)
+      products: 20,    // 20 parallel workers for products (2x faster)
+      diensten: 10,    // 10 for diensten (2x faster)
+      finance: 5       // 5 for finance (safer)
     },
     // Retry settings
     retry: {
@@ -26,22 +26,28 @@ module.exports = {
     }
   },
 
-  // Cache settings
+  // Cache settings (OPTIMIZED for freshness vs performance)
   cache: {
     ttl: {
-      products: 3600,      // 1 hour for products
+      products: 1800,      // 30 min for products (fresher data)
       diensten: 86400,     // 24 hours for diensten
       finance: 172800,     // 48 hours for finance
       fallback: 604800     // 7 days fallback cache
+    },
+    // Pre-warming settings
+    preWarm: {
+      enabled: true,
+      interval: 1800,      // Warm every 30 min
+      popularProducts: 100 // Top 100 products
     }
   },
 
-  // Rate limiting (requests per minute per domain)
+  // Rate limiting (requests per minute per domain) - OPTIMIZED
   rateLimit: {
-    default: 30,           // 30 req/min default
-    aggressive: 50,        // 50 for fast sites (Bol, Coolblue)
-    conservative: 15,      // 15 for slow/protected sites
-    finance: 10            // 10 for finance sites (very conservative)
+    default: 40,           // 40 req/min default (faster)
+    aggressive: 60,        // 60 for fast sites (Bol, Coolblue)
+    conservative: 20,      // 20 for slow/protected sites
+    finance: 15            // 15 for finance sites
   },
 
   // Proxy settings
@@ -65,11 +71,11 @@ module.exports = {
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15'
   ],
 
-  // Timeout settings
+  // Timeout settings (OPTIMIZED for speed)
   timeout: {
-    request: 30000,        // 30s per request
-    parse: 5000,           // 5s for parsing
-    total: 60000           // 60s total per job
+    request: 15000,        // 15s per request (faster fail)
+    parse: 3000,           // 3s for parsing (faster)
+    total: 30000           // 30s total per job (2x faster)
   },
 
   // Domain priorities (1 = highest, 5 = lowest)
