@@ -93,49 +93,68 @@ export default function Scanner({ type }: ScannerProps) {
     setProcessing(true)
     setResult(data)
 
-    // Determine max offers based on package type
-    const maxOffers = (type === 'pro' || type === 'finance') ? 10 : 3
+    // Get userId for FREE package scan tracking
+    const userId = localStorage.getItem('dealsense_device_id') || 'anonymous'
 
     try {
-      const response = await fetch('/api/kwant/scan', {
+      // Use NEW crawler API
+      const response = await fetch('/api/crawler/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          url: data,
-          product_name: 'Scanned Product',
+          ean: data, // Scanned barcode = EAN
+          category: 'electronics', // Default for scanner
           packageType: type,
-          maxOffers // TOP 10 for PRO/FINANCE, TOP 3 for FREE/PLUS
+          userId
         })
       })
 
       const result = await response.json()
 
-      if (response.ok) {
-        switch (type) {
-          case 'free':
-            alert(`QR gescand! Code: ${data}`)
-            break
-          case 'plus':
-            if (result.action === 'unlock') {
-              window.location.href = '/plus?unlocked=true'
-            }
-            break
-          case 'pro':
-            if (result.action === 'subscription') {
-              window.location.href = '/pro?subscribed=true'
-            }
-            break
-          case 'finance':
-            if (result.action === 'premium') {
-              window.location.href = '/finance?premium=true'
-            }
-            break
+      // Handle FREE paywall (after 3 scans)
+      if (result.paywall) {
+        setError(`${result.message}`)
+        setProcessing(false)
+        
+        // Show upgrade prompt
+        setTimeout(() => {
+          if (confirm(`${result.message}\n\nUpgrade nu naar PLUS?`)) {
+            window.location.href = '/packages'
+          }
+        }, 1000)
+        return
+      }
+
+      if (response.ok && result.offers) {
+        // Success - show results
+        const message = type === 'free' 
+          ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans: ${result.scansRemaining || 0}/3 over. Commissie: ${result.commission}`
+          : `✅ Gevonden! ${result.offers.length} aanbiedingen (TOP ${result.offers.length})`
+        
+        setError(message)
+        
+        // Store scan result
+        const scanRecord = {
+          timestamp: Date.now(),
+          ean: data,
+          type,
+          offers: result.offers,
+          commission: result.commission,
+          scansRemaining: result.scansRemaining
         }
+
+        const history = JSON.parse(localStorage.getItem('scan_history') || '[]')
+        history.unshift(scanRecord)
+        localStorage.setItem('scan_history', JSON.stringify(history.slice(0, 50)))
+        
+        // Show results (could navigate to results page)
+        console.log('Scan results:', result.offers)
       } else {
         setError(result.error || 'Scan mislukt')
       }
     } catch (err) {
-      setError('Netwerk fout')
+      console.error('[Scan Error]', err)
+      setError('Netwerk fout - probeer opnieuw')
     } finally {
       setProcessing(false)
     }
