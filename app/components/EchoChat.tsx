@@ -6,6 +6,14 @@ import { MessageCircle, X, Mic, Send } from 'lucide-react'
 interface Message {
   role: 'user' | 'assistant'
   content: string
+  suggestions?: string[] // Quick reply suggestions
+}
+
+interface ConversationContext {
+  mode: 'idle' | 'onboarding' | 'configurator' // What Echo is doing
+  configuratorType?: 'insurance' | 'vacation' | 'energy' | 'telecom' | 'subscriptions'
+  collectedData: Record<string, any> // Data collected from conversation
+  currentStep: number // Which question we're on
 }
 
 export default function EchoChat() {
@@ -17,6 +25,11 @@ export default function EchoChat() {
   const [dailyLimit, setDailyLimit] = useState(0)
   const [userPackage, setUserPackage] = useState<'free' | 'plus' | 'pro' | 'finance'>('free')
   const [isLoading, setIsLoading] = useState(false)
+  const [context, setContext] = useState<ConversationContext>({
+    mode: 'idle',
+    collectedData: {},
+    currentStep: 0
+  })
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -107,15 +120,128 @@ export default function EchoChat() {
       localStorage.setItem('dealsense_echo_usage', JSON.stringify({ date: today, count: count + 1 }))
     }
 
-    // Simulate AI response (replace with actual OpenAI API call)
+    // Process user input and generate intelligent response
+    const response = await processUserInput(input.toLowerCase(), context)
+    
     setTimeout(() => {
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: '🔍 Ik help je graag met het vinden van de beste deals! Waar ben je naar op zoek?'
-      }
-      setMessages(prev => [...prev, assistantMessage])
+      setMessages(prev => [...prev, response])
       setIsLoading(false)
-    }, 1000)
+    }, 800)
+  }
+
+  // Intelligent conversation processing
+  const processUserInput = async (userInput: string, ctx: ConversationContext): Promise<Message> => {
+    // Detect intent
+    const intents = {
+      insurance: /ubezpieczeni|verzekering|auto|motor|zorg|woon|leven|reis|aansprakelijk/i,
+      vacation: /wakacje|vakantie|hotel|vlucht|reis naar|urlaub/i,
+      energy: /energia|energie|stroom|gas|elektriciteit/i,
+      telecom: /internet|telefon|mobiel|tv|ziggo|kpn/i,
+      subscriptions: /abonnement|netflix|spotify|disney/i,
+      optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i
+    }
+
+    // PRO/FINANCE: Start configurator conversation
+    if (userPackage === 'pro' || userPackage === 'finance') {
+      // Detect which configurator user wants
+      if (intents.vacation.test(userInput) && ctx.mode === 'idle') {
+        setContext({ mode: 'configurator', configuratorType: 'vacation', collectedData: {}, currentStep: 0 })
+        return {
+          role: 'assistant',
+          content: '✈️ Super! Ik help je met het vinden van de perfecte vakantie.\n\nWaar wil je naartoe? (bijv. Spanje, Italië, Thailand)',
+          suggestions: ['🇪🇸 Spanje', '🇮🇹 Italië', '🇹🇭 Thailand', '🇬🇷 Griekenland']
+        }
+      }
+
+      if (intents.insurance.test(userInput) && ctx.mode === 'idle') {
+        setContext({ mode: 'configurator', configuratorType: 'insurance', collectedData: {}, currentStep: 0 })
+        return {
+          role: 'assistant',
+          content: '🛡️ Ik help je met verzekeringen! Welke verzekering zoek je?',
+          suggestions: ['🚗 Auto', '🏠 Woon', '❤️ Zorg', '✈️ Reis']
+        }
+      }
+
+      // Continue conversation flow
+      if (ctx.mode === 'configurator' && ctx.configuratorType === 'vacation') {
+        return handleVacationFlow(userInput, ctx)
+      }
+
+      if (ctx.mode === 'configurator' && ctx.configuratorType === 'insurance') {
+        return handleInsuranceFlow(userInput, ctx)
+      }
+    }
+
+    // PLUS: Show potential savings, suggest upgrade
+    if (userPackage === 'plus') {
+      if (intents.optimize.test(userInput)) {
+        return {
+          role: 'assistant',
+          content: '� Ik kan je helpen besparen! Maar om automatisch configuraties in te vullen, heb je PRO of FINANCE nodig.\n\nUpgrade naar PRO voor:\n✨ Auto-fill configuraties\n📊 Persoonlijke analyse\n🎯 Beste deals\n\nWil je upgraden?',
+          suggestions: ['Upgrade naar PRO', 'Vertel meer', 'Nee, bedankt']
+        }
+      }
+    }
+
+    // Default helpful response
+    return {
+      role: 'assistant',
+      content: '👋 Ik ben Echo, je persoonlijke AI assistent!\n\nIk kan je helpen met:\n🛡️ Verzekeringen\n✈️ Vakanties\n⚡ Energie\n📱 Internet & TV\n\nWaar kan ik je mee helpen?',
+      suggestions: ['Verzekeringen', 'Vakanties', 'Energie besparen']
+    }
+  }
+
+  // Vacation configurator conversation flow
+  const handleVacationFlow = (userInput: string, ctx: ConversationContext): Message => {
+    const step = ctx.currentStep
+    
+    if (step === 0) {
+      // Collect destination
+      setContext({...ctx, collectedData: {...ctx.collectedData, destination: userInput}, currentStep: 1})
+      return {
+        role: 'assistant',
+        content: `Geweldig! ${userInput} is een mooie keuze 🌴\n\nWanneer wil je vertrekken? (bijv. "volgende maand", "juli 2026")`,
+        suggestions: ['Deze zomer', 'Volgende maand', 'December']
+      }
+    }
+
+    if (step === 1) {
+      // Collect dates
+      setContext({...ctx, collectedData: {...ctx.collectedData, dates: userInput}, currentStep: 2})
+      return {
+        role: 'assistant',
+        content: 'Perfect! Hoeveel personen gaan er mee?',
+        suggestions: ['1 persoon', '2 personen', '4 personen (gezin)']
+      }
+    }
+
+    if (step === 2) {
+      // Collect travelers
+      setContext({...ctx, collectedData: {...ctx.collectedData, travelers: userInput}, currentStep: 3})
+      return {
+        role: 'assistant',
+        content: 'Top! Wat is je budget per persoon?',
+        suggestions: ['€500-€1000', '€1000-€2000', '€2000+']
+      }
+    }
+
+    if (step === 3) {
+      // Done collecting - show results
+      setContext({...ctx, collectedData: {...ctx.collectedData, budget: userInput}, currentStep: 4})
+      return {
+        role: 'assistant',
+        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n💰 ${userInput}\n\nIk zoek nu de beste deals voor je... ⏳`,
+        suggestions: ['Bekijk resultaten', 'Wijzig gegevens']
+      }
+    }
+
+    return { role: 'assistant', content: 'Ik begrijp je niet helemaal. Kun je het anders formuleren?' }
+  }
+
+  // Insurance configurator conversation flow
+  const handleInsuranceFlow = (userInput: string, ctx: ConversationContext): Message => {
+    // Similar flow for insurance
+    return { role: 'assistant', content: '🛡️ Insurance flow coming soon...' }
   }
 
   const handleVoiceInput = () => {
@@ -281,24 +407,59 @@ export default function EchoChat() {
             )}
 
             {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start'
-                }}
-              >
-                <div style={{
-                  maxWidth: '75%',
-                  padding: '10px 14px',
-                  borderRadius: '12px',
-                  background: msg.role === 'user' ? '#1E7F5C' : '#F3F4F6',
-                  color: msg.role === 'user' ? 'white' : '#111827',
-                  fontSize: '14px',
-                  lineHeight: '1.5'
-                }}>
-                  {msg.content}
+              <div key={idx}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start'
+                  }}
+                >
+                  <div style={{
+                    maxWidth: '75%',
+                    padding: '10px 14px',
+                    borderRadius: '12px',
+                    background: msg.role === 'user' ? '#1E7F5C' : '#F3F4F6',
+                    color: msg.role === 'user' ? 'white' : '#111827',
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    whiteSpace: 'pre-line'
+                  }}>
+                    {msg.content}
+                  </div>
                 </div>
+                
+                {/* Quick reply suggestions */}
+                {msg.role === 'assistant' && msg.suggestions && idx === messages.length - 1 && (
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '6px',
+                    marginTop: '8px',
+                    marginLeft: '8px'
+                  }}>
+                    {msg.suggestions.map((suggestion, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          setInput(suggestion)
+                          setTimeout(() => handleSend(), 100)
+                        }}
+                        style={{
+                          padding: '6px 12px',
+                          background: 'white',
+                          border: '1px solid #1E7F5C',
+                          borderRadius: '16px',
+                          fontSize: '12px',
+                          color: '#1E7F5C',
+                          cursor: 'pointer',
+                          fontWeight: 500
+                        }}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
 
