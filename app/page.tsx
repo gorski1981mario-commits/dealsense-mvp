@@ -568,13 +568,13 @@ export default function HomePage() {
               disabled={!termsAccepted}
               style={{
                 padding: '12px 24px',
-                background: '#1E7F5C',
+                background: termsAccepted ? '#1E7F5C' : '#D1D5DB',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
                 fontSize: '15px',
                 fontWeight: 600,
-                cursor: 'pointer',
+                cursor: termsAccepted ? 'pointer' : 'not-allowed',
                 width: '100%',
                 transition: 'all 0.2s ease'
               }}
