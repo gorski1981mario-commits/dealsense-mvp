@@ -251,14 +251,7 @@ export default function HamburgerMenu() {
                         gap: '12px',
                         padding: '10px 16px',
                         borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'background 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#E6F4EE'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
+                        cursor: 'pointer'
                       }}
                     >
                       <IconComponent size={18} color="#111827" strokeWidth={2} />
@@ -296,14 +289,7 @@ export default function HamburgerMenu() {
                         gap: '12px',
                         padding: '10px 16px',
                         borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'background 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#E6F4EE'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
+                        cursor: 'pointer'
                       }}
                     >
                       <IconComponent size={18} color="#111827" strokeWidth={2} />
@@ -331,14 +317,7 @@ export default function HamburgerMenu() {
                         gap: '12px',
                         padding: '10px 16px',
                         borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'background 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#E6F4EE'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
+                        cursor: 'pointer'
                       }}
                     >
                       <IconComponent size={18} color="#111827" strokeWidth={2} />
