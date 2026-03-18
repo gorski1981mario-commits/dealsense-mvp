@@ -13,31 +13,40 @@ interface PaywallMessageProps {
 export default function PaywallMessage({ currentPackage, requiredPackage, featureName }: PaywallMessageProps) {
   const upgradeInfo = {
     plus: {
-      price: '€19.99',
+      price: '€19,99/mnd',
       features: [
-        'Onbeperkt scans - alle categorieën',
-        'Ghost Mode (10 dagen)',
-        'Echo AI Assistent',
-        'Slechts 12% commissie'
+        '✓ Onbeperkt producten scannen',
+        '✓ 10 productcategorieën',
+        '✓ Slechts 9% commissie op besparingen',
+        '✓ Ghost Mode - prijsmonitoring (10 dagen)',
+        '✓ Prioriteit support',
+        '✓ 1000+ Nederlandse webshops',
+        '✓ Echo - AI productadvies & garanties'
       ]
     },
     pro: {
-      price: '€29.99',
+      price: '€29,99/mnd',
       features: [
-        'Onbeperkt scans - producten én diensten',
-        'Ghost Mode (20 dagen)',
-        '4 Diensten Configurators',
-        'Slechts 9% commissie'
+        '✓ Onbeperkt scans - producten én diensten',
+        '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
+        '✓ Slechts 9% commissie op besparingen',
+        '✓ Ghost Mode - prijsmonitoring (20 dagen)',
+        '✓ Prioriteit support',
+        '✓ 1000+ Nederlandse webshops',
+        '✓ Echo - volledige AI assistent'
       ]
     },
     finance: {
-      price: '€39.99',
+      price: '€39,99/mnd',
       features: [
-        'Alles inclusief - alle 20+ categorieën',
-        'Ghost Mode (30 dagen)',
-        '8 Configurators (diensten + finance)',
-        'Bills Optimizer',
-        'Slechts 9% commissie'
+        '✓ Alles inclusief - alle 20+ categorieën',
+        '✓ Hypotheken, Leningen, Leasing, Creditcards',
+        '✓ Vergelijk alle financiële producten',
+        '✓ Slechts 9% commissie op besparingen',
+        '✓ Ghost Mode - anonieme vergelijking (30 dagen)',
+        '✓ VIP support - directe hulp',
+        '✓ 1000+ Nederlandse webshops',
+        '✓ Echo - premium AI assistent + financieel advies'
       ]
     }
   }
@@ -46,8 +55,8 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
-      border: '2px solid #F59E0B',
+      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      border: '2px solid #86efac',
       borderRadius: '16px',
       padding: '32px',
       textAlign: 'center',
@@ -57,7 +66,7 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
       <div style={{
         width: '64px',
         height: '64px',
-        background: '#F59E0B',
+        background: '#1E7F5C',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
@@ -67,29 +76,29 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         <Lock size={32} color="white" strokeWidth={2} />
       </div>
 
-      <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#92400E', marginBottom: '12px' }}>
+      <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#15803d', marginBottom: '12px' }}>
         {featureName} is vergrendeld
       </h3>
 
-      <p style={{ fontSize: '16px', color: '#78350F', marginBottom: '24px', lineHeight: '1.6' }}>
+      <p style={{ fontSize: '16px', color: '#166534', marginBottom: '24px', lineHeight: '1.6' }}>
         Je hebt momenteel het <strong>{currentPackage.toUpperCase()}</strong> pakket.
         <br />
         Upgrade naar <strong>{requiredPackage.toUpperCase()}</strong> voor toegang tot deze functie.
       </p>
 
       <div style={{
-        background: 'white',
+        background: 'linear-gradient(135deg, #f7f7f7 0%, #e9e9e9 100%)',
         borderRadius: '12px',
         padding: '20px',
         marginBottom: '24px',
         textAlign: 'left'
       }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#92400E', marginBottom: '12px' }}>
-          {requiredPackage.toUpperCase()} pakket - {info.price}/maand:
+        <div style={{ fontSize: '14px', fontWeight: 600, color: '#15803d', marginBottom: '12px' }}>
+          {requiredPackage.toUpperCase()} pakket - {info.price}:
         </div>
         {info.features.map((feature, index) => (
-          <div key={index} style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
-            ✓ {feature}
+          <div key={index} style={{ fontSize: '14px', color: '#166534', marginBottom: '8px' }}>
+            {feature}
           </div>
         ))}
       </div>
@@ -99,20 +108,19 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
         style={{
           display: 'inline-block',
           padding: '14px 32px',
-          background: '#F59E0B',
+          background: '#1E7F5C',
           color: 'white',
           borderRadius: '10px',
           fontSize: '16px',
           fontWeight: 700,
           textDecoration: 'none',
-          transition: 'all 0.2s ease',
-          boxShadow: '0 4px 6px rgba(245, 158, 11, 0.3)'
+          boxShadow: '0 4px 6px rgba(30, 127, 92, 0.3)'
         }}
       >
         Upgrade naar {requiredPackage.toUpperCase()} →
       </Link>
 
-      <div style={{ fontSize: '12px', color: '#92400E', marginTop: '16px', opacity: 0.8 }}>
+      <div style={{ fontSize: '12px', color: '#15803d', marginTop: '16px', opacity: 0.8 }}>
         30 dagen geld-terug-garantie
       </div>
     </div>
