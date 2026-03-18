@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Zap } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { FlowTracker } from '../../_lib/flow-tracker'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
@@ -48,6 +49,12 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   const [validFields, setValidFields] = useState<Set<string>>(new Set())
   const totalFields = 5 // filterType, energyType, contractType, electricityUsage, gasUsage (postcode i houseNumber są opcjonalne)
   
+  // Track view on mount
+  useEffect(() => {
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'view', packageType)
+  }, [])
+  
   // Auto-fill from user account (without auto-validation)
   useEffect(() => {
     const userData = { postcode: '1943BR', houseNumber: '42' }
@@ -81,6 +88,13 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Track action
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-energy', 'action', packageType, {
+      energyType, electricityUsage, gasUsage
+    })
+    
     if (!isLocked) {
       const parameters = { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }
       const success = await lockConfig(parameters)

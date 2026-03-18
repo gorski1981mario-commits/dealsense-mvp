@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Sun } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { FlowTracker } from '../../_lib/flow-tracker'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -18,6 +19,12 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 export default function VacationConfigurator({ packageType = 'pro', userId }: VacationConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
   const [filterType, setFilterType] = useState<FilterType | ''>('')
+  
+  // Track view on mount
+  useEffect(() => {
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'view', packageType)
+  }, [])
   const [adults, setAdults] = useState(0)
   const [children, setChildren] = useState(0)
   const [childrenAges, setChildrenAges] = useState<number[]>([])
@@ -98,6 +105,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Track action
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-vacation', 'action', packageType, {
+      adults, children, destination, duration
+    })
     
     // Auto-lock configuration on submit
     if (!isLocked) {

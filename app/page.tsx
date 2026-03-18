@@ -5,6 +5,7 @@ import Scanner from './components/Scanner'
 import SocialShare from './components/SocialShare'
 import PaymentButton from './components/PaymentButton'
 import { getDeviceId, showToast, createConfetti } from './_lib/utils'
+import { FlowTracker } from './_lib/flow-tracker'
 
 export default function HomePage() {
   const [scansRemaining, setScansRemaining] = useState(3)
@@ -27,6 +28,11 @@ export default function HomePage() {
 
   // Load usage count on mount
   useEffect(() => {
+    // Track page view for scanner flow
+    const userId = getDeviceId()
+    const userPackage = 'free' // HomePage is always FREE package
+    FlowTracker.getInstance().trackEvent(userId, 'scanner', 'view', userPackage)
+    
     const loadUsageCount = async () => {
       try {
         const res = await fetch('https://dealsense-aplikacja.onrender.com/scan', {
@@ -71,6 +77,20 @@ export default function HomePage() {
       showToast('❌ Vul een geldige prijs in')
       return
     }
+
+    // Check if user can continue (anti-abuse)
+    const userId = getDeviceId()
+    const userPackage = 'free'
+    const canContinue = await FlowTracker.getInstance().canContinue(userId, 'scanner', userPackage)
+    
+    if (!canContinue.allowed) {
+      showToast(`⚠️ ${canContinue.reason}`)
+      setShowUpgradePrompt(true)
+      return
+    }
+
+    // Track scan action
+    FlowTracker.getInstance().trackEvent(userId, 'scanner', 'action', userPackage, { price: priceNum, category })
 
     setLoading(true)
     setResult(null)

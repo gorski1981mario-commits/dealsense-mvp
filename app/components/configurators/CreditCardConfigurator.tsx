@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, CreditCard } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { FlowTracker } from '../../_lib/flow-tracker'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -46,9 +47,22 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
   const totalFields = 5 // filterType, cardType, limit, usage, income
   const validateAndMark = (f: string, v: any, customValidator?: (v: any) => boolean) => { setTouchedFields(p => new Set(p).add(f)); const ok = customValidator ? customValidator(v) : validators.required(v); setValidFields(p => { const n = new Set(p); ok ? n.add(f) : n.delete(f); return n }) }
   const progress = Math.round((validFields.size / totalFields) * 100)
+  
+  // Track view on mount
+  useEffect(() => {
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'view', packageType)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Track action
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-creditcard', 'action', packageType, {
+      cardType, limit, usage
+    })
+    
     if (!isLocked) {
       const parameters = { cardType, limit, usage, rewards, income, travelInsurance, purchaseProtection, contactless, secondCard }
       await lockConfig(parameters)

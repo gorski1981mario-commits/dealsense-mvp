@@ -70,10 +70,55 @@ const PACKAGE_LIMITS: Record<PackageType, FlowLimits> = {
 }
 
 /**
- * Universal Flow Tracker Class
+ * Universal Flow Tracker Class (Singleton)
  */
 export class FlowTracker {
+  private static instance: FlowTracker
   private storageKey = 'dealsense_flow_tracking'
+
+  private constructor() {}
+
+  /**
+   * Get singleton instance
+   */
+  static getInstance(): FlowTracker {
+    if (!FlowTracker.instance) {
+      FlowTracker.instance = new FlowTracker()
+    }
+    return FlowTracker.instance
+  }
+
+  /**
+   * Track event (unified method)
+   */
+  trackEvent(
+    userId: string,
+    flowType: FlowType,
+    stage: FlowStage,
+    userPackage: PackageType,
+    data: any = {}
+  ): void {
+    const event: FlowEvent = {
+      userId,
+      flowType,
+      flowId: `${flowType}_${Date.now()}`,
+      stage,
+      timestamp: new Date().toISOString(),
+      data: { ...data, package: userPackage }
+    }
+
+    const events = this.getFlowEvents(userId)
+    events.push(event)
+    this.saveFlowEvents(userId, events)
+
+    // Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', `flow_${stage}`, {
+        flow_type: flowType,
+        package: userPackage
+      })
+    }
+  }
 
   /**
    * Get all flow events for user
@@ -303,6 +348,3 @@ export class FlowTracker {
     localStorage.removeItem(`${this.storageKey}_${userId}`)
   }
 }
-
-// Export singleton instance
-export const flowTracker = new FlowTracker()

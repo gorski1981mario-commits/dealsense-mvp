@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Lock, Download, Home } from 'lucide-react'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { FlowTracker } from '../../_lib/flow-tracker'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
@@ -53,9 +54,22 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
     setValidFields(prev => { const newSet = new Set(prev); isValid ? newSet.add(fieldName) : newSet.delete(fieldName); return newSet })
   }
   const progress = Math.round((validFields.size / totalFields) * 100)
+  
+  // Track view on mount
+  useEffect(() => {
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'view', packageType)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Track action
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-mortgage', 'action', packageType, {
+      mortgageAmount, houseValue, duration
+    })
+    
     if (!isLocked) {
       const parameters = { mortgageAmount, houseValue, duration, mortgageType, income, partnerIncome, postcode, firstTimeBuyer, refinancing, currentMortgageDebt, nhg, fixedRate }
       await lockConfig(parameters)

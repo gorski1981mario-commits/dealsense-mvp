@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Smartphone } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { FlowTracker } from '../../_lib/flow-tracker'
 import AgentEchoLogo from '../AgentEchoLogo'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
@@ -31,6 +32,12 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   const [roaming, setRoaming] = useState(false)
   const [fixedPhone, setFixedPhone] = useState(false)
   const [searching, setSearching] = useState(false)
+  
+  // Track view on mount
+  useEffect(() => {
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'view', packageType)
+  }, [])
   
   // Auto-fill from user account (without auto-validation)
   useEffect(() => {
@@ -96,6 +103,13 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Track action
+    const uid = userId || 'anonymous'
+    FlowTracker.getInstance().trackEvent(uid, 'configurator-telecom', 'action', packageType, {
+      serviceType, mobileData, internetSpeed
+    })
+    
     if (!isLocked) {
       const parameters = { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone }
       await lockConfig(parameters)
