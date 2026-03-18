@@ -20,6 +20,10 @@ class DealSenseCrawler {
     this.rateLimiter = new RateLimiter(config.rateLimit)
     this.metrics = new MetricsCollector()
     
+    // Initialize Proxy Manager
+    const { ProxyManager } = require('./lib/proxy-manager')
+    this.proxyManager = new ProxyManager(config.proxy)
+    
     // Stealth browser pool (reuse browsers for performance)
     this.browserPool = new Map()
     
