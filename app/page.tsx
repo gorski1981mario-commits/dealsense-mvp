@@ -206,7 +206,7 @@ export default function HomePage() {
           boxShadow: '0 2px 8px rgba(37,139,82,0.1)'
         }}>
           <span style={{ color: '#15803d', fontSize: '16px' }}>✓</span>
-          <span style={{ fontWeight: 600 }}>100+ winkels</span>
+          <span style={{ fontWeight: 600 }}>1000+ winkels</span>
         </div>
         <div style={{
           display: 'flex',
@@ -710,5 +710,6 @@ export default function HomePage() {
     </div>
   )
 }
+
 
 

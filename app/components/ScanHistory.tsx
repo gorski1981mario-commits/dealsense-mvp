@@ -186,3 +186,4 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
 }
 
 
+
