@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download, Plane } from 'lucide-react'
+import { Lock, Unlock, Download, Sun } from 'lucide-react'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
@@ -175,7 +175,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     return (
       <div>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          🏖️ Vakantie Configurator
+          <Sun size={24} strokeWidth={2} /> Vakantie Configurator
         </h2>
 
         {/* Progress Tracker */}

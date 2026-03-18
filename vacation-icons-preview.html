@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wakacje - Ikony Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: #F7F9F8; 
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 800px; 
+            width: 100%;
+        }
+        h1 { 
+            font-size: 32px; 
+            font-weight: 700; 
+            color: #111827; 
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .icon-box {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .icon-box.old {
+            border: 3px solid #F59E0B;
+        }
+        .icon-box.new {
+            border: 3px solid #1E7F5C;
+        }
+        .label {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        .icon-box.old .label {
+            color: #F59E0B;
+        }
+        .icon-box.new .label {
+            color: #1E7F5C;
+        }
+        .icon-display {
+            font-size: 80px;
+            margin: 20px 0;
+        }
+        .icon-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 16px;
+        }
+        .locations {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .locations-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+        .location-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #F7F9F8;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .location-item svg {
+            flex-shrink: 0;
+        }
+        .location-text {
+            font-size: 14px;
+            color: #374151;
+        }
+        .code-box {
+            background: #1F2937;
+            color: #10B981;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✈️ → ✈️ Wakacje Ikony</h1>
+        <p class="subtitle">Porównanie emoji z profesjonalną ikoną Lucide</p>
+
+        <div class="comparison">
+            <div class="icon-box old">
+                <div class="label">Stara (Emoji)</div>
+                <div class="icon-display">✈️</div>
+                <div class="icon-name">Emoji Samolot</div>
+            </div>
+
+            <div class="icon-box new">
+                <div class="label">Nowa (Lucide SVG)</div>
+                <div class="icon-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#1E7F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    </svg>
+                </div>
+                <div class="icon-name">Plane (Lucide)</div>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <div class="icon-box old">
+                <div class="label">Alternatywa 1</div>
+                <div class="icon-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2"/>
+                        <path d="M12 20v2"/>
+                        <path d="m4.93 4.93 1.41 1.41"/>
+                        <path d="m17.66 17.66 1.41 1.41"/>
+                        <path d="M2 12h2"/>
+                        <path d="M20 12h2"/>
+                        <path d="m6.34 17.66-1.41 1.41"/>
+                        <path d="m19.07 4.93-1.41 1.41"/>
+                    </svg>
+                </div>
+                <div class="icon-name">Sun</div>
+            </div>
+
+            <div class="icon-box old">
+                <div class="label">Alternatywa 2</div>
+                <div class="icon-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div class="icon-name">MapPin</div>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <div class="icon-box old">
+                <div class="label">Alternatywa 3</div>
+                <div class="icon-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                        <path d="M2 12h20"/>
+                    </svg>
+                </div>
+                <div class="icon-name">Globe</div>
+            </div>
+
+            <div class="icon-box old">
+                <div class="label">Alternatywa 4</div>
+                <div class="icon-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                    </svg>
+                </div>
+                <div class="icon-name">Compass</div>
+            </div>
+        </div>
+
+        <div class="locations">
+            <div class="locations-title">📍 Gdzie używane:</div>
+            <div class="location-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E7F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                </svg>
+                <span class="location-text"><strong>Vakantie Configurator</strong> - app/components/configurators/VacationConfigurator.tsx</span>
+            </div>
+            <div class="location-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E7F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 2v2"/>
+                    <path d="M12 20v2"/>
+                    <path d="m4.93 4.93 1.41 1.41"/>
+                    <path d="m17.66 17.66 1.41 1.41"/>
+                    <path d="M2 12h2"/>
+                    <path d="M20 12h2"/>
+                    <path d="m6.34 17.66-1.41 1.41"/>
+                    <path d="m19.07 4.93-1.41 1.41"/>
+                </svg>
+                <span class="location-text"><strong>Vaste Lasten (Vakanties)</strong> - app/vaste-lasten/page.tsx</span>
+            </div>
+        </div>
+
+        <div class="code-box">
+// Vakantie Configurator<br>
+import { Plane } from 'lucide-react'<br>
+&lt;Plane size={24} strokeWidth={2} /&gt;<br>
+<br>
+// Vaste Lasten<br>
+import { Sun } from 'lucide-react'<br>
+&lt;Sun size={32} strokeWidth={2} color="#1E7F5C" /&gt;
+        </div>
+    </div>
+</body>
+</html>
