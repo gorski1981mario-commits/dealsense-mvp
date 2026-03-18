@@ -21,7 +21,7 @@ export const FEATURE_FLAGS = {
    * ZMIEŃ NA: false - aby testować bez ograniczeń
    * ZMIEŃ NA: true - przed wdrożeniem na produkcję
    */
-  PAYWALL_ENABLED: false,  // 🔧 TESTING MODE - paywall wyłączony
+  PAYWALL_ENABLED: true,  // � PRODUCTION MODE - paywall włączony
 
   /**
    * SHOW_LOCKED_FEATURES
@@ -38,7 +38,7 @@ export const FEATURE_FLAGS = {
    * 
    * Pokazuje informacje debugowania w konsoli
    */
-  DEBUG_MODE: true
+  DEBUG_MODE: false  // 🚀 PRODUCTION - logi wyłączone
 }
 
 /**

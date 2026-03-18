@@ -29,3 +29,18 @@ node_modules/
 **/*.test.ts
 **/*.spec.js
 **/*.spec.ts
+
+# OLD HTML CONFIGURATORS - DO NOT DEPLOY (TSX versions in app/components/configurators/)
+*-configurator-FINAL.html
+*-configurator-full.html
+*-configurator-preview.html
+vakantie-*.html
+vacation-*.html
+insurance-*.html
+telecom-*.html
+energy-*.html
+leasing-*.html
+loan-*.html
+mortgage-*.html
+creditcard-*.html
+subscriptions-*.html

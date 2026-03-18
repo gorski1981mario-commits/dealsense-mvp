@@ -51,22 +51,39 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // IMPORTANT: Crawler runs on separate backend (Render.com)
-    // For Vercel deployment, we use mock data or call crawler API
+    // PRODUCTION: Call KWANT Backend (includes crawler)
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://dealsense-aplikacja.onrender.com'
     let crawlerResult
     
     try {
-      // TODO: Call crawler backend API when deployed
-      // const response = await fetch('https://crawler.dealsense.com/search', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ searchTerm, category, packageType })
-      // })
-      // crawlerResult = await response.json()
+      // Call KWANT backend which integrates crawler
+      const response = await fetch(`${BACKEND_URL}/api/scan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          product_name: searchTerm,
+          ean: ean || null,
+          base_price: 999, // Default for search
+          category,
+          packageType,
+          session_id: userId,
+          fingerprint: userId
+        }),
+        signal: AbortSignal.timeout(30000) // 30s timeout
+      })
       
-      // For now, use mock data (crawler backend not deployed yet)
-      crawlerResult = { offers: generateMockOffers(searchTerm, category, packageType) }
+      if (!response.ok) {
+        throw new Error(`Backend error: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      crawlerResult = { 
+        offers: data.offers || [],
+        cached: data.cached || false
+      }
     } catch (error) {
       console.error('[Crawler Error]', error)
+      // Fallback to mock only on error
       crawlerResult = { offers: generateMockOffers(searchTerm, category, packageType) }
     }
 
