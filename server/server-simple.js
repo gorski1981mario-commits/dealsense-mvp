@@ -39,6 +39,22 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Debug endpoint - sprawdź zmienne środowiskowe
+app.get('/api/debug-env', (req, res) => {
+  res.json({
+    USE_OWN_CRAWLER: process.env.USE_OWN_CRAWLER,
+    CRAWLER_MAX_DOMAINS: process.env.CRAWLER_MAX_DOMAINS,
+    USE_PROXY: process.env.USE_PROXY,
+    PROXY_PROVIDER: process.env.PROXY_PROVIDER,
+    PROXY_HOST: process.env.PROXY_HOST ? 'SET' : 'NOT SET',
+    USE_MOCK_FALLBACK: process.env.USE_MOCK_FALLBACK,
+    MARKET_LOG_SILENT: process.env.MARKET_LOG_SILENT,
+    ROTATION_ENABLED: process.env.ROTATION_ENABLED,
+    USE_SMART_TARGETING: process.env.USE_SMART_TARGETING,
+    NODE_ENV: process.env.NODE_ENV
+  });
+});
+
 // API Status
 app.get('/api/status', (req, res) => {
   res.json({
@@ -96,15 +112,19 @@ app.post('/api/top3', async (req, res) => {
 // Market Offers Endpoint (with anti-scam filtering)
 app.post('/api/market', async (req, res) => {
   try {
-    const { product_name, ean } = req.body;
+    const { product_name, ean, userId, userLocation, geoEnabled } = req.body;
     
     if (!product_name) {
       return res.status(400).json({ error: 'product_name is required' });
     }
 
-    console.log(`[MARKET] Request: ${product_name}, ean: ${ean}`);
+    console.log(`[MARKET] Request: ${product_name}, ean: ${ean}, userId: ${userId}, geo: ${geoEnabled}`);
 
-    const rawOffers = await fetchMarketOffers(product_name, ean || null);
+    const rawOffers = await fetchMarketOffers(product_name, ean || null, {
+      userId,
+      userLocation,
+      geoEnabled
+    });
 
     // Apply anti-scam filtering
     const { isScam } = require('./scoring/isScam');
