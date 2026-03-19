@@ -5,6 +5,8 @@ import jsQR from 'jsqr'
 import { BiometricAuth } from '../_lib/biometric'
 import SocialShareSection from './SocialShareSection'
 import GhostModeButton from './GhostModeButton'
+import FlashDealBadge from './FlashDealBadge'
+import WishlistButton from './WishlistButton'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -301,6 +303,11 @@ export default function Scanner({ type }: ScannerProps) {
         </div>
       )}
 
+      {/* Flash Deal Badge */}
+      {scannedEAN && (
+        <FlashDealBadge ean={scannedEAN} />
+      )}
+
       {/* Offers List */}
       {offers.length > 0 && (
         <div style={{ marginTop: '16px' }}>
@@ -358,6 +365,18 @@ export default function Scanner({ type }: ScannerProps) {
             </div>
           ))}
         </div>
+      )}
+
+      {/* Wishlist Button */}
+      {scannedEAN && offers.length > 0 && type !== 'free' && (
+        <WishlistButton
+          userId={localStorage.getItem('dealsense_device_id') || 'anonymous'}
+          ean={scannedEAN}
+          productName={productName}
+          currentPrice={offers[0]?.price || basePrice}
+          shopHidden={offers[0]?.seller || offers[0]?.shop || 'Unknown'}
+          category="electronics"
+        />
       )}
 
       {/* Social Share Section - always visible, active after selecting offer */}
