@@ -438,7 +438,7 @@ function filterBlockedOffers(list) {
 
 function nlRetailOnlyConfig() {
   const enabled = (() => {
-    const v = String(process.env.MARKET_NL_RETAIL_ONLY || "").trim().toLowerCase();
+    const v = String(process.env.MARKET_NL_RETAIL_ONLY || "false").trim().toLowerCase();
     return v === "1" || v === "true";
   })();
 
