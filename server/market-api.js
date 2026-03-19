@@ -1215,10 +1215,18 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS);
       if (offers && offers.length > 0) {
         const beforeFilters = offers.length;
+        const beforeShops = [...new Set(offers.map(o => o.seller))];
+        
         const afterBlocked = filterBlockedOffers(offers);
+        const blockedShops = [...new Set(afterBlocked.map(o => o.seller))];
+        
         const afterNlRetail = filterNlRetailOnly(afterBlocked);
+        const finalShops = [...new Set(afterNlRetail.map(o => o.seller))];
         
         console.log(`[MARKET] Filtering: ${beforeFilters} → blocked: ${afterBlocked.length} → NL retail: ${afterNlRetail.length}`);
+        console.log(`[MARKET] Shops BEFORE: ${beforeShops.slice(0, 10).join(', ')}${beforeShops.length > 10 ? '...' : ''}`);
+        console.log(`[MARKET] Shops AFTER blocked: ${blockedShops.slice(0, 10).join(', ')}${blockedShops.length > 10 ? '...' : ''}`);
+        console.log(`[MARKET] Shops AFTER NL retail: ${finalShops.join(', ')}`);
         
         offers = afterNlRetail.map((o) => {
           if (o && typeof o === "object" && typeof o._source === "string") return o;
