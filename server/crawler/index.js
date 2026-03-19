@@ -6,6 +6,7 @@ const cheerio = require('cheerio')
 const Redis = require('ioredis')
 const config = require('./config')
 const StealthBrowser = require('./lib/stealth-browser')
+const GotFetcher = require('./lib/got-fetcher')
 const { ParserRegistry } = require('./lib/parser-registry')
 const { RateLimiter } = require('./lib/rate-limiter')
 const { ErrorHandler } = require('./lib/error-handler')
@@ -27,6 +28,14 @@ class DealSenseCrawler {
     // Initialize Proxy Manager
     const { ProxyManager } = require('./lib/proxy-manager')
     this.proxyManager = new ProxyManager(config.proxy)
+    
+    // GotFetcher (fast HTTP client with proxy support)
+    this.gotFetcher = new GotFetcher({
+      enabled: config.proxy.enabled,
+      provider: config.proxy.provider,
+      username: process.env.PROXY_USERNAME,
+      password: process.env.PROXY_PASSWORD
+    })
     
     // Connection Pool (reuse browsers = 10x faster)
     this.connectionPool = new ConnectionPool({
@@ -193,13 +202,43 @@ class DealSenseCrawler {
   }
 
   /**
-   * Fetch URL with Playwright Stealth + Connection Pooling
-   * 100% UNDETECTABLE - bypasses Cloudflare, DataDome, PerimeterX
-   * 10x FASTER - reuses browser connections
+   * Fetch URL with smart strategy:
+   * 1. Try GotFetcher first (fast, works with IPRoyal)
+   * 2. Fallback to Playwright if needs JavaScript or Cloudflare detected
    */
   async fetch(url, options = {}) {
     const { domain } = options
 
+    try {
+      // Try GotFetcher first (10x faster than Playwright)
+      const html = await this.gotFetcher.fetch(url)
+      
+      // Check if page needs JavaScript rendering
+      if (this.gotFetcher.needsJavaScript(html)) {
+        console.log(`⚠️  ${domain} needs JavaScript - using Playwright`)
+        return await this.fetchWithPlaywright(url, domain)
+      }
+      
+      return html
+      
+    } catch (error) {
+      // If GotFetcher fails or detects Cloudflare, use Playwright
+      if (error.message === 'NEEDS_PLAYWRIGHT' || 
+          error.message.includes('Cloudflare') ||
+          error.message.includes('403') ||
+          error.message.includes('captcha')) {
+        console.log(`⚠️  ${domain} blocked - using Playwright stealth mode`)
+        return await this.fetchWithPlaywright(url, domain)
+      }
+      
+      throw error
+    }
+  }
+
+  /**
+   * Fetch with Playwright Stealth (fallback for JS-heavy or protected sites)
+   */
+  async fetchWithPlaywright(url, domain) {
     // Get browser from connection pool (reuse if available)
     const browser = await this.connectionPool.getConnection(domain, async () => {
       return new StealthBrowser({

@@ -35,9 +35,9 @@ export default function SocialShareSection({
 
   // Generuj 3 prompty
   const messages = shareData ? SocialShare.generateMessages(shareData) : [
-    'Wybierz ofertę aby zobaczyć wiadomość...',
-    'Wybierz ofertę aby zobaczyć wiadomość...',
-    'Wybierz ofertę aby zobaczyć wiadomość...'
+    'Selecteer een aanbieding om bericht te zien...',
+    'Selecteer een aanbieding om bericht te zien...',
+    'Selecteer een aanbieding om bericht te zien...'
   ]
 
   // Share functions
@@ -73,8 +73,8 @@ export default function SocialShareSection({
         <span className="text-2xl">{isActive ? '🎉' : '💬'}</span>
         <h3 className="font-semibold text-lg text-gray-800">
           {isActive 
-            ? `Oszczędziłeś €${savings.toFixed(0)}!` 
-            : 'Podziel się swoją oszczędnością!'
+            ? `Je hebt €${savings.toFixed(0)} bespaard!` 
+            : 'Deel je besparing!'
           }
         </h3>
       </div>
@@ -82,7 +82,7 @@ export default function SocialShareSection({
       {/* Message Selection */}
       <div className="mb-3">
         <p className="text-sm font-medium text-gray-700 mb-2">
-          {isActive ? 'Wybierz wiadomość:' : 'Wybierz ofertę aby udostępnić...'}
+          {isActive ? 'Kies een bericht:' : 'Selecteer aanbieding om te delen...'}
         </p>
         <div className="space-y-2">
           {messages.map((message, index) => (
@@ -176,7 +176,7 @@ export default function SocialShareSection({
       {/* Helper text */}
       {!isActive && (
         <p className="text-xs text-gray-500 text-center mt-2">
-          Kliknij "Dodaj do koszyka" aby aktywować udostępnianie
+          Klik "Toevoegen aan winkelwagen" om delen te activeren
         </p>
       )}
     </div>

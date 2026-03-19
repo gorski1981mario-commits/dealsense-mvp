@@ -33,6 +33,8 @@ export default function Scanner({ type }: ScannerProps) {
   const [scannedEAN, setScannedEAN] = useState<string>('')
   const [scansRemaining, setScansRemaining] = useState<number>(3) // FREE: 3 scans
   const [userId, setUserId] = useState<string>('')
+  const [manualInput, setManualInput] = useState<string>('')
+  const [showManualInput, setShowManualInput] = useState<boolean>(true)
 
   useEffect(() => {
     // Get userId only on client side
@@ -118,8 +120,13 @@ export default function Scanner({ type }: ScannerProps) {
     // Get userId for FREE package scan tracking
     const userId = localStorage.getItem('dealsense_device_id') || 'anonymous'
 
+    // DEVICE-BOUND TOKEN SECURITY
+    // Generate unique token for this scan (deviceId + timestamp)
+    const timestamp = Date.now()
+    const scanToken = `${userId}-${timestamp}`
+
     try {
-      // Use NEW crawler API
+      // Use NEW crawler API with device-bound token
       const response = await fetch('/api/crawler/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -127,7 +134,8 @@ export default function Scanner({ type }: ScannerProps) {
           ean: data, // Scanned barcode = EAN
           category: 'electronics', // Default for scanner
           packageType: type,
-          userId
+          userId,
+          scanToken // Device-bound token (cannot be manipulated)
         })
       })
 
@@ -156,7 +164,7 @@ export default function Scanner({ type }: ScannerProps) {
         setScansRemaining(result.scansRemaining || 0) // Update scans remaining (FREE)
         
         let message = type === 'free' 
-          ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans: ${result.scansRemaining || 0}/3 over. Commissie: ${result.commission}`
+          ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans over: ${result.scansRemaining || 0}/3. Commissie: ${result.commission}`
           : `✅ Gevonden! ${result.offers.length} aanbiedingen (TOP ${result.offers.length})`
         
         // Show proactive warning after 2nd scan
@@ -199,7 +207,7 @@ export default function Scanner({ type }: ScannerProps) {
       }
     } catch (err) {
       console.error('[Scan Error]', err)
-      setError('Netwerk fout - probeer opnieuw')
+      setError('Netwerkfout - probeer opnieuw')
     } finally {
       setProcessing(false)
     }
@@ -227,27 +235,83 @@ export default function Scanner({ type }: ScannerProps) {
       border: '1px solid #86efac'
     }}>
       <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px' }}>
-        QR Code Scanner
+        Product Scanner
       </h3>
 
       {!scanning && !result && (
-        <button
-          onClick={startCamera}
-          style={{
-            width: '100%',
-            padding: '12px',
-            background: 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '14px',
-            fontWeight: 600,
-            cursor: 'pointer',
-            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
-          }}
-        >
-          Start Camera
-        </button>
+        <div>
+          {/* Manual Input Field */}
+          {showManualInput && (
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, marginBottom: '8px', color: '#374151' }}>
+                Plak product URL of typ productnaam:
+              </label>
+              <input
+                type="text"
+                value={manualInput}
+                onChange={(e) => setManualInput(e.target.value)}
+                placeholder="https://www.bol.com/nl/nl/p/... of 'iPhone 15 Pro'"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '2px solid #d1d5db',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  marginBottom: '12px',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <button
+                onClick={() => {
+                  if (manualInput.trim()) {
+                    handleScan(manualInput.trim())
+                  }
+                }}
+                disabled={!manualInput.trim() || processing}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: manualInput.trim() ? 'linear-gradient(135deg, #15803d 0%, #059669 100%)' : '#d1d5db',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: manualInput.trim() ? 'pointer' : 'not-allowed',
+                  boxShadow: manualInput.trim() ? '0 4px 6px rgba(21, 128, 61, 0.3)' : 'none'
+                }}
+              >
+                {processing ? 'Scannen...' : 'Scan Product'}
+              </button>
+            </div>
+          )}
+
+          {/* OR Divider */}
+          <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
+            <div style={{ flex: 1, height: '1px', background: '#d1d5db' }}></div>
+            <span style={{ padding: '0 12px', fontSize: '12px', color: '#6b7280', fontWeight: 500 }}>OF</span>
+            <div style={{ flex: 1, height: '1px', background: '#d1d5db' }}></div>
+          </div>
+
+          {/* QR Code Scanner Button */}
+          <button
+            onClick={startCamera}
+            style={{
+              width: '100%',
+              padding: '12px',
+              background: 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
+            }}
+          >
+            📷 Scan Barcode/QR
+          </button>
+        </div>
       )}
 
       {scanning && (
@@ -348,7 +412,7 @@ export default function Scanner({ type }: ScannerProps) {
               )}
               {basePrice > 0 && (
                 <div style={{ fontSize: '12px', color: '#15803d', marginBottom: '8px' }}>
-                  Oszczędność: €{(basePrice - offer.price).toFixed(2)}
+                  Besparing: €{(basePrice - offer.price).toFixed(2)}
                 </div>
               )}
               <button

@@ -19,8 +19,8 @@ module.exports = {
       return this.parseProductPage($, ean)
     }
 
-    // Otherwise parse search results
-    return this.parseSearchResults($, searchQuery)
+    // Otherwise parse search results (pass raw HTML for regex fallback)
+    return this.parseSearchResults($, searchQuery, html)
   },
 
   /**
@@ -29,8 +29,8 @@ module.exports = {
   parseProductPage($, ean) {
     const offers = []
 
-    // Main offer (Bol.com direct)
-    const mainPrice = $('.promo-price, .price-block__highlight').first().text().trim()
+    // Main offer (Bol.com direct) - zaktualizowane selektory
+    const mainPrice = $('.js-price-amount, [data-test="price-amount"], .promo-price, .price-block__highlight').first().text().trim()
     const productUrl = $('link[rel="canonical"]').attr('href')
     
     if (mainPrice && productUrl) {
@@ -79,36 +79,92 @@ module.exports = {
   },
 
   /**
-   * Parse search results
+   * Parse search results page
    */
-  parseSearchResults($, query) {
-    const products = []
+  parseSearchResults($, searchQuery, html = '') {
+    const offers = []
 
-    $('.product-item, .js_item_root').each((i, el) => {
-      const title = $(el).find('.product-title, h2 a').text().trim()
-      const price = $(el).find('.promo-price, .product-price').text().trim()
+    // Product cards
+    $('.product-item, .product-card, [data-test="product-item"]').each((i, el) => {
+      const title = $(el).find('.product-title, h2, h3').first().text().trim()
+      const price = $(el).find('.promo-price, .price-block__highlight, .product-price').first().text().trim()
       const url = $(el).find('a').first().attr('href')
       const image = $(el).find('img').first().attr('src')
-      const rating = $(el).find('.rating__value').text().trim()
+      const rating = $(el).find('.rating, [data-test="rating"]').first().text().trim()
 
       if (title && price && url) {
-        const fullUrl = url?.startsWith('http') ? url : `https://www.bol.com${url}`
-        products.push({
+        offers.push({
+          seller: 'Bol.com',
           title,
           price: this.parsePrice(price),
-          url: fullUrl,
-          cartUrl: CartUrlBuilder.buildCartUrl('bol.com', fullUrl, { quantity: 1 }),
-          image,
-          rating: parseFloat(rating) || 0,
-          seller: 'Bol.com'
+          url: url.startsWith('http') ? url : `https://www.bol.com${url}`,
+          thumbnail: image,
+          rating: this.parseRating(rating),
+          reviews: 0,
+          condition: 'new',
+          shipping: 0,
+          inStock: true
         })
       }
     })
 
+    // REGEX FALLBACK - if CSS selectors found nothing
+    if (offers.length === 0 && html) {
+      console.log('[bol.com] CSS failed, trying REGEX with context...')
+      
+      // INTELIGENTNY REGEX - tylko ceny w kontekście produktu
+      const productKeywords = (searchQuery || '').toLowerCase().split(' ');
+      const contextualPrices = [];
+      
+      // Szukaj fragmentów HTML z ceną + słowem kluczowym w promieniu 200 znaków
+      const chunks = html.split(/€\s*\d+[,.]?\d*/);
+      const priceMatches = html.match(/€\s*\d+[,.]?\d*/g) || [];
+      
+      for (let i = 0; i < priceMatches.length; i++) {
+        const price = priceMatches[i];
+        const contextBefore = chunks[i] ? chunks[i].slice(-100) : '';
+        const contextAfter = chunks[i + 1] ? chunks[i + 1].slice(0, 100) : '';
+        const context = (contextBefore + contextAfter).toLowerCase();
+        
+        // Sprawdź czy w kontekście jest słowo kluczowe (np. "iphone")
+        const hasKeyword = productKeywords.some(kw => kw.length > 3 && context.includes(kw));
+        
+        if (hasKeyword) {
+          const priceNum = parseFloat(price.replace('€', '').replace(',', '.').trim());
+          if (priceNum > 100 && priceNum < 2000) { // Zakres produktów elektronicznych
+            contextualPrices.push(priceNum);
+          }
+        }
+      }
+      
+      if (contextualPrices.length > 0) {
+        const uniquePrices = [...new Set(contextualPrices)].sort((a, b) => a - b);
+        
+        uniquePrices.slice(0, 10).forEach(price => {
+          offers.push({
+            seller: 'Bol.com',
+            title: searchQuery || 'Product',
+            price,
+            url: 'https://www.bol.com',
+            thumbnail: '',
+            rating: 0,
+            reviews: 0,
+            condition: 'new',
+            shipping: 0,
+            inStock: true,
+            _regexParsed: true
+          })
+        })
+        console.log(`[bol.com] REGEX found ${offers.length} contextual offers`)
+      } else {
+        console.log('[bol.com] REGEX found 0 contextual offers')
+      }
+    }
+
     return {
-      query,
+      query: searchQuery,
       source: 'bol.com',
-      products: products.slice(0, 20), // Max 20 products
+      offers: offers.slice(0, 20),
       scrapedAt: Date.now()
     }
   },

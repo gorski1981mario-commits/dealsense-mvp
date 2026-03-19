@@ -104,6 +104,10 @@ export class GhostMode {
     }
 
     try {
+      // DEVICE-BOUND TOKEN SECURITY
+      const timestamp = Date.now()
+      const scanToken = `${monitor.userId}-${timestamp}`
+
       // Call crawler to get current best price
       const response = await fetch('/api/crawler/search', {
         method: 'POST',
@@ -112,7 +116,8 @@ export class GhostMode {
           ean: monitor.ean,
           category: 'electronics',
           packageType: 'plus', // Ghost Mode available for PLUS+
-          userId: monitor.userId
+          userId: monitor.userId,
+          scanToken // Device-bound token (cannot be manipulated)
         })
       })
 

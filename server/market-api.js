@@ -6,13 +6,22 @@ const { fetchOffers: fetchSerpApiOffers } = require("./market/providers/serpapi"
 const { fetchOffers: fetchFashionOffers } = require("./market/providers/fashion");
 const { buildMockOffersForProductName } = require("./market/catalog");
 const { enqueue: kwantEnqueue } = require("./kwant/queue");
+const crawlerSearch = require("./crawler/search-wrapper");
 
 /**
  * MARKET API INTEGRATION MODULE
  * Integracja z prawdziwymi źródłami danych rynkowych
  */
 
-// ---------- USTAWIENIA GOOGLE SHOPPING I SORTowania ----------
+// ---------- USTAWIENIA CRAWLERA I API ----------
+/** Czy używać własnego crawlera (true) czy zewnętrznych API (false) */
+const USE_OWN_CRAWLER = (() => {
+  const v = String(process.env.USE_OWN_CRAWLER || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Ile domen crawlować (dla własnego crawlera) */
+const CRAWLER_MAX_DOMAINS = Number(process.env.CRAWLER_MAX_DOMAINS) || 30;
+
 /** Ile wyników prosić z API na jedną stronę (SearchAPI.io). Więcej = więcej ofert na stronę (jeśli API zwraca). */
 const GOOGLE_SHOPPING_NUM_RESULTS = Number(process.env.GOOGLE_SHOPPING_NUM_RESULTS) || 100;
 /** Ile stron pobrać (page=1, 2, …). 1 = jeden request ≈ 1 s, ~30 sklepów jak wcześniej. Więcej stron = więcej ofert, ale dłużej. */
@@ -865,7 +874,7 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
 
   try {
     const maxPages = hp.enabled && hp.maxPages != null ? hp.maxPages : GOOGLE_SHOPPING_NUM_PAGES;
-    const numPages = Math.max(1, Math.min(maxPages || 1, 2));
+    const numPages = Math.max(1, Math.min(maxPages || 1, 5)); // Zwiększone z 2 do 5
     let offersFromProvider = null;
     let usedProvider = null;
     for (const p of providerChain) {
@@ -988,9 +997,12 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
  * Główna funkcja pobierania ofert rynkowych
  * Próbuje różnych źródeł w kolejności priorytetu
  */
-async function fetchMarketOffers(productName, ean = null) {
+async function fetchMarketOffers(productName, ean = null, options = {}) {
   const startedTotal = Date.now();
   let offers = null;
+  
+  // Extract rotation options
+  const { userId = null, userLocation = null, geoEnabled = false } = options;
 
   const hp = hpConfig();
 
@@ -1088,7 +1100,74 @@ async function fetchMarketOffers(productName, ean = null) {
   const doFetchAndCache = async () => {
     const startedNetwork = Date.now();
     metricsInc("network_fetch");
-    // Fashion provider (optional): only when explicitly enabled.
+    
+    // 1. WŁASNY CRAWLER (PRIORITY #1) - jeśli włączony
+    if (USE_OWN_CRAWLER && effectiveProductName) {
+      const LOG_SILENT_2 = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      if (!LOG_SILENT_2) {
+        console.log(`🕷️  Używam własnego crawlera dla: ${effectiveProductName}`);
+      }
+      
+      try {
+        const crawlerOffers = await crawlerSearch.searchProduct({
+          query: effectiveProductName,
+          ean: ean || null,
+          maxDomains: CRAWLER_MAX_DOMAINS,
+          category: 'products',
+          userId,
+          userLocation,
+          geoEnabled
+        });
+        
+        if (Array.isArray(crawlerOffers) && crawlerOffers.length > 0) {
+          // Normalize crawler offers to match API format
+          const normalizedOffers = crawlerOffers.map(o => ({
+            seller: o.seller || o._domain || 'Unknown',
+            price: o.price || 0,
+            currency: o.currency || 'EUR',
+            availability: o.availability || 'in_stock',
+            reviewScore: o.reviewScore || o.rating || 0,
+            reviewCount: o.reviewCount || o.reviews || 0,
+            url: o.url || '',
+            title: o.title || effectiveProductName,
+            thumbnail: o.thumbnail || o.image || '',
+            deliveryTime: o.deliveryTime || null,
+            _source: 'crawler',
+            _domain: o._domain || null,
+            _cached: o._cached || false
+          }));
+          
+          const filtered = filterNlRetailOnly(filterBlockedOffers(normalizedOffers));
+          
+          if (!LOG_SILENT_2) {
+            console.log(`✅ Crawler znalazł ${filtered.length} ofert z ${CRAWLER_MAX_DOMAINS} domen`);
+          }
+          
+          if (!CACHE_BYPASS) {
+            setCache(cacheKey, filtered);
+            setRedisCache(cacheKey, filtered);
+          }
+          
+          metricsTiming("network_total", Date.now() - startedNetwork);
+          return filtered;
+        }
+        
+        if (!LOG_SILENT_2) {
+          console.log(`⚠️  Crawler nie znalazł ofert, próbuję API fallback...`);
+        }
+      } catch (crawlerError) {
+        if (!LOG_SILENT_2) {
+          console.error(`❌ Crawler error:`, crawlerError.message);
+          console.log(`⚠️  Fallback do API...`);
+        }
+      }
+    }
+    
+    // 2. Fashion provider (optional): only when explicitly enabled.
     // If provider returns results, we treat them as authoritative and cache them.
     const fashionEnabled = (() => {
       const v = String(process.env.MARKET_FASHION_PROVIDER_ENABLED || "").trim().toLowerCase();
@@ -1131,6 +1210,7 @@ async function fetchMarketOffers(productName, ean = null) {
       }
     }
 
+    // 3. Google Shopping API (fallback gdy crawler nie działa)
     if (effectiveProductName) {
       offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS);
       if (offers && offers.length > 0) {

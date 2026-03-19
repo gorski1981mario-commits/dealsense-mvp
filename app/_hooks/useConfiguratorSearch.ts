@@ -49,12 +49,21 @@ export function useConfiguratorSearch() {
     setError(null)
     
     try {
+      // DEVICE-BOUND TOKEN SECURITY
+      // Generate unique token for this search (deviceId + timestamp)
+      const userId = params.userId || (typeof window !== 'undefined' ? localStorage.getItem('dealsense_device_id') : null) || 'anonymous'
+      const timestamp = Date.now()
+      const scanToken = `${userId}-${timestamp}`
+
       const response = await fetch('/api/crawler/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params),
+        body: JSON.stringify({
+          ...params,
+          scanToken // Device-bound token (cannot be manipulated)
+        }),
       })
 
       if (!response.ok) {

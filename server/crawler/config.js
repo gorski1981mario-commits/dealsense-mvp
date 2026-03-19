@@ -53,12 +53,12 @@ module.exports = {
   // Proxy settings
   proxy: {
     enabled: process.env.USE_PROXY === 'true',
-    provider: process.env.PROXY_PROVIDER || 'brightdata', // or 'smartproxy'
+    provider: process.env.PROXY_PROVIDER || 'iproyal', // IPRoyal Residential (High-end Pool)
     rotation: true,
     pool: {
       residential: true,   // Use residential IPs
       country: 'NL',       // Netherlands only
-      sticky: 300          // Keep same IP for 5 min
+      sticky: 1800         // Keep same IP for 30 min (IPRoyal sticky session)
     }
   },
 

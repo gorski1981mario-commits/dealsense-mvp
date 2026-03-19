@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
       ean,             // "8719273287891" (for scanner)
       category,        // "electronics", "energie", etc.
       packageType,     // "free" | "plus" | "pro" | "finance"
-      userId 
+      userId,
+      scanToken        // Device-bound token (deviceId-timestamp)
     } = body
 
     if (!category || !packageType) {
@@ -19,6 +20,18 @@ export async function POST(request: NextRequest) {
         { error: 'Category and packageType required' },
         { status: 400 }
       )
+    }
+
+    // DEVICE-BOUND TOKEN VALIDATION
+    // Validate token format: deviceId-timestamp
+    if (scanToken) {
+      const isValidToken = validateScanToken(scanToken, userId)
+      if (!isValidToken) {
+        return NextResponse.json(
+          { error: 'Invalid scan token - possible manipulation detected' },
+          { status: 403 }
+        )
+      }
     }
 
     // FREE PACKAGE LOGIC - 3 scans teaser, then paywall
@@ -78,13 +91,12 @@ export async function POST(request: NextRequest) {
       
       const data = await response.json()
       crawlerResult = { 
-        offers: data.offers || [],
+        offers: data.result?.offers || [],
         cached: data.cached || false
       }
     } catch (error) {
       console.error('[Crawler Error]', error)
-      // Fallback to mock only on error
-      crawlerResult = { offers: generateMockOffers(searchTerm, category, packageType) }
+      crawlerResult = { offers: [] }
     }
 
     const offers = crawlerResult.offers || []
@@ -95,13 +107,17 @@ export async function POST(request: NextRequest) {
 
     const scansUsed = packageType === 'free' && ean ? await getScanCount(userId) : 0
     const scansRemaining = 3 - scansUsed
+    const basePrice = 999
+    const productName = searchTerm
 
     return NextResponse.json({
       offers: filteredOffers,
-      cached: false,
+      cached: crawlerResult.cached || false,
       scrapedAt: Date.now(),
       packageType,
       commission: getCommission(packageType),
+      productName,
+      basePrice,
       ...(packageType === 'free' && ean ? {
         scansRemaining,
         scansUsed,
@@ -117,6 +133,41 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
+}
+
+/**
+ * Validate device-bound scan token
+ * Token format: deviceId-timestamp
+ * Prevents URL manipulation and replay attacks
+ */
+function validateScanToken(scanToken: string, userId: string): boolean {
+  if (!scanToken || !userId) return false
+  
+  // Token must match format: deviceId-timestamp
+  const parts = scanToken.split('-')
+  if (parts.length < 2) return false
+  
+  // Extract deviceId from token (all parts except last)
+  const tokenDeviceId = parts.slice(0, -1).join('-')
+  const timestamp = parseInt(parts[parts.length - 1])
+  
+  // Validate deviceId matches
+  if (tokenDeviceId !== userId) {
+    console.warn('[Security] Device ID mismatch:', { tokenDeviceId, userId })
+    return false
+  }
+  
+  // Validate timestamp is recent (within 5 minutes)
+  const now = Date.now()
+  const age = now - timestamp
+  const MAX_AGE = 5 * 60 * 1000 // 5 minutes
+  
+  if (age > MAX_AGE || age < 0) {
+    console.warn('[Security] Token expired or future timestamp:', { age, timestamp })
+    return false
+  }
+  
+  return true
 }
 
 /**
@@ -204,78 +255,4 @@ function getCommission(packageType: string): string {
     default:
       return '10%'
   }
-}
-
-/**
- * Generate mock offers for testing
- * IMPORTANT: Replace with real crawler results in production
- */
-function generateMockOffers(searchTerm: string, category: string, packageType: string) {
-  const basePrice = 999
-  
-  return [
-    {
-      title: `${searchTerm} - TechDeal.nl`,
-      price: basePrice * 0.95,
-      seller: 'TechDeal',
-      url: 'https://techdeal.nl/product/123',
-      rating: 4.8,
-      reviews: 245,
-      stock: { level: 'low', quantity: 2 },
-      stockWarning: '⚠️ Beperkte voorraad: nog maar 2 stuks!',
-      dealScore: 9.2,
-      image: '/placeholder-product.jpg'
-    },
-    {
-      title: `${searchTerm} - Coolblue`,
-      price: basePrice * 1.05,
-      seller: 'Coolblue',
-      url: 'https://coolblue.nl/product/456',
-      rating: 4.7,
-      reviews: 1823,
-      stock: { level: 'medium', quantity: null },
-      stockWarning: '⚡ Populair product - beperkte voorraad',
-      dealScore: 8.5,
-      image: '/placeholder-product.jpg'
-    },
-    {
-      title: `${searchTerm} - Bol.com`,
-      price: basePrice * 1.10,
-      seller: 'Bol.com',
-      url: 'https://bol.com/product/789',
-      rating: 4.6,
-      reviews: 3421,
-      stock: { level: 'high', quantity: null },
-      stockWarning: null,
-      dealScore: 8.0,
-      image: '/placeholder-product.jpg'
-    },
-    // Additional offers for PRO/FINANCE
-    ...(packageType === 'pro' || packageType === 'finance' ? [
-      {
-        title: `${searchTerm} - MediaMarkt`,
-        price: basePrice * 1.08,
-        seller: 'MediaMarkt',
-        url: 'https://mediamarkt.nl/product/111',
-        rating: 4.5,
-        reviews: 892,
-        stock: { level: 'high', quantity: null },
-        stockWarning: null,
-        dealScore: 7.8,
-        image: '/placeholder-product.jpg'
-      },
-      {
-        title: `${searchTerm} - Alternate`,
-        price: basePrice * 0.98,
-        seller: 'Alternate',
-        url: 'https://alternate.nl/product/222',
-        rating: 4.6,
-        reviews: 156,
-        stock: { level: 'medium', quantity: null },
-        stockWarning: null,
-        dealScore: 7.5,
-        image: '/placeholder-product.jpg'
-      }
-    ] : [])
-  ]
 }

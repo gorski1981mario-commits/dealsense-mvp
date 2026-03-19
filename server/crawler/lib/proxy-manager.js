@@ -20,6 +20,9 @@ class ProxyManager {
     console.log(`Initializing proxy manager (${this.provider})...`)
     
     switch (this.provider) {
+      case 'iproyal':
+        this.initIPRoyal()
+        break
       case 'brightdata':
         this.initBrightData()
         break
@@ -30,6 +33,35 @@ class ProxyManager {
         console.warn('Unknown proxy provider, proxies disabled')
         this.enabled = false
     }
+  }
+
+  /**
+   * IPRoyal Residential Proxy configuration
+   * High-end pool with sticky sessions (30 min)
+   */
+  initIPRoyal() {
+    const username = process.env.PROXY_USERNAME
+    const password = process.env.PROXY_PASSWORD
+    const host = process.env.PROXY_HOST || 'geo.iproyal.com'
+    const port = process.env.PROXY_PORT || 12321
+
+    if (!username || !password) {
+      console.error('IPRoyal credentials missing')
+      this.enabled = false
+      return
+    }
+
+    // IPRoyal uses password with embedded config
+    // Format: password_country-nl_city-amsterdam_session-xxx_lifetime-30m_streaming-1
+    this.proxyEndpoint = {
+      host: host,
+      port: port,
+      username: username,
+      password: password, // Password already contains all config from dashboard
+      url: `http://${username}:${password}@${host}:${port}`
+    }
+
+    console.log('✓ IPRoyal proxy initialized (NL residential, High-end Pool, 30min sticky)')
   }
 
   /**
@@ -102,7 +134,12 @@ class ProxyManager {
       setTimeout(() => this.failedProxies.delete(domain), 10 * 60 * 1000)
     }
 
-    // For residential proxies, we use session-based rotation
+    // IPRoyal uses pre-configured password with session, no need to modify
+    if (this.provider === 'iproyal') {
+      return this.proxyEndpoint
+    }
+
+    // For BrightData/SmartProxy, we use session-based rotation
     // Same session = same IP for configured duration (sticky)
     const sessionId = this.getSessionId(domain)
 

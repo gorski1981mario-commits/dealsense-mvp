@@ -74,7 +74,7 @@ class StealthBrowser {
     
     // Launch args - disable automation detection
     const launchOptions = {
-      headless: true, // Headless mode (faster)
+      headless: false,
       args: [
         '--disable-blink-features=AutomationControlled',
         '--disable-dev-shm-usage',
@@ -89,10 +89,18 @@ class StealthBrowser {
 
     // Add proxy if configured
     if (proxyServer) {
-      launchOptions.proxy = {
-        server: proxyServer,
-        username: this.proxyConfig.username,
-        password: this.proxyConfig.password
+      // IPRoyal requires credentials in URL (Playwright limitation)
+      if (this.proxyConfig.provider === 'iproyal') {
+        launchOptions.proxy = {
+          server: proxyServer
+        }
+      } else {
+        // BrightData/SmartProxy use separate auth fields
+        launchOptions.proxy = {
+          server: proxyServer,
+          username: this.proxyConfig.username,
+          password: this.proxyConfig.password
+        }
       }
     }
 
@@ -161,7 +169,7 @@ class StealthBrowser {
 
     // Check if we need to rotate proxy
     if (this.requestCount > 0 && this.requestCount % this.proxyRotationInterval === 0) {
-      console.log('🔄 Rotating proxy...')
+      console.log(' Rotating proxy...')
       await this.close()
       await this.launch()
     }
@@ -172,10 +180,10 @@ class StealthBrowser {
       await this.page.waitForTimeout(preDelay)
 
       // Navigate to page
-      await this.page.goto(url, {
-        waitUntil: 'domcontentloaded',
-        timeout: 30000
-      })
+      await this.page.goto(url, { waitUntil: 'networkidle', timeout: 70000 })
+
+      // Wait 8 seconds after page load
+      await this.page.waitForTimeout(8000)
 
       // Human-like behavior: random mouse movements
       const mouseMovements = Math.floor(Math.random() * 6) + 3 // 3-8 movements
