@@ -13,9 +13,17 @@ services:
       - key: NODE_ENV
         value: production
       - key: USE_MOCK_FALLBACK
-        value: true
+        value: false
       - key: MARKET_LOG_SILENT
-        value: 1
+        value: 0
       - key: MARKET_DISK_CACHE_ENABLED
         value: 1
+      - key: USE_CRAWLER
+        value: true
+      - key: CRAWLER_MAX_DOMAINS
+        value: 30
+      - key: USE_SMART_TARGETING
+        value: true
+      - key: ROTATION_ENABLED
+        value: false
     healthCheckPath: /health
