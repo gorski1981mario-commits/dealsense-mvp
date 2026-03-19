@@ -256,14 +256,16 @@ function generateSearchUrl(domain, searchTerm) {
     // Finance - Leasing
     'directlease.nl': `https://www.directlease.nl/`,
     'leaseplan.com': `https://www.leaseplan.com/nl-nl/`,
-    'alphabet.nl': `https://www.alphabet.nl/`,
-    
-  return searchProduct({
-    ean,
-    query: null,
-    maxDomains: options.maxDomains || 20, // Fewer domains for EAN (more precise)
-    category: options.category || 'products'
-  });
+    'alphabet.nl': `https://www.alphabet.nl/`
+  };
+  
+  // Return domain-specific URL if exists, otherwise generic pattern
+  if (patterns[domain]) {
+    return patterns[domain];
+  }
+  
+  // Fallback: generic search URL
+  return `https://www.${domain}/zoeken?q=${encoded}`;
 }
 
 /**
