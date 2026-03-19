@@ -88,7 +88,7 @@ function PaymentSuccessContent() {
             {packageType === 'plus' && (
               <>
                 ✓ Onbeperkt producten scannen<br />
-                ✓ Ghost Mode (10 dagen)<br />
+                ✓ Ghost Mode (24 uur)<br />
                 ✓ Echo AI assistent<br />
                 ✓ Slechts 9% commissie
               </>
@@ -96,7 +96,7 @@ function PaymentSuccessContent() {
             {packageType === 'pro' && (
               <>
                 ✓ Onbeperkt scans - producten én diensten<br />
-                ✓ Ghost Mode (20 dagen)<br />
+                ✓ Ghost Mode (48 uur)<br />
                 ✓ Echo AI assistent (uitgebreid)<br />
                 ✓ 16 categorieën<br />
                 ✓ Slechts 9% commissie
@@ -105,7 +105,7 @@ function PaymentSuccessContent() {
             {packageType === 'finance' && (
               <>
                 ✓ Alles inclusief - alle 20+ categorieën<br />
-                ✓ Ghost Mode (30 dagen)<br />
+                ✓ Ghost Mode (7 dagen)<br />
                 ✓ Echo AI assistent (premium)<br />
                 ✓ Hypotheken, Leningen, Leasing<br />
                 ✓ Slechts 9% commissie

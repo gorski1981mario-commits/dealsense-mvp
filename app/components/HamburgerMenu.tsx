@@ -229,7 +229,7 @@ export default function HamburgerMenu() {
                 ✓ Onbeperkt scans - producten én diensten
               </div>
               <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
-                ✓ Ghost Mode (20 dagen)
+                ✓ Ghost Mode (48 uur)
               </div>
               <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
                 ✓ 4 Diensten Configurators

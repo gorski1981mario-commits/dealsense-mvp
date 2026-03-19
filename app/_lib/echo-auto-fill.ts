@@ -22,11 +22,18 @@ export interface Message {
   timestamp: number
 }
 
+export type FillMode = 'echo' | 'manual' | 'hybrid'
+
 export class EchoAutoFill {
   /**
-   * KONWERSACYJNY AUTO-FILL
+   * HYBRYDOWE PODEJŚCIE
    * 
-   * FLOW:
+   * User wybiera:
+   * 1. ECHO AUTO-FILL: Echo dopytuje i wypełnia automatycznie
+   * 2. RĘCZNE: User sam wypełnia formularz (tradycyjnie)
+   * 3. HYBRID: Echo sugeruje, user poprawia
+   * 
+   * FLOW (ECHO):
    * 1. User: "Szukam ubezpieczenia samochodu"
    * 2. Echo WYWNIOSKUJE: user chce insurance configurator
    * 3. Echo DOPYTUJE: "Jaki masz samochód? Ile km rocznie?"
@@ -35,7 +42,29 @@ export class EchoAutoFill {
    * 6. User POPRAWIA jeśli trzeba
    * 7. User POTWIERDZA palcem (biometric)
    * 8. Echo WYSYŁA do crawlera
+   * 
+   * FLOW (MANUAL):
+   * 1. User otwiera konfigurator
+   * 2. User wypełnia wszystkie pola sam
+   * 3. User klika "Szukaj"
+   * 4. System wysyła do crawlera
    */
+  
+  /**
+   * GET FILL MODE PREFERENCE
+   */
+  static getFillModePreference(): FillMode {
+    if (typeof window === 'undefined') return 'hybrid'
+    return (localStorage.getItem('echo_fill_mode') as FillMode) || 'hybrid'
+  }
+  
+  /**
+   * SET FILL MODE PREFERENCE
+   */
+  static setFillModePreference(mode: FillMode): void {
+    if (typeof window === 'undefined') return
+    localStorage.setItem('echo_fill_mode', mode)
+  }
 
   /**
    * DETECT INTENT

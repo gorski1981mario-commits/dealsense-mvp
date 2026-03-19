@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import jsQR from 'jsqr'
 import { BiometricAuth } from '../_lib/biometric'
+import SocialShareSection from './SocialShareSection'
+import GhostModeButton from './GhostModeButton'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -19,6 +21,14 @@ export default function Scanner({ type }: ScannerProps) {
   const [processing, setProcessing] = useState(false)
   const [biometricRequired, setBiometricRequired] = useState(false)
   const animationFrameId = useRef<number | null>(null)
+  
+  // New state for offers and social share
+  const [offers, setOffers] = useState<any[]>([])
+  const [selectedOffer, setSelectedOffer] = useState<any>(null)
+  const [productName, setProductName] = useState<string>('')
+  const [basePrice, setBasePrice] = useState<number>(0)
+  const [scannedEAN, setScannedEAN] = useState<string>('')
+  const [scansRemaining, setScansRemaining] = useState<number>(3) // FREE: 3 scans
 
   const startCamera = async () => {
     try {
@@ -126,7 +136,13 @@ export default function Scanner({ type }: ScannerProps) {
       }
 
       if (response.ok && result.offers) {
-        // Success - show results
+        // Success - save offers to state
+        setOffers(result.offers)
+        setScannedEAN(data)
+        setProductName(result.productName || `Product ${data}`)
+        setBasePrice(result.basePrice || 0)
+        setScansRemaining(result.scansRemaining || 0) // Update scans remaining (FREE)
+        
         let message = type === 'free' 
           ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans: ${result.scansRemaining || 0}/3 over. Commissie: ${result.commission}`
           : `✅ Gevonden! ${result.offers.length} aanbiedingen (TOP ${result.offers.length})`
@@ -162,7 +178,12 @@ export default function Scanner({ type }: ScannerProps) {
         // Show results (could navigate to results page)
         console.log('Scan results:', result.offers)
       } else {
-        setError(result.error || 'Scan mislukt')
+        // No offers found - clear state
+        setOffers([])
+        setScannedEAN(data)
+        setProductName(result.productName || `Product ${data}`)
+        setBasePrice(result.basePrice || 0)
+        setError(result.error || 'Geen aanbiedingen gevonden')
       }
     } catch (err) {
       console.error('[Scan Error]', err)
@@ -170,6 +191,12 @@ export default function Scanner({ type }: ScannerProps) {
     } finally {
       setProcessing(false)
     }
+  }
+
+  const handleAddToCart = (offer: any) => {
+    setSelectedOffer(offer)
+    console.log('[Add to Cart]', offer)
+    // TODO: Implement actual cart logic
   }
 
   useEffect(() => {
@@ -272,6 +299,90 @@ export default function Scanner({ type }: ScannerProps) {
         }}>
           {error}
         </div>
+      )}
+
+      {/* Offers List */}
+      {offers.length > 0 && (
+        <div style={{ marginTop: '16px' }}>
+          <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#166534' }}>
+            📦 Gevonden Aanbiedingen:
+          </h4>
+          {offers.map((offer, index) => (
+            <div
+              key={index}
+              style={{
+                marginBottom: '12px',
+                padding: '12px',
+                background: index === 0 ? '#dcfce7' : 'white',
+                border: index === 0 ? '2px solid #86efac' : '1px solid #e5e7eb',
+                borderRadius: '8px'
+              }}
+            >
+              {index === 0 && (
+                <div style={{ fontSize: '12px', color: '#15803d', fontWeight: 600, marginBottom: '4px' }}>
+                  ⭐ REKOMENDACJA
+                </div>
+              )}
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#166534', marginBottom: '4px' }}>
+                €{offer.price.toFixed(2)}
+              </div>
+              {/* CORE VALUE: Sklepy pokazujemy TYLKO dla FREE (pierwsze 3 scany) */}
+              {/* Po 3 skanach FREE: paywall + ukrywamy sklepy */}
+              {/* PLUS/PRO/FINANCE: NIGDY nie pokazujemy sklepów przed biometric */}
+              {type === 'free' && scansRemaining > 0 && (
+                <div style={{ fontSize: '13px', color: '#6b7280', marginBottom: '4px' }}>
+                  📍 {offer.seller || offer.shop}
+                </div>
+              )}
+              {basePrice > 0 && (
+                <div style={{ fontSize: '12px', color: '#15803d', marginBottom: '8px' }}>
+                  Oszczędność: €{(basePrice - offer.price).toFixed(2)}
+                </div>
+              )}
+              <button
+                onClick={() => handleAddToCart(offer)}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  background: selectedOffer === offer ? '#15803d' : 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                {selectedOffer === offer ? '✓ Toegevoegd aan winkelwagen' : 'Toevoegen aan winkelwagen'}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Social Share Section - always visible, active after selecting offer */}
+      {offers.length > 0 && (
+        <SocialShareSection
+          productName={productName}
+          basePrice={basePrice}
+          selectedOffer={selectedOffer ? {
+            price: selectedOffer.price,
+            shop: 'Verified Shop' // CORE VALUE: nie pokazujemy prawdziwego sklepu przed paywallem!
+          } : null}
+          isActive={selectedOffer !== null}
+        />
+      )}
+
+      {/* Ghost Mode Button - only when NO offers found */}
+      {scannedEAN && offers.length === 0 && type !== 'free' && (
+        <GhostModeButton
+          userId={localStorage.getItem('dealsense_device_id') || 'anonymous'}
+          ean={scannedEAN}
+          productName={productName}
+          basePrice={basePrice}
+          packageType={type as 'plus' | 'pro' | 'finance'}
+          hasOffers={false}
+        />
       )}
     </div>
   )
