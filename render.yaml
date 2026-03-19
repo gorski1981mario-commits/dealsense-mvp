@@ -18,7 +18,7 @@ services:
         value: 0
       - key: MARKET_DISK_CACHE_ENABLED
         value: 1
-      - key: USE_CRAWLER
+      - key: USE_OWN_CRAWLER
         value: true
       - key: CRAWLER_MAX_DOMAINS
         value: 30
