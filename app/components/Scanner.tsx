@@ -5,8 +5,9 @@ import jsQR from 'jsqr'
 import { BiometricAuth } from '../_lib/biometric'
 import SocialShareSection from './SocialShareSection'
 import GhostModeButton from './GhostModeButton'
-import FlashDealBadge from './FlashDealBadge'
 import WishlistButton from './WishlistButton'
+import SavingsTimeline from './SavingsTimeline'
+import SavingsJournal from './SavingsJournal'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -31,6 +32,15 @@ export default function Scanner({ type }: ScannerProps) {
   const [basePrice, setBasePrice] = useState<number>(0)
   const [scannedEAN, setScannedEAN] = useState<string>('')
   const [scansRemaining, setScansRemaining] = useState<number>(3) // FREE: 3 scans
+  const [userId, setUserId] = useState<string>('')
+
+  useEffect(() => {
+    // Get userId only on client side
+    if (typeof window !== 'undefined') {
+      const id = localStorage.getItem('dealsense_device_id') || 'anonymous'
+      setUserId(id)
+    }
+  }, [])
 
   const startCamera = async () => {
     try {
@@ -303,11 +313,6 @@ export default function Scanner({ type }: ScannerProps) {
         </div>
       )}
 
-      {/* Flash Deal Badge */}
-      {scannedEAN && (
-        <FlashDealBadge ean={scannedEAN} />
-      )}
-
       {/* Offers List */}
       {offers.length > 0 && (
         <div style={{ marginTop: '16px' }}>
@@ -367,15 +372,30 @@ export default function Scanner({ type }: ScannerProps) {
         </div>
       )}
 
+      {/* Savings Timeline - CALM COMMERCE: informacja, nie presja */}
+      {scannedEAN && offers.length > 0 && (
+        <SavingsTimeline
+          ean={scannedEAN}
+          currentPrice={offers[0]?.price || basePrice}
+        />
+      )}
+
       {/* Wishlist Button */}
-      {scannedEAN && offers.length > 0 && type !== 'free' && (
+      {scannedEAN && offers.length > 0 && type !== 'free' && userId && (
         <WishlistButton
-          userId={localStorage.getItem('dealsense_device_id') || 'anonymous'}
+          userId={userId}
           ean={scannedEAN}
           productName={productName}
           currentPrice={offers[0]?.price || basePrice}
           shopHidden={offers[0]?.seller || offers[0]?.shop || 'Unknown'}
           category="electronics"
+        />
+      )}
+
+      {/* Savings Journal - CALM COMMERCE: personal, nie competitive */}
+      {type !== 'free' && userId && (
+        <SavingsJournal
+          userId={userId}
         />
       )}
 

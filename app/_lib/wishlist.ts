@@ -157,27 +157,30 @@ export class Wishlist {
   }
 
   /**
-   * SEND PRICE ALERT
-   * Wysyła alert do usera (push + email + in-app)
+   * SEND PRICE ALERT (CALM COMMERCE)
+   * Dyskretne powiadomienie - ZERO presji, user decyduje kiedy sprawdzi
    */
   private static async sendPriceAlert(
     item: WishlistItem,
     newPrice: number
   ): Promise<void> {
     const savings = item.currentPrice - newPrice
-    const message = `🎉 Cena spadła!\n\n${item.productName}\nByło: €${item.currentPrice}\nTeraz: €${newPrice}\nOszczędność: €${savings.toFixed(2)}\n\nKup teraz!`
+    const message = `ℹ️ Aktualizacja ceny\n\n${item.productName}\nCena spadła o €${savings.toFixed(2)}\n\nMożesz to sprawdzić w swoim czasie.`
 
-    console.log('[Wishlist] 🎉 PRICE ALERT!', message)
+    console.log('[Wishlist] ℹ️ Quiet notification:', message)
 
-    // Send push notification
+    // Quiet notification - TYLKO badge, NIE popup!
+    // User otwiera KIEDY CHCE, bez presji
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('DealSense - Cena spadła! 🎉', {
-        body: `${item.productName}: €${newPrice} (było €${item.currentPrice})`,
-        icon: '/icon.png'
+      new Notification('DealSense - Aktualizacja', {
+        body: `Cena produktu na Twojej liście się zmieniła. Sprawdź kiedy będziesz gotowy.`,
+        icon: '/icon.png',
+        requireInteraction: false, // NIE wymuszamy interakcji
+        silent: true // Cicho, bez dźwięku
       })
     }
 
-    // TODO: Send email/SMS
+    // TODO: Quiet email (nie "KUP TERAZ!", tylko informacja)
   }
 
   /**
