@@ -282,6 +282,5 @@ async function searchByName(productName, options = {}) {
 
 module.exports = {
   searchProduct,
-  searchByEan,
   searchByName
 };
