@@ -289,7 +289,7 @@ function parseCsvEnv(name) {
 
 function blockedConfig() {
   const enabled = (() => {
-    const v = String(process.env.MARKET_BLOCKED_ENABLED || "1").trim().toLowerCase();
+    const v = String(process.env.MARKET_BLOCKED_ENABLED || "0").trim().toLowerCase();
     return v !== "0" && v !== "false";
   })();
 
@@ -336,7 +336,7 @@ function blockedConfig() {
 
 function qualityConfig() {
   const enabled = (() => {
-    const v = String(process.env.MARKET_QUALITY_FILTER_ENABLED || "1").trim().toLowerCase();
+    const v = String(process.env.MARKET_QUALITY_FILTER_ENABLED || "0").trim().toLowerCase();
     return v !== "0" && v !== "false";
   })();
 
