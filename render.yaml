@@ -21,7 +21,9 @@ services:
       # CRAWLER WYŁĄCZONY - używamy Google Shopping API
       - key: USE_OWN_CRAWLER
         value: false
-      # GOOGLE SHOPPING API - dodaj swój klucz w Render dashboard
-      # - key: GOOGLE_SHOPPING_API_KEY
-      #   value: [TWÓJ_KLUCZ_TUTAJ]
+      # GOOGLE SHOPPING API - klucz w Render dashboard
+      - key: GOOGLE_SHOPPING_NUM_RESULTS
+        value: 100
+      - key: GOOGLE_SHOPPING_NUM_PAGES
+        value: 3
     healthCheckPath: /health
