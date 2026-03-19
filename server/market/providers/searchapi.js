@@ -132,6 +132,9 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
     const shoppingResults = Array.isArray(data.shopping_results) ? data.shopping_results : [];
     const shoppingAds = Array.isArray(data.shopping_ads) ? data.shopping_ads : [];
 
+    // ZAWSZE loguj ile wyników zwrócił SearchAPI
+    console.log(`[SearchAPI] Page ${page}: shopping_results=${shoppingResults.length}, shopping_ads=${shoppingAds.length}, total=${shoppingResults.length + shoppingAds.length}`);
+
     if (LOG_HTTP && shoppingResults.length === 0 && shoppingAds.length === 0) {
       const keys = data && typeof data === "object" ? Object.keys(data).slice(0, 40) : [];
       console.error("[SearchAPI] 2xx but no shopping results:", {
