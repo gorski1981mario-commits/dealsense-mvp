@@ -1214,7 +1214,13 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     if (effectiveProductName) {
       offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS);
       if (offers && offers.length > 0) {
-        offers = filterNlRetailOnly(filterBlockedOffers(offers)).map((o) => {
+        const beforeFilters = offers.length;
+        const afterBlocked = filterBlockedOffers(offers);
+        const afterNlRetail = filterNlRetailOnly(afterBlocked);
+        
+        console.log(`[MARKET] Filtering: ${beforeFilters} → blocked: ${afterBlocked.length} → NL retail: ${afterNlRetail.length}`);
+        
+        offers = afterNlRetail.map((o) => {
           if (o && typeof o === "object" && typeof o._source === "string") return o;
           return { ...o, _source: "google" };
         });
