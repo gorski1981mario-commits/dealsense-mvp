@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Smartphone } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { useConfiguratorSearch } from '../../_hooks/useConfiguratorSearch'
 import { FlowTracker } from '../../_lib/flow-tracker'
 import AgentEchoLogo from '../AgentEchoLogo'
+import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'
-import { validators } from '../../utils/validators'
+import { validators, formatters } from '../../utils/validators'
 
 interface TelecomConfiguratorProps {
   packageType?: 'plus' | 'pro' | 'finance' | 'zakelijk'
@@ -61,6 +63,8 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
     handleUnlockConfiguration: unlockConfig,
     handleDownloadPDF: downloadPDF
   } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'telecom' })
+  
+  const { search, loading: searchLoading, error: searchError, results: searchResults } = useConfiguratorSearch()
   const [activeField, setActiveField] = useState<string | null>(null)
   
   // Progress tracking
@@ -116,6 +120,16 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
       const parameters = { serviceType, mobileData, mobileMinutes, internetSpeed, tvChannels, postcode, houseNumber, numberOfSims, fiveG, roaming, fixedPhone }
       await lockConfig(parameters)
     }
+    
+    const searchQuery = `${serviceType} ${mobileData} GB ${internetSpeed} Mbps ${fiveG ? '5G' : ''}`
+    await search({
+      query: searchQuery,
+      category: 'telecom',
+      packageType: pkg,
+      userId: uid,
+      metadata: { serviceType, mobileData, internetSpeed, fiveG }
+    })
+    
     setView('results')
   }
 

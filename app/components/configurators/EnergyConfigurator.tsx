@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Zap } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { useConfiguratorSearch } from '../../_hooks/useConfiguratorSearch'
 import { FlowTracker } from '../../_lib/flow-tracker'
 import AgentEchoLogo from '../AgentEchoLogo'
 import { generateConfigurationPDF } from '../ConfigurationPDFGenerator'
@@ -42,6 +43,9 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     handleUnlockConfiguration: unlockConfig,
     handleDownloadPDF: downloadPDF
   } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'energy' })
+  
+  // Crawler search hook
+  const { search, loading: searchLoading, error: searchError, results: searchResults } = useConfiguratorSearch()
   const [activeField, setActiveField] = useState<string | null>(null)
   
   // Progress tracking
@@ -99,13 +103,19 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
     
     if (!isLocked) {
       const parameters = { energyType, electricityUsage, gasUsage, contractType, postcode, houseNumber, greenEnergy, solarPanels, smartMeter }
-      const success = await lockConfig(parameters)
-      if (success) {
-        alert(`✅ Configuratie vergrendeld!\nConfiguration ID: ${configId}`)
-      } else {
-        alert('❌ Fout bij opslaan configuratie')
-      }
+      await lockConfig(parameters)
     }
+    
+    // Search for energy offers via crawler
+    const searchQuery = `${energyType} energy ${electricityUsage} kWh ${gasUsage ? gasUsage + ' m3 gas' : ''} ${greenEnergy ? 'green' : ''}`
+    await search({
+      query: searchQuery,
+      category: 'energy',
+      packageType: pkg,
+      userId: uid,
+      metadata: { energyType, electricityUsage, gasUsage, greenEnergy }
+    })
+    
     setView('results')
   }
 
@@ -129,33 +139,71 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
   }
 
   if (view === 'results') {
+    const offers = searchResults?.offers || []
+    const hasOffers = offers.length > 0
+    
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
-        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
-        {[{name: '⚡ Vattenfall Groen', price: '€98/mnd', plan: 'Stroom + Gas | 100% groen', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.2', badge: 'BESTE DEAL', best: true}, {name: '⚡ Essent Voordeel', price: '€112/mnd', plan: 'Stroom + Gas | 3 jaar vast', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '⚡ Eneco Duurzaam', price: '€125/mnd', plan: 'Stroom + Gas | Zonnepanelen', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}].map((energy, i) => (
-          <div key={i} style={{ background: energy.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${energy.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{energy.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{energy.price}</div>
-            </div>
-            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{energy.plan}</div>
-            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
-              <span>{energy.rating}</span>
-              <span>{energy.trust}</span>
-              <span>{energy.score}</span>
-            </div>
-            {energy.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{energy.badge}</span>}
+        
+        {searchLoading && (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+            <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>Zoeken naar beste deals...</div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>50% giganten + 50% niszowe leveranciers</div>
           </div>
-        ))}
-        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
-          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 9% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€105,84</div>
-          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(9% van €1.176 jaarlijks)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
-        </div>
+        )}
+        
+        {!searchLoading && searchError && (
+          <div style={{ background: '#FEE2E2', border: '2px solid #DC2626', borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#DC2626' }}>❌ Fout bij zoeken</div>
+            <div style={{ fontSize: '13px', color: '#991B1B', marginTop: '4px' }}>{searchError}</div>
+          </div>
+        )}
+        
+        {!searchLoading && hasOffers && (
+          <>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 {offers.length} beste aanbiedingen gevonden!</h2>
+            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% giganten + 50% niszowe leveranciers met Deal Score</p>
+
+            {offers.map((offer, i) => (
+              <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{offer.title}</div>
+                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>€{offer.price.toFixed(2)}</div>
+                </div>
+                {offer.description && <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{offer.description}</div>}
+                <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
+                  {offer.rating && <span>⭐ {offer.rating}/5</span>}
+                  {offer.dealScore && <span>Score: {offer.dealScore}</span>}
+                  <span>🏪 {offer.seller}</span>
+                </div>
+                {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>BESTE DEAL</span>}
+                <a 
+                  href={offer.cartUrl || offer.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ display: 'block', width: '100%', padding: '12px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}
+                >
+                  🛒 Bekijk aanbieding →
+                </a>
+              </div>
+            ))}
+
+            <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+              <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Commissie: {searchResults?.commission || '9%'}</div>
+              <div style={{ fontSize: '12px', color: '#6B7280' }}>Je betaalt {searchResults?.commission || '9%'} commissie bij aankoop</div>
+            </div>
+          </>
+        )}
+        
+        {!searchLoading && !hasOffers && !searchError && (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>😕</div>
+            <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>Geen resultaten gevonden</div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>Probeer andere zoekparameters</div>
+          </div>
+        )}
       </div>
     )
   }

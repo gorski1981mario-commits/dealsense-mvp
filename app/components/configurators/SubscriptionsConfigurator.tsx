@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Lock, Unlock, Download, Tv } from 'lucide-react'
-import AgentEchoLogo from '../AgentEchoLogo'
+import { Lock, Unlock, Download, Repeat, Tv } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { useConfiguratorSearch } from '../../_hooks/useConfiguratorSearch'
 import { FlowTracker } from '../../_lib/flow-tracker'
+import AgentEchoLogo from '../AgentEchoLogo'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
 import FilterOptions, { FilterType } from '../shared/FilterOptions'

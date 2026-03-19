@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Sun } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
+import { useConfiguratorSearch } from '../../_hooks/useConfiguratorSearch'
 import { FlowTracker } from '../../_lib/flow-tracker'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
@@ -48,6 +49,9 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     handleUnlockConfiguration: unlockConfig,
     handleDownloadPDF: downloadPDF
   } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'vacation' })
+  
+  // Crawler search hook
+  const { search, loading: searching, error: searchError, results: searchResults } = useConfiguratorSearch()
   
   // Active field tracking for visual highlight
   const [activeField, setActiveField] = useState<string | null>(null)
@@ -119,6 +123,16 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
       await lockConfig(parameters)
     }
+    
+    // Search for vacation offers via crawler
+    const searchQuery = `${destination} hotel ${stars} stars ${board} ${duration} days ${adults} adults`
+    await search({
+      query: searchQuery,
+      category: 'vacation',
+      packageType: pkg,
+      userId: uid,
+      metadata: { adults, children, destination, duration, stars, board }
+    })
     
     setView('results')
   }
@@ -404,37 +418,74 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   if (view === 'results') {
+    const offers = searchResults?.offers || []
+    const hasOffers = offers.length > 0
+    
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% e-commerce giganten + 50% niszowe biura met Deal Score</p>
-
-        <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
-
-        {[{name: '⭐⭐⭐⭐⭐ Delphin Imperial', price: '€1.749', location: '📍 Lara, Turkije • Ultra All Inclusive', rating: '⭐ 4.8/5', trust: '🛡️ 9/10', score: 'Score: 9.2', badge: 'BESTE DEAL', best: true}, {name: '⭐⭐⭐⭐⭐ Rixos Premium Belek', price: '€1.899', location: '📍 Belek, Turkije • All Inclusive', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}, {name: '⭐⭐⭐⭐⭐ Maxx Royal Belek', price: '€2.299', location: '📍 Belek, Turkije • Ultra All Inclusive', rating: '⭐ 4.7/5', trust: '🛡️ 10/10', score: 'Score: 9.0'}].map((hotel, i) => (
-          <div key={i} style={{ background: hotel.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${hotel.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{hotel.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{hotel.price}</div>
-            </div>
-            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{hotel.location}</div>
-            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
-              <span>{hotel.rating}</span>
-              <span>{hotel.trust}</span>
-              <span>{hotel.score}</span>
-            </div>
-            {hotel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{hotel.badge}</span>}
+        {searching && (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+            <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>Zoeken naar beste deals...</div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>50% giganten + 50% niszowe biura</div>
           </div>
-        ))}
+        )}
+        
+        {!searching && searchError && (
+          <div style={{ background: '#FEE2E2', border: '2px solid #DC2626', borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#DC2626' }}>❌ Fout bij zoeken</div>
+            <div style={{ fontSize: '13px', color: '#991B1B', marginTop: '4px' }}>{searchError}</div>
+          </div>
+        )}
+        
+        {!searching && hasOffers && (
+          <>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 {offers.length} beste aanbiedingen gevonden!</h2>
+            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% e-commerce giganten + 50% niszowe biura met Deal Score</p>
 
-        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
-          <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Betaal 10% commissie om toegang te krijgen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€174,90</div>
-          <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>(10% van €1.749 × 2 personen)</div>
-          <button onClick={() => setView('payment')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal en krijg toegang →</button>
-        </div>
+            {offers.map((offer, i) => (
+              <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{offer.title}</div>
+                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>€{offer.price.toFixed(2)}</div>
+                </div>
+                {offer.location && <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{offer.location}</div>}
+                <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
+                  {offer.rating && <span>⭐ {offer.rating}/5</span>}
+                  {offer.dealScore && <span>Score: {offer.dealScore}</span>}
+                  <span>🏪 {offer.seller}</span>
+                </div>
+                {offer.stockWarning && (
+                  <div style={{ fontSize: '12px', color: '#F59E0B', marginBottom: '8px' }}>{offer.stockWarning}</div>
+                )}
+                {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>BESTE DEAL</span>}
+                <a 
+                  href={offer.cartUrl || offer.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ display: 'block', width: '100%', padding: '12px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}
+                >
+                  🛒 Voeg toe aan winkelwagen →
+                </a>
+              </div>
+            ))}
+
+            <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
+              <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Commissie: {searchResults?.commission || '10%'}</div>
+              <div style={{ fontSize: '12px', color: '#6B7280' }}>Je betaalt {searchResults?.commission || '10%'} commissie bij aankoop</div>
+            </div>
+          </>
+        )}
+        
+        {!searching && !hasOffers && !searchError && (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>😕</div>
+            <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>Geen resultaten gevonden</div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>Probeer andere zoekparameters</div>
+          </div>
+        )}
       </div>
     )
   }
