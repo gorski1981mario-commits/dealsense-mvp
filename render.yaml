@@ -18,12 +18,10 @@ services:
         value: 0
       - key: MARKET_DISK_CACHE_ENABLED
         value: 1
+      # CRAWLER WYŁĄCZONY - używamy Google Shopping API
       - key: USE_OWN_CRAWLER
-        value: true
-      - key: CRAWLER_MAX_DOMAINS
-        value: 30
-      - key: USE_SMART_TARGETING
-        value: true
-      - key: ROTATION_ENABLED
         value: false
+      # GOOGLE SHOPPING API - dodaj swój klucz w Render dashboard
+      # - key: GOOGLE_SHOPPING_API_KEY
+      #   value: [TWÓJ_KLUCZ_TUTAJ]
     healthCheckPath: /health
