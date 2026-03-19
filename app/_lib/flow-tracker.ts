@@ -66,6 +66,10 @@ const PACKAGE_LIMITS: Record<PackageType, FlowLimits> = {
   finance: {
     viewsWithoutPurchase: 30,     // FINANCE: 30 views zonder aankoop
     actionsWithoutPurchase: 30
+  },
+  zakelijk: {
+    viewsWithoutPurchase: 50,     // ZAKELIJK: 50 views zonder aankoop (B2B needs more)
+    actionsWithoutPurchase: 50
   }
 }
 

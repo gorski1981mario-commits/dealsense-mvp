@@ -38,7 +38,21 @@ export const FEATURE_FLAGS = {
    * 
    * Pokazuje informacje debugowania w konsoli
    */
-  DEBUG_MODE: true  // � TESTING MODE - logi włączone
+  DEBUG_MODE: true,  // 🔧 TESTING MODE - logi włączone
+
+  /**
+   * ZAKELIJK_ENABLED
+   * 
+   * Kontroluje czy pakiet ZAKELIJK B2B jest widoczny i dostępny
+   * 
+   * false = WYŁĄCZONY (do dopracowania) - pakiet całkowicie ukryty A-Z
+   * true = WŁĄCZONY (gdy gotowy) - pakiet widoczny w UI
+   * 
+   * ⚠️ ZAKELIJK to pakiet B2B za €59.99/mnd
+   * Ukrywamy go całkowicie dopóki nie będzie dopracowany
+   * Może być najważniejszy pakiet (gigantyczne przebicia w przemyśle!)
+   */
+  ZAKELIJK_ENABLED: false  // 🚫 ZAKELIJK OFLAGOWANY - do dopracowania później
 }
 
 /**
