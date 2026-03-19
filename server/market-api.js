@@ -865,8 +865,9 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
 
   function countGoodOffers(list) {
     try {
-      const filtered = filterNlRetailOnly(filterBlockedOffers(Array.isArray(list) ? list : []));
-      return Array.isArray(filtered) ? filtered.length : 0;
+      // FILTRY WYŁĄCZONE - zwracamy wszystkie oferty
+      const arr = Array.isArray(list) ? list : [];
+      return arr.length;
     } catch (_) {
       return 0;
     }
@@ -1048,7 +1049,8 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     const cached = getFromCache(cacheKey);
     if (cached) {
       metricsInc("memory_hit");
-      return filterNlRetailOnly(filterBlockedOffers(cached)).map((o) => {
+      // FILTRY WYŁĄCZONE
+      return cached.map((o) => {
         if (o && typeof o === "object" && typeof o._source === "string") return o;
         const url = o && typeof o.url === "string" ? o.url : "";
         const inferred = url.includes("example.com") ? "mock" : "google";
@@ -1061,9 +1063,9 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     const diskCached = getFromDiskCache(cacheKey);
     if (diskCached) {
       metricsInc("disk_hit");
-      const filtered = filterNlRetailOnly(filterBlockedOffers(diskCached));
-      setCache(cacheKey, filtered);
-      return filtered.map((o) => {
+      // FILTRY WYŁĄCZONE
+      setCache(cacheKey, diskCached);
+      return diskCached.map((o) => {
         if (o && typeof o === "object" && typeof o._source === "string") return o;
         const url = o && typeof o.url === "string" ? o.url : "";
         const inferred = url.includes("example.com") ? "mock" : "google";
@@ -1078,9 +1080,9 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     if (redisCached) {
       metricsInc("redis_hit");
       // Wypełnij też lokalny cache (szybciej na kolejne requesty)
-      const filtered = filterNlRetailOnly(filterBlockedOffers(redisCached));
-      setCache(cacheKey, filtered);
-      return filtered.map((o) => {
+      // FILTRY WYŁĄCZONE
+      setCache(cacheKey, redisCached);
+      return redisCached.map((o) => {
         if (o && typeof o === "object" && typeof o._source === "string") return o;
         const url = o && typeof o.url === "string" ? o.url : "";
         const inferred = url.includes("example.com") ? "mock" : "google";
@@ -1141,7 +1143,8 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
             _cached: o._cached || false
           }));
           
-          const filtered = filterNlRetailOnly(filterBlockedOffers(normalizedOffers));
+          // FILTRY WYŁĄCZONE
+          const filtered = normalizedOffers;
           
           if (!LOG_SILENT_2) {
             console.log(`✅ Crawler znalazł ${filtered.length} ofert z ${CRAWLER_MAX_DOMAINS} domen`);
@@ -1200,7 +1203,8 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       if (Array.isArray(r) && r.length > 0) {
         metricsInc("fashion_hit");
         const tagged = r.map((o) => (o && typeof o === "object" ? { ...o, _source: o._source || "fashion" } : o));
-        const filteredFashion = filterNlRetailOnly(filterBlockedOffers(tagged));
+        // FILTRY WYŁĄCZONE
+        const filteredFashion = tagged;
         if (!CACHE_BYPASS) {
           setCache(cacheKey, filteredFashion);
           setRedisCache(cacheKey, filteredFashion);
