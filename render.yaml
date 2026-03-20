@@ -26,4 +26,15 @@ services:
         value: 100
       - key: GOOGLE_SHOPPING_NUM_PAGES
         value: 3
+      # FILTRY WYŁĄCZONE - zwracamy wszystkie wyniki z Google Shopping API
+      - key: MARKET_BLOCKED_ENABLED
+        value: 0
+      - key: MARKET_QUALITY_FILTER_ENABLED
+        value: 0
+      - key: MARKET_NL_RETAIL_ONLY
+        value: false
+      - key: MARKET_BLOCK_USED_ENABLED
+        value: 0
+      - key: MARKET_MAX_DELIVERY_DAYS
+        value: 0
     healthCheckPath: /health

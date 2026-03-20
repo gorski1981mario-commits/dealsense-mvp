@@ -341,15 +341,15 @@ function qualityConfig() {
   })();
 
   const maxDeliveryDays = (() => {
-    const raw = String(process.env.MARKET_MAX_DELIVERY_DAYS || "7").trim();
+    const raw = String(process.env.MARKET_MAX_DELIVERY_DAYS || "0").trim();
     const n = Number(raw);
-    if (!Number.isFinite(n)) return 3;
+    if (!Number.isFinite(n)) return null;
     if (n <= 0) return null;
     return Math.max(1, Math.min(Math.floor(n), 30));
   })();
 
   const blockUsed = (() => {
-    const v = String(process.env.MARKET_BLOCK_USED_ENABLED || "1").trim().toLowerCase();
+    const v = String(process.env.MARKET_BLOCK_USED_ENABLED || "0").trim().toLowerCase();
     return v !== "0" && v !== "false";
   })();
 
