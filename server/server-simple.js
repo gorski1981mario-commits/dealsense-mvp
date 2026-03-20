@@ -126,40 +126,19 @@ app.post('/api/market', async (req, res) => {
       geoEnabled
     });
 
-    // Apply anti-scam filtering
-    const { isScam } = require('./scoring/isScam');
-    
-    // Calculate market average for price validation
-    const validPrices = rawOffers
-      .map(o => o.price)
-      .filter(p => typeof p === 'number' && p > 0);
-    const marketAvg = validPrices.length > 0 
-      ? validPrices.reduce((a, b) => a + b, 0) / validPrices.length 
-      : 0;
-
-    // Filter out scam offers
-    const cleanOffers = rawOffers.filter(offer => {
-      try {
-        return !isScam(offer, marketAvg);
-      } catch (err) {
-        console.error('[MARKET] isScam error:', err);
-        return true; // Keep offer if filtering fails
-      }
-    });
-
-    console.log(`[MARKET] Filtered: ${rawOffers.length} → ${cleanOffers.length} offers (removed ${rawOffers.length - cleanOffers.length} scam)`);
+    // SCAM FILTER WYŁĄCZONY - zwracamy wszystkie oferty
+    console.log(`[MARKET] Zwracam wszystkie oferty bez filtrowania: ${rawOffers.length}`);
 
     res.json({
       success: true,
       product_name,
       ean,
-      offers: cleanOffers,
-      count: cleanOffers.length,
+      offers: rawOffers,
+      count: rawOffers.length,
       meta: {
         rawCount: rawOffers.length,
-        filteredCount: cleanOffers.length,
-        scamRemoved: rawOffers.length - cleanOffers.length,
-        marketAvg: Math.round(marketAvg * 100) / 100
+        filteredCount: rawOffers.length,
+        scamRemoved: 0
       }
     });
 
