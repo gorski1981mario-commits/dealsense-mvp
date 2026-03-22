@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { fetchOffers: fetchSearchApiOffers } = require("./market/providers/searchapi");
 const { fetchOffers: fetchFashionOffers } = require("./market/providers/fashion");
+const { fetchHotels } = require("./market/providers/hotels");
 const { buildMockOffersForProductName } = require("./market/catalog");
 const { extractSmartBundles } = require("./lib/smartBundleExtractor");
 const { filterProductQuality } = require('./lib/productQualityFilter');
@@ -1925,10 +1926,64 @@ function getCostOptimizationStats() {
 }
 
 /**
+ * GOOGLE HOTELS API - dla konfiguratorów wakacyjnych
+ */
+async function fetchHotelOffers(query, hotelParams = {}) {
+  const {
+    checkInDate,
+    checkOutDate,
+    adults = 2,
+    children = 0,
+    childrenAges = "",
+    hotelClass = "",
+    sortBy = "relevance",
+    rating = "",
+    freeCancellation = false,
+    propertyType = ""
+  } = hotelParams;
+
+  const apiKey = GOOGLE_SHOPPING_API_KEY;
+
+  console.log(`[Hotels] Fetching hotels for: ${query}`);
+  console.log(`[Hotels] Dates: ${checkInDate} - ${checkOutDate}`);
+  console.log(`[Hotels] Guests: ${adults} adults, ${children} children`);
+
+  try {
+    const hotels = await fetchHotels({
+      query,
+      checkInDate,
+      checkOutDate,
+      adults,
+      children,
+      childrenAges,
+      hotelClass,
+      sortBy,
+      rating,
+      freeCancellation,
+      propertyType,
+      apiKey
+    });
+
+    if (!hotels || hotels.length === 0) {
+      console.log('[Hotels] No hotels found');
+      return null;
+    }
+
+    console.log(`[Hotels] Found ${hotels.length} hotels`);
+    return hotels;
+
+  } catch (error) {
+    console.error('[Hotels] Error:', error.message);
+    return null;
+  }
+}
+
+/**
  * Eksport funkcji
  */
 module.exports = {
   fetchMarketOffers,
+  fetchHotelOffers,
   fetchGoogleShoppingOffers,
   filterBlockedOffers,
   filterNlRetailOnly,
