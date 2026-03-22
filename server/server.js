@@ -31,7 +31,7 @@ const { stats: kwantQueueStats } = require("./kwant/queue");
 const { getJson: kwantCacheGetJson } = require("./kwant/cache");
 const { enqueue: kwantEnqueue } = require("./kwant/queue");
 const { cacheKeyFor: kwantCacheKeyFor } = require("./kwant/planner");
-const GoogleShoppingAPI = require("./google-shopping");
+// const GoogleShoppingAPI = require("./google-shopping"); // REMOVED - używamy SearchAPI
 const APICache = require("./api-cache");
 const { isScam: scoringIsScam } = require("./scoring/isScam");
 const {

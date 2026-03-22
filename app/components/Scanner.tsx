@@ -35,6 +35,10 @@ export default function Scanner({ type }: ScannerProps) {
   const [userId, setUserId] = useState<string>('')
   const [manualInput, setManualInput] = useState<string>('')
   const [showManualInput, setShowManualInput] = useState<boolean>(true)
+  
+  // Smart Bundles state
+  const [smartBundles, setSmartBundles] = useState<any[]>([])
+  const [selectedBundleItems, setSelectedBundleItems] = useState<{[key: string]: any}>({})
 
   useEffect(() => {
     // Get userId only on client side
@@ -157,15 +161,28 @@ export default function Scanner({ type }: ScannerProps) {
 
       if (response.ok && result.offers) {
         // Success - save offers to state
-        setOffers(result.offers)
+        const offers = Array.isArray(result.offers) ? result.offers : (result.offers?.offers || [])
+        setOffers(offers)
         setScannedEAN(data)
         setProductName(result.productName || `Product ${data}`)
         setBasePrice(result.basePrice || 0)
         setScansRemaining(result.scansRemaining || 0) // Update scans remaining (FREE)
         
+        // Smart Bundles (jeśli są)
+        if (result.smartBundles && result.smartBundles.length > 0) {
+          setSmartBundles(result.smartBundles)
+          console.log('[Smart Bundles]', result.smartBundles)
+        } else if (result.offers?.smartBundles) {
+          setSmartBundles(result.offers.smartBundles)
+          console.log('[Smart Bundles]', result.offers.smartBundles)
+        } else {
+          setSmartBundles([])
+        }
+        
+        const offerCount = offers.length
         let message = type === 'free' 
-          ? `✅ Gevonden! ${result.offers.length} aanbiedingen. Scans over: ${result.scansRemaining || 0}/3. Commissie: ${result.commission}`
-          : `✅ Gevonden! ${result.offers.length} aanbiedingen (TOP ${result.offers.length})`
+          ? `✅ Gevonden! ${offerCount} aanbiedingen. Scans over: ${result.scansRemaining || 0}/3. Commissie: ${result.commission}`
+          : `✅ Gevonden! ${offerCount} aanbiedingen (TOP ${offerCount})`
         
         // Show proactive warning after 2nd scan
         if (result.warning) {
@@ -461,6 +478,141 @@ export default function Scanner({ type }: ScannerProps) {
         <SavingsJournal
           userId={userId}
         />
+      )}
+
+      {/* Smart Bundles Section */}
+      {smartBundles.length > 0 && offers.length > 0 && (
+        <div style={{
+          marginTop: '16px',
+          padding: '12px',
+          background: 'white',
+          borderRadius: '8px',
+          border: '2px solid #86efac'
+        }}>
+          <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#166534' }}>
+            🎁 Smart Bundle - Bespaar meer!
+          </h4>
+          <p style={{ fontSize: '12px', color: '#6b7280', marginBottom: '12px' }}>
+            Selecteer accessoires (tap om te kiezen):
+          </p>
+          
+          {smartBundles.map((bundle, idx) => {
+            const isSelected = selectedBundleItems[bundle.type]
+            const currentVariant = isSelected || bundle.defaultVariant
+            
+            return (
+              <div
+                key={idx}
+                style={{
+                  marginBottom: '12px',
+                  padding: '12px',
+                  background: isSelected ? '#f0fdf4' : '#f9fafb',
+                  border: isSelected ? '2px solid #86efac' : '1px solid #e5e7eb',
+                  borderRadius: '8px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '8px' }}>
+                  <input
+                    type="checkbox"
+                    checked={!!isSelected}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedBundleItems(prev => ({
+                          ...prev,
+                          [bundle.type]: bundle.defaultVariant
+                        }))
+                      } else {
+                        setSelectedBundleItems(prev => {
+                          const newItems = { ...prev }
+                          delete newItems[bundle.type]
+                          return newItems
+                        })
+                      }
+                    }}
+                    style={{
+                      marginRight: '10px',
+                      width: '18px',
+                      height: '18px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '4px' }}>
+                      {bundle.name}
+                    </div>
+                    
+                    {/* Variant Selector (dropdown) */}
+                    {bundle.variants && bundle.variants.length > 1 && (
+                      <select
+                        value={JSON.stringify(currentVariant)}
+                        onChange={(e) => {
+                          const newVariant = JSON.parse(e.target.value)
+                          setSelectedBundleItems(prev => ({
+                            ...prev,
+                            [bundle.type]: newVariant
+                          }))
+                        }}
+                        disabled={!isSelected}
+                        style={{
+                          width: '100%',
+                          padding: '8px',
+                          border: '2px solid #d1d5db',
+                          borderRadius: '6px',
+                          fontSize: '13px',
+                          color: '#374151',
+                          background: 'white',
+                          cursor: 'pointer',
+                          marginBottom: '8px'
+                        }}
+                      >
+                        {bundle.variants.map((variant: any, vIdx: number) => {
+                          const variantLabel = variant.variant?.color || variant.variant?.type || variant.variant?.power || 'Standaard'
+                          return (
+                            <option key={vIdx} value={JSON.stringify(variant)}>
+                              {variantLabel} - €{variant.price.toFixed(2)}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    )}
+                    
+                    <div style={{ fontSize: '12px', color: '#374151' }}>
+                      💰 €{currentVariant.price.toFixed(2)}<br/>
+                      📊 Markt: €{(currentVariant.price * 2).toFixed(2)}<br/>
+                      ✅ Besparing: €{(currentVariant.price).toFixed(2)} (50%)<br/>
+                      📍 Winkel: <span style={{ color: '#15803d', fontWeight: 600 }}>[🔒 UNLOCK]</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+          
+          {/* Bundle Total */}
+          {Object.keys(selectedBundleItems).length > 0 && (
+            <div style={{
+              marginTop: '12px',
+              padding: '12px',
+              background: '#dcfce7',
+              borderRadius: '6px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#166534' }}>
+                💰 TOTALE BESPARING:
+              </div>
+              <div style={{ fontSize: '12px', marginTop: '6px', color: '#374151' }}>
+                Product: €{basePrice > 0 && offers[0] ? (basePrice - offers[0].price).toFixed(2) : '0.00'}<br/>
+                Accessoires: €{Object.values(selectedBundleItems).reduce((sum: number, item: any) => sum + item.price, 0).toFixed(2)} ({Object.keys(selectedBundleItems).length} geselecteerd)<br/>
+                <div style={{ borderTop: '1px solid #86efac', margin: '6px 0', paddingTop: '6px', fontSize: '14px', fontWeight: 600, color: '#166534' }}>
+                  TOTAAL: €{(
+                    (basePrice > 0 && offers[0] ? (basePrice - offers[0].price) : 0) +
+                    Object.values(selectedBundleItems).reduce((sum: number, item: any) => sum + item.price, 0)
+                  ).toFixed(2)} bespaard! 🎉
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
       {/* Social Share Section - always visible, active after selecting offer */}
