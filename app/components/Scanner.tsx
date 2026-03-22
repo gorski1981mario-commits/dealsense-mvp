@@ -8,6 +8,7 @@ import GhostModeButton from './GhostModeButton'
 import WishlistButton from './WishlistButton'
 import SavingsTimeline from './SavingsTimeline'
 import SavingsJournal from './SavingsJournal'
+import { parseProductUrl, isValidUrl } from '../_lib/urlParser'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -39,6 +40,10 @@ export default function Scanner({ type }: ScannerProps) {
   // Smart Bundles state
   const [smartBundles, setSmartBundles] = useState<any[]>([])
   const [selectedBundleItems, setSelectedBundleItems] = useState<{[key: string]: any}>({})
+  
+  // URL parsing state
+  const [parsedUrl, setParsedUrl] = useState<any>(null)
+  const [autoFilled, setAutoFilled] = useState<boolean>(false)
 
   useEffect(() => {
     // Get userId only on client side
@@ -266,21 +271,62 @@ export default function Scanner({ type }: ScannerProps) {
               <input
                 type="text"
                 value={manualInput}
-                onChange={(e) => setManualInput(e.target.value)}
-                placeholder="https://www.bol.com/nl/nl/p/... of 'iPhone 15 Pro'"
+                onChange={(e) => {
+                  const value = e.target.value
+                  setManualInput(value)
+                  
+                  // Auto-parse URL
+                  if (isValidUrl(value)) {
+                    const parsed = parseProductUrl(value)
+                    if (parsed && parsed.isValid) {
+                      setParsedUrl(parsed)
+                      setAutoFilled(true)
+                    } else {
+                      setParsedUrl(null)
+                      setAutoFilled(false)
+                    }
+                  } else {
+                    setParsedUrl(null)
+                    setAutoFilled(false)
+                  }
+                }}
+                placeholder="Plak product URL van bol.com, Amazon, Coolblue..."
                 style={{
                   width: '100%',
                   padding: '12px',
-                  border: '2px solid #d1d5db',
+                  border: autoFilled ? '2px solid #86efac' : '2px solid #d1d5db',
                   borderRadius: '8px',
                   fontSize: '14px',
                   marginBottom: '12px',
-                  boxSizing: 'border-box'
+                  boxSizing: 'border-box',
+                  background: autoFilled ? '#f0fdf4' : 'white'
                 }}
               />
+              
+              {/* Auto-filled info */}
+              {parsedUrl && autoFilled && (
+                <div style={{
+                  marginBottom: '12px',
+                  padding: '12px',
+                  background: '#dcfce7',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  color: '#166534'
+                }}>
+                  ✓ Auto-gevuld van {parsedUrl.shop}:<br/>
+                  <strong>{parsedUrl.productName}</strong>
+                  {parsedUrl.ean && (
+                    <><br/>EAN: {parsedUrl.ean}</>
+                  )}
+                </div>
+              )}
               <button
                 onClick={() => {
-                  if (manualInput.trim()) {
+                  if (parsedUrl && autoFilled) {
+                    // Auto-filled from URL - use parsed product name
+                    handleScan(parsedUrl.productName)
+                  } else if (manualInput.trim()) {
+                    // Manual input - use as-is
                     handleScan(manualInput.trim())
                   }
                 }}
@@ -298,7 +344,7 @@ export default function Scanner({ type }: ScannerProps) {
                   boxShadow: manualInput.trim() ? '0 4px 6px rgba(21, 128, 61, 0.3)' : 'none'
                 }}
               >
-                {processing ? 'Scannen...' : 'Scan Product'}
+                {processing ? 'Zoeken...' : (autoFilled ? 'Vind goedkoper →' : 'Scan Product')}
               </button>
             </div>
           )}

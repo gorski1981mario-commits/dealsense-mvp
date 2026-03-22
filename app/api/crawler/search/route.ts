@@ -23,9 +23,8 @@ export async function POST(request: NextRequest) {
     }
 
     // DEVICE-BOUND TOKEN VALIDATION
-    // TYLKO dla EAN (barcode scans), NIE dla query (nazwa produktu)
-    // Query (nazwa produktu) = zawsze OK, user może wpisać ręcznie
-    if (ean && scanToken) {
+    // Validate token format: deviceId-timestamp
+    if (scanToken) {
       const isValidToken = validateScanToken(scanToken, userId)
       if (!isValidToken) {
         return NextResponse.json(
