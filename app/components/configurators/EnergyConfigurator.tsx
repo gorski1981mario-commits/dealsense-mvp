@@ -176,7 +176,6 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
                 <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
                   {offer.rating && <span>⭐ {offer.rating}/5</span>}
                   {offer.dealScore && <span>💎 Score: {offer.dealScore}/10</span>}
-                  {offer._dealScore?.trustScore && <span>🛡️ Trust: {offer._dealScore.trustScore}/100</span>}
                   <span>🏪 {offer.seller}</span>
                 </div>
                 {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>BESTE DEAL</span>}
