@@ -1,0 +1,124 @@
+{
+  "testName": "Test 5 Products - RECOMMENDED CONFIG Final Verification",
+  "date": "2026-03-21T15:43:31.659Z",
+  "configuration": {
+    "priceRange": "40%-150%",
+    "bannedKeywords": true,
+    "qualityFilter": true,
+    "canonicalFilter": false,
+    "dealScoreV2": true,
+    "trustThreshold": 25,
+    "standardRotation": true
+  },
+  "successRate": "80%",
+  "avgSavings": "27.3%",
+  "results": [
+    {
+      "product": "MacBook Air M2 13 inch",
+      "category": "Laptop (wysokocenny)",
+      "basePrice": 1249,
+      "status": "SUCCESS",
+      "offersCount": 3,
+      "duration": 3492,
+      "avgSavings": "34.1",
+      "topOffers": [
+        {
+          "seller": "PC070.NL",
+          "price": 699,
+          "savings": 550,
+          "savingsPercent": 44,
+          "dealScore": 9,
+          "trustScore": 25
+        },
+        {
+          "seller": "MediaMarkt",
+          "price": 869,
+          "savings": 380,
+          "savingsPercent": 30.4,
+          "dealScore": 5.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Amazon.nl - Retail",
+          "price": 899,
+          "savings": 350,
+          "savingsPercent": 28,
+          "dealScore": 4.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "Apple Watch Series 9 41mm",
+      "category": "Smartwatch (średniocenny)",
+      "basePrice": 449,
+      "status": "NO_OFFERS",
+      "duration": 6817
+    },
+    {
+      "product": "GoPro Hero 12 Black",
+      "category": "Kamera (niszowy)",
+      "basePrice": 449,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 3024,
+      "avgSavings": "27.4",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 326,
+          "savings": 123,
+          "savingsPercent": 27.4,
+          "dealScore": 9.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "AirPods Pro 2nd Generation",
+      "category": "Słuchawki (popularny)",
+      "basePrice": 279,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 4135,
+      "avgSavings": "28.7",
+      "topOffers": [
+        {
+          "seller": "MediaMarkt",
+          "price": 199,
+          "savings": 80,
+          "savingsPercent": 28.7,
+          "dealScore": 9.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "iPad 10th Generation 64GB",
+      "category": "Tablet (warianty)",
+      "basePrice": 429,
+      "status": "SUCCESS",
+      "offersCount": 2,
+      "duration": 1379,
+      "avgSavings": "18.8",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 349.99,
+          "savings": 79.00999999999999,
+          "savingsPercent": 18.4,
+          "dealScore": 7.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Onestop Digital",
+          "price": 346.56,
+          "savings": 82.44,
+          "savingsPercent": 19.2,
+          "dealScore": 7,
+          "trustScore": 55
+        }
+      ]
+    }
+  ]
+}

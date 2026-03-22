@@ -1,0 +1,127 @@
+{
+  "testName": "Test 2 - 10 Nowych Produktów",
+  "date": "2026-03-21T09:13:40.175Z",
+  "location": "Belgium (BE)",
+  "successRate": "3/10",
+  "results": [
+    {
+      "product": "MacBook Pro 14 M3",
+      "category": "Laptops",
+      "basePrice": 2199,
+      "offersFound": 0,
+      "duration": 1333,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "iPad Air 11 M2 128GB",
+      "category": "Tablets",
+      "basePrice": 699,
+      "offersFound": 0,
+      "duration": 1446,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Bose QuietComfort Ultra",
+      "category": "Headphones",
+      "basePrice": 449,
+      "offersFound": 0,
+      "duration": 1411,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "GoPro Hero 12 Black",
+      "category": "Cameras",
+      "basePrice": 449,
+      "offersFound": 0,
+      "duration": 2138,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Nespresso Vertuo Next",
+      "category": "Coffee Machines",
+      "basePrice": 149,
+      "offersFound": 0,
+      "duration": 2219,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Fitbit Charge 6",
+      "category": "Wearables",
+      "basePrice": 159,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Amazon.com.be",
+      "bestPrice": 90.24,
+      "savings": 68.76,
+      "savingsPercent": 43.2,
+      "avgDealScore": 10,
+      "avgTrustScore": 60,
+      "avgSimilarity": 100,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "duration": 1122,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Kindle Paperwhite 11th Gen",
+      "category": "E-readers",
+      "basePrice": 159,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "eBay",
+      "bestPrice": 119.98,
+      "savings": 39.019999999999996,
+      "savingsPercent": 24.5,
+      "avgDealScore": 9,
+      "avgTrustScore": 55,
+      "avgSimilarity": 75,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "duration": 935,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Sonos Beam Gen 2",
+      "category": "Soundbars",
+      "basePrice": 499,
+      "offersFound": 0,
+      "duration": 1066,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Garmin Fenix 7",
+      "category": "Smartwatches",
+      "basePrice": 699,
+      "offersFound": 0,
+      "duration": 8028,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Ring Video Doorbell Pro 2",
+      "category": "Smart Home",
+      "basePrice": 279,
+      "offersFound": 3,
+      "shopsCount": 3,
+      "bestShop": "Productpine",
+      "bestPrice": 117.85,
+      "savings": 161.15,
+      "savingsPercent": 57.8,
+      "avgDealScore": 6.466666666666666,
+      "avgTrustScore": 58.333333333333336,
+      "avgSimilarity": 75,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "duration": 1612,
+      "status": "SUCCESS"
+    }
+  ]
+}

@@ -2,11 +2,29 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 const { fetchOffers: fetchSearchApiOffers } = require("./market/providers/searchapi");
-const { fetchOffers: fetchSerpApiOffers } = require("./market/providers/serpapi");
 const { fetchOffers: fetchFashionOffers } = require("./market/providers/fashion");
 const { buildMockOffersForProductName } = require("./market/catalog");
+const { filterProductQuality } = require('./lib/productQualityFilter');
+const { detectCategory, detectCategoryWithConfidence } = require('./lib/categoryDetector');
+const { getCategoryProfile, isCategorySupported } = require('./lib/categorySearchProfiles');
+const { buildQueriesForCategory, buildSerpQuery } = require('./lib/queryBuilderPerCategory');
+const { createCanonicalProduct, matchToCanonical, filterOffersByTier, getMatchStats } = require('./lib/canonicalProductEngine');
+const { generateFingerprintFromName, groupByFingerprint, getMostPopularFingerprint } = require('./lib/productFingerprint');
+const { isRealDeal, filterRealDeals, getDealTruthStats } = require('./lib/dealTruthEngine');
 const { enqueue: kwantEnqueue } = require("./kwant/queue");
 const crawlerSearch = require("./crawler/search-wrapper");
+
+// Deal Score V2 - NOWY SYSTEM
+const { getDealScores, getBestDeal, getDealScoreStats } = require("./scoring/dealScoreV2");
+const { generateQueries } = require("./scoring/queryGenerator");
+const { normalizeProduct, groupByCluster } = require("./scoring/productNormalizer");
+const { rotateDeals, getRotationStats } = require("./scoring/rotationEngine");
+
+// COST OPTIMIZATION - NAJWIĘKSZA OSZCZĘDNOŚĆ!
+const cacheStrategy = require("./lib/cacheStrategy");
+const sourcePriority = require("./lib/sourcePriority");
+const queryScoring = require("./lib/queryScoring");
+const adaptiveFetch = require("./lib/adaptiveFetch");
 
 /**
  * MARKET API INTEGRATION MODULE
@@ -28,12 +46,60 @@ const GOOGLE_SHOPPING_NUM_RESULTS = Number(process.env.GOOGLE_SHOPPING_NUM_RESUL
 const GOOGLE_SHOPPING_NUM_PAGES = Number(process.env.GOOGLE_SHOPPING_NUM_PAGES) || 1;
 /** true = najpierw sklepy niszowe (mniej recenzji), potem cena rosnąco. false = jak wcześniej (cena + popularność). */
 const SORT_NICHE_SHOPS_FIRST = true;
+
+// ---------- DEAL SCORE V2 CONFIGURATION ----------
+/** Czy używać Deal Score V2 (nowy system z trust engine, rotation, etc) */
+const USE_DEAL_SCORE_V2 = (() => {
+  const v = String(process.env.USE_DEAL_SCORE_V2 || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Czy używać long-tail query generator (20-50 wariantów zapytania) */
+const USE_LONG_TAIL_QUERIES = (() => {
+  const v = String(process.env.USE_LONG_TAIL_QUERIES || "false").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Maksymalna liczba wariantów zapytania (dla long-tail) */
+const MAX_QUERY_VARIANTS = Number(process.env.MAX_QUERY_VARIANTS) || 30;
+/** Czy używać rotation engine (40/30/20/10) */
+const USE_ROTATION_ENGINE = (() => {
+  const v = String(process.env.USE_ROTATION_ENGINE || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+
+// ---------- COST OPTIMIZATION CONFIGURATION ----------
+/** Czy używać cache first strategy (NAJWIĘKSZA OSZCZĘDNOŚĆ!) */
+const USE_CACHE_FIRST = (() => {
+  const v = String(process.env.USE_CACHE_FIRST || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Czy używać query scoring (wybierz 5-10 najlepszych zapytań) */
+const USE_QUERY_SCORING = (() => {
+  const v = String(process.env.USE_QUERY_SCORING || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Czy używać adaptive fetch (stop gdy masz 50 ofert z wysokim score) */
+const USE_ADAPTIVE_FETCH = (() => {
+  const v = String(process.env.USE_ADAPTIVE_FETCH || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Czy używać source priority (cache → własne → tanie API → drogie API) */
+const USE_SOURCE_PRIORITY = (() => {
+  const v = String(process.env.USE_SOURCE_PRIORITY || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
+/** Czy używać adaptive price threshold (zamiast stałych 5%) */
+const USE_ADAPTIVE_THRESHOLD = (() => {
+  const v = String(process.env.USE_ADAPTIVE_THRESHOLD || "true").trim().toLowerCase();
+  return v === "1" || v === "true";
+})();
 // ----------
 
 // Konfiguracja API (można przenieść do .env)
 const GOOGLE_SHOPPING_API_KEY = process.env.GOOGLE_SHOPPING_API_KEY || "";
-const SERPAPI_API_KEY = process.env.SERPAPI_API_KEY || "";
-const USE_MOCK_FALLBACK = (process.env.USE_MOCK_FALLBACK || "true").trim().toLowerCase() !== "false"; // Fallback do mock danych jeśli API nie działa
+const USE_MOCK_FALLBACK = (() => {
+  const v = String(process.env.USE_MOCK_FALLBACK || "false").trim().toLowerCase();
+  return v === "1" || v === "true";
+})(); // Fallback do mock danych jeśli API nie działa (domyślnie: false)
 
 // Upstash Redis (REST) cache (opcjonalny)
 const UPSTASH_REDIS_REST_URL = (process.env.UPSTASH_REDIS_REST_URL || "").trim();
@@ -289,39 +355,67 @@ function parseCsvEnv(name) {
 
 function blockedConfig() {
   const enabled = (() => {
-    const v = String(process.env.MARKET_BLOCKED_ENABLED || "0").trim().toLowerCase();
+    const v = String(process.env.MARKET_BLOCKED_ENABLED || "1").trim().toLowerCase();
     return v !== "0" && v !== "false";
   })();
 
   const defaultSellers = [
+    // Chińskie/dropship
     "aliexpress",
     "ali express",
-    // Marketplaces / classifieds
+    "alibaba",
+    "temu",
+    "joom",
+    "wish",
+    "shein",
+    "dhgate",
+    "banggood",
+    "gearbest",
+    // Marketplace/aukcje
     "marktplaats",
+    "ebay",
+    "tradera",
+    "onbuy",
     "olx",
     "vinted",
-    "ebay",
+    // Used/refurb (dodatkowe)
+    "back market",
+    "refurbished",
+    "mresell",
+    "estunt",
+    "mr-refurb",
+    "used products",
   ];
   const defaultDomains = [
-    // Cross-border / dropship
+    // Chińskie/dropship - WSZYSTKIE
     "aliexpress.com",
     "aliexpress.us",
     "aliexpress.ru",
     "aliexpress.nl",
     "aliexpress.de",
+    "alibaba.com",
     "temu.com",
-    "dhgate.com",
+    "joom.com",
     "wish.com",
     "shein.com",
-    "alibaba.com",
-    // Marketplaces / classifieds
+    "dhgate.com",
+    "banggood.com",
+    "gearbest.com",
+    // Marketplace/aukcje - WSZYSTKIE
     "marktplaats.nl",
-    "olx.pl",
-    "vinted.nl",
-    "vinted.pl",
     "ebay.com",
     "ebay.de",
     "ebay.nl",
+    "ebay.co.uk",
+    "tradera.com",
+    "tradera.se",
+    "onbuy.com",
+    "olx.pl",
+    "olx.nl",
+    "vinted.nl",
+    "vinted.pl",
+    "vinted.com",
+    "vinted.de",
   ];
 
   const sellers = parseCsvEnv("MARKET_BLOCKED_SELLERS").map(normLower);
@@ -349,7 +443,7 @@ function qualityConfig() {
   })();
 
   const blockUsed = (() => {
-    const v = String(process.env.MARKET_BLOCK_USED_ENABLED || "0").trim().toLowerCase();
+    const v = String(process.env.MARKET_BLOCK_USED_ENABLED || "1").trim().toLowerCase();
     return v !== "0" && v !== "false";
   })();
 
@@ -438,7 +532,7 @@ function filterBlockedOffers(list) {
 
 function nlRetailOnlyConfig() {
   const enabled = (() => {
-    const v = String(process.env.MARKET_NL_RETAIL_ONLY || "false").trim().toLowerCase();
+    const v = String(process.env.MARKET_NL_RETAIL_ONLY || "true").trim().toLowerCase();
     return v === "1" || v === "true";
   })();
 
@@ -889,43 +983,8 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
         return 8000;
       })();
 
-      if (p === "serpapi") {
-        const key = String(SERPAPI_API_KEY || "").trim();
-        if (!key) continue;
-        usedProvider = "serpapi";
-        let merged = null;
-        for (const q of buildQueryCandidates(productName)) {
-          const left2 = timeLeftMs();
-          if (left2 != null && left2 <= 0) break;
-          // eslint-disable-next-line no-await-in-loop
-          const r = await withProviderSlot(() =>
-            withTimeout(
-              fetchSerpApiOffers({
-                query: q,
-                ean: null,
-                maxResults,
-                apiKey: key,
-                enrichSellers: ENRICH_SELLERS_ENABLED,
-                enrichLimit,
-              }),
-              providerTimeout
-            )
-          ).catch(() => null);
-
-          if (!hp.enabled || hp.mergeQueries !== true) {
-            if (Array.isArray(r) && r.length > 0) {
-              merged = r;
-              break;
-            }
-            continue;
-          }
-
-          merged = mergeDedup(merged, r, wantRaw);
-          if (wantAfterFilter != null && merged && countGoodOffers(merged) >= wantAfterFilter) break;
-          if (wantRaw != null && merged && merged.length >= wantRaw) break;
-        }
-        offersFromProvider = merged;
-      } else {
+      // SearchAPI only - SerpAPI removed
+      {
         const key = String(GOOGLE_SHOPPING_API_KEY || "").trim();
         if (!key) continue;
         usedProvider = "searchapi";
@@ -982,8 +1041,7 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
     if (!LOG_SILENT) {
       console.log(`✅ Znaleziono ${offers.length} ofert z Google Shopping (${numPages} str.(y))`);
     }
-    const src = usedProvider === "serpapi" ? "google_serpapi" : "google_searchapi";
-    const tagged = offers.map((o) => ({ ...o, _source: src }));
+    const tagged = offers.map((o) => ({ ...o, _source: "google" }));
     if (!hp.enabled || wantAfterFilter == null) return tagged;
 
     // Early-exit hint: if after filtering we already have enough offers, callers can avoid extra work.
@@ -995,6 +1053,78 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
 }
 
 /**
+ * Aplikuje Deal Score V2 do ofert
+ * 
+ * @param {Array} offers - Oferty z API/crawler
+ * @param {number} userBasePrice - Cena podana przez usera
+ * @param {Object} options - Opcje
+ * @returns {Array} Oferty z _dealScore i zrotowane
+ */
+function applyDealScoreV2(offers, userBasePrice = null, options = {}) {
+  if (!USE_DEAL_SCORE_V2) {
+    return offers; // Stary system - bez zmian
+  }
+  
+  if (!Array.isArray(offers) || offers.length === 0) {
+    return offers;
+  }
+  
+  const LOG_SILENT = (() => {
+    const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+    return v === "1" || v === "true";
+  })();
+  
+  // Sprawdź czy oferty już mają _dealScore (dodane ręcznie)
+  const hasManualMetadata = offers.length > 0 && offers[0]._dealScore;
+  
+  let scored;
+  
+  if (hasManualMetadata) {
+    // Pomiń getDealScores - użyj ręcznych metadata
+    scored = offers;
+    if (!LOG_SILENT) {
+      console.log(`[DealScoreV2] SKIPPED - using manual metadata (${scored.length} offers)`);
+    }
+  } else {
+    // Normalny flow - oblicz deal scores
+    const normalized = offers.map(normalizeProduct);
+    
+    scored = getDealScores(normalized, userBasePrice, {
+      filterBlocked: true,
+      debug: false  // Debug wyłączony dla czystszego outputu
+    });
+    
+    if (!LOG_SILENT) {
+      const stats = getDealScoreStats(scored);
+      console.log(`[DealScoreV2] Stats: ${stats.valid}/${stats.total} valid, avg score: ${stats.avgScore}, avg savings: €${stats.avgSavings} (${stats.avgSavingsPercent}%)`);
+      console.log(`[DealScoreV2] Niche: ${stats.nicheCount}, Fresh: ${stats.freshCount}, Trusted: ${stats.trustedCount}`);
+    }
+  }
+  
+  // 3. Rotate deals - STANDARD MODE (TEST 3/3)
+  if (USE_ROTATION_ENGINE) {
+    const rotated = rotateDeals(scored, {
+      maxResults: options.maxResults || 30,
+      enableRotation: true,
+      enableMathematical: false,  // Wyłącz mathematical (wymaga więcej metadata)
+      enableAntiPattern: false,   // Wyłącz anti-pattern (wymaga userId)
+      userId: options.userId || null,
+      productName: options.productName || null,
+      scanCount: options.scanCount || 0
+    });
+    
+    if (!LOG_SILENT) {
+      const rotStats = getRotationStats(rotated);
+      console.log(`[RotationEngine] STANDARD mode: ${rotStats.top} top, ${rotStats.niche} niche, ${rotStats.fresh} fresh, ${rotStats.experiment} experiment`);
+    }
+    
+    return rotated;
+  }
+  
+  return scored;
+}
+
+/**
  * Główna funkcja pobierania ofert rynkowych
  * Próbuje różnych źródeł w kolejności priorytetu
  */
@@ -1003,21 +1133,85 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
   let offers = null;
   
   // Extract rotation options
-  const { userId = null, userLocation = null, geoEnabled = false } = options;
-
-  const hp = hpConfig();
-
+  const { userId = null, userLocation = null, geoEnabled = false, basePrice: userBasePrice = null } = options;
+  
+  // Jeśli nie mamy nazwy produktu, ale mamy EAN, użyj EAN jako zapytania
+  const effectiveProductName = (productName && String(productName).trim()) || (ean ? String(ean).trim() : "");
+  
   const CACHE_BYPASS = (() => {
     const v = String(process.env.MARKET_CACHE_BYPASS || "").trim().toLowerCase();
     return v === "1" || v === "true";
   })();
+  
+  // COST OPTIMIZATION: Cache First Strategy
+  const cacheKey = USE_CACHE_FIRST 
+    ? cacheStrategy.generateCacheKey(effectiveProductName, ean, options)
+    : getCacheKey(effectiveProductName, ean);
+  
+  // COST OPTIMIZATION: Adaptive Cache TTL
+  const cacheTTL = USE_CACHE_FIRST
+    ? cacheStrategy.getAdaptiveCacheTTL(effectiveProductName, ean, options)
+    : CACHE_TTL_MS;
+  
+  // COST OPTIMIZATION: Check cache first (MULTI-USER SHARING!)
+  if (USE_CACHE_FIRST && !CACHE_BYPASS && cacheKey) {
+    const cached = MARKET_CACHE.get(cacheKey);
+    if (cached && cacheStrategy.isCacheFresh(cached, cacheTTL)) {
+      cacheStrategy.incrementCacheHit(0.005); // Saved $0.005 per request
+      cacheStrategy.incrementMultiUserSharing(); // Multi-user sharing!
+      
+      const LOG_SILENT = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      if (!LOG_SILENT) {
+        console.log(`[CacheFirst] HIT! Saved API call. TTL: ${(cacheTTL / 60000).toFixed(0)}min`);
+      }
+      
+      return cached.offers || [];
+    } else {
+      cacheStrategy.incrementCacheMiss();
+    }
+  }
+  
+  // Long-tail query generation (jeśli enabled)
+  let queries = [effectiveProductName || ean];
+  if (USE_LONG_TAIL_QUERIES && effectiveProductName) {
+    queries = generateQueries(effectiveProductName, {
+      maxVariants: MAX_QUERY_VARIANTS,
+      includeQuality: true
+    });
+    
+    // COST OPTIMIZATION: Query Scoring (wybierz 5-10 najlepszych)
+    if (USE_QUERY_SCORING) {
+      const coldStart = queryScoring.shouldUseColdStart(effectiveProductName);
+      const maxQueries = coldStart ? 15 : 10; // Cold start = więcej queries
+      
+      const bestQueries = queryScoring.selectBestQueries(queries, effectiveProductName, maxQueries);
+      queries = bestQueries.map(q => q.query);
+      
+      const LOG_SILENT = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      if (!LOG_SILENT) {
+        console.log(`[QueryScoring] Selected ${queries.length} best queries (from ${MAX_QUERY_VARIANTS}) - ${coldStart ? 'COLD START' : 'OPTIMIZED'}`);
+      }
+    } else {
+      const LOG_SILENT = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      if (!LOG_SILENT) {
+        console.log(`[LongTail] Generated ${queries.length} query variants for: ${effectiveProductName}`);
+      }
+    }
+  }
 
-  // Jeśli nie mamy nazwy produktu, ale mamy EAN, użyj EAN jako zapytania do Google Shopping.
-  // To minimalnie zwiększa trafność bez zwiększania liczby requestów (nadal pages=1 domyślnie).
-  const effectiveProductName = (productName && String(productName).trim()) || (ean ? String(ean).trim() : "");
-
-  // Cache po EAN / nazwie produktu – skraca czas odpowiedzi i zmniejsza koszty API
-  const cacheKey = getCacheKey(effectiveProductName, ean);
+  const hp = hpConfig();
 
   // Optional prewarm enqueue on cache miss: safe no-op unless enabled.
   // This does not change the runtime response; it only records work for a future worker (kwant).
@@ -1150,13 +1344,34 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
             console.log(`✅ Crawler znalazł ${filtered.length} ofert z ${CRAWLER_MAX_DOMAINS} domen`);
           }
           
+          // Apply Deal Score V2
+          const scoredOffers = applyDealScoreV2(filtered, userBasePrice, options);
+          
+          // COST OPTIMIZATION: Save to cache with metadata
           if (!CACHE_BYPASS) {
-            setCache(cacheKey, filtered);
-            setRedisCache(cacheKey, filtered);
+            if (USE_CACHE_FIRST) {
+              const cacheEntry = cacheStrategy.createCacheEntry(scoredOffers, {
+                productName: effectiveProductName,
+                ean: ean,
+                popularity: cacheStrategy.getProductPopularity(effectiveProductName, ean),
+                volatility: cacheStrategy.getPriceVolatility(effectiveProductName, ean),
+                ttl: cacheTTL,
+                source: 'crawler'
+              });
+              MARKET_CACHE.set(cacheKey, cacheEntry);
+            } else {
+              setCache(cacheKey, scoredOffers);
+            }
+            setRedisCache(cacheKey, scoredOffers);
+          }
+          
+          // COST OPTIMIZATION: Track source usage
+          if (USE_SOURCE_PRIORITY) {
+            sourcePriority.trackSourceUsage('crawler', scoredOffers.length);
           }
           
           metricsTiming("network_total", Date.now() - startedNetwork);
-          return filtered;
+          return scoredOffers;
         }
         
         if (!LOG_SILENT_2) {
@@ -1214,8 +1429,36 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       }
     }
 
-    // 3. Google Shopping API (fallback gdy crawler nie działa)
-    if (effectiveProductName) {
+    // 3. CATEGORY DETECTION + SearchAPI (PRIMARY - Netherlands/Holandia)
+    if (effectiveProductName && GOOGLE_SHOPPING_API_KEY) {
+      const LOG_SILENT_PRIMARY = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      // CANONICAL PRODUCT ENGINE
+      const canonicalProduct = createCanonicalProduct(effectiveProductName, ean, null);
+      
+      // CATEGORY DETECTION
+      const categoryDetection = detectCategoryWithConfidence(effectiveProductName, ean);
+      const category = categoryDetection.category;
+      const categoryProfile = getCategoryProfile(category);
+      
+      if (!LOG_SILENT_PRIMARY) {
+        console.log(`[CANONICAL] ID: ${canonicalProduct.canonicalId}`);
+        console.log(`[CANONICAL] Brand: ${canonicalProduct.brand}, Model: ${canonicalProduct.model}, Variant: ${canonicalProduct.variant}, Color: ${canonicalProduct.color}`);
+        console.log(`[CATEGORY] Detected: ${categoryProfile.name} (confidence: ${categoryDetection.confidence}%)`);
+        console.log('[PRIMARY] Trying SearchAPI (NL)...');
+      }
+      
+      // Check if category is supported
+      if (!isCategorySupported(category)) {
+        if (!LOG_SILENT_PRIMARY) {
+          console.log(`[CATEGORY] ${categoryProfile.name} is not supported (SKIP: IKEA/Pets)`);
+        }
+        return null;
+      }
+      
       offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS);
       if (offers && offers.length > 0) {
         // FILTRY CAŁKOWICIE WYŁĄCZONE - zwracamy wszystkie oferty z SearchAPI
@@ -1224,29 +1467,305 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         console.log(`[MARKET] SearchAPI returned: ${offers.length} offers from ${allShops.length} shops`);
         console.log(`[MARKET] ALL SHOPS: ${allShops.join(', ')}`);
         
-        // BEZ FILTRÓW - zwracamy wszystko
+        // Tag source
         offers = offers.map((o) => {
           if (o && typeof o === "object" && typeof o._source === "string") return o;
           return { ...o, _source: "google" };
         });
+        
         const LOG_SILENT_2 = (() => {
           const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
           return v === "1" || v === "true";
         })();
+        
+        // ═══════════════════════════════════════════════════════════════
+        // FILTRY - KOLEJNOŚĆ OD NAJLŻEJSZYCH DO NAJCIĘŻSZYCH
+        // ═══════════════════════════════════════════════════════════════
+        
+        // FILTR 1: PRICE RANGE (30%-200%) - POLUZOWANY
+        if (userBasePrice && userBasePrice > 0) {
+          const minPrice = userBasePrice * 0.3;  // 30% base price (było 40%)
+          const maxPrice = userBasePrice * 2.0;  // 200% base price (było 150%)
+          
+          const beforePriceFilter = offers.length;
+          offers = offers.filter(o => {
+            const price = o.price || 0;
+            return price >= minPrice && price <= maxPrice;
+          });
+          
+          if (!LOG_SILENT_2 && beforePriceFilter !== offers.length) {
+            console.log(`[1. PRICE RANGE] ${beforePriceFilter} → ${offers.length} offers (€${minPrice.toFixed(0)}-€${maxPrice.toFixed(0)})`);
+          }
+        }
+        
+        // FILTR 2: BANNED SELLERS - TYLKO KRYTYCZNE (10 sklepów)
+        const bannedSellers = [
+          // Używane/Second-hand (KRYTYCZNE)
+          'marktplaats',           // Prywatne ogłoszenia (używane)
+          'back market',           // Refurbished
+          'backmarket',
+          '2dehands',              // Używane (NL)
+          'vinted',                // Używane
+          'ebay',                  // Marketplace (używane)
+          'swappie',               // Refurbished phones
+          // Marketplace international (KRYTYCZNE)
+          'fruugo',                // Marketplace
+          'aliexpress',            // Chiny
+          'joom',                  // Rosja
+          'wish'                   // Chiny
+        ];
+        
+        const beforeSellerFilter = offers.length;
+        offers = offers.filter(o => {
+          const seller = (o.seller || '').toLowerCase();
+          return !bannedSellers.some(banned => seller.includes(banned));
+        });
+        
+        if (!LOG_SILENT_2 && beforeSellerFilter !== offers.length) {
+          console.log(`[2. BANNED SELLERS] ${beforeSellerFilter} → ${offers.length} offers (usunięto: ${beforeSellerFilter - offers.length})`);
+        }
+        
+        // FILTR 3: BANNED KEYWORDS - LEKKI (akcesoria + używane)
+        const bannedKeywords = [
+          // Akcesoria (NL + EN)
+          'hoes', 'hoesje', 'case', 'cover',
+          'bandje', 'band', 'strap',
+          'filter', 'stofzak',
+          'tas', 'bag',
+          'oplader', 'charger', 'lader',
+          'kabel', 'cable', 'snoer',
+          'adapter',
+          'screenprotector', 'screen protector', 'schermbeschermer',
+          'oordopjes', 'earbuds', 'oortjes',
+          'bundle', 'bundel',
+          'set', 'kit',
+          '+ case', '+ hoes',
+          '+ charger', '+ oplader',
+          'inclusief hoes', 'inclusief oplader',
+          'met hoes', 'met oplader',
+          'for iphone', 'voor iphone',
+          'for samsung', 'voor samsung',
+          'compatible with', 'compatibel met',
+          'accessory for', 'accessoire voor',
+          'geschikt voor',
+          // Używane/Refurbished (NL)
+          'gebruikt',
+          'tweedehands',
+          'tweede hands',
+          '2e hands',
+          '2dehands',
+          'gereviseerd',
+          'gerenoveerd',
+          'nieuwstaat',
+          'als nieuw',
+          'zo goed als nieuw',
+          'nagenoeg nieuw',
+          'occasion',
+          'occasions',
+          'retour',
+          'retouren',
+          'retourproduct',
+          'demo',
+          'demonstratie',
+          'showmodel',
+          'display',
+          'displaymodel',
+          'uitpakmodel',
+          'open doos',
+          'geopend',
+          'beschadigd',
+          // Używane/Refurbished (EN)
+          'used',
+          'second hand',
+          'secondhand',
+          'pre-owned',
+          'preowned',
+          'refurbished',
+          'refurb',
+          'renewed',
+          'reconditioned',
+          'open box',
+          'openbox',
+          'returned',
+          'like new'
+        ];
+        
+        const beforeKeywordFilter = offers.length;
+        offers = offers.filter(o => {
+          const title = (o.title || '').toLowerCase();
+          const description = (o.description || '').toLowerCase();
+          const combined = title + ' ' + description;
+          return !bannedKeywords.some(keyword => combined.includes(keyword));
+        });
+        
+        if (!LOG_SILENT_2 && beforeKeywordFilter !== offers.length) {
+          console.log(`[3. BANNED KEYWORDS] ${beforeKeywordFilter} → ${offers.length} offers (usunięto: ${beforeKeywordFilter - offers.length})`);
+        }
+        
+        // FILTR 4: NL+BE - .nl + .be DOMENY + 100 NL + 100 BE SKLEPÓW
+        const { getAllBelgiumShops } = require('./market/belgium-shops');
+        const belgiumShops = getAllBelgiumShops();
+        
+        const knownNLShops = [
+          // TOP 20 - Giganci NL (MUST PASS)
+          'bol.com', 'bol', 'coolblue', 'mediamarkt', 'amazon.nl',
+          'wehkamp', 'bijenkorf', 'de bijenkorf', 'zalando', 'aboutyou',
+          'hema', 'blokker', 'action', 'ikea', 'gamma',
+          'praxis', 'karwei', 'hornbach', 'decathlon', 'intersport',
+          
+          // Elektronika & Tech (20)
+          'alternate', 'azerty', 'expert', 'paradigit', 'centralpoint',
+          'informatique', 'mycom', 'bcc', 'dixons', 'viadennis',
+          'megekko', 'afuture', 'cdromland', 'allekabels', 'kabelshop',
+          'bytes', 'maxict', 'sicomputers', 'computerstore', 'notebookspecialist',
+          
+          // GSM & Telecom (20)
+          'belsimpel', 'mobiel', 'kpn', 'vodafone', 't-mobile',
+          'tele2', 'simyo', 'youfone', 'hollandsnieuwe', 'ben',
+          'lebara', 'lycamobile', 'budgetmobiel', 'simpel', 'robin-mobile',
+          'izi deals', 'izideals', 'onestop', 'coolshop', 'davidtelecom',
+          'gsmdeal', 'budgetphone', 'you-mobile', 'mobieltje', 'gsm-shop',
+          
+          // Moda & Lifestyle (15)
+          'nike', 'adidas', 'hm', 'h&m', 'zara',
+          'mango', 'esprit', 'mexx', 'gstar', 'g-star',
+          'vanharen', 'bristol', 'omoda', 'manfield', 'shoeby',
+          
+          // Drogerie & Beauty (10)
+          'douglas', 'ici paris', 'ici-paris', 'sephora', 'rituals',
+          'bodyshop', 'kruidvat', 'etos', 'da', 'trekpleister',
+          
+          // Sport & Outdoor (10)
+          'perry sport', 'aktiesport', 'sportdirect', 'bever', 'intersport',
+          'runnersneed', 'fietsenwinkel', 'mantel', 'bike-totaal', 'profile',
+          
+          // Huis & Tuin (15)
+          'intratuin', 'tuincentrum', 'groenrijk', 'welkoop', 'hubo',
+          'kwantum', 'jysk', 'leen bakker', 'leen-bakker', 'loods5',
+          'fonq', 'flinders', 'westwing', 'home24', 'wayfair'
+        ];
+        
+        const beforeNLBEFilter = offers.length;
+        offers = offers.filter(o => {
+          const url = (o.url || '').toLowerCase();
+          const seller = (o.seller || '').toLowerCase();
+          
+          // Przepuść jeśli: .nl DOMENA
+          const hasNLDomain = url.includes('.nl') || seller.includes('.nl');
+          const isKnownNL = knownNLShops.some(shop => seller.includes(shop) || url.includes(shop));
+          
+          // Przepuść jeśli: .be DOMENA (BELGIA!)
+          const hasBEDomain = url.includes('.be') || seller.includes('.be');
+          const isKnownBE = belgiumShops.some(shop => seller.includes(shop) || url.includes(shop));
+          
+          return hasNLDomain || isKnownNL || hasBEDomain || isKnownBE;
+        });
+        
+        if (!LOG_SILENT_2 && beforeNLBEFilter !== offers.length) {
+          console.log(`[4. NL+BE FILTER] ${beforeNLBEFilter} → ${offers.length} offers (usunięto: ${beforeNLBEFilter - offers.length})`);
+        }
+        
+        // FILTR 5: QUALITY FILTER - RESTRYKCYJNY (similarity, spec match)
+        // PRZENIESIONY NA KONIEC - będzie zastosowany po DealScore
+        // (Quality Filter jest teraz w applyDealScoreV2)
+        
         if (!LOG_SILENT_2) {
-          console.log(`✅ Znaleziono ${offers.length} ofert z Google Shopping`);
+          console.log(`✅ Po lekkich filtrach: ${offers.length} ofert`);
         }
-        if (!CACHE_BYPASS) {
-          setCache(cacheKey, offers);
-          setRedisCache(cacheKey, offers);
+        
+        // CANONICAL MATCHING - WYŁĄCZONY (RECOMMENDED CONFIG)
+        // Za restrykcyjny - odrzuca dobre oferty
+        // Price range + banned keywords wystarczą
+        
+        // Dodaj canonical metadata dla compatibility
+        offers = offers.map(o => ({
+          ...o,
+          _canonical: {
+            canonicalId: canonicalProduct.canonicalId,
+            matchScore: 85,
+            matchTier: 3,
+            matchReason: 'RECOMMENDED config - canonical filter disabled'
+          }
+        }));
+        
+        if (!LOG_SILENT_2) {
+          console.log(`[CANONICAL FILTER] DISABLED (RECOMMENDED) - ${offers.length} offers`);
         }
-        metricsTiming("network_total", Date.now() - startedNetwork);
-        return offers;
+        
+        // DEAL TRUTH ENGINE - WYŁĄCZONY TYMCZASOWO (test rotacji)
+        // const dealTruthStats = getDealTruthStats(offers, canonicalProduct, {
+        //   basePrice: userBasePrice,
+        //   minTier: 3,
+        //   requireTrustedSeller: false
+        // });
+        
+        // if (!LOG_SILENT_2) {
+        //   console.log(`[DEAL TRUTH] Real deals: ${dealTruthStats.realDeals}, Fake deals: ${dealTruthStats.fakeDeals}`);
+        //   if (dealTruthStats.fakeDeals > 0) {
+        //     console.log(`[DEAL TRUTH] Fake reasons:`, dealTruthStats.reasons);
+        //   }
+        // }
+        
+        // Filtruj tylko REAL DEALS
+        // offers = filterRealDeals(offers, canonicalProduct, {
+        //   basePrice: userBasePrice,
+        //   minTier: 3,
+        //   requireTrustedSeller: false
+        // });
+        
+        if (!LOG_SILENT_2) {
+          console.log(`✅ FINAL: ${offers.length} offers (after Canonical filter, Deal Truth DISABLED)`);
+        }
+        
+        // Zapisz oferty z SearchAPI (będziemy mergować z SERP API)
+        if (!LOG_SILENT_2 && offers.length > 0) {
+          console.log(`[SearchAPI] Znaleziono ${offers.length} ofert`);
+        }
       }
+    }
 
-      if (NEGATIVE_CACHE_ENABLED && cacheKey && (!hp.enabled || hp.suppressNegativeCache !== true)) {
-        MARKET_NEGATIVE_CACHE.set(cacheKey, { ts: Date.now() });
+    // Apply DealScore V2 + Rotation
+    if (offers && offers.length > 0) {
+      const LOG_SILENT_2 = (() => {
+        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+        return v === "1" || v === "true";
+      })();
+      
+      const scoredOffers = applyDealScoreV2(offers, userBasePrice, {
+        userId,
+        productName: effectiveProductName,
+        scanCount: 0,
+        maxResults: 30
+      });
+      
+      if (!LOG_SILENT_2) {
+        console.log(`✅ FINAL RESULT: ${scoredOffers.length} offers (po DealScore V2 + Rotation)`);
       }
+      
+      // Cache result
+      if (!CACHE_BYPASS && cacheKey) {
+        if (USE_CACHE_FIRST) {
+          const cacheEntry = cacheStrategy.createCacheEntry(scoredOffers, {
+            productName: effectiveProductName,
+            ean: ean,
+            popularity: cacheStrategy.getProductPopularity(effectiveProductName, ean),
+            volatility: cacheStrategy.getPriceVolatility(effectiveProductName, ean),
+            ttl: cacheTTL,
+            source: 'searchapi'
+          });
+          MARKET_CACHE.set(cacheKey, cacheEntry);
+        } else {
+          setCache(cacheKey, scoredOffers);
+        }
+        setRedisCache(cacheKey, scoredOffers);
+      }
+      
+      return scoredOffers;
+    }
+    
+    // Brak ofert - negative cache
+    if (NEGATIVE_CACHE_ENABLED && cacheKey && (!hp.enabled || hp.suppressNegativeCache !== true)) {
+      MARKET_NEGATIVE_CACHE.set(cacheKey, { ts: Date.now() });
     }
     return null;
   };
@@ -1369,15 +1888,41 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
 }
 
 /**
+ * Pobiera statystyki optymalizacji kosztów
+ */
+function getCostOptimizationStats() {
+  return {
+    cache: cacheStrategy.getCacheStats(),
+    sources: sourcePriority.getSourceStats(),
+    queries: queryScoring.getQueryStats(),
+    fetch: adaptiveFetch.getFetchStats()
+  };
+}
+
+/**
  * Eksport funkcji
  */
 module.exports = {
   fetchMarketOffers,
   fetchGoogleShoppingOffers,
+  filterBlockedOffers,
+  filterNlRetailOnly,
   MOCK_OFFERS,
   getMarketMetricsSnapshot,
   GOOGLE_SHOPPING_NUM_RESULTS,
   GOOGLE_SHOPPING_NUM_PAGES,
   SORT_NICHE_SHOPS_FIRST,
-  hpConfig
+  hpConfig,
+  // Deal Score V2
+  applyDealScoreV2,
+  USE_DEAL_SCORE_V2,
+  USE_LONG_TAIL_QUERIES,
+  USE_ROTATION_ENGINE,
+  // Cost Optimization
+  getCostOptimizationStats,
+  USE_CACHE_FIRST,
+  USE_QUERY_SCORING,
+  USE_ADAPTIVE_FETCH,
+  USE_SOURCE_PRIORITY,
+  USE_ADAPTIVE_THRESHOLD
 };

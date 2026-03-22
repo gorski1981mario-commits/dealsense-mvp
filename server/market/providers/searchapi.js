@@ -83,6 +83,17 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
 
   for (let page = 1; page <= numPages; page++) {
     if (allOffers.length >= want) break;
+    
+    // ADAPTIVE PAGES: page 2 tylko jeśli page 1 zwróciło >= 40 wyników
+    if (page === 2) {
+      const page1Results = allOffers.length;
+      if (page1Results < 40) {
+        console.log(`[SearchAPI] ADAPTIVE: Skipping page 2 (page 1 had only ${page1Results} results, < 40)`);
+        break;
+      }
+      console.log(`[SearchAPI] ADAPTIVE: Fetching page 2 (page 1 had ${page1Results} results >= 40)`);
+    }
+    
     let response;
     try {
       response = await axios.get("https://www.searchapi.io/api/v1/search", {
@@ -90,8 +101,8 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
           api_key: key,
           engine: "google_shopping",
           q,
-          gl: "nl",
-          hl: "nl",
+          gl: "nl", // Netherlands
+          hl: "nl", // Dutch language
           location: "Netherlands",
           num: want,
           page,

@@ -1,0 +1,37 @@
+{
+  "testName": "Detailed Analysis - Single Product",
+  "date": "2026-03-21T14:37:56.922Z",
+  "product": {
+    "name": "Samsung Galaxy S24 256GB",
+    "ean": "8806095322568",
+    "basePrice": 899
+  },
+  "duration": 1272,
+  "finalOffersCount": 1,
+  "offers": [
+    {
+      "seller": "bol.com",
+      "price": 589,
+      "url": "https://www.google.com/search?q=Samsung+Galaxy+S24+256GB&oq=Samsung+Galaxy+S24+256GB&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:1392160358726205792,gid:2099649792654594352,mid:576462517318422192,oid:13330299640212153999,iid:9051211106233045762,rds:UENfMjA5OTY0OTc5MjY1NDU5NDM1MnxQUk9EX1BDXzIwOTk2NDk3OTI2NTQ1OTQzNTI=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+      "title": "Samsung Galaxy S24",
+      "dealScore": {
+        "dealScore": 3.5,
+        "dealConfidence": "laag",
+        "trustScore": 85,
+        "savings": 5,
+        "savingsPercent": 0.8,
+        "isNiche": false,
+        "isFresh": false,
+        "isTrusted": true,
+        "blocked": false,
+        "blockReason": null
+      },
+      "canonical": {
+        "canonicalId": "CP_b4a422b785c8d7ae",
+        "matchScore": 85,
+        "matchTier": 3,
+        "matchReason": "RECOMMENDED config - canonical filter disabled"
+      }
+    }
+  ]
+}

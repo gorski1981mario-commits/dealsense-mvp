@@ -1,0 +1,16 @@
+{
+  "testName": "10 Products - Adaptive Mode V1",
+  "date": "2026-03-21",
+  "config": {
+    "adaptiveMode": true,
+    "strictMode": {
+      "minSimilarity": 85,
+      "trustFilter": true
+    },
+    "balancedMode": {
+      "minSimilarity": 75,
+      "trustFilter": false
+    }
+  },
+  "results": []
+}

@@ -90,7 +90,7 @@ export default function CreditCardConfigurator({ packageType = 'pro', userId }: 
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
         <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score V2 (Trust Engine + Rotation)</p>
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '💳 ING Gold Card', price: '€0/jaar', rewards: 'Cashback 1% + Reisverzekering', rating: '⭐ 4.7/5', trust: '🛡️ 9/10', score: 'Score: 9.3', badge: 'BESTE DEAL', best: true}, {name: '💳 ABN AMRO Premium', price: '€45/jaar', rewards: 'Miles 2% + Lounge toegang', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}, {name: '💳 Rabobank Platinum', price: '€75/jaar', rewards: 'Cashback 2% + Concierge', rating: '⭐ 4.6/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}].map((card, i) => (
           <div key={i} style={{ background: card.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${card.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

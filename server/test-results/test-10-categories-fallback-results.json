@@ -1,0 +1,180 @@
+{
+  "testName": "Test 10 Kategorii - SearchAPI NL PRIMARY + SERP API NL FALLBACK",
+  "date": "2026-03-21T11:34:07.318Z",
+  "primarySource": "SearchAPI (NL)",
+  "fallbackSource": "SERP API (NL)",
+  "successRate": "5/10",
+  "primaryUsage": "5/5",
+  "fallbackUsage": "0/5",
+  "categoryCoverage": {
+    "Moda": {
+      "success": 1,
+      "total": 1
+    },
+    "Zdrowie i uroda": {
+      "success": 1,
+      "total": 1
+    },
+    "Auto i akcesoria": {
+      "success": 1,
+      "total": 1
+    },
+    "Narzędzia - DIY": {
+      "success": 1,
+      "total": 1
+    },
+    "Elektronika dom i ogród": {
+      "success": 1,
+      "total": 2
+    },
+    "Sport i fitness": {
+      "success": 0,
+      "total": 2
+    },
+    "Meble i edukacja": {
+      "success": 0,
+      "total": 1
+    },
+    "Zwierzęta": {
+      "success": 0,
+      "total": 1
+    }
+  },
+  "results": [
+    {
+      "product": "Philips Hue White Starter Kit",
+      "category": "Elektronika dom i ogród",
+      "basePrice": 89,
+      "offersFound": 0,
+      "source": "none",
+      "usedFallback": false,
+      "duration": 5024,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Nike Air Max 90",
+      "category": "Moda",
+      "basePrice": 149,
+      "offersFound": 4,
+      "shopsCount": 3,
+      "bestShop": "Voetbalshop.nl",
+      "bestPrice": 104.49,
+      "savings": 44.510000000000005,
+      "savingsPercent": 29.9,
+      "avgDealScore": 7,
+      "avgTrustScore": 63.75,
+      "source": "SearchAPI (NL) - PRIMARY",
+      "usedFallback": false,
+      "duration": 4195,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Oral-B iO Series 9",
+      "category": "Zdrowie i uroda",
+      "basePrice": 299,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "bol.com",
+      "bestPrice": 229,
+      "savings": 70,
+      "savingsPercent": 23.4,
+      "avgDealScore": 4.5,
+      "avgTrustScore": 85,
+      "source": "SearchAPI (NL) - PRIMARY",
+      "usedFallback": false,
+      "duration": 2002,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Garmin Forerunner 255",
+      "category": "Sport i fitness",
+      "basePrice": 349,
+      "offersFound": 0,
+      "source": "none",
+      "usedFallback": false,
+      "duration": 1493,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Bosch Aerotwin Ruitenwissers",
+      "category": "Auto i akcesoria",
+      "basePrice": 45,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Amazon.nl - Retail",
+      "bestPrice": 15.34,
+      "savings": 29.66,
+      "savingsPercent": 65.9,
+      "avgDealScore": 4,
+      "avgTrustScore": 70,
+      "source": "SearchAPI (NL) - PRIMARY",
+      "usedFallback": false,
+      "duration": 1891,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "IKEA MARKUS Bureaustoel",
+      "category": "Meble i edukacja",
+      "basePrice": 199,
+      "offersFound": 0,
+      "source": "none",
+      "usedFallback": false,
+      "duration": 3967,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Royal Canin Medium Adult 15kg",
+      "category": "Zwierzęta",
+      "basePrice": 69,
+      "offersFound": 0,
+      "source": "none",
+      "usedFallback": false,
+      "duration": 1467,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Bosch GSR 18V-55",
+      "category": "Narzędzia - DIY",
+      "basePrice": 179,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Amazon.nl - Retail",
+      "bestPrice": 160,
+      "savings": 19,
+      "savingsPercent": 10.6,
+      "avgDealScore": 9,
+      "avgTrustScore": 70,
+      "source": "SearchAPI (NL) - PRIMARY",
+      "usedFallback": false,
+      "duration": 5144,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Philips Airfryer XXL",
+      "category": "Elektronika dom i ogród",
+      "basePrice": 249,
+      "offersFound": 3,
+      "shopsCount": 2,
+      "bestShop": "Coolblue",
+      "bestPrice": 145,
+      "savings": 104,
+      "savingsPercent": 41.8,
+      "avgDealScore": 8.766666666666667,
+      "avgTrustScore": 55,
+      "source": "SearchAPI (NL) - PRIMARY",
+      "usedFallback": false,
+      "duration": 1123,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "The North Face Thermoball Jacket",
+      "category": "Sport i fitness",
+      "basePrice": 229,
+      "offersFound": 0,
+      "source": "none",
+      "usedFallback": false,
+      "duration": 1756,
+      "status": "NO_OFFERS"
+    }
+  ]
+}

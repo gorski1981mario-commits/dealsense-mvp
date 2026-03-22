@@ -42,7 +42,7 @@ export default function VeiligheidPage() {
           verdachte aanbiedingen en waarschuwen je voor mogelijke scams.
         </p>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', fontWeight: 600 }}>
-          Deal Score: zorgvuldig geselecteerde parameters voor maximale veiligheid
+          Deal Score V2: Trust Engine (0-100) + Niche Boost + Rotation voor maximale veiligheid en beste deals
         </p>
       </div>
 

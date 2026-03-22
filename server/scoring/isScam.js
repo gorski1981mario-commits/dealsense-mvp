@@ -42,7 +42,7 @@ function isScam(offer, marketAvg) {
   const minReviews = Number(process.env.PRICING_SCAM_MIN_REVIEWS);
   const minPriceRatio = Number(process.env.PRICING_SCAM_MIN_PRICE_RATIO);
   const MIN_RATING = Number.isFinite(minRating) ? minRating : 3.5;
-  const MIN_REVIEWS = Number.isFinite(minReviews) ? Math.floor(minReviews) : 30;
+  const MIN_REVIEWS = Number.isFinite(minReviews) ? Math.floor(minReviews) : 30; // PRODUCTION READY
   const MIN_PRICE_RATIO = Number.isFinite(minPriceRatio) ? minPriceRatio : 0.35;
 
   const NicheExceptionEnabled = (() => {

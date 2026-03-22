@@ -308,7 +308,7 @@ export default function EchoChat() {
       
       return {
         role: 'assistant',
-        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n🎯 ${userInput}\n\nIk doorzoek nu de markt met Deal Score...\n\n⏳ Analyseer 50% e-commerce giganten + 50% niszowe biura...`,
+        content: `✅ Perfect! Ik heb alle info:\n\n📍 ${ctx.collectedData.destination}\n📅 ${ctx.collectedData.dates}\n👥 ${ctx.collectedData.travelers}\n🎯 ${userInput}\n\nIk doorzoek nu de markt met Deal Score V2...\n\n⏳ Analyseer 50% giganten + 50% niszowe biura (Trust Score + Rotation Engine)...`,
         suggestions: ['Bekijk TOP 3 deals', 'Wijzig gegevens']
       }
     }

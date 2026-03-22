@@ -1,0 +1,31 @@
+{
+  "testName": "Debug Filters Report - Full Analysis",
+  "date": "2026-03-21T15:22:40.885Z",
+  "successRate": "0%",
+  "results": [
+    {
+      "product": "iPhone 15 Pro 128GB",
+      "category": "Smartphone (high-end)",
+      "basePrice": 1329,
+      "status": "NO_OFFERS",
+      "duration": 2686,
+      "finalOffers": 0
+    },
+    {
+      "product": "AirPods Pro 2nd Generation",
+      "category": "Audio (popular)",
+      "basePrice": 279,
+      "status": "NO_OFFERS",
+      "duration": 2263,
+      "finalOffers": 0
+    },
+    {
+      "product": "iPad 10th Generation 64GB",
+      "category": "Tablet (variants)",
+      "basePrice": 429,
+      "status": "NO_OFFERS",
+      "duration": 1131,
+      "finalOffers": 0
+    }
+  ]
+}

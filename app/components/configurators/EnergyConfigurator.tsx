@@ -164,7 +164,7 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
         {!searchLoading && hasOffers && (
           <>
             <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 {offers.length} beste aanbiedingen gevonden!</h2>
-            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% giganten + 50% niszowe leveranciers met Deal Score</p>
+            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% giganten + 50% niszowe leveranciers met Deal Score V2 (Trust Engine + Rotation)</p>
 
             {offers.map((offer, i) => (
               <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
@@ -175,7 +175,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
                 {offer.description && <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{offer.description}</div>}
                 <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
                   {offer.rating && <span>⭐ {offer.rating}/5</span>}
-                  {offer.dealScore && <span>Score: {offer.dealScore}</span>}
+                  {offer.dealScore && <span>💎 Score: {offer.dealScore}/10</span>}
+                  {offer._dealScore?.trustScore && <span>🛡️ Trust: {offer._dealScore.trustScore}/100</span>}
                   <span>🏪 {offer.seller}</span>
                 </div>
                 {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>BESTE DEAL</span>}

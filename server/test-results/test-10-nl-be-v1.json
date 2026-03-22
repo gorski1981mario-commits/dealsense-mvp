@@ -1,0 +1,22 @@
+{
+  "testName": "10 Products - NL+BE (Belgium Added)",
+  "date": "2026-03-21",
+  "config": {
+    "location": "Belgium (BE)",
+    "language": "nl",
+    "adaptiveMode": true,
+    "strictMode": {
+      "minSimilarity": 85,
+      "trustFilter": true
+    },
+    "balancedMode": {
+      "minSimilarity": 75,
+      "trustFilter": false
+    }
+  },
+  "comparison": {
+    "previous": "NL only",
+    "current": "BE (Belgium)"
+  },
+  "results": []
+}

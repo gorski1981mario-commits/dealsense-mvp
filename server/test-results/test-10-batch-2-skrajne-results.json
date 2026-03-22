@@ -1,0 +1,147 @@
+{
+  "testName": "Batch 2 - 10 Testów Skrajnych Produktów",
+  "date": "2026-03-21T15:59:12.844Z",
+  "configuration": {
+    "priceRange": "30%-200%",
+    "bannedSellers": "10 krytycznych",
+    "bannedKeywords": true,
+    "nlOnlyFilter": ".nl + 100 znanych sklepów",
+    "trustThreshold": 0,
+    "trustLogic": "Sklep > Produkt (trusted sellers = 85-100 trust)"
+  },
+  "successRate": "30%",
+  "avgSavings": "38.5%",
+  "avgOffersPerProduct": "2.0",
+  "results": [
+    {
+      "product": "iPhone 15 Pro Max 1TB",
+      "category": "Smartphone (premium)",
+      "basePrice": 1849,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 3315,
+      "avgSavings": "46.3",
+      "topOffers": [
+        {
+          "seller": "Belsimpel",
+          "price": 992,
+          "savings": 857,
+          "savingsPercent": "46.3",
+          "dealScore": 9.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "DJI Mavic 3 Pro",
+      "category": "Dron (profesjonalny)",
+      "basePrice": 2199,
+      "status": "ERROR",
+      "error": "timeout of 8000ms exceeded"
+    },
+    {
+      "product": "IKEA Billy Boekenkast",
+      "category": "Meble (budget)",
+      "basePrice": 49,
+      "status": "NO_OFFERS",
+      "duration": 7537
+    },
+    {
+      "product": "Xiaomi Mi Band 8",
+      "category": "Fitness tracker (budget)",
+      "basePrice": 39,
+      "status": "NO_OFFERS",
+      "duration": 3073
+    },
+    {
+      "product": "Vitamix A3500 Blender",
+      "category": "Kuchnia (niszowy)",
+      "basePrice": 649,
+      "status": "NO_OFFERS",
+      "duration": 8226
+    },
+    {
+      "product": "Brompton M6L Folding Bike",
+      "category": "Rower (niszowy)",
+      "basePrice": 1595,
+      "status": "NO_OFFERS",
+      "duration": 6905
+    },
+    {
+      "product": "Weber Genesis E-335",
+      "category": "Grill (premium)",
+      "basePrice": 1299,
+      "status": "NO_OFFERS",
+      "duration": 5577
+    },
+    {
+      "product": "LEGO Technic Liebherr R 9800",
+      "category": "Zabawki (kolekcjonerskie)",
+      "basePrice": 449,
+      "status": "NO_OFFERS",
+      "duration": 4559
+    },
+    {
+      "product": "Kindle Paperwhite Signature",
+      "category": "E-reader",
+      "basePrice": 189,
+      "status": "SUCCESS",
+      "offersCount": 3,
+      "duration": 6856,
+      "avgSavings": "33.9",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 64.9,
+          "savings": 124.1,
+          "savingsPercent": "65.7",
+          "dealScore": 10,
+          "trustScore": 100
+        },
+        {
+          "seller": "rebuy.nl",
+          "price": 129.99,
+          "savings": 59.00999999999999,
+          "savingsPercent": "31.2",
+          "dealScore": 9,
+          "trustScore": 55
+        },
+        {
+          "seller": "Tegeldepot.nl",
+          "price": 179.95,
+          "savings": 9.050000000000011,
+          "savingsPercent": "4.8",
+          "dealScore": 4,
+          "trustScore": 25
+        }
+      ]
+    },
+    {
+      "product": "Bose QuietComfort Earbuds II",
+      "category": "Słuchawki TWS",
+      "basePrice": 299,
+      "status": "SUCCESS",
+      "offersCount": 2,
+      "duration": 2288,
+      "avgSavings": "35.1",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 199,
+          "savings": 100,
+          "savingsPercent": "33.4",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Alternate.nl",
+          "price": 189,
+          "savings": 110,
+          "savingsPercent": "36.8",
+          "dealScore": 9.5,
+          "trustScore": 100
+        }
+      ]
+    }
+  ]
+}

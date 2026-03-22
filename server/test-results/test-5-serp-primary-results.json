@@ -1,0 +1,68 @@
+{
+  "testName": "Test 5 - SERP API PRIMARY",
+  "date": "2026-03-21T11:07:27.465Z",
+  "primarySource": "SERP API (NL)",
+  "fallbackEnabled": false,
+  "successRate": "2/5",
+  "results": [
+    {
+      "product": "iPhone 15 Pro 128GB",
+      "category": "Smartphones",
+      "basePrice": 1329,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 3096,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Samsung Galaxy S24 Ultra",
+      "category": "Smartphones",
+      "basePrice": 1449,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 2126,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "MacBook Pro 14 M3",
+      "category": "Laptops",
+      "basePrice": 2199,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Alternate.nl",
+      "bestPrice": 1599,
+      "savings": 600,
+      "savingsPercent": 27.3,
+      "avgDealScore": 9.5,
+      "avgTrustScore": 85,
+      "source": "google",
+      "duration": 2838,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Dyson V15 Detect",
+      "category": "Home Appliances",
+      "basePrice": 649,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 6357,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "PlayStation 5",
+      "category": "Gaming",
+      "basePrice": 549,
+      "offersFound": 2,
+      "shopsCount": 2,
+      "bestShop": "Coolblue",
+      "bestPrice": 488,
+      "savings": 61,
+      "savingsPercent": 11.1,
+      "avgDealScore": 5.25,
+      "avgTrustScore": 77.5,
+      "source": "google",
+      "duration": 1006,
+      "status": "SUCCESS"
+    }
+  ]
+}

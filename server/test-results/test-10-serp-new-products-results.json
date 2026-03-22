@@ -1,0 +1,172 @@
+{
+  "testName": "Test 10 Nowych Produktów - SERP API PRIMARY",
+  "date": "2026-03-21T11:12:49.068Z",
+  "primarySource": "SERP API (NL)",
+  "fallbackEnabled": false,
+  "successRate": "6/10",
+  "results": [
+    {
+      "product": "AirPods Pro 2",
+      "category": "Audio",
+      "basePrice": 279,
+      "offersFound": 4,
+      "shopsCount": 4,
+      "bestShop": "OneEarPod",
+      "bestPrice": 89.95,
+      "savings": 189.05,
+      "savingsPercent": 67.8,
+      "avgDealScore": 7.5,
+      "avgTrustScore": 55,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "source": "google",
+      "duration": 2114,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "iPad Pro 11 M4",
+      "category": "Tablets",
+      "basePrice": 1099,
+      "offersFound": 0,
+      "source": "error",
+      "duration": 8021,
+      "status": "ERROR",
+      "error": "timeout of 8000ms exceeded"
+    },
+    {
+      "product": "Sony WH-1000XM5",
+      "category": "Headphones",
+      "basePrice": 399,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Dealdag.nl",
+      "bestPrice": 210.99,
+      "savings": 188.01,
+      "savingsPercent": 47.1,
+      "avgDealScore": 3,
+      "avgTrustScore": 55,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "source": "google",
+      "duration": 4135,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Nintendo Switch OLED",
+      "category": "Gaming",
+      "basePrice": 349,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 3899,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Apple Watch Series 9",
+      "category": "Smartwatches",
+      "basePrice": 449,
+      "offersFound": 7,
+      "shopsCount": 5,
+      "bestShop": "Marktplaats",
+      "bestPrice": 200,
+      "savings": 249,
+      "savingsPercent": 55.5,
+      "avgDealScore": 8.142857142857142,
+      "avgTrustScore": 55,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": true
+      },
+      "source": "google",
+      "duration": 1562,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Canon EOS R6 Mark II",
+      "category": "Cameras",
+      "basePrice": 2699,
+      "offersFound": 2,
+      "shopsCount": 2,
+      "bestShop": "fotokoch-shop.nl",
+      "bestPrice": 2544.2,
+      "savings": 154.80000000000018,
+      "savingsPercent": 5.7,
+      "avgDealScore": 8.75,
+      "avgTrustScore": 70,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": true
+      },
+      "source": "google",
+      "duration": 6781,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Bose QuietComfort Ultra",
+      "category": "Headphones",
+      "basePrice": 449,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 6806,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Logitech MX Master 3S",
+      "category": "Accessories",
+      "basePrice": 109,
+      "offersFound": 2,
+      "shopsCount": 2,
+      "bestShop": "SWW.nl",
+      "bestPrice": 95,
+      "savings": 14,
+      "savingsPercent": 12.8,
+      "avgDealScore": 4,
+      "avgTrustScore": 55,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "source": "google",
+      "duration": 6944,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Samsung Galaxy Watch 6",
+      "category": "Smartwatches",
+      "basePrice": 319,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Smartwatchbanden.nl",
+      "bestPrice": 49.99,
+      "savings": 269.01,
+      "savingsPercent": 84.3,
+      "avgDealScore": 10,
+      "avgTrustScore": 55,
+      "qualityIssues": {
+        "hasRefurbished": false,
+        "hasAccessories": false,
+        "hasBundles": false
+      },
+      "source": "google",
+      "duration": 1284,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "GoPro Hero 12 Black",
+      "category": "Cameras",
+      "basePrice": 449,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 3179,
+      "status": "NO_OFFERS"
+    }
+  ]
+}

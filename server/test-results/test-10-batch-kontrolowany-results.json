@@ -1,0 +1,291 @@
+{
+  "testName": "Batch 10 Testów Kontrolowanych - Różne Kategorie",
+  "date": "2026-03-21T15:47:48.277Z",
+  "configuration": {
+    "priceRange": "30%-200%",
+    "bannedSellers": "10 krytycznych",
+    "bannedKeywords": true,
+    "nlOnlyFilter": ".nl + 30 znanych sklepów",
+    "trustThreshold": 0,
+    "trustLogic": "Sklep > Produkt (trusted sellers = 85-100 trust)"
+  },
+  "successRate": "90%",
+  "avgSavings": "42.4%",
+  "avgOffersPerProduct": "3.0",
+  "results": [
+    {
+      "product": "Sony WH-1000XM5",
+      "category": "Słuchawki (premium)",
+      "basePrice": 399,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 5676,
+      "avgSavings": "50.1",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 199,
+          "savings": 200,
+          "savingsPercent": "50.1",
+          "dealScore": 6.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "Samsung Galaxy S24",
+      "category": "Smartphone (flagship)",
+      "basePrice": 899,
+      "status": "SUCCESS",
+      "offersCount": 2,
+      "duration": 3804,
+      "avgSavings": "51.9",
+      "topOffers": [
+        {
+          "seller": "You-Mobile",
+          "price": 409,
+          "savings": 490,
+          "savingsPercent": "54.5",
+          "dealScore": 8,
+          "trustScore": 25
+        },
+        {
+          "seller": "Mobiel.nl",
+          "price": 456,
+          "savings": 443,
+          "savingsPercent": "49.3",
+          "dealScore": 4,
+          "trustScore": 55
+        }
+      ]
+    },
+    {
+      "product": "Philips Airfryer XXL",
+      "category": "Kuchnia (AGD)",
+      "basePrice": 249,
+      "status": "SUCCESS",
+      "offersCount": 6,
+      "duration": 4229,
+      "avgSavings": "49.1",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 115.99,
+          "savings": 133.01,
+          "savingsPercent": "53.4",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Expert",
+          "price": 86.95,
+          "savings": 162.05,
+          "savingsPercent": "65.1",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Amazon.nl - Seller",
+          "price": 136.04,
+          "savings": 112.96000000000001,
+          "savingsPercent": "45.4",
+          "dealScore": 8.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "Nike Air Max 90",
+      "category": "Obuwie sportowe",
+      "basePrice": 149,
+      "status": "SUCCESS",
+      "offersCount": 2,
+      "duration": 8375,
+      "avgSavings": "41.4",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 69.99,
+          "savings": 79.01,
+          "savingsPercent": "53.0",
+          "dealScore": 10,
+          "trustScore": 100
+        },
+        {
+          "seller": "Voetbalshop.nl",
+          "price": 104.49,
+          "savings": 44.510000000000005,
+          "savingsPercent": "29.9",
+          "dealScore": 9,
+          "trustScore": 55
+        }
+      ]
+    },
+    {
+      "product": "Levi's 501 Original Jeans",
+      "category": "Odzież",
+      "basePrice": 99,
+      "status": "SUCCESS",
+      "offersCount": 3,
+      "duration": 5274,
+      "avgSavings": "21.1",
+      "topOffers": [
+        {
+          "seller": "Amazon.nl - Retail",
+          "price": 70.66,
+          "savings": 28.340000000000003,
+          "savingsPercent": "28.6",
+          "dealScore": 10,
+          "trustScore": 100
+        },
+        {
+          "seller": "Zalando.nl",
+          "price": 76.95,
+          "savings": 22.049999999999997,
+          "savingsPercent": "22.3",
+          "dealScore": 8.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "bol.com",
+          "price": 86.78,
+          "savings": 12.219999999999999,
+          "savingsPercent": "12.3",
+          "dealScore": 4.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "Bosch PSR 1800",
+      "category": "Narzędzia elektryczne",
+      "basePrice": 129,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 3814,
+      "avgSavings": "60.5",
+      "topOffers": [
+        {
+          "seller": "subtel.nl",
+          "price": 50.95,
+          "savings": 78.05,
+          "savingsPercent": "60.5",
+          "dealScore": 10,
+          "trustScore": 55
+        }
+      ]
+    },
+    {
+      "product": "Karcher K5 Premium",
+      "category": "Ogród (myjka)",
+      "basePrice": 449,
+      "status": "SUCCESS",
+      "offersCount": 4,
+      "duration": 2365,
+      "avgSavings": "24.9",
+      "topOffers": [
+        {
+          "seller": "Amazon.nl - Retail",
+          "price": 302.49,
+          "savings": 146.51,
+          "savingsPercent": "32.6",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "bol.com",
+          "price": 349,
+          "savings": 100,
+          "savingsPercent": "22.3",
+          "dealScore": 7.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Alternate.nl",
+          "price": 349,
+          "savings": 100,
+          "savingsPercent": "22.3",
+          "dealScore": 7.5,
+          "trustScore": 100
+        }
+      ]
+    },
+    {
+      "product": "Decathlon Domyos Bench 500",
+      "category": "Fitness (ławka)",
+      "basePrice": 179,
+      "status": "NO_OFFERS",
+      "duration": 2073
+    },
+    {
+      "product": "Garmin Fenix 7",
+      "category": "Smartwatch sportowy",
+      "basePrice": 699,
+      "status": "SUCCESS",
+      "offersCount": 3,
+      "duration": 3298,
+      "avgSavings": "26.8",
+      "topOffers": [
+        {
+          "seller": "Chrono24.nl",
+          "price": 406,
+          "savings": 293,
+          "savingsPercent": "41.9",
+          "dealScore": 9,
+          "trustScore": 55
+        },
+        {
+          "seller": "Amazon.nl - Seller",
+          "price": 549,
+          "savings": 150,
+          "savingsPercent": "21.5",
+          "dealScore": 8.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "WayPoint gps.nl",
+          "price": 579,
+          "savings": 120,
+          "savingsPercent": "17.2",
+          "dealScore": 7,
+          "trustScore": 55
+        }
+      ]
+    },
+    {
+      "product": "Nespresso Vertuo Next",
+      "category": "Kuchnia (kawa)",
+      "basePrice": 199,
+      "status": "SUCCESS",
+      "offersCount": 5,
+      "duration": 10803,
+      "avgSavings": "55.6",
+      "topOffers": [
+        {
+          "seller": "bol.com",
+          "price": 96.95,
+          "savings": 102.05,
+          "savingsPercent": "51.3",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Expert",
+          "price": 79,
+          "savings": 120,
+          "savingsPercent": "60.3",
+          "dealScore": 9.5,
+          "trustScore": 100
+        },
+        {
+          "seller": "Amazon.nl - Seller",
+          "price": 75.4,
+          "savings": 123.6,
+          "savingsPercent": "62.1",
+          "dealScore": 9.5,
+          "trustScore": 100
+        }
+      ]
+    }
+  ]
+}

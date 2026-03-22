@@ -1,0 +1,119 @@
+{
+  "testName": "Test SERP API Fallback",
+  "date": "2026-03-21T10:58:14.666Z",
+  "serpApiEnabled": true,
+  "successRate": "4/10",
+  "serpUsageRate": "0/4",
+  "results": [
+    {
+      "product": "MacBook Pro 14 M3",
+      "category": "Laptops",
+      "basePrice": 2199,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "refurbed.be",
+      "bestPrice": 1534.99,
+      "savings": 664.01,
+      "savingsPercent": 30.2,
+      "source": "searchapi",
+      "duration": 1536,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "iPad Air 11 M2 128GB",
+      "category": "Tablets",
+      "basePrice": 699,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 1538,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Bose QuietComfort Ultra",
+      "category": "Headphones",
+      "basePrice": 449,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 1652,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "GoPro Hero 12 Black",
+      "category": "Cameras",
+      "basePrice": 449,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 2369,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Nespresso Vertuo Next",
+      "category": "Coffee Machines",
+      "basePrice": 149,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 2749,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Sonos Beam Gen 2",
+      "category": "Soundbars",
+      "basePrice": 499,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "tink.be",
+      "bestPrice": 399,
+      "savings": 100,
+      "savingsPercent": 20,
+      "source": "searchapi",
+      "duration": 2454,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "Apple AirPods Pro 2",
+      "category": "Audio",
+      "basePrice": 279,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 1762,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Dyson V15 Detect",
+      "category": "Home Appliances",
+      "basePrice": 649,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Amazon.com.be - Seller",
+      "bestPrice": 699,
+      "savings": -50,
+      "savingsPercent": -7.7,
+      "source": "searchapi",
+      "duration": 2392,
+      "status": "SUCCESS"
+    },
+    {
+      "product": "DeLonghi Magnifica S",
+      "category": "Coffee Machines",
+      "basePrice": 399,
+      "offersFound": 0,
+      "source": "none",
+      "duration": 6974,
+      "status": "NO_OFFERS"
+    },
+    {
+      "product": "Garmin Fenix 7",
+      "category": "Smartwatches",
+      "basePrice": 699,
+      "offersFound": 1,
+      "shopsCount": 1,
+      "bestShop": "Fnac.be",
+      "bestPrice": 549,
+      "savings": 150,
+      "savingsPercent": 21.5,
+      "source": "searchapi",
+      "duration": 2897,
+      "status": "SUCCESS"
+    }
+  ]
+}

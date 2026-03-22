@@ -1,0 +1,37 @@
+{
+  "testName": "Real Customer Test - DealSense Use Case",
+  "date": "2026-03-21T15:01:39.814Z",
+  "scenario": {
+    "productName": "Dyson V15 Detect Absolute",
+    "ean": "5025155071977",
+    "seenAt": "bol.com",
+    "seenPrice": 699,
+    "customerQuestion": "Czy znajdziesz taniej?"
+  },
+  "duration": 8198,
+  "offersFound": 2,
+  "bestSavings": "200.00",
+  "bestSavingsPercent": "28.6",
+  "allNL": false,
+  "noDuplicates": true,
+  "offers": [
+    {
+      "seller": "Dyson Official",
+      "price": 499,
+      "savings": 200,
+      "savingsPercent": "28.6",
+      "dealScore": 9,
+      "trustScore": 55,
+      "url": "https://www.google.com/search?ibp=oshop&q=Dyson V15 Detect Absolute&prds=catalogid:12474812298189633373,headlineOfferDocid:13881838339487680795,imageDocid:640524223131754661,rds:PC_8908434059311386230|PROD_PC_8908434059311386230,gpcid:8908434059311386230,mid:576462828422429362,pvt:hg&hl=nl&gl=nl&udm=28"
+    },
+    {
+      "seller": "Microless.com",
+      "price": 435.35,
+      "savings": 263.65,
+      "savingsPercent": "37.7",
+      "dealScore": 9,
+      "trustScore": 55,
+      "url": "https://www.google.com/search?ibp=oshop&q=Dyson V15 Detect Absolute&prds=catalogid:2360362627972006129,headlineOfferDocid:2980066951122178605,imageDocid:15360616457757653410,rds:PC_13631350257857774200|PROD_PC_13631350257857774200,gpcid:13631350257857774200,pvt:hg&hl=nl&gl=nl&udm=28"
+    }
+  ]
+}

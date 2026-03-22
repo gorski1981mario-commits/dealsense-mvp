@@ -126,19 +126,29 @@ app.post('/api/market', async (req, res) => {
       geoEnabled
     });
 
-    // SCAM FILTER WYŁĄCZONY - zwracamy wszystkie oferty
-    console.log(`[MARKET] Zwracam wszystkie oferty bez filtrowania: ${rawOffers.length}`);
+    // TWARDE FILTRY WŁĄCZONE - TYLKO sklepy NL, BEZ marketplace/aukcji/chińskich
+    const { filterBlockedOffers, filterNlRetailOnly } = require('./market-api');
+    
+    let filteredOffers = rawOffers;
+    
+    // 1. Blokuj marketplace/aukcje/chińskie
+    filteredOffers = filterBlockedOffers(filteredOffers);
+    
+    // 2. Tylko sklepy NL
+    filteredOffers = filterNlRetailOnly(filteredOffers);
+
+    console.log(`[MARKET] Filtrowanie: ${rawOffers.length} → ${filteredOffers.length} ofert (usunięto ${rawOffers.length - filteredOffers.length} marketplace/non-NL)`);
 
     res.json({
       success: true,
       product_name,
       ean,
-      offers: rawOffers,
-      count: rawOffers.length,
+      offers: filteredOffers,
+      count: filteredOffers.length,
       meta: {
         rawCount: rawOffers.length,
-        filteredCount: rawOffers.length,
-        scamRemoved: 0
+        filteredCount: filteredOffers.length,
+        removed: rawOffers.length - filteredOffers.length
       }
     });
 

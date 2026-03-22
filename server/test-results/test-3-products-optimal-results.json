@@ -1,0 +1,43 @@
+{
+  "testName": "Test 3 Products - Optimal Canonical Version",
+  "date": "2026-03-21T14:45:15.512Z",
+  "configuration": {
+    "qualityFilter": true,
+    "canonicalFilter": false,
+    "dealScoreV2": true,
+    "standardRotation": true
+  },
+  "successRate": "33%",
+  "results": [
+    {
+      "product": "iPhone 15 Pro 128GB",
+      "basePrice": 1329,
+      "status": "SUCCESS",
+      "offersCount": 1,
+      "duration": 3057,
+      "avgSavings": "45.9",
+      "topOffers": [
+        {
+          "seller": "ComputerPlus Leiden",
+          "price": 719,
+          "savings": 610,
+          "savingsPercent": 45.9,
+          "dealScore": 8,
+          "trustScore": 25
+        }
+      ]
+    },
+    {
+      "product": "Dyson V12 Detect Slim",
+      "basePrice": 599,
+      "status": "NO_OFFERS",
+      "duration": 975
+    },
+    {
+      "product": "Garmin Forerunner 255",
+      "basePrice": 349,
+      "status": "NO_OFFERS",
+      "duration": 1701
+    }
+  ]
+}

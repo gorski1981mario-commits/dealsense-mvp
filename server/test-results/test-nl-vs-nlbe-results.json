@@ -1,0 +1,144 @@
+{
+  "testName": "NL-ONLY vs NL+BE Coverage Test",
+  "date": "2026-03-21T16:18:40.825Z",
+  "results": [
+    {
+      "product": "iPhone 15 Pro 256GB",
+      "basePrice": 1329,
+      "status": "SUCCESS",
+      "totalOffers": 3,
+      "nlOffers": 2,
+      "beOffers": 0,
+      "topOffer": {
+        "seller": "Amazon.nl - Seller",
+        "price": 687,
+        "currency": "EUR",
+        "availability": "in_stock",
+        "reviewScore": 4.4,
+        "reviewCount": 24000,
+        "url": "https://www.google.com/search?ibp=oshop&q=iPhone 15 Pro 256GB&prds=catalogid:14919452750346977447,headlineOfferDocid:15398040098196284085,imageDocid:14660325161147568501,rds:PC_9324660314854852149|PROD_PC_9324660314854852149,gpcid:9324660314854852149,mid:576462543689088874,pvt:hg&hl=nl&gl=nl&udm=28",
+        "title": "Apple iPhone 15 Pro Max",
+        "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSMn-KE6aTTRc_Bo3ZxB3ILcVv9q7Chq9ICuhTI4MIL8KFeaCF3ytZMSRjZtWS6a4MyLKkgoX6Nz20Oqdg2nCm6NJvONkCyyaeZ6Exd-is7tv_FbGkOijkO",
+        "deliveryTime": null,
+        "_source": "google",
+        "_normalized": {
+          "cluster_id": "apple_iphone15pro",
+          "brand": "apple",
+          "model": "iphone15pro",
+          "storage": null,
+          "color": null
+        },
+        "_dealScore": {
+          "dealScore": 9.5,
+          "dealConfidence": "medium",
+          "trustScore": 100,
+          "savings": 384,
+          "savingsPercent": 35.9,
+          "isNiche": false,
+          "isFresh": false,
+          "isTrusted": true,
+          "blocked": false,
+          "blockReason": null
+        },
+        "_category": "top"
+      },
+      "topCountry": "NL"
+    },
+    {
+      "product": "Samsung Galaxy S24 Ultra",
+      "basePrice": 1299,
+      "status": "SUCCESS",
+      "totalOffers": 1,
+      "nlOffers": 1,
+      "beOffers": 0,
+      "topOffer": {
+        "seller": "Amazon.nl - Retail",
+        "price": 646.59,
+        "currency": "EUR",
+        "availability": "in_stock",
+        "reviewScore": 4.6,
+        "reviewCount": 57000,
+        "url": "https://www.google.com/search?ibp=oshop&q=Samsung Galaxy S24 Ultra&prds=catalogid:2730611568052398900,headlineOfferDocid:3375933396075914418,imageDocid:3674001407197112286,rds:PC_2099649792654594352|PROD_PC_2099649792654594352,gpcid:2099649792654594352,mid:576462517318422192,pvt:hg&hl=nl&gl=nl&udm=28",
+        "title": "Samsung Galaxy S24",
+        "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSQpS3evkoiluPi2WVxNj4BY8bmKWskEmDEv7Q7P7pSGMT4A299PnENxjfJRhE_zm1kRL2DglR1OiHL0_FpUNRf5oqCI5zID4oCU3JDJFf_b9bBHiwrgF4g",
+        "deliveryTime": null,
+        "_source": "google",
+        "_normalized": {
+          "cluster_id": "samsung_galaxys24",
+          "brand": "samsung",
+          "model": "galaxys24",
+          "storage": null,
+          "color": null
+        },
+        "_dealScore": {
+          "dealScore": 4.5,
+          "dealConfidence": "laag",
+          "trustScore": 100,
+          "savings": 18.71,
+          "savingsPercent": 2.8,
+          "isNiche": false,
+          "isFresh": false,
+          "isTrusted": true,
+          "blocked": false,
+          "blockReason": null
+        },
+        "_category": "top"
+      },
+      "topCountry": "NL"
+    },
+    {
+      "product": "Dyson V15 Detect",
+      "basePrice": 649,
+      "status": "SUCCESS",
+      "totalOffers": 1,
+      "nlOffers": 0,
+      "beOffers": 0,
+      "topOffer": {
+        "seller": "Used Products Rotterdam zuid",
+        "price": 589.99,
+        "currency": "EUR",
+        "availability": "in_stock",
+        "reviewScore": 0,
+        "reviewCount": 0,
+        "url": "https://www.google.com/search?ibp=oshop&q=Dyson V15 Detect&prds=productid:3600793982570413038,headlineOfferDocid:3600793982570413038,imageDocid:13283066088280505940,pvt:hg&hl=nl&gl=nl&udm=28",
+        "title": "Dyson V15 Detect Absolute Stofzuiger | Nieuw",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSoq4zo3_euH_WSZ_J2XS9_vKzfA_bKNJtHWB5-MHSHt1MzgZqIOnqr7J22rbgRTJc9UqjwPZUfwY2xrQkbtSukl5xAqa5Px4ePdBwutRtw-I4c_2Pn47Kz",
+        "deliveryTime": null,
+        "_source": "google",
+        "_normalized": {
+          "cluster_id": "dyson_v15",
+          "brand": "dyson",
+          "model": "v15",
+          "storage": null,
+          "color": null
+        },
+        "_dealScore": {
+          "dealScore": 5,
+          "dealConfidence": "laag",
+          "trustScore": 25,
+          "savings": 29.5,
+          "savingsPercent": 4.8,
+          "isNiche": false,
+          "isFresh": false,
+          "isTrusted": true,
+          "blocked": false,
+          "blockReason": null
+        },
+        "_category": "top"
+      },
+      "topCountry": "NL"
+    },
+    {
+      "product": "Nike Air Force 1",
+      "basePrice": 119,
+      "status": "ERROR",
+      "error": "timeout of 8000ms exceeded"
+    },
+    {
+      "product": "PlayStation 5",
+      "basePrice": 549,
+      "status": "ERROR",
+      "error": "timeout of 8000ms exceeded"
+    }
+  ]
+}

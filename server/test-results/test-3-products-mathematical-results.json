@@ -1,0 +1,160 @@
+{
+  "testName": "Test 3 Products - Mathematical Rotation (No Filters)",
+  "date": "2026-03-21T13:56:53.027Z",
+  "filtersDisabled": [
+    "Quality Filter",
+    "Canonical Filter",
+    "Deal Truth"
+  ],
+  "mathematicalRotationEnabled": true,
+  "userId": "test_user_456",
+  "scansPerProduct": 3,
+  "results": [
+    {
+      "product": "Sony WH-1000XM5",
+      "basePrice": 399,
+      "scans": [
+        {
+          "scanCount": 1,
+          "shops": [
+            "gsmpunt",
+            "AliExpress",
+            "subtel.nl"
+          ],
+          "prices": [
+            14.95,
+            171.7,
+            12.95
+          ],
+          "duration": 1418,
+          "status": "SUCCESS"
+        },
+        {
+          "scanCount": 2,
+          "shops": [
+            "Amazon.nl - Seller",
+            "subtel.nl",
+            "bol.com"
+          ],
+          "prices": [
+            214.9,
+            12.95,
+            30
+          ],
+          "duration": 1366,
+          "status": "SUCCESS"
+        },
+        {
+          "scanCount": 3,
+          "shops": [
+            "AliExpress",
+            "infshop.nl",
+            "SD Repair"
+          ],
+          "prices": [
+            6.39,
+            13.49,
+            279
+          ],
+          "duration": 836,
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "product": "Dyson V12 Detect Slim",
+      "basePrice": 599,
+      "scans": [
+        {
+          "scanCount": 1,
+          "shops": [
+            "Waterfilterwinkel",
+            "High-Tech Place",
+            "eBay"
+          ],
+          "prices": [
+            16.95,
+            689.99,
+            85.45
+          ],
+          "duration": 1171,
+          "status": "SUCCESS"
+        },
+        {
+          "scanCount": 2,
+          "shops": [],
+          "prices": [],
+          "duration": 16052,
+          "status": "ERROR",
+          "error": "timeout of 8000ms exceeded"
+        },
+        {
+          "scanCount": 3,
+          "shops": [
+            "De Stofzuigerzak",
+            "bol.com",
+            "De Stofzuigerzak"
+          ],
+          "prices": [
+            28.95,
+            54.95,
+            52.95
+          ],
+          "duration": 1035,
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "product": "Garmin Forerunner 255",
+      "basePrice": 349,
+      "scans": [
+        {
+          "scanCount": 1,
+          "shops": [
+            "SDTEK",
+            "Watchbandjes Shop",
+            "mgaffaires.com"
+          ],
+          "prices": [
+            15.99,
+            11.95,
+            399.99
+          ],
+          "duration": 2092,
+          "status": "SUCCESS"
+        },
+        {
+          "scanCount": 2,
+          "shops": [
+            "Sportimo",
+            "bol.com",
+            "Watchbandjes Shop"
+          ],
+          "prices": [
+            349,
+            9.99,
+            12.95
+          ],
+          "duration": 3425,
+          "status": "SUCCESS"
+        },
+        {
+          "scanCount": 3,
+          "shops": [
+            "Smartphonehoesjes.nl",
+            "Bandjes.nl",
+            "Smartwatchbanden.nl"
+          ],
+          "prices": [
+            7.99,
+            19.55,
+            59.99
+          ],
+          "duration": 1622,
+          "status": "SUCCESS"
+        }
+      ]
+    }
+  ]
+}
