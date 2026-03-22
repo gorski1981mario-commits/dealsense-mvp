@@ -4,6 +4,7 @@ const path = require("path");
 const { fetchOffers: fetchSearchApiOffers } = require("./market/providers/searchapi");
 const { fetchOffers: fetchFashionOffers } = require("./market/providers/fashion");
 const { buildMockOffersForProductName } = require("./market/catalog");
+const { extractSmartBundles } = require("./lib/smartBundleExtractor");
 const { filterProductQuality } = require('./lib/productQualityFilter');
 const { detectCategory, detectCategoryWithConfidence } = require('./lib/categoryDetector');
 const { getCategoryProfile, isCategorySupported } = require('./lib/categorySearchProfiles');
@@ -1724,12 +1725,24 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       }
     }
 
-    // Apply DealScore V2 + Rotation
+    // ✅ SMART BUNDLES - wykorzystaj "śmieciowe" dane z SearchAPI!
+    let smartBundles = []
     if (offers && offers.length > 0) {
       const LOG_SILENT_2 = (() => {
         const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
         return v === "1" || v === "true";
       })();
+      
+      // Extract Smart Bundles PRZED DealScore (używamy RAW danych)
+      const bundleResult = extractSmartBundles(offers, effectiveProductName)
+      if (bundleResult && bundleResult.smartBundles && bundleResult.smartBundles.length > 0) {
+        smartBundles = bundleResult.smartBundles
+        if (!LOG_SILENT_2) {
+          console.log(`[SMART BUNDLES] Extracted ${smartBundles.length} bundle types from ${offers.length} offers`)
+        }
+        // Użyj mainProducts zamiast wszystkich offers (bez akcesoriów)
+        offers = bundleResult.mainProducts
+      }
       
       const scoredOffers = applyDealScoreV2(offers, userBasePrice, {
         userId,
@@ -1740,9 +1753,12 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       
       if (!LOG_SILENT_2) {
         console.log(`✅ FINAL RESULT: ${scoredOffers.length} offers (po DealScore V2 + Rotation)`);
+        if (smartBundles.length > 0) {
+          console.log(`✅ SMART BUNDLES: ${smartBundles.length} bundle types available`);
+        }
       }
       
-      // Cache result
+      // Cache result (with smartBundles)
       if (!CACHE_BYPASS && cacheKey) {
         if (USE_CACHE_FIRST) {
           const cacheEntry = cacheStrategy.createCacheEntry(scoredOffers, {
@@ -1751,13 +1767,22 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
             popularity: cacheStrategy.getProductPopularity(effectiveProductName, ean),
             volatility: cacheStrategy.getPriceVolatility(effectiveProductName, ean),
             ttl: cacheTTL,
-            source: 'searchapi'
+            source: 'searchapi',
+            smartBundles: smartBundles.length > 0 ? smartBundles : undefined
           });
           MARKET_CACHE.set(cacheKey, cacheEntry);
         } else {
           setCache(cacheKey, scoredOffers);
         }
         setRedisCache(cacheKey, scoredOffers);
+      }
+      
+      // Return offers + smartBundles (jeśli są)
+      if (smartBundles.length > 0) {
+        return {
+          offers: scoredOffers,
+          smartBundles: smartBundles
+        };
       }
       
       return scoredOffers;
