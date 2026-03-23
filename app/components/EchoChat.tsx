@@ -468,6 +468,49 @@ export default function EchoChat() {
             </button>
           </div>
 
+          {/* Auto-configuratie info banner */}
+          {messages.length === 0 && (
+            <div style={{
+              padding: '12px 16px',
+              background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+              borderBottom: '1px solid #86efac'
+            }}>
+              <div style={{ fontSize: '11px', color: '#111827', fontWeight: 600, marginBottom: '4px' }}>
+                ⚡ Auto-configuratie
+              </div>
+              <div style={{ fontSize: '10px', color: '#111827', lineHeight: '1.4' }}>
+                Echo kan configuraties voor je invullen. Voer een gesprek, Echo vraagt details, jij controleert en bevestigt.
+              </div>
+            </div>
+          )}
+
+          <div style={{
+            padding: '0',
+            borderBottom: 'none'
+          }}>
+            <div style={{ display: 'none' }}>
+              <div style={{ 
+                fontSize: '12px', 
+                color: '#166534',
+                fontWeight: 600,
+                marginLeft: '4px'
+              }}>
+                Je persoonlijke AI agent
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px'
+              }}
+            >
+              <X size={18} color="#111827" />
+            </button>
+          </div>
+
           {/* Messages */}
           <div style={{
             flex: 1,

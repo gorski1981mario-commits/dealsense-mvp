@@ -141,7 +141,7 @@ export default function HoeHetWerktPage() {
             border: '1px solid #E2E8F0',
             borderRadius: '12px'
           }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px', color: '#111827' }}>
               <EyeOff size={20} strokeWidth={2} color="#15803d" /> Ghost Mode monitoring
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>

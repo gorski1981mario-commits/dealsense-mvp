@@ -66,13 +66,26 @@ const otherItems: MenuItem[] = [
 // AI ASSISTENT
 const aiAssistantItem = {
   title: 'Echo AI Assistent',
-  description: 'Stel vragen over producten, garanties en besparingen. Beschikbaar in PLUS, PRO en FINANCE pakketten.',
+  description: 'Echo configureert voor jou - jij beslist, Echo regelt.',
   features: [
     'Productadvies op maat',
     'Garantie-informatie',
     'Bespaartips',
-    'Configuraties automatisch invullen',
+    '⚡ Configuraties automatisch invullen',
+    'Jij controleert en bevestigt',
     'Financieel advies (FINANCE)'
+  ]
+}
+
+// GHOST MODE
+const ghostModeItem = {
+  title: 'Ghost Mode',
+  description: 'Automatische prijsmonitoring - mis nooit meer een deal.',
+  features: [
+    'Automatische prijsupdates',
+    'Notificaties bij prijsdalingen',
+    'Realtime voorraadstatus',
+    '24h/48h/7 dagen (pakket-afhankelijk)'
   ]
 }
 
@@ -81,6 +94,8 @@ export default function HamburgerMenu() {
   const [userPackage, setUserPackage] = useState<PackageType>('free')
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
   const [showDienstenInfo, setShowDienstenInfo] = useState(false)
+  const [showEchoInfo, setShowEchoInfo] = useState(false)
+  const [showGhostModeInfo, setShowGhostModeInfo] = useState(false)
   const router = useRouter()
   const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
 
@@ -484,36 +499,85 @@ export default function HamburgerMenu() {
             </div>
           </div>
 
-          {/* ECHO AI ASSISTENT - Osobna sekcja */}
-          <div style={{ marginTop: '32px', paddingTop: '24px', paddingBottom: '32px', borderTop: '1px solid #E5E7EB' }}>
-            <div style={{
-              padding: '16px',
-              paddingBottom: '20px',
-              background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
-              borderRadius: '12px',
-              border: '1px solid #86efac'
-            }}>
+          {/* ECHO AI ASSISTENT - Expandable */}
+          <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #E5E7EB' }}>
+            <div 
+              onClick={() => setShowEchoInfo(!showEchoInfo)}
+              style={{
+                padding: '16px',
+                background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+                borderRadius: '12px',
+                border: '1px solid #86efac',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}>
               <div style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                gap: '8px',
-                marginBottom: '8px'
+                justifyContent: 'space-between'
               }}>
-                <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                  <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
-                  <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
-                  <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                    <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
+                    <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
+                    <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
+                  </div>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>AI Assistent</span>
                 </div>
-                <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>AI Assistent</span>
+                <span style={{ fontSize: '18px', color: '#111827', transition: 'transform 0.3s ease', transform: showEchoInfo ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
               </div>
-              <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5' }}>
-                {aiAssistantItem.description}
+              
+              {showEchoInfo && (
+                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #86efac' }}>
+                  <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5', fontWeight: 600 }}>
+                    {aiAssistantItem.description}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#111827', fontWeight: 500 }}>
+                    {aiAssistantItem.features.map((feature, idx) => (
+                      <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* GHOST MODE - Expandable */}
+          <div style={{ marginTop: '16px' }}>
+            <div 
+              onClick={() => setShowGhostModeInfo(!showGhostModeInfo)}
+              style={{
+                padding: '16px',
+                background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+                borderRadius: '12px',
+                border: '1px solid #86efac',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '20px' }}>👁️‍🗨️</span>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Ghost Mode</span>
+                </div>
+                <span style={{ fontSize: '18px', color: '#111827', transition: 'transform 0.3s ease', transform: showGhostModeInfo ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
               </div>
-              <div style={{ fontSize: '11px', color: '#111827', fontWeight: 500 }}>
-                {aiAssistantItem.features.map((feature, idx) => (
-                  <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
-                ))}
-              </div>
+              
+              {showGhostModeInfo && (
+                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #86efac' }}>
+                  <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5', fontWeight: 600 }}>
+                    {ghostModeItem.description}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#111827', fontWeight: 500 }}>
+                    {ghostModeItem.features.map((feature, idx) => (
+                      <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

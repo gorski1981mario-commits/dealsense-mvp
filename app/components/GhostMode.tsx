@@ -129,12 +129,12 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
         }}>
           <EyeOff 
             size={24} 
-            color={isActive ? '#86efac' : '#64748b'}
+            color='#15803d'
             strokeWidth={2}
           />
         </div>
         <div>
-          <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>
+          <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px', color: '#111827' }}>
             Ghost Mode
           </div>
           <div style={{ fontSize: '12px', opacity: 0.8 }}>
