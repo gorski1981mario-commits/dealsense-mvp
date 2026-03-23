@@ -300,15 +300,6 @@ export default function HamburgerMenu() {
         <div style={{ padding: '60px 24px 48px 24px' }}>
           {/* PAKKETTEN Section */}
           <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#15803d',
-              letterSpacing: '0.5px',
-              marginBottom: '16px'
-            }}>
-              PAKKETTEN
-            </h3>
             <div style={{
               background: '#F7F9F8',
               borderRadius: '12px',
