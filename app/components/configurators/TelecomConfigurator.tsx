@@ -148,25 +148,67 @@ export default function TelecomConfigurator({ packageType = 'pro', userId }: Tel
   }
 
   if (view === 'results') {
+    // Mock offers (later: replace with real backend call)
+    const mockOffers = [
+      {provider: 'Lycamobile', monthly: 35, yearly: 420, rating: 7.5, reviews: 14567, trust: 74, savings: 444, type: 'niche'},
+      {provider: 'Budgetphone', monthly: 36, yearly: 432, rating: 7.6, reviews: 15234, trust: 75, savings: 432, type: 'niche'},
+      {provider: 'Budget Mobiel', monthly: 37, yearly: 444, rating: 7.7, reviews: 16789, trust: 76, savings: 420, type: 'niche'}
+    ];
+    
+    const referencePrice = 72; // Most expensive (KPN)
+    const bestPrice = mockOffers[0].monthly;
+    const totalSavings = (referencePrice - bestPrice) * 12;
+    
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score V2 (Trust Engine + Niche Boost)</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>📱 {mockOffers.length} beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 5 giganten + 20 niszowe providers • Besparing tot €{totalSavings}/jaar</p>
+        
+        {/* DISCLAIMER - ESTIMATED PRICES */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Belsimpel.nl, Mobiel.nl). Exacte prijzen bij de provider.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS - Market gemiddelde */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Duurste aanbieding als vergelijkingspunt</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>€{referencePrice}/mnd</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
-        {[{name: '📱 KPN Compleet', price: '€45/mnd', plan: 'Onbeperkt + 100 Mbps', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 9.0', badge: 'BESTE DEAL', best: true}, {name: '📱 Ziggo All-in-One', price: '€52/mnd', plan: 'Mobiel + Internet + TV', rating: '⭐ 4.3/5', trust: '🛡️ 8/10', score: 'Score: 8.6'}, {name: '📱 T-Mobile Premium', price: '€58/mnd', plan: 'Onbeperkt 5G + 500 Mbps', rating: '⭐ 4.4/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((tel, i) => (
-          <div key={i} style={{ background: tel.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${tel.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{tel.name}</div>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>{tel.price}</div>
+        {mockOffers.map((tel, i) => (
+          <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px', position: 'relative' }}>
+            {/* BLUR OVERLAY */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+              <div style={{ textAlign: 'center' }}>
+                <Lock size={32} color="#6B7280" style={{ marginBottom: '8px' }} />
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>🔒 Verborgen</div>
+                <div style={{ fontSize: '12px', color: '#6B7280', marginTop: '4px' }}>Betaal om provider te zien</div>
+              </div>
             </div>
-            <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{tel.plan}</div>
-            <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280' }}>
-              <span>{tel.rating}</span>
-              <span>{tel.trust}</span>
-              <span>{tel.score}</span>
+            
+            {/* CONTENT (blurred) */}
+            <div style={{ filter: 'blur(3px)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>███████████</div>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>€{tel.monthly}/mnd</div>
+              </div>
+              <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>€{tel.yearly}/jaar</div>
+              <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
+                <span>⭐ {tel.rating}/10</span>
+                <span>💸 Bespaar €{tel.savings}/jaar</span>
+                <span>🛡️ {tel.trust}/100</span>
+              </div>
+              {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600 }}>BESTE PRIJS</span>}
             </div>
-            {tel.badge && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginTop: '8px' }}>{tel.badge}</span>}
           </div>
         ))}
         <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
