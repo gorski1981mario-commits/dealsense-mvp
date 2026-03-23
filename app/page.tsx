@@ -212,9 +212,6 @@ export default function HomePage() {
       
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>Vind de beste deal</p>
 
-      {/* QR Scanner */}
-      <Scanner type="free" />
-
       {/* Badges */}
       <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
         <div style={{
