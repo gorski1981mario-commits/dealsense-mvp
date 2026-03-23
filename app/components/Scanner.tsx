@@ -294,7 +294,7 @@ export default function Scanner({ type }: ScannerProps) {
                 style={{
                   width: '100%',
                   padding: '12px',
-                  border: autoFilled ? '2px solid #86efac' : '2px solid #d1d5db',
+                  border: autoFilled ? '2px solid #86efac' : '2px solid #1e40af',
                   borderRadius: '8px',
                   fontSize: '14px',
                   marginBottom: '12px',
@@ -351,9 +351,9 @@ export default function Scanner({ type }: ScannerProps) {
 
           {/* OR Divider */}
           <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
-            <div style={{ flex: 1, height: '1px', background: '#d1d5db' }}></div>
-            <span style={{ padding: '0 12px', fontSize: '12px', color: '#6b7280', fontWeight: 500 }}>OF</span>
-            <div style={{ flex: 1, height: '1px', background: '#d1d5db' }}></div>
+            <div style={{ flex: 1, height: '1px', background: '#1e40af' }}></div>
+            <span style={{ padding: '0 12px', fontSize: '12px', color: '#111827', fontWeight: 600 }}>OF</span>
+            <div style={{ flex: 1, height: '1px', background: '#1e40af' }}></div>
           </div>
 
           {/* QR Code Scanner Button */}
@@ -459,7 +459,7 @@ export default function Scanner({ type }: ScannerProps) {
             >
               {index === 0 && (
                 <div style={{ fontSize: '12px', color: '#15803d', fontWeight: 600, marginBottom: '4px' }}>
-                  ⭐ REKOMENDACJA
+                  💎 REKOMENDACJA
                 </div>
               )}
               <div style={{ fontSize: '16px', fontWeight: 600, color: '#166534', marginBottom: '4px' }}>
@@ -661,14 +661,14 @@ export default function Scanner({ type }: ScannerProps) {
         </div>
       )}
 
-      {/* Social Share Section - always visible, active after selecting offer */}
+      {/* Social Share Section - always visible, active after selecting offer (including FREE - main source of advertising) */}
       {offers.length > 0 && (
         <SocialShareSection
           productName={productName}
           basePrice={basePrice}
           selectedOffer={selectedOffer ? {
             price: selectedOffer.price,
-            shop: 'Verified Shop' // CORE VALUE: nie pokazujemy prawdziwego sklepu przed paywallem!
+            shop: selectedOffer.seller || selectedOffer.shop || 'Unknown'
           } : null}
           isActive={selectedOffer !== null}
         />

@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <a href="/" className="logo">
             D<span className="logo-dot">.</span><span className="logo-nl">nl</span>
           </a>
-          <span style={{ fontSize: '13px', color: '#374151', fontWeight: 500, textAlign: 'center' }}>
+          <span style={{ fontSize: '13px', color: '#111827', fontWeight: 500, textAlign: 'center' }}>
             AI aankoop assistent
           </span>
         </header>

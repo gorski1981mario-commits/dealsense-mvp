@@ -102,7 +102,7 @@ export default function FinancePage() {
         }}>FINANCE</span>
       </div>
       
-      <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
+      <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor complete financiële controle. Alle tools, minimale commissie.
       </p>
 

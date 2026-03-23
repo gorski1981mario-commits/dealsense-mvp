@@ -207,7 +207,7 @@ export default function HomePage() {
         </div>
       )}
       
-      <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>Vind de beste deal</p>
+      <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>Vind de beste deal</p>
 
       {/* QR Scanner */}
       <Scanner type="free" />
@@ -274,7 +274,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '12px',
-            border: '1px solid #E2E8F0',
+            border: '2px solid #1e40af',
             borderRadius: '10px',
             fontSize: '16px',
             marginBottom: '8px',
@@ -302,7 +302,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '12px',
-            border: '1px solid #E2E8F0',
+            border: '2px solid #1e40af',
             borderRadius: '10px',
             fontSize: '16px',
             marginBottom: '16px',
@@ -327,7 +327,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '12px',
-            border: '1px solid #E2E8F0',
+            border: '2px solid #1e40af',
             borderRadius: '10px',
             fontSize: '16px',
             marginBottom: '16px',

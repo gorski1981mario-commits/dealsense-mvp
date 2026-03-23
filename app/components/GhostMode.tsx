@@ -23,18 +23,18 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
   // Duration based on package
   const getDuration = () => {
     switch (packageType) {
-      case 'plus': return 10 * 24 * 60 * 60 // 10 days
-      case 'pro': return 20 * 24 * 60 * 60 // 20 days
-      case 'finance': return 30 * 24 * 60 * 60 // 30 days
+      case 'plus': return 24 * 60 * 60 // 24 hours
+      case 'pro': return 48 * 60 * 60 // 48 hours
+      case 'finance': return 7 * 24 * 60 * 60 // 7 days
       default: return 24 * 60 * 60
     }
   }
   
   const getDurationLabel = () => {
     switch (packageType) {
-      case 'plus': return '10 dagen'
-      case 'pro': return '20 dagen'
-      case 'finance': return '30 dagen'
+      case 'plus': return '24 uur'
+      case 'pro': return '48 uur'
+      case 'finance': return '7 dagen'
       default: return '24 uur'
     }
   }
@@ -138,9 +138,9 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
             Ghost Mode
           </div>
           <div style={{ fontSize: '12px', opacity: 0.8 }}>
-            {packageType === 'plus' && 'Automatische prijsbewaking (10 dagen)'}
-            {packageType === 'pro' && 'Geavanceerde monitoring (20 dagen)'}
-            {packageType === 'finance' && 'Premium monitoring (30 dagen)'}
+            {packageType === 'plus' && 'Automatische prijsbewaking (24 uur)'}
+            {packageType === 'pro' && 'Geavanceerde monitoring (48 uur)'}
+            {packageType === 'finance' && 'Premium monitoring (7 dagen)'}
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
         </>
       ) : (
         <>
-          <div style={{ fontSize: '13px', marginBottom: '16px', opacity: 0.8 }}>
+          <div style={{ fontSize: '13px', marginBottom: '16px', color: '#111827', opacity: 0.8 }}>
             Activeer Ghost Mode om prijzen automatisch te monitoren voor {durationLabel}.
           </div>
 

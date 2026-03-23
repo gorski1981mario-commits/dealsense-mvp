@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan Flow Preview - Co się otwiera po skanowaniu</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9fafb;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    
+    .flow-section {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .flow-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .flow-badge {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .badge-free { background: #dcfce7; color: #15803d; }
+    .badge-plus { background: #dbeafe; color: #1e40af; }
+    .badge-pro { background: #fef3c7; color: #92400e; }
+    .badge-finance { background: #fce7f3; color: #9f1239; }
+    
+    .step {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border-left: 4px solid #15803d;
+    }
+    .step-number {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #15803d;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 700;
+      margin-right: 12px;
+    }
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    .step-content {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.6;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .feature-card {
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e5e7eb;
+    }
+    .feature-card.active {
+      border-color: #15803d;
+      background: #f0fdf4;
+    }
+    .feature-card.inactive {
+      opacity: 0.5;
+      border-color: #e5e7eb;
+      background: #f9fafb;
+    }
+    .feature-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    .feature-desc {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    .mock-result {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 16px;
+      border: 2px solid #86efac;
+    }
+    .mock-offer {
+      padding: 12px;
+      background: #dcfce7;
+      border: 2px solid #86efac;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .mock-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #15803d;
+    }
+    .mock-shop {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .mock-locked {
+      color: #dc2626;
+      font-weight: 600;
+    }
+    
+    .warning-box {
+      background: #fef3c7;
+      border: 2px solid #fbbf24;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .warning-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 8px;
+    }
+    
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .comparison-panel {
+      padding: 20px;
+      border-radius: 12px;
+      border: 3px solid;
+    }
+    .before-panel { border-color: #dc2626; background: #fef2f2; }
+    .after-panel { border-color: #15803d; background: #f0fdf4; }
+    
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📱 SCAN FLOW PREVIEW</h1>
+    <p class="subtitle">Co NAPRAWDĘ się otwiera gdy user robi prawdziwe skany</p>
+
+    <!-- FREE PACKAGE -->
+    <div class="flow-section">
+      <div class="flow-title">
+        <span class="flow-badge badge-free">FREE</span>
+        Pierwsze 3 gratis scany
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">1</span>
+          User skanuje QR code
+        </div>
+        <div class="step-content">
+          User wkleja URL lub skanuje barcode produktu (np. iPhone 15 Pro)
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">2</span>
+          System szuka ofert (1000+ winkels)
+        </div>
+        <div class="step-content">
+          Crawler przeszukuje 1000+ sklepów holenderskich, znajduje 3-5 najlepszych ofert
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">3</span>
+          Wyniki - CO SIĘ POKAZUJE:
+        </div>
+        <div class="step-content">
+          <strong>✅ WIDOCZNE (pierwsze 3 scany):</strong>
+          <div class="mock-result">
+            <div style="font-weight: 600; margin-bottom: 12px;">📦 Gevonden Aanbiedingen:</div>
+            <div class="mock-offer">
+              <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">⭐ REKOMENDACJA</div>
+              <div class="mock-price">€999.00</div>
+              <div class="mock-shop">📍 You-Mobile (4.5★)</div>
+              <div style="font-size: 12px; color: #15803d; margin-top: 4px;">Besparing: €300.00</div>
+              <button style="width: 100%; padding: 10px; background: linear-gradient(135deg, #15803d 0%, #059669 100%); color: white; border: none; border-radius: 6px; margin-top: 8px; cursor: pointer;">
+                Toevoegen aan winkelwagen
+              </button>
+            </div>
+            <div style="padding: 12px; background: white; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 8px;">
+              <div class="mock-price">€1049.00</div>
+              <div class="mock-shop">📍 Coolblue (4.8★)</div>
+              <div style="font-size: 12px; color: #15803d; margin-top: 4px;">Besparing: €250.00</div>
+            </div>
+            <div style="padding: 12px; background: white; border: 1px solid #e5e7eb; border-radius: 8px;">
+              <div class="mock-price">€1099.00</div>
+              <div class="mock-shop">📍 bol.com (4.7★)</div>
+              <div style="font-size: 12px; color: #15803d; margin-top: 4px;">Besparing: €200.00</div>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card active">
+              <div class="feature-name">✅ 3 beste deals</div>
+              <div class="feature-desc">Z cenami i oszczędnościami</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Nazwy sklepów</div>
+              <div class="feature-desc">WIDOCZNE w FREE (pierwsze 3 scany)</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Przycisk "Dodaj"</div>
+              <div class="feature-desc">Toevoegen aan winkelwagen</div>
+            </div>
+            <div class="feature-card inactive">
+              <div class="feature-name">❌ Smart Bundles</div>
+              <div class="feature-desc">Tylko PLUS/PRO/FINANCE</div>
+            </div>
+            <div class="feature-card inactive">
+              <div class="feature-name">❌ Savings Timeline</div>
+              <div class="feature-desc">Tylko PLUS/PRO/FINANCE</div>
+            </div>
+            <div class="feature-card inactive">
+              <div class="feature-name">❌ Ghost Mode</div>
+              <div class="feature-desc">Tylko PLUS/PRO/FINANCE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-title">⚠️ PO 3 SKANACH - PAYWALL!</div>
+        <div style="font-size: 14px; color: #78350f;">
+          <strong>Co się zmienia:</strong><br>
+          ✅ Nadal widzi 3 oferty z cenami<br>
+          ❌ Sklepy UKRYTE - pokazuje <span class="mock-locked">[🔒 UNLOCK]</span><br>
+          ❌ Nie może dodać do koszyka<br>
+          💰 Upgrade prompt: "Upgrade naar PLUS voor €19,99/mnd"
+        </div>
+      </div>
+    </div>
+
+    <!-- PLUS PACKAGE -->
+    <div class="flow-section">
+      <div class="flow-title">
+        <span class="flow-badge badge-plus">PLUS</span>
+        €19,99/mnd - Onbeperkt scannen
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">1</span>
+          User skanuje (po biometric auth)
+        </div>
+        <div class="step-content">
+          Biometric verification (Face ID/Touch ID) → Scan QR/URL
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">2</span>
+          Wyniki - CO SIĘ POKAZUJE:
+        </div>
+        <div class="step-content">
+          <strong>✅ WSZYSTKO Z FREE +</strong>
+          <div class="feature-grid">
+            <div class="feature-card active">
+              <div class="feature-name">✅ 3-5 ofert</div>
+              <div class="feature-desc">Więcej niż FREE</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Sklepy widoczne</div>
+              <div class="feature-desc">Zawsze widoczne po paywallu</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Smart Bundles</div>
+              <div class="feature-desc">Produkt + akcesoria (etui, screen protector)</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Savings Timeline</div>
+              <div class="feature-desc">Wykres cen w czasie (7 dni wstecz)</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Wishlist Button</div>
+              <div class="feature-desc">Zapisz produkt do monitoringu</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Savings Journal</div>
+              <div class="feature-desc">Historia oszczędności (personal)</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Ghost Mode (10 dni)</div>
+              <div class="feature-desc">Auto-monitoring cen przez 10 dni</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Social Share</div>
+              <div class="feature-desc">Udostępnij oszczędności</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; padding: 16px; background: #dbeafe; border-radius: 8px; border: 2px solid #60a5fa;">
+            <div style="font-weight: 600; margin-bottom: 8px;">🎁 Smart Bundle Example:</div>
+            <div style="font-size: 13px; color: #374151;">
+              <strong>iPhone 15 Pro</strong> - €999<br>
+              + Apple Silicone Case - €15 (vs €30 bol.com)<br>
+              + Belkin ScreenForce - €8 (vs €20 Coolblue)<br>
+              <strong>TOTAAL BESPAARD: €327!</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRO PACKAGE -->
+    <div class="flow-section">
+      <div class="flow-title">
+        <span class="flow-badge badge-pro">PRO</span>
+        €29,99/mnd - Voor professionals
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">1</span>
+          Wyniki - CO SIĘ POKAZUJE:
+        </div>
+        <div class="step-content">
+          <strong>✅ WSZYSTKO Z PLUS +</strong>
+          <div class="feature-grid">
+            <div class="feature-card active">
+              <div class="feature-name">✅ 5-7 ofert</div>
+              <div class="feature-desc">Więcej niż PLUS</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Ghost Mode (20 dni)</div>
+              <div class="feature-desc">Dłuższy monitoring niż PLUS</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Configurators</div>
+              <div class="feature-desc">Vacation, Telecom, Energy, Insurance</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Advanced Analytics</div>
+              <div class="feature-desc">Szczegółowe statystyki oszczędności</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANCE PACKAGE -->
+    <div class="flow-section">
+      <div class="flow-title">
+        <span class="flow-badge badge-finance">FINANCE</span>
+        €39,99/mnd - Complete financiële controle
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">1</span>
+          Wyniki - CO SIĘ POKAZUJE:
+        </div>
+        <div class="step-content">
+          <strong>✅ WSZYSTKO Z PRO +</strong>
+          <div class="feature-grid">
+            <div class="feature-card active">
+              <div class="feature-name">✅ Ghost Mode (30 dni)</div>
+              <div class="feature-desc">Najdłuższy monitoring</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Financial Configurators</div>
+              <div class="feature-desc">Mortgage, Loan, Insurance, Creditcard</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Bills Optimizer</div>
+              <div class="feature-desc">Optymalizacja rachunków (vaste lasten)</div>
+            </div>
+            <div class="feature-card active">
+              <div class="feature-name">✅ Priority Support</div>
+              <div class="feature-desc">Wsparcie priorytetowe</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI CHANGES PREVIEW -->
+    <div class="flow-section">
+      <div class="flow-title">
+        🎨 NOWE ZMIANY UI (Zastosowane)
+      </div>
+
+      <div class="comparison">
+        <div class="comparison-panel before-panel">
+          <div style="font-weight: 600; margin-bottom: 12px; color: #dc2626;">❌ BEFORE</div>
+          <div style="font-size: 18px; color: #374151; margin-bottom: 16px;">Vind de beste deal</div>
+          <div style="display: flex; align-items: center; margin: 16px 0;">
+            <div style="flex: 1; height: 1px; background: #d1d5db;"></div>
+            <span style="padding: 0 12px; font-size: 12px; color: #6b7280;">OF</span>
+            <div style="flex: 1; height: 1px; background: #d1d5db;"></div>
+          </div>
+        </div>
+        <div class="comparison-panel after-panel">
+          <div style="font-weight: 600; margin-bottom: 12px; color: #15803d;">✅ AFTER</div>
+          <div style="font-size: 18px; color: #1e40af; font-weight: 600; margin-bottom: 16px;">Vind de beste deal</div>
+          <div style="display: flex; align-items: center; margin: 16px 0;">
+            <div style="flex: 1; height: 1px; background: #1e40af;"></div>
+            <span style="padding: 0 12px; font-size: 12px; color: #111827; font-weight: 600;">OF</span>
+            <div style="flex: 1; height: 1px; background: #1e40af;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div style="background: #dcfce7; border: 2px solid #86efac; border-radius: 12px; padding: 20px; margin-top: 40px;">
+      <h2 style="color: #15803d; margin-top: 0;">✅ Kluczowe różnice między pakietami:</h2>
+      <ul style="color: #166534; line-height: 1.8;">
+        <li><strong>FREE (3 scany):</strong> Podstawowe oferty + sklepy widoczne → PO 3 SKANACH sklepy ukryte [🔒 UNLOCK]</li>
+        <li><strong>PLUS:</strong> Wszystko z FREE + Smart Bundles + Savings Timeline + Ghost Mode (10 dni) + Wishlist + Social Share</li>
+        <li><strong>PRO:</strong> Wszystko z PLUS + więcej ofert + Ghost Mode (20 dni) + Configurators (Vacation, Telecom, Energy)</li>
+        <li><strong>FINANCE:</strong> Wszystko z PRO + Ghost Mode (30 dni) + Financial Configurators + Bills Optimizer</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>

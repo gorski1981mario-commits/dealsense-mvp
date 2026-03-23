@@ -80,7 +80,7 @@ export default function PlusPage() {
         }}>PLUS</span>
       </div>
       
-      <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
+      <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
 

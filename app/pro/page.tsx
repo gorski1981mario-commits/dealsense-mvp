@@ -101,7 +101,7 @@ export default function ProPage() {
         }}>PRO</span>
       </div>
       
-      <p style={{ fontSize: '18px', color: '#374151', marginBottom: '32px' }}>
+      <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor professionals. Maximale features, minimale commissie.
       </p>
 

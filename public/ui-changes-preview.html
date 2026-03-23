@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Changes Preview - Before/After</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9fafb;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .panel-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .before { border: 3px solid #dc2626; }
+    .after { border: 3px solid #15803d; }
+    .before .panel-title { color: #dc2626; }
+    .after .panel-title { color: #15803d; }
+    
+    /* Mock UI Elements */
+    .mock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 20px;
+    }
+    .mock-logo {
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .mock-tagline {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .mock-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mock-hamburger-line {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px;
+    }
+    
+    .mock-bottom-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 20px;
+    }
+    .mock-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    
+    .mock-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+    
+    .mock-divider {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+    }
+    .mock-divider-line {
+      flex: 1;
+      height: 1px;
+    }
+    .mock-divider-text {
+      padding: 0 12px;
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    
+    .mock-ghost-mode {
+      padding: 16px;
+      background: #1e1e1e;
+      border-radius: 12px;
+      color: white;
+      margin-top: 20px;
+    }
+    .mock-ghost-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .mock-ghost-subtitle {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    
+    .changes-list {
+      background: #fef3c7;
+      border: 2px solid #fbbf24;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .changes-list h2 {
+      color: #92400e;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    .change-item {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .change-item:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #15803d;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 UI Changes Preview</h1>
+    <p class="subtitle">Before vs After - Porównanie zmian kolorystycznych</p>
+
+    <!-- CHANGES SUMMARY -->
+    <div class="changes-list">
+      <h2>📋 Zmiany wykonane (5 głównych):</h2>
+      <div class="change-item"><strong>AI aankoop assistent</strong> - z szarego (#374151) na czarny (#111827)</div>
+      <div class="change-item"><strong>FREE/PLUS/PRO/FINANCE</strong> - z szarego (#6B7280) na czarny (#111827)</div>
+      <div class="change-item"><strong>Hamburger menu</strong> - już był czarny (#111827) ✓</div>
+      <div class="change-item"><strong>Ghost Mode teksty</strong> - z domyślnego na czarny (#111827)</div>
+      <div class="change-item"><strong>Input fields ramki</strong> - z szarego (#d1d5db) na ciemny niebieski (#1e40af)</div>
+      <div class="change-item"><strong>Linie "OF"</strong> - z szarego (#d1d5db) na ciemny niebieski (#1e40af)</div>
+      <div class="change-item"><strong>Categorie/Product URL/Prijs ramki</strong> - z szarego (#E2E8F0) na ciemny niebieski (#1e40af)</div>
+    </div>
+
+    <!-- COMPARISON 1: HEADER -->
+    <div class="comparison">
+      <div class="panel before">
+        <div class="panel-title">❌ BEFORE (Stary)</div>
+        <div class="mock-header">
+          <div class="mock-logo">D<span style="color: #111827;">.</span><span style="color: #258b52;">nl</span></div>
+          <div class="mock-tagline" style="color: #374151;">AI aankoop assistent</div>
+          <div class="mock-hamburger">
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel after">
+        <div class="panel-title">✅ AFTER (Nowy)</div>
+        <div class="mock-header">
+          <div class="mock-logo">D<span style="color: #111827;">.</span><span style="color: #258b52;">nl</span></div>
+          <div class="mock-tagline" style="color: #111827; font-weight: 600;">AI aankoop assistent</div>
+          <div class="mock-hamburger">
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+            <div class="mock-hamburger-line" style="background: #111827;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON 2: BOTTOM NAV -->
+    <div class="comparison">
+      <div class="panel before">
+        <div class="panel-title">❌ BEFORE (Stary)</div>
+        <div class="mock-bottom-nav">
+          <div class="mock-nav-item" style="color: #6B7280;">
+            <div style="width: 20px; height: 20px; border: 2px solid #6B7280; border-radius: 4px;"></div>
+            FREE
+          </div>
+          <div class="mock-nav-item" style="color: #6B7280;">
+            <div style="width: 20px; height: 20px; border: 2px solid #6B7280; border-radius: 4px;"></div>
+            PLUS
+          </div>
+          <div class="mock-nav-item" style="color: #6B7280;">
+            <div style="width: 20px; height: 20px; border: 2px solid #6B7280; border-radius: 4px;"></div>
+            PRO
+          </div>
+          <div class="mock-nav-item" style="color: #6B7280;">
+            <div style="width: 20px; height: 20px; border: 2px solid #6B7280; border-radius: 4px;"></div>
+            FINANCE
+          </div>
+        </div>
+      </div>
+      <div class="panel after">
+        <div class="panel-title">✅ AFTER (Nowy)</div>
+        <div class="mock-bottom-nav">
+          <div class="mock-nav-item" style="color: #111827;">
+            <div style="width: 20px; height: 20px; border: 2px solid #111827; border-radius: 4px;"></div>
+            FREE
+          </div>
+          <div class="mock-nav-item" style="color: #111827;">
+            <div style="width: 20px; height: 20px; border: 2px solid #111827; border-radius: 4px;"></div>
+            PLUS
+          </div>
+          <div class="mock-nav-item" style="color: #111827;">
+            <div style="width: 20px; height: 20px; border: 2px solid #111827; border-radius: 4px;"></div>
+            PRO
+          </div>
+          <div class="mock-nav-item" style="color: #111827;">
+            <div style="width: 20px; height: 20px; border: 2px solid #111827; border-radius: 4px;"></div>
+            FINANCE
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON 3: INPUT FIELDS -->
+    <div class="comparison">
+      <div class="panel before">
+        <div class="panel-title">❌ BEFORE (Stary)</div>
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Plak product URL of typ productnaam:</label>
+        <input class="mock-input" placeholder="Plak product URL van bol.com, Amazon, Coolblue..." style="border: 2px solid #d1d5db; background: white;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 16px;">Categorie</label>
+        <input class="mock-input" value="Elektronika" readonly style="border: 1px solid #E2E8F0; background: #f1f5f9; color: #64748b;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Product URL</label>
+        <input class="mock-input" placeholder="Automatisch ingevuld via QR-scan" readonly style="border: 1px solid #E2E8F0; background: #f1f5f9; color: #64748b;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Prijs (€)</label>
+        <input class="mock-input" placeholder="Automatisch ingevuld via QR-scan" readonly style="border: 1px solid #E2E8F0; background: #f1f5f9; color: #64748b;" />
+      </div>
+      <div class="panel after">
+        <div class="panel-title">✅ AFTER (Nowy)</div>
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Plak product URL of typ productnaam:</label>
+        <input class="mock-input" placeholder="Plak product URL van bol.com, Amazon, Coolblue..." style="border: 2px solid #1e40af; background: white;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 16px;">Categorie</label>
+        <input class="mock-input" value="Elektronika" readonly style="border: 2px solid #1e40af; background: #f1f5f9; color: #64748b;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Product URL</label>
+        <input class="mock-input" placeholder="Automatisch ingevuld via QR-scan" readonly style="border: 2px solid #1e40af; background: #f1f5f9; color: #64748b;" />
+        
+        <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Prijs (€)</label>
+        <input class="mock-input" placeholder="Automatisch ingevuld via QR-scan" readonly style="border: 2px solid #1e40af; background: #f1f5f9; color: #64748b;" />
+      </div>
+    </div>
+
+    <!-- COMPARISON 4: OF DIVIDER -->
+    <div class="comparison">
+      <div class="panel before">
+        <div class="panel-title">❌ BEFORE (Stary)</div>
+        <div class="mock-divider">
+          <div class="mock-divider-line" style="background: #d1d5db;"></div>
+          <span class="mock-divider-text">OF</span>
+          <div class="mock-divider-line" style="background: #d1d5db;"></div>
+        </div>
+      </div>
+      <div class="panel after">
+        <div class="panel-title">✅ AFTER (Nowy)</div>
+        <div class="mock-divider">
+          <div class="mock-divider-line" style="background: #1e40af;"></div>
+          <span class="mock-divider-text">OF</span>
+          <div class="mock-divider-line" style="background: #1e40af;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON 5: GHOST MODE -->
+    <div class="comparison">
+      <div class="panel before">
+        <div class="panel-title">❌ BEFORE (Stary)</div>
+        <div class="mock-ghost-mode">
+          <div class="mock-ghost-title" style="color: inherit;">Ghost Mode</div>
+          <div class="mock-ghost-subtitle" style="color: inherit;">Premium monitoring (30 dagen)</div>
+        </div>
+      </div>
+      <div class="panel after">
+        <div class="panel-title">✅ AFTER (Nowy)</div>
+        <div class="mock-ghost-mode">
+          <div class="mock-ghost-title" style="color: #111827; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 6px;">Ghost Mode</div>
+          <div class="mock-ghost-subtitle" style="color: #111827; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 6px; margin-top: 4px;">Premium monitoring (30 dagen)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div style="background: #dcfce7; border: 2px solid #86efac; border-radius: 12px; padding: 20px; margin-top: 40px;">
+      <h2 style="color: #15803d; margin-top: 0;">✅ Podsumowanie zmian:</h2>
+      <ul style="color: #166534; line-height: 1.8;">
+        <li><strong>Teksty czarne (#111827):</strong> AI aankoop assistent, FREE/PLUS/PRO/FINANCE, Ghost Mode - bardziej czytelne, profesjonalne</li>
+        <li><strong>Ramki niebieskie (#1e40af):</strong> Input fields, linie OF, Categorie/Product URL/Prijs - wyraźniejsze, bardziej kolorowe</li>
+        <li><strong>Spójność:</strong> Wszystkie zmiany zastosowane na stronach FREE, PLUS, PRO, FINANCE</li>
+      </ul>
+      <div style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px; border-left: 4px solid #15803d;">
+        <strong>👉 Następne kroki:</strong> Jeśli zaakceptujesz, możemy dodać więcej zmian lub zakończyć.
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
