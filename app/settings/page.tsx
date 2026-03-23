@@ -29,6 +29,17 @@ export default function SettingsPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const [showDeleteAccount, setShowDeleteAccount] = useState(false)
   
+  // Account fields
+  const [accountData, setAccountData] = useState({
+    email: 'user@example.com',
+    name: 'Jan de Vries',
+    postcode: '1234 AB',
+    city: 'Amsterdam',
+    phone: '+31 6 12345678'
+  })
+  const [editingField, setEditingField] = useState<string | null>(null)
+  const [tempValue, setTempValue] = useState('')
+  
   useEffect(() => {
     checkPatternLock()
   }, [])
@@ -76,6 +87,12 @@ export default function SettingsPage() {
     const echoAutoConfigStored = localStorage.getItem('echo_auto_config')
     if (echoAutoConfigStored) {
       setEchoAutoConfig(JSON.parse(echoAutoConfigStored))
+    }
+
+    // Load account data
+    const accountStored = localStorage.getItem('dealsense_account')
+    if (accountStored) {
+      setAccountData(JSON.parse(accountStored))
     }
   }, [])
   
@@ -172,6 +189,23 @@ export default function SettingsPage() {
     navigator.clipboard.writeText(allCodes)
     setCopiedIndex(-1)
     setTimeout(() => setCopiedIndex(null), 2000)
+  }
+
+  const handleEditField = (field: string) => {
+    setEditingField(field)
+    setTempValue(accountData[field as keyof typeof accountData])
+  }
+
+  const handleSaveField = (field: string) => {
+    setAccountData({ ...accountData, [field]: tempValue })
+    localStorage.setItem('dealsense_account', JSON.stringify({ ...accountData, [field]: tempValue }))
+    setEditingField(null)
+    setTempValue('')
+  }
+
+  const handleCancelEdit = () => {
+    setEditingField(null)
+    setTempValue('')
   }
   
   const packageNames = { free: 'FREE', plus: 'PLUS', pro: 'PRO', finance: 'FINANCE' }
@@ -657,19 +691,61 @@ export default function SettingsPage() {
               <Mail size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Email</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>user@example.com</div>
+                {editingField === 'email' ? (
+                  <input
+                    type="email"
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    style={{
+                      fontSize: '13px',
+                      padding: '4px 8px',
+                      border: '1px solid #15803d',
+                      borderRadius: '4px',
+                      width: '100%',
+                      marginTop: '4px'
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>{accountData.email}</div>
+                )}
               </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#15803d',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
+              {editingField === 'email' ? (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => handleSaveField('email')} style={{
+                    fontSize: '13px',
+                    color: '#15803d',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}>
+                    Opslaan
+                  </button>
+                  <button onClick={handleCancelEdit} style={{
+                    fontSize: '13px',
+                    color: '#6B7280',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}>
+                    Annuleren
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleEditField('email')} style={{
+                  fontSize: '13px',
+                  color: '#15803d',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  Wijzig
+                </button>
+              )}
             </div>
 
+            {/* Wachtwoord - special handling for password */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -684,7 +760,7 @@ export default function SettingsPage() {
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Wachtwoord</div>
                 <div style={{ fontSize: '13px', color: '#6B7280' }}>••••••••</div>
               </div>
-              <button style={{
+              <button onClick={() => alert('Wachtwoord wijzigen via email verificatie (coming soon)')} style={{
                 fontSize: '13px',
                 color: '#15803d',
                 background: 'none',
@@ -695,6 +771,7 @@ export default function SettingsPage() {
               </button>
             </div>
 
+            {/* Naam */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -707,19 +784,61 @@ export default function SettingsPage() {
               <User size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Naam</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>Jan de Vries</div>
+                {editingField === 'name' ? (
+                  <input
+                    type="text"
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    style={{
+                      fontSize: '13px',
+                      padding: '4px 8px',
+                      border: '1px solid #15803d',
+                      borderRadius: '4px',
+                      width: '100%',
+                      marginTop: '4px'
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>{accountData.name}</div>
+                )}
               </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#15803d',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
+              {editingField === 'name' ? (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => handleSaveField('name')} style={{
+                    fontSize: '13px',
+                    color: '#15803d',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}>
+                    Opslaan
+                  </button>
+                  <button onClick={handleCancelEdit} style={{
+                    fontSize: '13px',
+                    color: '#6B7280',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}>
+                    Annuleren
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleEditField('name')} style={{
+                  fontSize: '13px',
+                  color: '#15803d',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  Wijzig
+                </button>
+              )}
             </div>
 
+            {/* Postcode */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -732,19 +851,61 @@ export default function SettingsPage() {
               <MapPin size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Postcode</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>1234 AB</div>
+                {editingField === 'postcode' ? (
+                  <input
+                    type="text"
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    style={{
+                      fontSize: '13px',
+                      padding: '4px 8px',
+                      border: '1px solid #15803d',
+                      borderRadius: '4px',
+                      width: '100%',
+                      marginTop: '4px'
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>{accountData.postcode}</div>
+                )}
               </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#15803d',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
+              {editingField === 'postcode' ? (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => handleSaveField('postcode')} style={{
+                    fontSize: '13px',
+                    color: '#15803d',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}>
+                    Opslaan
+                  </button>
+                  <button onClick={handleCancelEdit} style={{
+                    fontSize: '13px',
+                    color: '#6B7280',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}>
+                    Annuleren
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleEditField('postcode')} style={{
+                  fontSize: '13px',
+                  color: '#15803d',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  Wijzig
+                </button>
+              )}
             </div>
 
+            {/* City */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -756,20 +917,62 @@ export default function SettingsPage() {
             }}>
               <Home size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Huisnummer</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>42</div>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Stad</div>
+                {editingField === 'city' ? (
+                  <input
+                    type="text"
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    style={{
+                      fontSize: '13px',
+                      padding: '4px 8px',
+                      border: '1px solid #15803d',
+                      borderRadius: '4px',
+                      width: '100%',
+                      marginTop: '4px'
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>{accountData.city}</div>
+                )}
               </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#15803d',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
+              {editingField === 'city' ? (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => handleSaveField('city')} style={{
+                    fontSize: '13px',
+                    color: '#15803d',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}>
+                    Opslaan
+                  </button>
+                  <button onClick={handleCancelEdit} style={{
+                    fontSize: '13px',
+                    color: '#6B7280',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}>
+                    Annuleren
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleEditField('city')} style={{
+                  fontSize: '13px',
+                  color: '#15803d',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  Wijzig
+                </button>
+              )}
             </div>
 
+            {/* Phone */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -782,17 +985,58 @@ export default function SettingsPage() {
               <Phone size={18} color="#6B7280" />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Telefoon</div>
-                <div style={{ fontSize: '13px', color: '#6B7280' }}>+31 6 12345678</div>
+                {editingField === 'phone' ? (
+                  <input
+                    type="tel"
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    style={{
+                      fontSize: '13px',
+                      padding: '4px 8px',
+                      border: '1px solid #15803d',
+                      borderRadius: '4px',
+                      width: '100%',
+                      marginTop: '4px'
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div style={{ fontSize: '13px', color: '#6B7280' }}>{accountData.phone}</div>
+                )}
               </div>
-              <button style={{
-                fontSize: '13px',
-                color: '#15803d',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}>
-                Wijzig
-              </button>
+              {editingField === 'phone' ? (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => handleSaveField('phone')} style={{
+                    fontSize: '13px',
+                    color: '#15803d',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}>
+                    Opslaan
+                  </button>
+                  <button onClick={handleCancelEdit} style={{
+                    fontSize: '13px',
+                    color: '#6B7280',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}>
+                    Annuleren
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleEditField('phone')} style={{
+                  fontSize: '13px',
+                  color: '#15803d',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  Wijzig
+                </button>
+              )}
             </div>
           </div>
         </div>
