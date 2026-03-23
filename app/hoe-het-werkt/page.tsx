@@ -20,25 +20,25 @@ export default function HoeHetWerktPage() {
           gap: '16px',
           marginBottom: '24px',
           padding: '20px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#f9fafb',
           borderRadius: '12px',
-          border: '1px solid #86efac'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#258b52',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             1
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
-              Plak product URL en prijs
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
+              Scan het product
             </h2>
-            <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-              Kopieer de link van het product dat je wilt kopen (bijv. van Bol.com, Coolblue, MediaMarkt). 
-              Vul de huidige prijs in. Dat is alles!
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
+              Scan de barcode of QR-code van het product dat je wilt kopen. Of plak de product URL. 
+              Werkt met alle grote webshops in Nederland.
             </p>
           </div>
         </div>
@@ -49,23 +49,23 @@ export default function HoeHetWerktPage() {
           gap: '16px',
           marginBottom: '24px',
           padding: '20px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#f9fafb',
           borderRadius: '12px',
-          border: '1px solid #86efac'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#15803d',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             2
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
               Wij scannen 1000+ winkels
             </h2>
-            <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
               Onze AI scant in 2-8 seconden meer dan 1000 Nederlandse webshops. We vergelijken prijzen, 
               ratings, levertijden en betrouwbaarheid. Alles automatisch.
             </p>
@@ -77,23 +77,23 @@ export default function HoeHetWerktPage() {
           alignItems: 'flex-start',
           gap: '16px',
           padding: '20px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#f9fafb',
           borderRadius: '12px',
-          border: '1px solid #86efac'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#15803d',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             3
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
               Jij ziet de beste 3 deals
             </h2>
-            <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
               We tonen je de top 3 aanbiedingen met de grootste besparing. Je ziet direct hoeveel je bespaart 
               en bij welke winkel. Klik, koop, bespaar!
             </p>
