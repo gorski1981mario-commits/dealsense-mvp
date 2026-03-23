@@ -198,13 +198,7 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
           }}>
             <div style={{ marginBottom: '6px' }}>✓ Automatische prijsupdates</div>
             <div style={{ marginBottom: '6px' }}>✓ Notificaties bij prijsdalingen</div>
-            <div style={{ marginBottom: '6px' }}>✓ Realtime voorraadstatus</div>
-            {packageType === 'finance' && (
-              <div>⚡ Premium 30-dagen monitoring</div>
-            )}
-            {packageType === 'pro' && (
-              <div>⭐ Geavanceerde 20-dagen monitoring</div>
-            )}
+            <div>✓ Realtime voorraadstatus</div>
           </div>
 
           <button

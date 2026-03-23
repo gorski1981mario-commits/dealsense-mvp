@@ -41,9 +41,6 @@ export default function VeiligheidPage() {
           Onze TrustDelta-algoritme controleert alle winkels op betrouwbaarheid. We filteren automatisch 
           verdachte aanbiedingen en waarschuwen je voor mogelijke scams.
         </p>
-        <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6', fontWeight: 600 }}>
-          Deal Score V2: Trust Engine (0-100) + Niche Boost + Rotation voor maximale veiligheid en beste deals
-        </p>
       </div>
 
       <div style={{ marginBottom: '32px' }}>
@@ -71,7 +68,7 @@ export default function VeiligheidPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+        background: '#f9fafb',
         borderRadius: '12px',
         border: '2px solid #1e40af'
       }}>

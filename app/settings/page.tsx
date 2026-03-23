@@ -161,7 +161,7 @@ export default function SettingsPage() {
           <div style={{
             fontSize: '14px',
             fontWeight: 600,
-            color: '#6B7280',
+            color: '#111827',
             letterSpacing: '0.5px',
             marginBottom: '16px',
             textTransform: 'uppercase'
@@ -344,7 +344,7 @@ export default function SettingsPage() {
           <div style={{
             fontSize: '14px',
             fontWeight: 600,
-            color: '#6B7280',
+            color: '#111827',
             letterSpacing: '0.5px',
             marginBottom: '16px',
             textTransform: 'uppercase'
@@ -401,7 +401,7 @@ export default function SettingsPage() {
           <div style={{
             fontSize: '14px',
             fontWeight: 600,
-            color: '#6B7280',
+            color: '#111827',
             letterSpacing: '0.5px',
             marginBottom: '16px',
             textTransform: 'uppercase'

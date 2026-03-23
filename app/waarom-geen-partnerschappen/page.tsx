@@ -80,7 +80,7 @@ export default function WaaromGeenPartnerschappenPage() {
           border: '1px solid #E5E7EB',
           borderRadius: '12px'
         }}>
-          <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8' }}>
+          <div style={{ fontSize: '14px', color: '#111827', lineHeight: '1.8' }}>
             <strong>Laptop van €899:</strong>
             <br /><br />
             <strong>Andere vergelijker:</strong>
@@ -93,19 +93,19 @@ export default function WaaromGeenPartnerschappenPage() {
             <br /><br />
             <strong style={{ color: '#15803d' }}>DealSense:</strong>
             <br />
-            Cena oryginalna: €899,00
+            Oorspronkelijke prijs: €899,00
             <br />
-            DealSense znajduje: €765,00
+            DealSense vindt: €765,00
             <br />
-            Oszczędność: €134,00 (€899 - €765)
+            Besparing: €134,00 (€899 - €765)
             <br />
-            Komisja (10%): €13,40 (€134 × 10%)
+            Commissie (10%): €13,40 (€134 × 10%)
             <br />
             <strong>Jij betaalt: €778,40</strong> (€765 + €13,40)
             <br /><br />
             <strong style={{ color: '#15803d' }}>Besparing vs Partner Shop A: €71,60</strong>
             <br />
-            <strong style={{ color: '#15803d' }}>Besparing vs cena oryginalna: €120,60</strong>
+            <strong style={{ color: '#15803d' }}>Besparing vs oorspronkelijke prijs: €120,60</strong>
           </div>
         </div>
       </div>
