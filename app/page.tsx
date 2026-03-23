@@ -182,9 +182,6 @@ export default function HomePage() {
           fontSize: '14px', 
           color: scansRemaining === 0 ? '#ef4444' : '#1e40af', 
           fontWeight: 700,
-          padding: '4px 12px',
-          background: scansRemaining === 0 ? '#fee2e2' : '#dbeafe',
-          borderRadius: '6px',
           whiteSpace: 'nowrap'
         }}>
           {3 - scansRemaining}/3 scans gebruikt
@@ -268,9 +265,9 @@ export default function HomePage() {
         }}>Categorie</label>
         <input
           type="text"
-          value={category === 'electronics' ? 'Elektronika' : category}
+          value={category}
           readOnly
-          placeholder="Automatisch gedetecteerd via product URL"
+          placeholder="Automatisch ingevuld via QR-scan"
           style={{
             width: '100%',
             padding: '12px',
@@ -280,7 +277,7 @@ export default function HomePage() {
             marginBottom: '8px',
             background: '#f1f5f9',
             cursor: 'not-allowed',
-            color: '#111827'
+            color: '#6b7280'
           }}
         />
         <div style={{ fontSize: '11px', color: '#111827', marginBottom: '16px' }}>
