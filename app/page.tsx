@@ -180,10 +180,10 @@ export default function HomePage() {
         }}>FREE</span>
         <span style={{ 
           fontSize: '14px', 
-          color: scansRemaining === 0 ? '#ef4444' : '#3b82f6', 
+          color: scansRemaining === 0 ? '#ef4444' : '#1e40af', 
           fontWeight: 700,
           padding: '4px 12px',
-          background: scansRemaining === 0 ? '#fee2e2' : '#eff6ff',
+          background: scansRemaining === 0 ? '#fee2e2' : '#dbeafe',
           borderRadius: '6px',
           whiteSpace: 'nowrap'
         }}>
