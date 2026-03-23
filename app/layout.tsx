@@ -32,6 +32,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#15803d" />
         <title>DealSense.nl – AI aankoop assistent</title>
+        <script
+          data-cfasync="false"
+          data-wpfc-render="false"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var script = document.createElement("script");
+                script.async = 1;
+                script.src = 'https://emrld.ltd/NTEwNzA1.js?t=510705';
+                document.head.appendChild(script);
+              })();
+            `
+          }}
+        />
       </head>
       <body>
         {/* Top Bar */}
