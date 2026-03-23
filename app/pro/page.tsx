@@ -93,8 +93,8 @@ export default function ProPage() {
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
-          background: 'rgba(37,139,82,0.12)',
-          color: '#258b52',
+          background: '#15803d',
+          color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
           fontWeight: 700

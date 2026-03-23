@@ -365,14 +365,15 @@ export default function Scanner({ type }: ScannerProps) {
               background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
               color: 'white',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '10px',
               fontSize: '14px',
               fontWeight: 600,
               cursor: 'pointer',
-              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
+              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
+              textAlign: 'center'
             }}
           >
-            📷 Scan Barcode/QR
+            Scan Barcode/QR
           </button>
         </div>
       )}

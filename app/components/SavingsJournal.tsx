@@ -158,7 +158,8 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
       <div style={{
         marginTop: '16px',
         fontSize: '12px',
-        color: '#6b7280',
+        color: '#111827',
+        fontWeight: 600,
         fontStyle: 'italic',
         textAlign: 'center',
         padding: '12px',
