@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const [newDeals, setNewDeals] = useState(true)
   const [priceDrops, setPriceDrops] = useState(false)
   const [echoNotifications, setEchoNotifications] = useState(true)
+  const [echoAutoConfig, setEchoAutoConfig] = useState(false)
   const [ghostModeAlerts, setGhostModeAlerts] = useState(true)
   const [biometricEnabled, setBiometricEnabled] = useState(false)
   const [biometricAvailable, setBiometricAvailable] = useState(false)
@@ -64,6 +65,18 @@ export default function SettingsPage() {
     setPriceDrops(notifPrefs.priceDrops !== false)
     setEchoNotifications(notifPrefs.echo !== false)
     setGhostModeAlerts(notifPrefs.ghostMode !== false)
+
+    // Load Echo notifications
+    const echoNotifsStored = localStorage.getItem('echo_notifications')
+    if (echoNotifsStored) {
+      setEchoNotifications(JSON.parse(echoNotifsStored))
+    }
+
+    // Load Echo auto-config
+    const echoAutoConfigStored = localStorage.getItem('echo_auto_config')
+    if (echoAutoConfigStored) {
+      setEchoAutoConfig(JSON.parse(echoAutoConfigStored))
+    }
   }, [])
   
   const saveNotificationPreference = (key: string, value: boolean) => {
@@ -93,7 +106,13 @@ export default function SettingsPage() {
   const handleEchoNotificationsToggle = () => {
     const newValue = !echoNotifications
     setEchoNotifications(newValue)
-    saveNotificationPreference('echo', newValue)
+    localStorage.setItem('echo_notifications', JSON.stringify(newValue))
+  }
+
+  const handleEchoAutoConfigToggle = () => {
+    const newValue = !echoAutoConfig
+    setEchoAutoConfig(newValue)
+    localStorage.setItem('echo_auto_config', JSON.stringify(newValue))
   }
   
   const handleGhostModeToggle = () => {
@@ -859,6 +878,44 @@ export default function SettingsPage() {
                       position: 'absolute',
                       top: '2px',
                       left: echoNotifications ? '22px' : '2px',
+                      transition: 'left 0.2s'
+                    }} />
+                  </button>
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  border: '1px solid #E5E7EB'
+                }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Auto-configuratie</div>
+                    <div style={{ fontSize: '12px', color: '#6B7280' }}>Echo kan configuraties automatisch invullen</div>
+                  </div>
+                  <button
+                    onClick={handleEchoAutoConfigToggle}
+                    style={{
+                      width: '44px',
+                      height: '24px',
+                      borderRadius: '12px',
+                      background: echoAutoConfig ? '#15803d' : '#E5E7EB',
+                      border: 'none',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      transition: 'background 0.2s'
+                    }}
+                  >
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      background: 'white',
+                      position: 'absolute',
+                      top: '2px',
+                      left: echoAutoConfig ? '22px' : '2px',
                       transition: 'left 0.2s'
                     }} />
                   </button>
