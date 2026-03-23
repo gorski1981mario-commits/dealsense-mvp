@@ -22,21 +22,21 @@ export default function HoeHetWerktPage() {
           padding: '20px',
           background: '#f9fafb',
           borderRadius: '12px',
-          border: '2px solid #15803d'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#15803d',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             1
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#15803d' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
               Scan het product
             </h2>
-            <p style={{ fontSize: '14px', color: '#15803d', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
               Scan de barcode of QR-code van het product dat je wilt kopen. Of plak de product URL. 
               Werkt met alle grote webshops in Nederland.
             </p>
@@ -51,21 +51,21 @@ export default function HoeHetWerktPage() {
           padding: '20px',
           background: '#f9fafb',
           borderRadius: '12px',
-          border: '2px solid #15803d'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#15803d',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             2
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#15803d' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
               Wij scannen 1000+ winkels
             </h2>
-            <p style={{ fontSize: '14px', color: '#15803d', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
               Onze AI scant in 2-8 seconden meer dan 1000 Nederlandse webshops. We vergelijken prijzen, 
               ratings, levertijden en betrouwbaarheid. Alles automatisch.
             </p>
@@ -79,21 +79,21 @@ export default function HoeHetWerktPage() {
           padding: '20px',
           background: '#f9fafb',
           borderRadius: '12px',
-          border: '2px solid #15803d'
+          border: '2px solid #1e40af'
         }}>
           <div style={{
             fontSize: '32px',
             fontWeight: 900,
-            color: '#15803d',
+            color: '#1e40af',
             minWidth: '40px'
           }}>
             3
           </div>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#15803d' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
               Jij ziet de beste 3 deals
             </h2>
-            <p style={{ fontSize: '14px', color: '#15803d', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.6' }}>
               We tonen je de top 3 aanbiedingen met de grootste besparing. Je ziet direct hoeveel je bespaart 
               en bij welke winkel. Klik, koop, bespaar!
             </p>
