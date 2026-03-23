@@ -32,17 +32,17 @@ export default function WaaromGeenPartnerschappenPage() {
       </div>
 
       <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', color: '#15803d' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', color: '#1e40af' }}>
           Wat wij anders doen
         </h2>
         <div style={{
           padding: '20px',
-          background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+          background: '#f9fafb',
           borderRadius: '12px',
-          border: '1px solid #15803d',
+          border: '2px solid #1e40af',
           marginBottom: '12px'
         }}>
-          <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px', margin: 0 }}>
+          <ul style={{ fontSize: '14px', color: '#1e40af', lineHeight: '1.8', paddingLeft: '20px', margin: 0 }}>
             <li>Scannen van alle winkels zonder uitzonderingen</li>
             <li>Altijd de beste prijs, ongeacht partnerships</li>
             <li>Verdienen alleen bij jouw besparing</li>
