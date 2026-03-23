@@ -423,11 +423,8 @@ export default function HamburgerMenu() {
                 }}
               >
                 <ListChecks size={18} color="#111827" strokeWidth={2} />
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', flex: 1 }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
                   Diensten Configurators
-                </div>
-                <div style={{ fontSize: '12px', color: '#6B7280' }}>
-                  {showDienstenInfo ? '▼' : '▶'}
                 </div>
               </div>
 
@@ -505,17 +502,15 @@ export default function HamburgerMenu() {
             <div 
               onClick={() => setShowEchoInfo(!showEchoInfo)}
               style={{
-                padding: '16px',
-                background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
-                borderRadius: '12px',
-                border: '1px solid #86efac',
+                padding: '10px 16px',
+                background: 'transparent',
+                borderRadius: '8px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease'
               }}>
               <div style={{ 
                 display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between'
+                alignItems: 'center'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline' }}>
@@ -525,11 +520,10 @@ export default function HamburgerMenu() {
                   </div>
                   <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>AI Assistent</span>
                 </div>
-                <span style={{ fontSize: '18px', color: '#111827', transition: 'transform 0.3s ease', transform: showEchoInfo ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
               </div>
               
               {showEchoInfo && (
-                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #86efac' }}>
+                <div style={{ marginTop: '8px', paddingLeft: '28px' }}>
                   <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5', fontWeight: 600 }}>
                     {aiAssistantItem.description}
                   </div>
@@ -544,31 +538,28 @@ export default function HamburgerMenu() {
           </div>
 
           {/* GHOST MODE - Expandable */}
-          <div style={{ marginTop: '16px' }}>
+          <div style={{ marginTop: '4px' }}>
             <div 
               onClick={() => setShowGhostModeInfo(!showGhostModeInfo)}
               style={{
-                padding: '16px',
-                background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-                borderRadius: '12px',
-                border: '1px solid #86efac',
+                padding: '10px 16px',
+                background: 'transparent',
+                borderRadius: '8px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease'
               }}>
               <div style={{ 
                 display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between'
+                alignItems: 'center'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <EyeOff size={20} strokeWidth={2} color="#15803d" />
                   <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Ghost Mode</span>
                 </div>
-                <span style={{ fontSize: '18px', color: '#111827', transition: 'transform 0.3s ease', transform: showGhostModeInfo ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
               </div>
               
               {showGhostModeInfo && (
-                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #86efac' }}>
+                <div style={{ marginTop: '8px', paddingLeft: '28px' }}>
                   <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5', fontWeight: 600 }}>
                     {ghostModeItem.description}
                   </div>
