@@ -51,7 +51,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
 
       {/* Current Month Summary */}
       <div style={{
-        background: 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
+        background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
         borderRadius: '8px',
         padding: '16px',
         marginBottom: '16px',

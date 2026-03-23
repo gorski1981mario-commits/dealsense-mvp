@@ -366,7 +366,7 @@ export default function HomePage() {
           style={{
             width: '100%',
             padding: '14px',
-            background: loading || scansRemaining === 0 ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #059669 100%)',
+            background: loading || scansRemaining === 0 ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
             color: 'white',
             border: 'none',
             borderRadius: '10px',
