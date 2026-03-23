@@ -297,16 +297,6 @@ export default function HamburgerMenu() {
         boxShadow: '-4px 0 16px rgba(0,0,0,0.1)'
       }}>
         <div style={{ padding: '60px 24px 48px 24px' }}>
-          {/* Menu Title */}
-          <h2 style={{
-            fontSize: '24px',
-            fontWeight: 600,
-            color: '#111827',
-            marginBottom: '24px'
-          }}>
-            Menu
-          </h2>
-
           {/* PAKKETTEN Section */}
           <div style={{ marginBottom: '32px' }}>
             <h3 style={{

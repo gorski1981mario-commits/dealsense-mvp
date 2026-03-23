@@ -127,7 +127,7 @@ export default function FinancePage() {
       {/* FINANCE Configurators - 8 Cards (4 PRO + 4 FINANCE) */}
       <div style={{ marginTop: '32px', marginBottom: '32px' }}>
         <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#15803d' }}>
-          💰 Vaste Lasten + Finance Configurators
+          Alle Configurators
         </h3>
         <p style={{ fontSize: '14px', color: '#374151', marginBottom: '20px', lineHeight: '1.6' }}>
           Gebruik onze geavanceerde configurators voor alle diensten én exclusieve finance opties.

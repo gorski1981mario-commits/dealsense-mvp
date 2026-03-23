@@ -125,7 +125,7 @@ export default function ProPage() {
       {/* PRO Configurators - 4 Cards */}
       <div style={{ marginTop: '32px', marginBottom: '32px' }}>
         <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#15803d' }}>
-          🎯 Vaste Lasten Configurators
+          Diensten Configurators
         </h3>
         <p style={{ fontSize: '14px', color: '#374151', marginBottom: '20px', lineHeight: '1.6' }}>
           Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.

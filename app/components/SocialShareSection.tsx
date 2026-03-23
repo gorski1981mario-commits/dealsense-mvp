@@ -71,7 +71,7 @@ export default function SocialShareSection({
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">{isActive ? '🎉' : '💬'}</span>
-        <h3 className="font-semibold text-lg text-gray-800">
+        <h3 className="font-bold text-lg text-black">
           {isActive 
             ? `Je hebt €${savings.toFixed(0)} bespaard!` 
             : 'Deel je besparing!'

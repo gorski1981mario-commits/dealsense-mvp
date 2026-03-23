@@ -43,13 +43,10 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
       <div style={{ 
         fontSize: '14px', 
         fontWeight: 600, 
-        color: '#374151',
-        marginBottom: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '6px'
+        color: '#111827',
+        marginBottom: '16px'
       }}>
-        📖 Jouw Besparingen
+        Jouw Besparingen
       </div>
 
       {/* Current Month Summary */}
@@ -82,7 +79,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+        <div style={{ fontSize: '13px', color: '#111827', fontWeight: 600 }}>
           Totaal bespaard (altijd)
         </div>
         <div style={{ fontSize: '16px', fontWeight: 700, color: '#16a34a' }}>
