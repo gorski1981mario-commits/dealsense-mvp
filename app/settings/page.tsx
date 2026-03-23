@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { Mail, Lock, Trash2, Bell, Globe, Shield, BarChart3, Settings as SettingsIcon, Fingerprint, Copy, Check, User, MapPin, Home, Phone } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { AuthService } from '../_lib/auth'
-import { BiometricAuth } from '../_lib/biometric'
+import { PatternLock } from '../_lib/pattern-lock'
+import PatternLockGrid from '../components/PatternLockGrid'
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -18,25 +19,24 @@ export default function SettingsPage() {
   const [echoNotifications, setEchoNotifications] = useState(true)
   const [echoAutoConfig, setEchoAutoConfig] = useState(false)
   const [ghostModeAlerts, setGhostModeAlerts] = useState(true)
-  const [biometricEnabled, setBiometricEnabled] = useState(false)
-  const [biometricAvailable, setBiometricAvailable] = useState(false)
+  const [patternLockEnabled, setPatternLockEnabled] = useState(false)
+  const [showPatternSetup, setShowPatternSetup] = useState(false)
+  const [patternMode, setPatternMode] = useState<'setup' | 'confirm'>('setup')
+  const [setupPattern, setSetupPattern] = useState<number[]>([])
+  const [patternError, setPatternError] = useState('')
   const [showBackupCodes, setShowBackupCodes] = useState(false)
   const [backupCodes, setBackupCodes] = useState<string[]>([])
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const [showDeleteAccount, setShowDeleteAccount] = useState(false)
   
   useEffect(() => {
-    checkBiometric()
+    checkPatternLock()
   }, [])
 
-  const checkBiometric = async () => {
-    const available = await BiometricAuth.isAvailable()
-    setBiometricAvailable(available)
-    setBiometricEnabled(BiometricAuth.hasRegistered())
-    
-    const user = AuthService.getCurrentUser()
-    if (user?.backupCodes) {
-      setBackupCodes(user.backupCodes)
+  const checkPatternLock = () => {
+    setPatternLockEnabled(PatternLock.hasRegistered())
+    if (PatternLock.hasRegistered()) {
+      setBackupCodes(PatternLock.getBackupCodes())
     }
   }
   
@@ -121,27 +121,44 @@ export default function SettingsPage() {
     saveNotificationPreference('ghostMode', newValue)
   }
 
-  const handleBiometricToggle = async () => {
-    if (biometricEnabled) {
-      // Disable biometric
-      BiometricAuth.remove()
-      AuthService.disableBiometric()
-      setBiometricEnabled(false)
+  const handlePatternLockToggle = () => {
+    if (patternLockEnabled) {
+      PatternLock.remove()
+      setPatternLockEnabled(false)
       setBackupCodes([])
     } else {
-      // Enable biometric
-      const userId = localStorage.getItem('dealsense_device_id') || 'user_' + Date.now()
-      const success = await BiometricAuth.register(userId)
-      
-      if (success) {
-        const result = await AuthService.enableBiometric()
+      setShowPatternSetup(true)
+      setPatternMode('setup')
+      setSetupPattern([])
+      setPatternError('')
+    }
+  }
+
+  const handlePatternComplete = (pattern: number[]) => {
+    if (patternMode === 'setup') {
+      setSetupPattern(pattern)
+      setPatternMode('confirm')
+      setPatternError('Teken hetzelfde patroon om te bevestigen')
+    } else if (patternMode === 'confirm') {
+      if (pattern.length === setupPattern.length && pattern.every((p, i) => p === setupPattern[i])) {
+        const result = PatternLock.register(setupPattern)
         if (result.success && result.backupCodes) {
-          setBiometricEnabled(true)
+          setPatternLockEnabled(true)
           setBackupCodes(result.backupCodes)
+          setShowPatternSetup(false)
           setShowBackupCodes(true)
+          setPatternError('')
         }
+      } else {
+        setPatternError('Patronen komen niet overeen. Probeer opnieuw.')
+        setPatternMode('setup')
+        setSetupPattern([])
       }
     }
+  }
+
+  const handlePatternClear = () => {
+    setPatternError('')
   }
 
   const copyCode = (code: string, index: number) => {
@@ -429,7 +446,7 @@ export default function SettingsPage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {/* Biometric Toggle */}
+            {/* Pattern Lock Toggle */}
             <div style={{
               padding: '12px',
               borderRadius: '8px',
@@ -442,55 +459,42 @@ export default function SettingsPage() {
                 marginBottom: '8px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Fingerprint size={18} color="#6B7280" />
+                  <Lock size={18} color="#6B7280" />
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
-                      Biometrische authenticatie
+                      Patroonvergrendeling
                     </div>
                     <div style={{ fontSize: '12px', color: '#6B7280' }}>
-                      {biometricEnabled ? 'Actief' : 'Niet actief'}
+                      {patternLockEnabled ? 'Actief' : 'Niet actief'}
                     </div>
                   </div>
                 </div>
-                {biometricAvailable && (
-                  <button
-                    onClick={handleBiometricToggle}
-                    style={{
-                      width: '44px',
-                      height: '24px',
-                      borderRadius: '12px',
-                      background: biometricEnabled ? '#15803d' : '#E5E7EB',
-                      border: 'none',
-                      cursor: 'pointer',
-                      position: 'relative',
-                      transition: 'background 0.2s'
-                    }}
-                  >
-                    <div style={{
-                      width: '20px',
-                      height: '20px',
-                      borderRadius: '50%',
-                      background: 'white',
-                      position: 'absolute',
-                      top: '2px',
-                      left: biometricEnabled ? '22px' : '2px',
-                      transition: 'left 0.2s'
-                    }} />
-                  </button>
-                )}
+                <button
+                  onClick={handlePatternLockToggle}
+                  style={{
+                    width: '44px',
+                    height: '24px',
+                    borderRadius: '12px',
+                    background: patternLockEnabled ? '#15803d' : '#E5E7EB',
+                    border: 'none',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    transition: 'background 0.2s'
+                  }}
+                >
+                  <div style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    background: 'white',
+                    position: 'absolute',
+                    top: '2px',
+                    left: patternLockEnabled ? '22px' : '2px',
+                    transition: 'left 0.2s'
+                  }} />
+                </button>
               </div>
-              {!biometricAvailable && (
-                <div style={{
-                  padding: '8px 12px',
-                  background: '#FEF2F2',
-                  borderRadius: '6px',
-                  fontSize: '12px',
-                  color: '#DC2626'
-                }}>
-                  Biometrie niet beschikbaar op dit apparaat
-                </div>
-              )}
-              {biometricEnabled && (
+              {patternLockEnabled && (
                 <div style={{
                   padding: '8px 12px',
                   background: '#f0fdf4',
@@ -498,13 +502,13 @@ export default function SettingsPage() {
                   fontSize: '12px',
                   color: '#15803d'
                 }}>
-                  ✓ Je kunt nu inloggen met vingerafdruk of gezichtsherkenning
+                  ✓ Patroonvergrendeling actief
                 </div>
               )}
             </div>
 
             {/* Backup Codes */}
-            {biometricEnabled && backupCodes.length > 0 && (
+            {patternLockEnabled && backupCodes.length > 0 && (
               <div style={{
                 padding: '12px',
                 borderRadius: '8px',
@@ -829,12 +833,13 @@ export default function SettingsPage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {userPackage === 'free' ? (
+            {userPackage === 'free' && (
               <div style={{
                 padding: '16px',
                 borderRadius: '8px',
                 border: '1px solid #FEE2E2',
-                background: '#FEF2F2'
+                background: '#FEF2F2',
+                marginBottom: '12px'
               }}>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#DC2626', marginBottom: '4px' }}>
                   Echo niet beschikbaar
@@ -843,7 +848,9 @@ export default function SettingsPage() {
                   Upgrade naar PLUS, PRO of FINANCE voor Echo AI assistent
                 </div>
               </div>
-            ) : (
+            )}
+            
+            {userPackage !== 'free' ? (
               <>
                 <div style={{
                   display: 'flex',
@@ -920,8 +927,57 @@ export default function SettingsPage() {
                     }} />
                   </button>
                 </div>
+              </>
+            ) : null}
 
+            {/* Auto-configuratie - visible for all, disabled for FREE */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px',
+              borderRadius: '8px',
+              border: '1px solid #E5E7EB',
+              opacity: userPackage === 'free' ? 0.6 : 1
+            }}>
+              <div>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
+                  Auto-configuratie {userPackage === 'free' && '🔒'}
+                </div>
+                <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                  {userPackage === 'free' 
+                    ? 'Upgrade naar PLUS voor deze functie' 
+                    : 'Echo kan configuraties automatisch invullen'}
+                </div>
+              </div>
+              <button
+                onClick={userPackage === 'free' ? () => router.push('/packages') : handleEchoAutoConfigToggle}
+                style={{
+                  width: '44px',
+                  height: '24px',
+                  borderRadius: '12px',
+                  background: userPackage === 'free' ? '#E5E7EB' : (echoAutoConfig ? '#15803d' : '#E5E7EB'),
+                  border: 'none',
+                  cursor: userPackage === 'free' ? 'pointer' : 'pointer',
+                  position: 'relative',
+                  transition: 'background 0.2s'
+                }}
+              >
                 <div style={{
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '50%',
+                  background: 'white',
+                  position: 'absolute',
+                  top: '2px',
+                  left: (userPackage !== 'free' && echoAutoConfig) ? '22px' : '2px',
+                  transition: 'left 0.2s'
+                }} />
+              </button>
+            </div>
+
+            {userPackage !== 'free' && (
+              <div style={{
                   padding: '12px',
                   borderRadius: '8px',
                   border: '1px solid #E5E7EB',
@@ -1076,6 +1132,192 @@ export default function SettingsPage() {
             </div>
           )}
         </div>
+
+        {/* Pattern Setup Modal */}
+        {showPatternSetup && (
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '20px'
+          }}>
+            <div style={{
+              background: 'white',
+              borderRadius: '16px',
+              padding: '24px',
+              maxWidth: '400px',
+              width: '100%'
+            }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '8px', color: '#111827' }}>
+                {patternMode === 'setup' ? 'Teken je patroon' : 'Bevestig je patroon'}
+              </h2>
+              <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '24px' }}>
+                {patternMode === 'setup' 
+                  ? 'Verbind minimaal 4 punten om je patroon te maken'
+                  : 'Teken hetzelfde patroon om te bevestigen'}
+              </p>
+
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                <PatternLockGrid
+                  onPatternComplete={handlePatternComplete}
+                  onPatternClear={handlePatternClear}
+                />
+              </div>
+
+              {patternError && (
+                <div style={{
+                  padding: '12px',
+                  background: patternMode === 'confirm' && patternError.includes('niet overeen') ? '#FEF2F2' : '#EFF6FF',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  color: patternMode === 'confirm' && patternError.includes('niet overeen') ? '#DC2626' : '#1e40af',
+                  marginBottom: '16px'
+                }}>
+                  {patternError}
+                </div>
+              )}
+
+              <button
+                onClick={() => {
+                  setShowPatternSetup(false)
+                  setPatternMode('setup')
+                  setSetupPattern([])
+                  setPatternError('')
+                }}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#E5E7EB',
+                  color: '#111827',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                Annuleren
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Backup Codes Modal */}
+        {showBackupCodes && backupCodes.length > 0 && (
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '20px'
+          }}>
+            <div style={{
+              background: 'white',
+              borderRadius: '16px',
+              padding: '24px',
+              maxWidth: '400px',
+              width: '100%'
+            }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '8px', color: '#111827' }}>
+                Backup codes
+              </h2>
+              <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '16px' }}>
+                Bewaar deze codes veilig. Je hebt ze nodig als je je patroon vergeet.
+              </p>
+
+              <div style={{
+                background: '#F9FAFB',
+                borderRadius: '8px',
+                padding: '16px',
+                marginBottom: '16px'
+              }}>
+                {backupCodes.map((code, index) => (
+                  <div key={index} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px',
+                    marginBottom: index < backupCodes.length - 1 ? '8px' : 0,
+                    background: 'white',
+                    borderRadius: '6px',
+                    fontFamily: 'monospace',
+                    fontSize: '14px'
+                  }}>
+                    <span>{code}</span>
+                    <button
+                      onClick={() => copyCode(code, index)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: copiedIndex === index ? '#15803d' : '#6B7280',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '12px'
+                      }}
+                    >
+                      {copiedIndex === index ? <Check size={14} /> : <Copy size={14} />}
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => copyAllCodes()}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#15803d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px'
+                }}
+              >
+                {copiedIndex === -1 ? <Check size={16} /> : <Copy size={16} />}
+                {copiedIndex === -1 ? 'Gekopieerd!' : 'Kopieer alle codes'}
+              </button>
+
+              <button
+                onClick={() => setShowBackupCodes(false)}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#E5E7EB',
+                  color: '#111827',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                Sluiten
+              </button>
+            </div>
+          </div>
+        )}
     </div>
   )
 }
