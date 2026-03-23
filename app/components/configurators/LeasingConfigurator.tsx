@@ -91,8 +91,27 @@ export default function LeasingConfigurator({ packageType = 'pro', userId }: Lea
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🚗 3 beste lease deals gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 3 giganten + 12 niszowe lease providers</p>
+        
+        {/* DISCLAIMER */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Athlon, LeasePlan). Exacte prijzen bij de lease maatschappij.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Hoogste maandelijkse kosten</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>€850/mnd</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🚗 Athlon All-in', price: '€425/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🚗 LeasePlan Flex', price: '€465/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🚗 Alphabet Premium', price: '€495/mnd', plan: 'VW Golf | 48 mnd | 20k km', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((lease, i) => (
           <div key={i} style={{ background: lease.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${lease.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

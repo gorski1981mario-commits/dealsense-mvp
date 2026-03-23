@@ -96,8 +96,27 @@ export default function MortgageConfigurator({ packageType = 'pro', userId }: Mo
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score V2 (Trust Engine + Niche Boost)</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>� 3 beste hypotheken gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 5 giganten + 20 niszowe hypotheekverstrekkers</p>
+        
+        {/* DISCLAIMER - ESTIMATED PRICES */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Hypotheker.nl). Exacte prijzen bij de hypotheekverstrekker.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Hoogste rente als vergelijkingspunt</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>4.0% rente</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🏠 ING Hypotheek', price: '3.2% rente', plan: '€350.000 | 30 jaar | €1.512/mnd', rating: '⭐ 4.7/5', trust: '🛡️ 9/10', score: 'Score: 9.3', badge: 'BESTE DEAL', best: true}, {name: '🏠 Rabobank Woonhypotheek', price: '3.5% rente', plan: '€350.000 | 30 jaar | €1.571/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}, {name: '🏠 ABN AMRO Hypotheek', price: '3.8% rente', plan: '€350.000 | 30 jaar | €1.629/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}].map((mtg, i) => (
           <div key={i} style={{ background: mtg.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${mtg.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

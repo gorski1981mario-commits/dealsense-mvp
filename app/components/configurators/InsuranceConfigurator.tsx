@@ -394,8 +394,27 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🛡️ 3 beste aanbiedingen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 5 giganten + 20 niszowe verzekeraars • Besparing tot €540/jaar</p>
+        
+        {/* DISCLAIMER - ESTIMATED PRICES */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Independer.nl, Pricewise.nl). Exacte prijzen bij de verzekeraar.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS - Market gemiddelde */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Duurste aanbieding als vergelijkingspunt</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>€1080/jaar</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '🛡️ Zilveren Kruis Basis', price: '€89/mnd', coverage: 'WA + Beperkt Casco', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.1', badge: 'BESTE DEAL', best: true}, {name: '🛡️ FBTO Compleet', price: '€112/mnd', coverage: 'All-risk dekking', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '🛡️ Centraal Beheer Premium', price: '€135/mnd', coverage: 'All-risk + extra\'s', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.9'}].map((ins, i) => (
           <div key={i} style={{ background: ins.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${ins.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

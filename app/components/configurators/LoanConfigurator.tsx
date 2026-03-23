@@ -88,8 +88,27 @@ export default function LoanConfigurator({ packageType = 'pro', userId }: LoanCo
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>💰 3 beste leningen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 4 giganten + 16 niszowe kredytodawców</p>
+        
+        {/* DISCLAIMER */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Geldshop.nl). Exacte prijzen bij de kredietverstrekker.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Hoogste rente als vergelijkingspunt</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>7.5% APR</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '💰 ING Persoonlijke Lening', price: '4.2% rente', plan: '€15.000 | 60 mnd | €276/mnd', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.2', badge: 'BESTE DEAL', best: true}, {name: '💰 ABN AMRO Doorlopend Krediet', price: '5.1% rente', plan: '€15.000 | 60 mnd | €283/mnd', rating: '⭐ 4.4/5', trust: '🛡️ 8/10', score: 'Score: 8.7'}, {name: '💰 Rabobank Lening', price: '5.8% rente', plan: '€15.000 | 60 mnd | €289/mnd', rating: '⭐ 4.5/5', trust: '🛡️ 9/10', score: 'Score: 8.8'}].map((loan, i) => (
           <div key={i} style={{ background: loan.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${loan.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>

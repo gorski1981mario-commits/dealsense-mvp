@@ -96,8 +96,27 @@ export default function SubscriptionsConfigurator({ packageType, userId }: Subsc
     return (
       <div>
         <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 3 beste aanbiedingen gevonden!</h2>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten de markt met Deal Score V2 (Trust + Rotation)</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>📺 3 beste abonnementen gevonden!</h2>
+        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 20 subscription providers (streaming, fitness, software)</p>
+        
+        {/* DISCLAIMER */}
+        <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+          <div style={{ fontSize: '12px', color: '#92400E' }}>
+            <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens. Exacte prijzen bij de aanbieder.
+          </div>
+        </div>
+        
+        {/* REFERENTIE PRIJS */}
+        <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400E' }}>💡 Referentie (markt gemiddelde)</div>
+              <div style={{ fontSize: '11px', color: '#78350F', marginTop: '2px' }}>Hoogste maandelijkse kosten</div>
+            </div>
+            <div style={{ fontSize: '20px', fontWeight: 700, color: '#92400E' }}>€15/mnd</div>
+          </div>
+        </div>
+        
         <div style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>🔒</div>
         {[{name: '📺 Netflix + Spotify Bundle', price: '€19,99/mnd', plan: 'Premium 4K + Unlimited Music', rating: '⭐ 4.8/5', trust: '🛡️ 9/10', score: 'Score: 9.4', badge: 'BESTE DEAL', best: true}, {name: '📺 Disney+ Trio', price: '€24,99/mnd', plan: 'Disney+ | Hulu | ESPN+', rating: '⭐ 4.6/5', trust: '🛡️ 9/10', score: 'Score: 9.0'}, {name: '📺 YouTube Premium Family', price: '€22,99/mnd', plan: 'Tot 6 gebruikers | Ad-free', rating: '⭐ 4.7/5', trust: '🛡️ 8/10', score: 'Score: 8.9'}].map((sub, i) => (
           <div key={i} style={{ background: sub.best ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${sub.best ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
