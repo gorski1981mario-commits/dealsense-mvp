@@ -109,8 +109,8 @@ export default function ProPage() {
       {/* Ghost Mode */}
       <GhostMode packageType="pro" userId={userId} />
 
-      {/* Scanner */}
-      <Scanner type="pro" />
+      {/* Scan Form */}
+      <ScanForm packageType="pro" />
 
       <div style={{
         marginTop: '24px',

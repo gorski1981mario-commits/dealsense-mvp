@@ -109,8 +109,8 @@ export default function FinancePage() {
       {/* Ghost Mode */}
       <GhostMode packageType="finance" userId={userId} />
 
-      {/* Scanner */}
-      <Scanner type="finance" />
+      {/* Scan Form */}
+      <ScanForm packageType="finance" />
 
       <div style={{
         marginTop: '24px',

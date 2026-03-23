@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Scanner from '../components/Scanner'
+import ScanForm from '../components/ScanForm'
 import BiometricAuth from '../components/BiometricAuth'
 import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
@@ -87,8 +87,8 @@ export default function PlusPage() {
       {/* Ghost Mode */}
       <GhostMode packageType="plus" userId={userId} />
 
-      {/* Scanner */}
-      <Scanner type="plus" />
+      {/* Scan Form */}
+      <ScanForm packageType="plus" />
 
       <div style={{
         marginTop: '24px',
