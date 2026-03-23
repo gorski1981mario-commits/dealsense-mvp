@@ -7,7 +7,8 @@ export default function PackagesPage() {
     <div style={{
       minHeight: '100vh',
       background: '#F7F9F8',
-      padding: '20px 0'
+      padding: '20px 0',
+      paddingTop: '20px'
     }}>
       <PricingAccordion />
     </div>

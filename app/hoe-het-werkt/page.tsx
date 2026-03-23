@@ -4,7 +4,7 @@ export const revalidate = 60
 
 export default function HoeHetWerktPage() {
   return (
-    <div>
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', paddingTop: '20px' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
         Hoe het werkt
       </h1>
