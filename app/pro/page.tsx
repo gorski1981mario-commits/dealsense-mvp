@@ -146,7 +146,7 @@ export default function ProPage() {
                 display: 'block',
                 padding: '20px',
                 background: 'white',
-                border: '2px solid #E5E7EB',
+                border: '2px solid #1e40af',
                 borderRadius: '12px',
                 textDecoration: 'none',
                 transition: 'all 0.2s ease',
@@ -158,7 +158,7 @@ export default function ProPage() {
                 e.currentTarget.style.transform = 'translateY(-2px)'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#E5E7EB'
+                e.currentTarget.style.borderColor = '#1e40af'
                 e.currentTarget.style.boxShadow = 'none'
                 e.currentTarget.style.transform = 'translateY(0)'
               }}
