@@ -71,6 +71,7 @@ const aiAssistantItem = {
     'Productadvies op maat',
     'Garantie-informatie',
     'Bespaartips',
+    'Configuraties automatisch invullen',
     'Financieel advies (FINANCE)'
   ]
 }
@@ -494,15 +495,6 @@ export default function HamburgerMenu() {
 
           {/* ECHO AI ASSISTENT - Osobna sekcja */}
           <div style={{ marginTop: '32px', paddingTop: '24px', paddingBottom: '32px', borderTop: '1px solid #E5E7EB' }}>
-            <h3 style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#6B7280',
-              letterSpacing: '0.5px',
-              marginBottom: '16px'
-            }}>
-              AI ASSISTENT
-            </h3>
             <div style={{
               padding: '16px',
               paddingBottom: '20px',
@@ -521,12 +513,12 @@ export default function HamburgerMenu() {
                   <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
                   <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
                 </div>
-                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>AI Assistent</span>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>AI Assistent</span>
               </div>
-              <div style={{ fontSize: '12px', color: '#374151', marginBottom: '12px', lineHeight: '1.5' }}>
+              <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5' }}>
                 {aiAssistantItem.description}
               </div>
-              <div style={{ fontSize: '11px', color: '#6B7280' }}>
+              <div style={{ fontSize: '11px', color: '#111827', fontWeight: 500 }}>
                 {aiAssistantItem.features.map((feature, idx) => (
                   <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
                 ))}
