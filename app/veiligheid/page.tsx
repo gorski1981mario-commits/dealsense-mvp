@@ -4,7 +4,7 @@ import { Lock, ShieldCheck, Mail } from 'lucide-react'
 
 export default function VeiligheidPage() {
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', paddingTop: '20px' }}>
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '16px' }}>
         Veiligheid & Vertrouwen
       </h1>
