@@ -1195,7 +1195,7 @@ export default function SettingsPage() {
                 </div>
               </div>
               <button
-                onClick={userPackage === 'free' ? () => router.push('/packages') : handleEchoAutoConfigToggle}
+                onClick={userPackage === 'free' ? () => { router.push('/packages'); setTimeout(() => window.scrollTo(0, 0), 100) } : handleEchoAutoConfigToggle}
                 style={{
                   width: '44px',
                   height: '24px',

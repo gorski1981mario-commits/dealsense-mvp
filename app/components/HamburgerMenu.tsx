@@ -110,6 +110,8 @@ export default function HamburgerMenu() {
   const handleItemClick = (path: string) => {
     setIsOpen(false)
     router.push(path)
+    // Reset scroll position to top when navigating
+    setTimeout(() => window.scrollTo(0, 0), 100)
   }
 
   return (
