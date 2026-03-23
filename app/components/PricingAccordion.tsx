@@ -137,7 +137,8 @@ export default function PricingAccordion() {
     <div style={{
       maxWidth: '500px',
       margin: '0 auto',
-      padding: '16px'
+      padding: '16px',
+      paddingTop: '80px'
     }}>
       <div style={{
         display: 'flex',
