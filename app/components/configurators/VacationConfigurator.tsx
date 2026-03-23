@@ -32,12 +32,19 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   const [childrenAges, setChildrenAges] = useState<number[]>([])
   const [destination, setDestination] = useState('')
   const [departureDate, setDepartureDate] = useState('')
+  const [dateFlexibility, setDateFlexibility] = useState<'exact' | 'flex-3' | 'flex-month'>('exact')
+  const [departureAirport, setDepartureAirport] = useState('AMS')
   const [duration, setDuration] = useState(1)
   const [transport, setTransport] = useState('')
   const [accommodationType, setAccommodationType] = useState('')
   const [stars, setStars] = useState('')
   const [board, setBoard] = useState('')
+  const [directFlightsOnly, setDirectFlightsOnly] = useState(false)
+  const [minReviewScore, setMinReviewScore] = useState<number>(0)
+  const [lastMinute, setLastMinute] = useState(false)
   const [extras, setExtras] = useState<string[]>([])
+  const [isPaid, setIsPaid] = useState(false)
+  const [showBiometric, setShowBiometric] = useState(false)
   
   // Lock/unlock state using custom hook
   const {
@@ -62,10 +69,11 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   
   // Dynamic totalFields calculation
   const getTotalFields = () => {
-    let total = 10 // filterType, adults, destination, departureDate, duration, transport, accommodationType, stars, board, extras
+    let total = 11 // filterType, adults, destination, departureDate, departureAirport, duration, transport, accommodationType, stars, board, extras
     if (children > 0) {
       total += 1 // childrenAges (only if children > 0)
     }
+    // dateFlexibility, directFlightsOnly, minReviewScore, lastMinute are optional filters
     return total
   }
   const totalFields = getTotalFields()
@@ -120,7 +128,11 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     
     // Auto-lock configuration on submit
     if (!isLocked) {
-      const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+      const parameters = { 
+        adults, children, childrenAges, destination, departureDate, dateFlexibility, 
+        departureAirport, duration, transport, accommodationType, stars, board, 
+        directFlightsOnly, minReviewScore, lastMinute, extras 
+      }
       await lockConfig(parameters)
     }
     
@@ -130,14 +142,21 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       category: 'vacation',
       packageType: pkg,
       userId: uid,
-      metadata: { adults, children, destination, duration, stars, board, transport, accommodationType }
+      metadata: { 
+        adults, children, destination, duration, stars, board, transport, accommodationType,
+        departureAirport, dateFlexibility, directFlightsOnly, minReviewScore, lastMinute
+      }
     })
     
     setView('results')
   }
 
   const handleLockConfiguration = async () => {
-    const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+    const parameters = { 
+      adults, children, childrenAges, destination, departureDate, dateFlexibility,
+      departureAirport, duration, transport, accommodationType, stars, board,
+      directFlightsOnly, minReviewScore, lastMinute, extras
+    }
     await lockConfig(parameters)
   }
 
@@ -146,7 +165,11 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   const handleDownloadPDF = () => {
-    const parameters = { adults, children, childrenAges, destination, departureDate, duration, transport, accommodationType, stars, board, extras }
+    const parameters = { 
+      adults, children, childrenAges, destination, departureDate, dateFlexibility,
+      departureAirport, duration, transport, accommodationType, stars, board,
+      directFlightsOnly, minReviewScore, lastMinute, extras
+    }
     downloadPDF(parameters)
   }
 
@@ -302,7 +325,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                   <option value="malta">🇲🇹 Malta</option>
                   <option value="bulgarije">🇧🇬 Bulgarije</option>
                   <option value="mexico">🇲🇽 Mexico</option>
-                  <option value="dominicaanse">🇩🇴 Dominicaanse Republiek</option>
+                  <option value="dominicaanse-republiek">🇩🇴 Dominicaanse Republiek</option>
                   <option value="cuba">🇨🇺 Cuba</option>
                   <option value="jamaica">🇯🇲 Jamaica</option>
                   <option value="bali">🇮🇩 Indonesië (Bali)</option>
@@ -323,6 +346,26 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <div style={{ marginBottom: '14px' }}>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Vertrekdatum</label>
               <input type="date" min={new Date().toISOString().split('T')[0]} value={departureDate} onChange={(e) => { const val = e.target.value; setDepartureDate(val); validateAndMark('departureDate', val); }} onFocus={() => setActiveField('departureDate')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('departureDate') ? '2px solid #15803d' : (touchedFields.has('departureDate') ? '2px solid #F59E0B' : '2px solid #E5E7EB'), borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('departureDate') ? '#E6F4EE' : (touchedFields.has('departureDate') ? '#FEF3C7' : 'white')), cursor: isLocked ? 'not-allowed' : 'text', transition: 'all 0.2s' }} />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>📅 Flexibiliteit datum</label>
+              <select value={dateFlexibility} onChange={(e) => { const val = e.target.value as 'exact' | 'flex-3' | 'flex-month'; setDateFlexibility(val); }} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : 'white', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                <option value="exact">Exacte datum</option>
+                <option value="flex-3">Flexibel ±3 dagen (GOEDKOPER!)</option>
+                <option value="flex-month">Flexibel hele maand (GOEDKOOPST!)</option>
+              </select>
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>✈️ Vertrek luchthaven</label>
+              <select value={departureAirport} onChange={(e) => { const val = e.target.value; setDepartureAirport(val); validateAndMark('departureAirport', val); }} onFocus={() => setActiveField('departureAirport')} onBlur={() => setActiveField(null)} disabled={isLocked} style={{ width: '100%', padding: '10px 14px', border: validFields.has('departureAirport') ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '10px', fontSize: '14px', fontWeight: 500, color: '#111827', background: isLocked ? '#F3F4F6' : (validFields.has('departureAirport') ? '#E6F4EE' : 'white'), cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                <option value="AMS">Amsterdam Schiphol (AMS)</option>
+                <option value="RTM">Rotterdam The Hague (RTM)</option>
+                <option value="EIN">Eindhoven (EIN)</option>
+                <option value="GRQ">Groningen Eelde (GRQ)</option>
+                <option value="MST">Maastricht Aachen (MST)</option>
+              </select>
             </div>
 
             <div>
@@ -346,6 +389,24 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                 </div>
               ))}
             </div>
+
+            {transport === 'flight' && (
+              <>
+                <div style={{ marginTop: '12px', padding: '10px 12px', background: directFlightsOnly ? '#E6F4EE' : '#F9FAFB', border: directFlightsOnly ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }} onClick={() => !isLocked && setDirectFlightsOnly(!directFlightsOnly)}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <input type="checkbox" checked={directFlightsOnly} readOnly disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', pointerEvents: 'none' }} />
+                    <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>🎯 Alleen directe vluchten (zonder overstap)</label>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '8px', padding: '10px 12px', background: lastMinute ? '#FEF3C7' : '#F9FAFB', border: lastMinute ? '2px solid #F59E0B' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }} onClick={() => !isLocked && setLastMinute(!lastMinute)}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <input type="checkbox" checked={lastMinute} readOnly disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', pointerEvents: 'none' }} />
+                    <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>🔥 Last Minute (vertrek binnen 2 weken) - GROOTSTE KORTING!</label>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* 4. ACCOMMODATIE */}
@@ -388,13 +449,41 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
               ))}
             </div>
           </div>
+          <div style={{ marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>6. Minimale beoordeling</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {[{value: 0, label: 'Alle hotels'}, {value: 7.0, label: '⭐ Minimaal 7.0 (Goed)'}, {value: 8.0, label: '⭐⭐ Minimaal 8.0 (Zeer goed)'}, {value: 9.0, label: '⭐⭐⭐ Minimaal 9.0 (Fantastisch)'}].map(r => (
+                <div key={r.value} onClick={() => !isLocked && setMinReviewScore(r.value)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', border: minReviewScore === r.value ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: minReviewScore === r.value ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
+                  <input type="radio" name="minReviewScore" value={r.value} checked={minReviewScore === r.value} onChange={() => !isLocked && setMinReviewScore(r.value)} disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer', flex: 1 }}>{r.label}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div style={{ marginBottom: '24px' }}>
-            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>6. Extra voorkeuren</div>
+            <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>7. Hotel voorzieningen</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-              {[{value: 'pool', label: '🏊 Zwembad'}, {value: 'wifi', label: '📶 Wifi'}, {value: 'parking', label: '🅿️ Parkeren'}, {value: 'kids', label: '👶 Kinderclub'}, {value: 'spa', label: '💆 Spa/Wellness'}, {value: 'beach', label: '🏖️ Strand'}, ...(children === 0 ? [{value: 'adults', label: '🔞 Adults Only'}] : [])].map(e => (
+              {[
+                {value: 'pool', label: '🏊 Zwembad'}, 
+                {value: 'wifi', label: '📶 Wifi'}, 
+                {value: 'parking', label: '🅿️ Parkeren'}, 
+                {value: 'kids', label: '👶 Kinderclub'}, 
+                {value: 'spa', label: '💆 Spa/Wellness'}, 
+                {value: 'beach', label: '🏖️ Strand'},
+                {value: 'gym', label: '🏋️ Fitness/Gym'},
+                {value: 'restaurant', label: '🍴 Restaurant'},
+                {value: 'entertainment', label: '🎭 Entertainment'},
+                {value: 'private-beach', label: '🏖️ Privéstrand'},
+                {value: 'waterpark', label: '🚿 Waterpark'},
+                {value: 'sports', label: '🎾 Sportfaciliteiten'},
+                {value: 'seaview', label: '🌊 Zeezicht'},
+                {value: 'roomservice', label: '🛏️ Roomservice'},
+                ...(children === 0 ? [{value: 'adults', label: '🔞 Adults Only'}] : [])
+              ].map(e => (
                 <div key={e.value} onClick={() => !isLocked && toggleExtra(e.value)} tabIndex={0} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: extras.includes(e.value) ? '2px solid #15803d' : '2px solid #E5E7EB', borderRadius: '8px', cursor: isLocked ? 'not-allowed' : 'pointer', background: extras.includes(e.value) ? '#E6F4EE' : (isLocked ? '#F3F4F6' : 'white'), opacity: isLocked ? 0.6 : 1, transition: 'all 0.2s' }}>
                   <input type="checkbox" checked={extras.includes(e.value)} readOnly disabled={isLocked} style={{ width: '16px', height: '16px', cursor: 'pointer', pointerEvents: 'none' }} />
-                  <label style={{ margin: 0, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>{e.label}</label>
+                  <label style={{ margin: 0, fontSize: '12px', fontWeight: 500, cursor: 'pointer' }}>{e.label}</label>
                 </div>
               ))}
             </div>
@@ -416,65 +505,229 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     )
   }
 
+  // Helper function - pełne nazwy destynacji po holendersku
+  const getDestinationDisplayName = (dest: string) => {
+    const displayNames: { [key: string]: string } = {
+      'turkije': 'Turkije',
+      'griekenland': 'Griekenland',
+      'spanje': 'Spanje',
+      'egypte': 'Egypte',
+      'portugal': 'Portugal',
+      'italie': 'Italië',
+      'frankrijk': 'Frankrijk',
+      'kroatie': 'Kroatië',
+      'thailand': 'Thailand',
+      'dubai': 'Dubai (VAE)',
+      'dominicaanse-republiek': 'Dominicaanse Republiek',
+      'dominikana': 'Dominicaanse Republiek', // Fallback
+      'marokko': 'Marokko',
+      'tunesie': 'Tunesië',
+      'cyprus': 'Cyprus',
+      'malta': 'Malta',
+      'bulgarije': 'Bulgarije',
+      'mexico': 'Mexico',
+      'cuba': 'Cuba',
+      'jamaica': 'Jamaica',
+      'bali': 'Indonesië (Bali)',
+      'malediven': 'Malediven',
+      'srilanka': 'Sri Lanka',
+      'vietnam': 'Vietnam',
+      'usa': 'Verenigde Staten',
+      'canada': 'Canada',
+      'zuidafrika': 'Zuid-Afrika',
+      'kenia': 'Kenia',
+      'tanzania': 'Tanzania',
+      'australie': 'Australië',
+      'nieuwzeeland': 'Nieuw-Zeeland'
+    };
+    return displayNames[dest] || dest;
+  };
+
   if (view === 'results') {
-    const offers = searchResults?.offers || []
-    const hasOffers = offers.length > 0
+    // Mock offers voor demo (later vervangen door echte API)
+    const mockOffers = [
+      {
+        agency: 'Vakantieveilingen',
+        price: 4263,
+        pricePerPerson: 1421,
+        stars: 4,
+        board: 'All Inclusive',
+        directFlight: true,
+        reviewScore: 8.5,
+        destination: destination,
+        url: 'https://www.vakantieveilingen.nl/...'
+      },
+      {
+        agency: 'Goedkopevliegtickets',
+        price: 4366,
+        pricePerPerson: 1455,
+        stars: 4,
+        board: 'All Inclusive',
+        directFlight: true,
+        reviewScore: 8.2,
+        destination: destination,
+        url: 'https://www.goedkopevliegtickets.nl/...'
+      },
+      {
+        agency: 'TUI',
+        price: 5650,
+        pricePerPerson: 1883,
+        stars: 4,
+        board: 'All Inclusive',
+        directFlight: true,
+        reviewScore: 8.0,
+        destination: destination,
+        url: 'https://www.tui.nl/...',
+        isReference: true // Najdroższa oferta = referentie
+      }
+    ];
+    
+    const offers = mockOffers;
+    const hasOffers = offers.length > 0;
+    
+    // REFERENTIE PRIJS: Najdroższa oferta (meestal gigant zoals TUI)
+    const referenceOffer = offers.find(o => o.isReference) || offers[offers.length - 1];
+    const referencePrice = referenceOffer.price;
+    
+    // BESTE DEAL: Najtańsza oferta
+    const bestOffer = offers[0];
+    const bestPrice = bestOffer.price;
+    
+    // OSZCZĘDNOŚCI: Referentie - Beste deal
+    const maxSavings = referencePrice - bestPrice;
+    const savingsPercent = Math.round((maxSavings / referencePrice) * 100);
+    
+    // Add savings to each offer
+    const offersWithSavings = offers.map(offer => ({
+      ...offer,
+      savings: referencePrice - offer.price,
+      savingsPercent: Math.round(((referencePrice - offer.price) / referencePrice) * 100)
+    })).filter(o => !o.isReference); // Verberg referentie oferte
+    
+    const commission = packageType === 'free' ? 0.10 : 0.09;
+    const commissionAmount = Math.round(maxSavings * commission);
     
     return (
       <div>
-        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
+        <button onClick={() => setView('configurator')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug naar configurator</button>
         
         {searching && (
           <div style={{ textAlign: 'center', padding: '40px' }}>
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
             <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>Zoeken naar beste deals...</div>
-            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>50% giganten + 50% niszowe biura</div>
+            <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '8px' }}>25 reisorganisaties doorzoeken...</div>
           </div>
         )}
         
-        {!searching && searchError && (
-          <div style={{ background: '#FEE2E2', border: '2px solid #DC2626', borderRadius: '12px', padding: '16px', marginBottom: '16px' }}>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#DC2626' }}>❌ Fout bij zoeken</div>
-            <div style={{ fontSize: '13px', color: '#991B1B', marginTop: '4px' }}>{searchError}</div>
-          </div>
-        )}
-        
-        {!searching && hasOffers && (
+        {!searching && hasOffers && !isPaid && (
           <>
-            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 {offers.length} beste aanbiedingen gevonden!</h2>
-            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>We doorzochten 50% e-commerce giganten + 50% niszowe biura met Deal Score</p>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>🎉 We vonden {offersWithSavings.length} beste deals voor jou!</h2>
+            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>
+              Bespaar tot €{maxSavings} op deze vakantie!
+            </p>
+            <div style={{ background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '10px 12px', marginBottom: '20px', fontSize: '13px', color: '#6B7280' }}>
+              💡 <strong>Market gemiddelde:</strong> €{referencePrice} (standaard prijs bij grote reisorganisaties)
+            </div>
 
-            {offers.map((offer, i) => (
+            {offersWithSavings.map((offer, i) => (
               <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>🥇 BESTE PRIJS</span>}
+                {i === 1 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#6B7280', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>🥈 TWEEDE BESTE PRIJS</span>}
+                
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>{offer.title}</div>
-                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>€{offer.price.toFixed(2)}</div>
+                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>
+                    {getDestinationDisplayName(offer.destination)} • {offer.stars}⭐ {offer.board}
+                  </div>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#15803d' }}>€{offer.price}</div>
                 </div>
-                {offer.location && <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>{offer.location}</div>}
-                <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px' }}>
-                  {offer.rating && <span>⭐ {offer.rating}/5</span>}
-                  {offer.dealScore && <span>Score: {offer.dealScore}</span>}
-                  <span>🏪 {offer.seller}</span>
+                
+                <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>
+                  €{offer.pricePerPerson} per persoon
                 </div>
-                {offer.stockWarning && (
-                  <div style={{ fontSize: '12px', color: '#F59E0B', marginBottom: '8px' }}>{offer.stockWarning}</div>
-                )}
-                {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>BESTE DEAL</span>}
-                <a 
-                  href={offer.cartUrl || offer.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ display: 'block', width: '100%', padding: '12px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}
-                >
-                  🛒 Voeg toe aan winkelwagen →
-                </a>
+                
+                <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px', flexWrap: 'wrap' }}>
+                  {offer.directFlight && <span>✈️ Directe vlucht</span>}
+                  <span>⭐ Beoordeling: {offer.reviewScore}/10</span>
+                  <span style={{ color: '#15803d', fontWeight: 600 }}>💸 Bespaar: €{offer.savings}</span>
+                </div>
+                
+                {/* PAYWALL - Verborgen reisorganisatie */}
+                <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '8px', padding: '12px', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '20px' }}>🔒</span>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#92400e' }}>Reisorganisatie: Verborgen</div>
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#92400e' }}>
+                    Betaal om te zien waar je kunt boeken
+                  </div>
+                </div>
               </div>
             ))}
 
+            {/* Commissie info + Betaal knop */}
             <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
-              <div style={{ fontSize: '14px', color: '#374151', marginBottom: '8px' }}>Commissie: {searchResults?.commission || '10%'}</div>
-              <div style={{ fontSize: '12px', color: '#6B7280' }}>Je betaalt {searchResults?.commission || '10%'} commissie bij aankoop</div>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>
+                💰 Bespaar €{maxSavings} op deze vakantie!
+              </div>
+              <div style={{ fontSize: '14px', color: '#374151', marginBottom: '12px' }}>
+                Commissie: {Math.round(commission * 100)}% van besparing = €{commissionAmount}
+              </div>
+              <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>
+                Je betaalt €{commissionAmount} om toegang te krijgen tot de beste reisorganisaties
+              </div>
+              <button 
+                onClick={() => setView('payment')} 
+                style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}
+              >
+                Bekijk reisorganisaties (€{commissionAmount}) →
+              </button>
             </div>
+          </>
+        )}
+        
+        {!searching && hasOffers && isPaid && (
+          <>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
+            <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>Je kunt nu boeken bij de beste reisorganisaties</p>
+            <div style={{ background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '10px 12px', marginBottom: '20px', fontSize: '13px', color: '#6B7280' }}>
+              💡 <strong>Referentie:</strong> {referenceOffer.agency} €{referencePrice} (standaard prijs bij grote reisorganisaties)
+            </div>
+
+            {offersWithSavings.map((offer, i) => (
+              <div key={i} style={{ background: i === 0 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 0 ? '#15803d' : '#E5E7EB'}`, borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                {i === 0 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#15803d', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>🥇 BESTE DEAL</span>}
+                {i === 1 && <span style={{ display: 'inline-block', padding: '4px 10px', background: '#6B7280', color: 'white', borderRadius: '6px', fontSize: '11px', fontWeight: 600, marginBottom: '12px' }}>🥈 TWEEDE BESTE</span>}
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                  <div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>
+                      {offer.agency}
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#6B7280' }}>
+                      {getDestinationDisplayName(offer.destination)} • {offer.stars}⭐ {offer.board}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#15803d' }}>€{offer.price}</div>
+                </div>
+                
+                <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>
+                  €{offer.pricePerPerson} per persoon
+                </div>
+                
+                <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px', flexWrap: 'wrap' }}>
+                  {offer.directFlight && <span>✈️ Directe vlucht</span>}
+                  <span>⭐ Beoordeling: {offer.reviewScore}/10</span>
+                  <span style={{ color: '#15803d', fontWeight: 600 }}>💸 Bespaar: €{offer.savings}</span>
+                </div>
+                
+                <button 
+                  onClick={() => window.open(offer.url, '_blank')}
+                  style={{ width: '100%', padding: '12px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
+                >
+                  🌐 Boek bij {offer.agency} →
+                </button>
+              </div>
+            ))}
           </>
         )}
         
@@ -490,17 +743,78 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   }
 
   if (view === 'payment') {
+    // Calculate commission
+    const mockOffers = [
+      { savings: 1387 },
+      { savings: 1284 }
+    ];
+    const maxSavings = Math.max(...mockOffers.map(o => o.savings));
+    const commission = packageType === 'free' ? 0.10 : 0.09;
+    const commissionAmount = Math.round(maxSavings * commission);
+    
     return (
       <div>
-        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug</button>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
-        <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', margin: '20px 0' }}>
-          <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
-          <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€174,90</div>
-          <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>10% commissie voor toegang tot 3 beste deals</div>
-          <button onClick={() => setView('unlocked')} style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}>Betaal met Stripe →</button>
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#6B7280' }}>🔒 Veilige betaling via Stripe</div>
+        <button onClick={() => setView('results')} style={{ padding: '10px 16px', background: '#F3F4F6', color: '#111827', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', marginBottom: '16px' }}>← Terug naar resultaten</button>
+        
+        {!showBiometric && (
+          <>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '24px' }}>💳 Betaling</h2>
+            
+            <div style={{ background: '#F9FAFB', border: '2px solid #E5E7EB', borderRadius: '12px', padding: '20px', marginBottom: '20px' }}>
+              <div style={{ fontSize: '15px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>📋 Samenvatting</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <span style={{ fontSize: '14px', color: '#6B7280' }}>Besparing op vakantie:</span>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#15803d' }}>€{maxSavings}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <span style={{ fontSize: '14px', color: '#6B7280' }}>Commissie ({Math.round(commission * 100)}%):</span>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>€{commissionAmount}</span>
+              </div>
+              <div style={{ borderTop: '1px solid #E5E7EB', marginTop: '12px', paddingTop: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Jouw netto besparing:</span>
+                  <span style={{ fontSize: '16px', fontWeight: 700, color: '#15803d' }}>€{maxSavings - commissionAmount}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div style={{ background: '#E6F4EE', border: '2px solid #15803d', borderRadius: '12px', padding: '20px', textAlign: 'center', marginBottom: '20px' }}>
+              <div style={{ fontSize: '16px', color: '#374151', marginBottom: '12px' }}>Totaal te betalen</div>
+              <div style={{ fontSize: '32px', fontWeight: 700, color: '#15803d', margin: '12px 0' }}>€{commissionAmount}</div>
+              <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '20px' }}>
+                {Math.round(commission * 100)}% commissie voor toegang tot beste reisorganisaties
+              </div>
+              <button 
+                onClick={() => setShowBiometric(true)} 
+                style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}
+              >
+                Betaal met Stripe →
+              </button>
+            </div>
+            
+            <div style={{ textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>
+              🔒 Veilige betaling via Stripe
+            </div>
+          </>
+        )}
+        
+        {showBiometric && (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ fontSize: '64px', marginBottom: '24px' }}>👆</div>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '12px' }}>
+              Bevestig met biometrie
+            </h2>
+            <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '24px' }}>
+              Gebruik Face ID of Touch ID om toegang te krijgen
+            </p>
+            <button 
+              onClick={() => { setIsPaid(true); setView('results'); setShowBiometric(false); }}
+              style={{ padding: '14px 24px', background: '#15803d', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(30, 127, 92, 0.3)' }}
+            >
+              ✓ Bevestigen
+            </button>
+          </div>
+        )}
       </div>
     )
   }
