@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Scanner from './components/Scanner'
 import SocialShare from './components/SocialShare'
+import ScanHistory from './components/ScanHistory'
 import PaymentButton from './components/PaymentButton'
 import { getDeviceId, showToast, createConfetti } from './_lib/utils'
 import { FlowTracker } from './_lib/flow-tracker'
@@ -710,6 +711,9 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Scan History */}
+      <ScanHistory userId={getDeviceId()} packageType="free" />
+
       {/* Footer */}
       <div style={{
         marginTop: '48px',
@@ -718,7 +722,7 @@ export default function HomePage() {
         borderTop: '1px solid #E5E7EB',
         textAlign: 'center',
         fontSize: '13px',
-        color: '#64748b'
+        color: '#111827'
       }}>
         <a href="/voorwaarden" style={{ color: '#15803d', textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
           Algemene Voorwaarden

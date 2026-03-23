@@ -88,7 +88,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
         <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
           <label style={{ display: 'block', marginBottom: '16px' }}>
             <div style={{
-              border: '2px dashed #d1d5db',
+              border: '2px dashed #1e40af',
               borderRadius: '8px',
               padding: '40px',
               textAlign: 'center',
