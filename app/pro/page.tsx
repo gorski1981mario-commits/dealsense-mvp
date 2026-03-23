@@ -109,9 +109,6 @@ export default function ProPage() {
       {/* Ghost Mode */}
       <GhostMode packageType="pro" userId={userId} />
 
-      {/* QR Scanner */}
-      <Scanner type="pro" />
-
       <div style={{
         marginTop: '24px',
         marginBottom: '24px',

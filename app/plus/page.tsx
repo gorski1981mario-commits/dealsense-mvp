@@ -87,9 +87,6 @@ export default function PlusPage() {
       {/* Ghost Mode */}
       <GhostMode packageType="plus" userId={userId} />
 
-      {/* QR Scanner */}
-      <Scanner type="plus" />
-
       <div style={{
         marginTop: '24px',
         marginBottom: '24px',

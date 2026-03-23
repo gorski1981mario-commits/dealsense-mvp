@@ -109,9 +109,6 @@ export default function FinancePage() {
       {/* Ghost Mode */}
       <GhostMode packageType="finance" userId={userId} />
 
-      {/* QR Scanner */}
-      <Scanner type="finance" />
-
       <div style={{
         marginTop: '24px',
         marginBottom: '24px',
