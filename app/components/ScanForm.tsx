@@ -10,7 +10,7 @@ interface ScanFormProps {
   onScanComplete?: (result: any) => void
 }
 
-export default function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFormProps) {
+function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFormProps) {
   const [url, setUrl] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('electronics')
@@ -197,3 +197,5 @@ export default function ScanForm({ packageType, scansRemaining = 999, onScanComp
     </form>
   )
 }
+
+export default ScanForm
