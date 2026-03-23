@@ -162,7 +162,8 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
         trust: p.trust,
         green: p.green,
         contract: '1 jaar vast',
-        url: `https://www.${p.name.toLowerCase().replace(/ /g, '')}.nl`
+        url: `https://www.${p.name.toLowerCase().replace(/ /g, '')}.nl`,
+        savings: 0
       }
     })
     
@@ -214,6 +215,13 @@ export default function EnergyConfigurator({ packageType = 'pro', userId }: Ener
           <>
             <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>⚡ {offers.length} energieleveranciers gevonden!</h2>
             <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>Vergelijking van 5 giganten + 20 niszowe leveranciers • Besparing tot €{totalSavings}/jaar</p>
+            
+            {/* DISCLAIMER - ESTIMATED PRICES */}
+            <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '12px', color: '#92400E' }}>
+                <strong>⚠️ Geschatte prijzen</strong> op basis van marktgegevens (zoals Gaslicht.com, Energievergelijk.nl). Exacte prijzen bij de leverancier.
+              </div>
+            </div>
             
             {/* REFERENTIE PRIJS - Market gemiddelde */}
             <div style={{ background: '#FEF3C7', border: '2px solid #F59E0B', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>

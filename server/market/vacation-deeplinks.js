@@ -1,7 +1,13 @@
 /**
  * Vacation Deep Links Generator
  * 
- * Generuje deep links do holenderskich biur podróży z parametrami konfiguracji
+ * Generuje deep links do holenderskich biur podróży z ESTIMATED PRICES
+ * 
+ * ⚠️ UŻYWA ESTIMATED PRICES (jak konkurencja: Gaslicht.com, Energievergelijk.nl)
+ * 📊 Multipliers based on research (różnice między biurami są realne)
+ * 🔄 Smart Rotation (anti-pattern learning)
+ * 
+ * PÓŹNIEJ: Podepniemy prawdziwe źródła danych (Google Flights/Hotels API)
  * 
  * BIURA PODRÓŻY:
  * - TUI.nl
@@ -1205,8 +1211,11 @@ function microShuffle(offers, seedData) {
 }
 
 /**
- * Generate all vacation links
+ * Generate all vacation links with ESTIMATED PRICES
  * Returns all agencies with SMART ROTATION (anti-pattern learning)
+ * 
+ * ⚠️ UŻYWA ESTIMATED PRICES (jak konkurencja)
+ * 📊 Multipliers based on research
  */
 function generateAllLinks(config, userId = 'anonymous') {
   const links = [
@@ -1220,7 +1229,7 @@ function generateAllLinks(config, userId = 'anonymous') {
     generateElizaLink(config),
     generateKrasLink(config),
     
-    // NISZOWE (17) - BIGGEST SAVINGS!
+    // NISZOWE (27)
     generatePrijsvrijLink(config),
     generateVliegwinkelLink(config),
     generateGoedkopevliegticketsLink(config),
@@ -1238,8 +1247,6 @@ function generateAllLinks(config, userId = 'anonymous') {
     generateVakantieboulevardLink(config),
     generateVliegticketzoekerLink(config),
     generateReisvoordeelLink(config),
-    
-    // NOWE NISZOWE (10)
     generateHolidayDiscounterLink(config),
     generateVakantieVeiligLink(config),
     generateVliegticketsNLLink(config),
@@ -1252,16 +1259,15 @@ function generateAllLinks(config, userId = 'anonymous') {
     generateVliegDealsLink(config)
   ].filter(link => link !== null);
   
-  // Sort by estimated price (cheapest first)
   links.sort((a, b) => a.estimatedPrice.total - b.estimatedPrice.total);
-
-  // SMART ROTATION: Apply micro-shuffle based on userId + timestamp
+  
   const seedData = getRotationSeed(userId, config);
   const rotated = microShuffle(links, seedData);
   
+  console.log(`[Vacation] Using ESTIMATED prices (research-based multipliers)`);
   console.log(`[Vacation Rotation] Day ${seedData.daySlot % 4}, Hour ${seedData.hourSlot}, Intensity ${seedData.intensity * 100}%`);
   console.log(`[Vacation Rotation] Top 3: ${rotated.slice(0, 3).map(l => l.agency).join(', ')}`);
-
+  
   return rotated;
 }
 

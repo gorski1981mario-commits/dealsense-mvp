@@ -1,11 +1,19 @@
 /**
- * ENERGY PROVIDERS - 25 DOSTAWCÓW ENERGII (NL)
+ * ENERGY PROVIDERS - Dutch Energy Market
  * 
- * GIGANTEN (5):
+ * 25 dostawców energii (5 gigantów + 20 niszowych)
+ * 
+ * ⚠️ UŻYWA ESTIMATED PRICES (jak konkurencja: Gaslicht.com, Energievergelijk.nl)
+ * 📊 Multipliers based on research (różnice między dostawcami są realne)
+ * 🔄 Smart Rotation (anti-pattern learning)
+ * 
+ * PÓŹNIEJ: Podepniemy prawdziwe źródła danych (scraping lub API)
+ * 
+ * GIGANCI (5):
  * - Vattenfall, Essent, Eneco, Nuon, Greenchoice
  * 
  * NISZOWE (20):
- * - Budget Energie, Pure Energie, Vandebron, OXXIO, etc.
+ * - Budget Energie, OXXIO, Pure Energie, Vandebron, etc.
  * 
  * PRICING INTELLIGENCE:
  * - Giganten: 1.00-1.15 (duurder)

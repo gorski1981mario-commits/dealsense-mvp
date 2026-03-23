@@ -4200,6 +4200,58 @@ try {
   runVisionFromBase64 = null;
 }
 
+// Vacation Configurator - Search endpoint
+app.post("/api/vacation/search", async (req, res) => {
+  try {
+    const { generateAllLinks } = require('./market/vacation-deeplinks');
+    
+    const config = req.body;
+    
+    // Validate required fields
+    if (!config.destination || !config.departureDate || !config.duration || !config.adults) {
+      return res.status(400).json({
+        error: "Missing required fields: destination, departureDate, duration, adults"
+      });
+    }
+    
+    // Generate offers from all travel agencies
+    const offers = generateAllLinks(config);
+    
+    // Calculate savings (vs most expensive)
+    const maxPrice = Math.max(...offers.map(o => o.estimatedPrice.total));
+    const minPrice = Math.min(...offers.map(o => o.estimatedPrice.total));
+    const savings = maxPrice - minPrice;
+    
+    // Add savings to each offer
+    const offersWithSavings = offers.map(offer => ({
+      ...offer,
+      savings: maxPrice - offer.estimatedPrice.total,
+      savingsPercentage: Math.round(((maxPrice - offer.estimatedPrice.total) / maxPrice) * 100)
+    }));
+    
+    res.json({
+      success: true,
+      offers: offersWithSavings,
+      summary: {
+        totalOffers: offers.length,
+        cheapest: offers[0].agency,
+        cheapestPrice: minPrice,
+        mostExpensive: offers[offers.length - 1].agency,
+        mostExpensivePrice: maxPrice,
+        maxSavings: savings,
+        searchTime: "< 1 seconde"
+      }
+    });
+    
+  } catch (error) {
+    console.error("Vacation search error:", error);
+    res.status(500).json({
+      error: "Vacation search failed",
+      message: error.message
+    });
+  }
+});
+
 app.post("/api/vision/extract", async (req, res) => {
   if (!runVisionFromBase64) {
     return res.status(503).json({

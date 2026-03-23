@@ -120,11 +120,14 @@ export const LIMITS = {
 
 /**
  * Ghost Mode durations (in seconds)
+ * PLUS: 24 hours
+ * PRO: 48 hours
+ * FINANCE: 7 days
  */
 export const GHOST_MODE = {
   plus: 24 * 60 * 60,      // 24 hours
-  pro: 24 * 60 * 60,       // 24 hours
-  finance: 5 * 60,         // 5 minutes
+  pro: 48 * 60 * 60,       // 48 hours
+  finance: 7 * 24 * 60 * 60, // 7 days
 } as const
 
 /**
