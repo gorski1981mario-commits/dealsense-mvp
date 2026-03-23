@@ -1188,7 +1188,7 @@ export default function SettingsPage() {
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
                   Auto-configuratie {userPackage === 'free' && '🔒'}
                 </div>
-                <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                <div style={{ fontSize: '12px', color: userPackage === 'free' ? '#111827' : '#6B7280' }}>
                   {userPackage === 'free' 
                     ? 'Upgrade naar PLUS voor deze functie' 
                     : 'Echo kan configuraties automatisch invullen'}

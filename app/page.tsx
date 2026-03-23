@@ -167,7 +167,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Badge + Usage Counter */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
         <span style={{
           display: 'inline-block',
           padding: '4px 12px',
@@ -175,7 +175,8 @@ export default function HomePage() {
           color: 'white',
           borderRadius: '6px',
           fontSize: '12px',
-          fontWeight: 700
+          fontWeight: 700,
+          whiteSpace: 'nowrap'
         }}>FREE</span>
         <span style={{ 
           fontSize: '14px', 
@@ -183,7 +184,8 @@ export default function HomePage() {
           fontWeight: 700,
           padding: '4px 12px',
           background: scansRemaining === 0 ? '#fee2e2' : '#f0fdf4',
-          borderRadius: '6px'
+          borderRadius: '6px',
+          whiteSpace: 'nowrap'
         }}>
           {3 - scansRemaining}/3 scans gebruikt
         </span>
