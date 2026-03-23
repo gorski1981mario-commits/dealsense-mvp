@@ -396,7 +396,7 @@ export default function HomePage() {
           <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
             Resultaten
           </h3>
-          <p style={{ fontSize: '14px', color: '#374151', marginBottom: '12px' }}>
+          <p style={{ fontSize: '14px', color: '#111827', marginBottom: '12px' }}>
             {result.message || 'Scan voltooid!'}
           </p>
           {result.savings && (
@@ -405,7 +405,7 @@ export default function HomePage() {
             </div>
           )}
           {result.best_offer && (
-            <div style={{ fontSize: '14px', color: '#374151', marginBottom: '16px' }}>
+            <div style={{ fontSize: '14px', color: '#111827', marginBottom: '16px' }}>
               Beste prijs: €{result.best_offer.price} bij {result.best_offer.seller}
             </div>
           )}
@@ -445,7 +445,7 @@ export default function HomePage() {
             <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
               Upgrade naar Plus
             </h3>
-            <p style={{ fontSize: '14px', color: '#374151', marginBottom: '16px' }}>
+            <p style={{ fontSize: '14px', color: '#111827', marginBottom: '16px' }}>
               Je hebt 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen en slechts 9% commissie!
             </p>
             
@@ -453,7 +453,7 @@ export default function HomePage() {
               <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '4px' }}>
                 €19,99/maand
               </div>
-              <div style={{ fontSize: '12px', color: '#374151' }}>
+              <div style={{ fontSize: '12px', color: '#111827' }}>
                 Annuleer wanneer je wilt
               </div>
             </div>
@@ -599,7 +599,7 @@ export default function HomePage() {
               Akkoord & Start →
             </button>
 
-            <div style={{ marginTop: '16px', fontSize: '12px', color: '#6B7280' }}>
+            <div style={{ marginTop: '16px', fontSize: '12px', color: '#111827' }}>
               Geen registratie nodig • Direct beginnen
             </div>
           </div>
@@ -628,7 +628,7 @@ export default function HomePage() {
             Hoeveel scans krijg ik gratis?
           </div>
           {faqOpen === 0 && (
-            <p style={{ marginTop: '12px', color: '#374151' }}>
+            <p style={{ marginTop: '12px', color: '#111827' }}>
               Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS, PRO of FINANCE voor onbeperkt scannen en betaal je 9% commissie op besparingen.
             </p>
           )}
@@ -652,7 +652,7 @@ export default function HomePage() {
             Is er een prijslimiet?
           </div>
           {faqOpen === 1 && (
-            <p style={{ marginTop: '12px', color: '#374151' }}>
+            <p style={{ marginTop: '12px', color: '#111827' }}>
               Nee, er is geen prijslimiet. Je kunt producten van elke prijs vergelijken.
             </p>
           )}
@@ -676,7 +676,7 @@ export default function HomePage() {
             Wat is de commissie?
           </div>
           {faqOpen === 2 && (
-            <p style={{ marginTop: '12px', color: '#374151' }}>
+            <p style={{ marginTop: '12px', color: '#111827' }}>
               We rekenen 10% commissie op de besparingen die je maakt. Als je €50 bespaart, betaal je €5.
             </p>
           )}
@@ -700,7 +700,7 @@ export default function HomePage() {
             Hoe werkt het?
           </div>
           {faqOpen === 3 && (
-            <p style={{ marginTop: '12px', color: '#374151' }}>
+            <p style={{ marginTop: '12px', color: '#111827' }}>
               1. Scan QR code op product. 2. We scannen 1000+ winkels. 3. Je ziet de beste 3 deals. Simpel!
             </p>
           )}
