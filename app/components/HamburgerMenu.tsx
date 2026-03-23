@@ -34,7 +34,8 @@ import {
   Package,
   Wallet,
   Star,
-  TrendingUp
+  TrendingUp,
+  EyeOff
 } from 'lucide-react'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
 import { getDeviceId } from '../_lib/utils'
@@ -312,7 +313,7 @@ export default function HamburgerMenu() {
         overflowY: 'auto',
         boxShadow: '-4px 0 16px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ padding: '60px 24px 48px 24px' }}>
+        <div style={{ padding: '60px 24px 120px 24px' }}>
           {/* PAKKETTEN Section */}
           <div style={{ marginBottom: '32px' }}>
             <div style={{
@@ -560,7 +561,7 @@ export default function HamburgerMenu() {
                 justifyContent: 'space-between'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '20px' }}>👁️‍🗨️</span>
+                  <EyeOff size={20} strokeWidth={2} color="#15803d" />
                   <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>Ghost Mode</span>
                 </div>
                 <span style={{ fontSize: '18px', color: '#111827', transition: 'transform 0.3s ease', transform: showGhostModeInfo ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
