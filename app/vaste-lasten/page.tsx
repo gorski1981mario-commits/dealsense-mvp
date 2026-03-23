@@ -36,7 +36,7 @@ export default function VasteLastenPage() {
         Vaste lasten configurators
       </h1>
       
-      <p style={{ fontSize: '16px', color: '#374151', marginBottom: '16px', lineHeight: '1.6' }}>
+      <p style={{ fontSize: '16px', color: '#111827', marginBottom: '16px', lineHeight: '1.6' }}>
         Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.
       </p>
 
@@ -91,7 +91,7 @@ export default function VasteLastenPage() {
                 </div>
               </div>
             </div>
-            <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>
+            <p style={{ fontSize: '13px', color: '#111827', margin: 0 }}>
               {config.desc}
             </p>
           </Link>
