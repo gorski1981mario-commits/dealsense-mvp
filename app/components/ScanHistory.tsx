@@ -58,8 +58,8 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
           <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>
             Scan Geschiedenis
           </div>
-          <div style={{ fontSize: '12px', color: '#64748b' }}>
-            {scans.length} scans • €{totalSavings.toFixed(2)} totaal bespaard
+          <div style={{ fontSize: '12px' }}>
+            <span style={{ color: '#3b82f6', fontWeight: 600 }}>{scans.length} scans</span> • <span style={{ color: '#15803d', fontWeight: 600 }}>€{totalSavings.toFixed(2)} totaal bespaard</span>
           </div>
         </div>
         <div style={{
@@ -87,7 +87,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '4px', color: '#1e1e1e' }}>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#3b82f6' }}>
                   {scan.category}
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748b' }}>

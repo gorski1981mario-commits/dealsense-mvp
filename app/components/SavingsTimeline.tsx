@@ -82,12 +82,12 @@ export default function SavingsTimelineComponent({ ean, currentPrice }: SavingsT
           <div>€{analysis.currentPrice.toFixed(2)}</div>
         </div>
         <div style={{ fontSize: '12px', color: '#6b7280' }}>
-          <div style={{ fontWeight: 600, color: '#374151' }}>Gemiddelde</div>
-          <div>€{analysis.averagePrice.toFixed(2)}</div>
+          <div style={{ fontWeight: 600, color: '#111827' }}>Gemiddelde</div>
+          <div style={{ color: '#111827', fontWeight: 600 }}>€{analysis.averagePrice.toFixed(2)}</div>
         </div>
         <div style={{ fontSize: '12px', color: '#6b7280' }}>
           <div style={{ fontWeight: 600, color: '#374151' }}>Laagste</div>
-          <div style={{ color: '#16a34a' }}>€{analysis.lowestPrice.toFixed(2)}</div>
+          <div style={{ color: '#15803d', fontWeight: 600 }}>€{analysis.lowestPrice.toFixed(2)}</div>
         </div>
         <div style={{ fontSize: '12px', color: '#6b7280' }}>
           <div style={{ fontWeight: 600, color: '#374151' }}>Hoogste</div>

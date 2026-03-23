@@ -437,8 +437,8 @@ export default function SettingsPage() {
             </div>
             {userPackage === 'free' && (
               <>
-                <div style={{ fontSize: '13px', color: '#6B7280', marginBottom: '12px' }}>
-                  Scans: {scansUsed}/3 gebruikt
+                <div style={{ fontSize: '13px', marginBottom: '12px' }}>
+                  <span style={{ color: '#111827' }}>Scans: </span><span style={{ color: '#3b82f6', fontWeight: 600 }}>{scansUsed}/3</span><span style={{ color: '#111827' }}> gebruikt</span>
                 </div>
                 <button 
                   onClick={() => router.push('/packages')}

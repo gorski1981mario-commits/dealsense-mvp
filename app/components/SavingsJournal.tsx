@@ -64,7 +64,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
           €{summary.totalSavings.toFixed(2)}
         </div>
         <div style={{ fontSize: '13px', opacity: 0.9 }}>
-          {summary.purchaseCount} {summary.purchaseCount === 1 ? 'aankoop' : 'aankopen'}
+          <span style={{ fontWeight: 600 }}>{summary.purchaseCount}</span> {summary.purchaseCount === 1 ? 'aankoop' : 'aankopen'}
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
         <div style={{ fontSize: '13px', color: '#111827', fontWeight: 600 }}>
           Totaal bespaard (altijd)
         </div>
-        <div style={{ fontSize: '16px', fontWeight: 700, color: '#16a34a' }}>
+        <div style={{ fontSize: '16px', fontWeight: 700, color: '#15803d' }}>
           €{totalSavings.toFixed(2)}
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
           <div style={{ fontSize: '14px', fontWeight: 600, color: '#713f12', marginBottom: '2px' }}>
             {summary.biggestSaving.productName}
           </div>
-          <div style={{ fontSize: '13px', color: '#854d0e' }}>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#15803d' }}>
             €{summary.biggestSaving.savings.toFixed(2)} bespaard
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function SavingsJournalComponent({ userId }: SavingsJournalProps)
               <div style={{ 
                 fontSize: '14px', 
                 fontWeight: 700, 
-                color: '#16a34a',
+                color: '#15803d',
                 textAlign: 'right'
               }}>
                 €{entry.savings.toFixed(2)}
