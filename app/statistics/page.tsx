@@ -52,7 +52,7 @@ export default function StatisticsPage() {
               marginBottom: '12px'
             }}>
               <TrendingDown size={20} color="#15803d" />
-              <div style={{ fontSize: '14px', color: '#6B7280' }}>Totale besparing</div>
+              <div style={{ fontSize: '14px', color: '#111827', fontWeight: 500 }}>Totale besparing</div>
             </div>
             <div style={{ fontSize: '28px', fontWeight: 700, color: '#15803d' }}>
               €{totalSavings.toFixed(2)}
@@ -69,10 +69,10 @@ export default function StatisticsPage() {
               gap: '12px',
               marginBottom: '12px'
             }}>
-              <ShoppingBag size={20} color="#6B7280" />
-              <div style={{ fontSize: '14px', color: '#6B7280' }}>Aantal scans</div>
+              <ShoppingBag size={20} color="#3b82f6" />
+              <div style={{ fontSize: '14px', color: '#111827', fontWeight: 500 }}>Aantal scans</div>
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>{totalScans}</div>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: '#3b82f6' }}>{totalScans}</div>
           </div>
 
           {/* Avg Savings */}
@@ -85,8 +85,8 @@ export default function StatisticsPage() {
               gap: '12px',
               marginBottom: '12px'
             }}>
-              <BarChart3 size={20} color="#6B7280" />
-              <div style={{ fontSize: '14px', color: '#6B7280' }}>Gem. besparing</div>
+              <BarChart3 size={20} color="#111827" />
+              <div style={{ fontSize: '14px', color: '#111827', fontWeight: 500 }}>Gem. besparing</div>
             </div>
             <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827' }}>
               €{avgSavings.toFixed(2)}
@@ -110,7 +110,7 @@ export default function StatisticsPage() {
             alignItems: 'center',
             gap: '8px'
           }}>
-            <Clock size={18} color="#6B7280" />
+            <Clock size={18} color="#111827" />
             Recente activiteit
           </div>
 
