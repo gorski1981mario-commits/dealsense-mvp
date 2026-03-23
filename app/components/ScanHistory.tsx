@@ -35,10 +35,10 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
         textAlign: 'center'
       }}>
         <div style={{ fontSize: '48px', marginBottom: '12px' }}>📊</div>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px', color: '#1e1e1e' }}>
+        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '6px', color: '#111827' }}>
           Nog geen scans
         </div>
-        <div style={{ fontSize: '13px', color: '#64748b' }}>
+        <div style={{ fontSize: '13px', color: '#111827' }}>
           Start met scannen om je geschiedenis te zien
         </div>
       </div>

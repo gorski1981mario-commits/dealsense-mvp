@@ -280,10 +280,10 @@ export default function HomePage() {
             marginBottom: '8px',
             background: '#f1f5f9',
             cursor: 'not-allowed',
-            color: '#64748b'
+            color: '#111827'
           }}
         />
-        <div style={{ fontSize: '11px', color: '#6B7280', marginBottom: '16px' }}>
+        <div style={{ fontSize: '11px', color: '#111827', marginBottom: '16px' }}>
           ⚠️ Niet ondersteund: voedsel en tweedehands/refurbished producten
         </div>
 
@@ -308,7 +308,7 @@ export default function HomePage() {
             marginBottom: '16px',
             background: '#f1f5f9',
             cursor: 'not-allowed',
-            color: '#64748b'
+            color: '#111827'
           }}
         />
 
@@ -333,7 +333,7 @@ export default function HomePage() {
             marginBottom: '16px',
             background: '#f1f5f9',
             cursor: 'not-allowed',
-            color: '#64748b'
+            color: '#111827'
           }}
         />
 
@@ -491,7 +491,7 @@ export default function HomePage() {
               <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
                 🍪 We gebruiken cookies
               </div>
-              <div style={{ fontSize: '12px', color: '#64748b' }}>
+              <div style={{ fontSize: '12px', color: '#111827' }}>
                 Voor een betere ervaring. Alleen noodzakelijke cookies.
               </div>
             </div>
@@ -538,14 +538,14 @@ export default function HomePage() {
             <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px', color: '#111827' }}>
               Welkom bij DealSense!
             </h2>
-            <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>
+            <p style={{ fontSize: '14px', color: '#111827', marginBottom: '24px' }}>
               3 gratis scans om te proberen
             </p>
 
             {/* Terms Acceptance Box - Updated colors */}
             <div style={{
               background: '#F7F9F8',
-              border: '1px solid #E5E7EB',
+              border: '2px solid #1e40af',
               borderRadius: '12px',
               padding: '16px',
               marginBottom: '20px',
@@ -569,7 +569,7 @@ export default function HomePage() {
                     accentColor: '#15803d'
                   }}
                 />
-                <span style={{ fontSize: '13px', color: '#374151', lineHeight: '1.5' }}>
+                <span style={{ fontSize: '13px', color: '#111827', lineHeight: '1.5' }}>
                   Ik ga akkoord met de{' '}
                   <a href="/voorwaarden" target="_blank" style={{ color: '#15803d', textDecoration: 'underline' }}>
                     Algemene Voorwaarden

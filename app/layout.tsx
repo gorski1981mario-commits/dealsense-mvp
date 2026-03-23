@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             maxWidth: '1200px',
             margin: '0 auto',
             fontSize: '14px',
-            color: '#6B7280'
+            color: '#111827'
           }}>
             © 2026 DealSense.nl | {' '}
             <a href="/voorwaarden" style={{ color: '#15803d', textDecoration: 'none' }}>

@@ -73,12 +73,12 @@ export default function VeiligheidPage() {
         padding: '20px',
         background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
         borderRadius: '12px',
-        border: '1px solid #93c5fd'
+        border: '2px solid #1e40af'
       }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px', color: '#1e40af' }}>
           ✓ Jouw gegevens zijn veilig bij ons
         </div>
-        <div style={{ fontSize: '13px', color: '#374151' }}>
+        <div style={{ fontSize: '13px', color: '#1e40af' }}>
           We gebruiken industry-standard encryptie en volgen alle Nederlandse en Europese privacywetten.
         </div>
       </div>

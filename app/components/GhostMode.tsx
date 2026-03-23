@@ -184,7 +184,7 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
         </>
       ) : (
         <>
-          <div style={{ fontSize: '13px', marginBottom: '16px', color: '#111827', opacity: 0.8 }}>
+          <div style={{ fontSize: '13px', marginBottom: '16px', color: '#111827' }}>
             Activeer Ghost Mode om prijzen automatisch te monitoren voor {durationLabel}.
           </div>
 
@@ -193,7 +193,8 @@ export default function GhostMode({ packageType, userId }: GhostModeProps) {
             background: isActive ? 'rgba(255,255,255,0.1)' : 'rgba(37,139,82,0.08)',
             borderRadius: '8px',
             marginBottom: '16px',
-            fontSize: '12px'
+            fontSize: '12px',
+            color: '#111827'
           }}>
             <div style={{ marginBottom: '6px' }}>✓ Automatische prijsupdates</div>
             <div style={{ marginBottom: '6px' }}>✓ Notificaties bij prijsdalingen</div>
