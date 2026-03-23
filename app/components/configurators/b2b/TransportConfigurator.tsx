@@ -19,7 +19,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 
 export default function TransportConfigurator({ packageType = 'zakelijk', userId }: TransportConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
-  const [formData, setFormData] = useState({ type: '', route: '', cargo: '', weight: '', frequency: '', delivery: '', paymentTerms: 'net30', urgency: 'standard' })
+  const [formData, setFormData] = useState({ type: '', brand: '', condition: '', quantity: '', route: '', cargo: '', weight: '', frequency: '', delivery: '', paymentTerms: 'net30', urgency: 'standard' })
   const [quoteData, setQuoteData] = useState<any>(null)
   
   const { isLocked, saving, configId, configTimestamp, handleLockConfiguration: lockConfig, handleUnlockConfiguration: unlockConfig, handleDownloadPDF: downloadPDF } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'transport-b2b' })
@@ -67,7 +67,7 @@ export default function TransportConfigurator({ packageType = 'zakelijk', userId
           <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '32px' }}>Vrachtwagens, trailers, heftrucks en containers</p>
           <div style={{ marginBottom: '24px' }}>
             {types.map((t) => (
-              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id, brand: '' })} style={{ padding: '16px', background: formData.type === t.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.type === t.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
+              <button key={t.id} onClick={() => setFormData({ ...formData, type: t.id })} style={{ padding: '16px', background: formData.type === t.id ? '#E6F4EE' : 'white', border: `2px solid ${formData.type === t.id ? '#1E7F5C' : '#e5e7eb'}`, borderRadius: '10px', cursor: 'pointer', marginBottom: '12px', width: '100%', textAlign: 'left', fontWeight: 600 }}>{t.name}</button>
             ))}
           </div>
           {selected && (

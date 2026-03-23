@@ -19,7 +19,7 @@ type ViewState = 'configurator' | 'results' | 'payment' | 'unlocked'
 
 export default function ToolsConfigurator({ packageType = 'zakelijk', userId }: ToolsConfiguratorProps = {}) {
   const [view, setView] = useState<ViewState>('configurator')
-  const [formData, setFormData] = useState({ category: '', brand: '', quantity: '', warranty: '', delivery: '', paymentTerms: 'net30', urgency: 'standard' })
+  const [formData, setFormData] = useState({ category: '', product: '', brand: '', quantity: '', warranty: '', delivery: '', paymentTerms: 'net30', urgency: 'standard' })
   const [quoteData, setQuoteData] = useState<any>(null)
 
   const { isLocked, saving, configId, configTimestamp, handleLockConfiguration: lockConfig, handleUnlockConfiguration: unlockConfig, handleDownloadPDF: downloadPDF } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'tools-b2b' })
