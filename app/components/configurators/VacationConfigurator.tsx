@@ -124,27 +124,12 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       await lockConfig(parameters)
     }
     
-    // Calculate check-out date
-    const checkOutDate = departureDate ? new Date(new Date(departureDate).getTime() + duration * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : ''
-    
-    // Search for vacation offers via Google Hotels API
+    // Search for vacation offers
     await search({
-      query: destination,
+      query: `${destination} vakantie ${duration} dagen ${adults} volwassenen ${children} kinderen ${stars} sterren ${board}`,
       category: 'vacation',
       packageType: pkg,
       userId: uid,
-      engine: 'google_hotels',
-      hotelParams: {
-        checkInDate: departureDate,
-        checkOutDate: checkOutDate,
-        adults: adults,
-        children: children,
-        childrenAges: childrenAges.join(','),
-        hotelClass: stars,
-        sortBy: filterType === 'goedkoopste' ? 'lowest_price' : (filterType === 'beste' ? 'highest_rating' : 'relevance'),
-        freeCancellation: extras.includes('free_cancellation'),
-        propertyType: accommodationType === 'hotel' ? 'hotel' : (accommodationType === 'apartment' ? 'vacation_rental' : '')
-      },
       metadata: { adults, children, destination, duration, stars, board, transport, accommodationType }
     })
     
