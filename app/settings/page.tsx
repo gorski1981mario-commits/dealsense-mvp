@@ -531,7 +531,7 @@ export default function SettingsPage() {
               {patternLockEnabled && (
                 <div style={{
                   padding: '8px 12px',
-                  background: '#f0fdf4',
+                  background: '#E6F4EE',
                   borderRadius: '6px',
                   fontSize: '12px',
                   color: '#15803d'
@@ -1564,6 +1564,7 @@ export default function SettingsPage() {
     </div>
   )
 }
+
 
 
 

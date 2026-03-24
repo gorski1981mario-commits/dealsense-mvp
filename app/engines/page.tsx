@@ -57,7 +57,7 @@ export default function EnginesOverviewPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+        background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
         borderRadius: '12px',
         border: '1px solid #86efac'
       }}>
@@ -75,6 +75,7 @@ export default function EnginesOverviewPage() {
     </div>
   )
 }
+
 
 
 

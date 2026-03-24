@@ -103,7 +103,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
               {scan.savings && scan.savings > 0 && (
                 <div style={{
                   padding: '4px 8px',
-                  background: '#dcfce7',
+                  background: '#E6F4EE',
                   color: '#15803d',
                   borderRadius: '6px',
                   fontSize: '12px',
@@ -184,6 +184,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
     </div>
   )
 }
+
 
 
 

@@ -140,7 +140,7 @@ export default function GrainConfigurator({ packageType = 'zakelijk', userId }: 
           <div style={{ background: 'white', borderRadius: '12px', padding: '20px', marginBottom: '20px' }}>
             <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#111827', marginBottom: '16px' }}>🏆 Top 5 Providers (Estimated Prices)</h3>
             {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} style={{ padding: '16px', background: i === 1 ? '#F0FDF4' : '#F9FAFB', border: `2px solid ${i === 1 ? '#15803D' : '#E5E7EB'}`, borderRadius: '10px', marginBottom: '12px' }}>
+              <div key={i} style={{ padding: '16px', background: i === 1 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 1 ? '#15803D' : '#E5E7EB'}`, borderRadius: '10px', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>{i === 1 ? '🥇' : i === 2 ? '🥈' : i === 3 ? '🥉' : '💎'} Provider #{i}</div>
@@ -879,3 +879,4 @@ export default function GrainConfigurator({ packageType = 'zakelijk', userId }: 
     </div>
   )
 }
+

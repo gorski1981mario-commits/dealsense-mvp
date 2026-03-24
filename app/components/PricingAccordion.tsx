@@ -150,7 +150,7 @@ export default function PricingAccordion() {
             key={pkg.id}
             onClick={() => togglePackage(pkg.id)}
             style={{
-              background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+              background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
               border: '2px solid #86efac',
               borderRadius: '12px',
               padding: '16px',
@@ -254,7 +254,7 @@ export default function PricingAccordion() {
                           transition: 'all 0.2s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#f0fdf4'
+                          e.currentTarget.style.background = '#E6F4EE'
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = 'white'
@@ -309,6 +309,7 @@ export default function PricingAccordion() {
     </div>
   )
 }
+
 
 
 

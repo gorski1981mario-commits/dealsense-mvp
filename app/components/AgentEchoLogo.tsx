@@ -4,7 +4,7 @@
 export default function AgentEchoLogo() {
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
       borderRadius: '8px',
       padding: '16px 20px',
       display: 'flex',
@@ -60,6 +60,7 @@ export default function AgentEchoLogo() {
     </div>
   )
 }
+
 
 
 

@@ -236,7 +236,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
         {adding && (
           <div style={{
             padding: '16px',
-            background: '#F0FDF4',
+            background: '#E6F4EE',
             borderRadius: '8px',
             border: '2px solid #15803d'
           }}>
@@ -376,6 +376,7 @@ export default function TrustedContacts({ currentUserId, onClose }: TrustedConta
     </div>
   )
 }
+
 
 
 

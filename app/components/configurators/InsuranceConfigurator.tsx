@@ -1437,7 +1437,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
       </form>
 
       {searching && (
-        <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center', marginTop: '20px' }}>
+        <div style={{ background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)', borderRadius: '12px', padding: '24px', textAlign: 'center', marginTop: '20px' }}>
           <div style={{ border: '4px solid #f3f3f3', borderTop: '4px solid #15803d', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }}></div>
           <p style={{ color: '#166534', fontSize: '15px' }}>Echo zoekt de beste verzekeringen voor je...</p>
         </div>
@@ -1446,6 +1446,7 @@ export default function InsuranceConfigurator({ packageType = 'pro', userId }: I
     </div>
   )
 }
+
 
 
 

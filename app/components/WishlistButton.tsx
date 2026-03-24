@@ -63,7 +63,7 @@ export default function WishlistButton({
     return (
       <div
         style={{
-          background: '#f0fdf4',
+          background: '#E6F4EE',
           border: '2px solid #86efac',
           borderRadius: '8px',
           padding: '12px',
@@ -154,3 +154,4 @@ export default function WishlistButton({
     </button>
   )
 }
+

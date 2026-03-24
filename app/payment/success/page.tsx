@@ -29,7 +29,7 @@ function PaymentSuccessContent() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -47,7 +47,7 @@ function PaymentSuccessContent() {
         <div style={{
           width: '80px',
           height: '80px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
@@ -116,7 +116,7 @@ function PaymentSuccessContent() {
 
         <div style={{
           padding: '16px',
-          background: '#dcfce7',
+          background: '#E6F4EE',
           borderRadius: '12px',
           fontSize: '13px',
           color: '#15803d',
@@ -187,6 +187,7 @@ export default function PaymentSuccessPage() {
     </Suspense>
   )
 }
+
 
 
 

@@ -29,7 +29,7 @@ export default function SavingsTimelineComponent({ ean, currentPrice }: SavingsT
 
   // Trend icon
   const trendIcon = analysis.trend === 'up' ? '📈' : analysis.trend === 'down' ? '📉' : '➡️'
-  const trendColor = analysis.trend === 'up' ? '#dc2626' : analysis.trend === 'down' ? '#16a34a' : '#6b7280'
+  const trendColor = analysis.trend === 'up' ? '#dc2626' : analysis.trend === 'down' ? '#15803d' : '#6b7280'
 
   return (
     <div
@@ -166,3 +166,4 @@ function renderSimpleChart(prices: number[], analysis: PriceAnalysis): string {
 
   return chart
 }
+

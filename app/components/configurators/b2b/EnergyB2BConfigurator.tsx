@@ -95,7 +95,7 @@ export default function EnergyB2BConfigurator({ packageType = 'zakelijk', userId
           <div style={{ background: 'white', borderRadius: '12px', padding: '20px', marginBottom: '20px' }}>
             <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#111827', marginBottom: '16px' }}>🏆 Top 5 Providers</h3>
             {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} style={{ padding: '16px', background: i === 1 ? '#F0FDF4' : '#F9FAFB', border: `2px solid ${i === 1 ? '#15803D' : '#E5E7EB'}`, borderRadius: '10px', marginBottom: '12px' }}>
+              <div key={i} style={{ padding: '16px', background: i === 1 ? '#E6F4EE' : '#F9FAFB', border: `2px solid ${i === 1 ? '#15803D' : '#E5E7EB'}`, borderRadius: '10px', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div><div style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>{i === 1 ? '🥇' : i === 2 ? '🥈' : i === 3 ? '🥉' : '💎'} Provider #{i}</div><div style={{ fontSize: '12px', color: '#6B7280' }}>Rating: {(9.4 - (i * 0.2)).toFixed(1)} ⭐</div></div>
                   <div style={{ textAlign: 'right' }}><div style={{ fontSize: '18px', fontWeight: 700, color: '#15803D' }}>€{(110000 - (i * 5000)).toLocaleString('nl-NL')}</div><div style={{ fontSize: '12px', color: '#6B7280' }}>Save €{(15000 - (i * 1000)).toLocaleString('nl-NL')}</div></div>
@@ -574,4 +574,5 @@ export default function EnergyB2BConfigurator({ packageType = 'zakelijk', userId
     </div>
   )
 }
+
 

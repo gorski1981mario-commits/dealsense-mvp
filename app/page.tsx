@@ -216,7 +216,7 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#E6F4EE',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
@@ -230,7 +230,7 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#E6F4EE',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
@@ -244,7 +244,7 @@ export default function HomePage() {
           alignItems: 'center',
           gap: '6px',
           padding: '10px 14px',
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#E6F4EE',
           border: '1px solid #86efac',
           borderRadius: '10px',
           fontSize: '13px',
@@ -449,7 +449,7 @@ export default function HomePage() {
               Je hebt 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen en slechts 9% commissie!
             </p>
             
-            <div style={{ marginBottom: '16px', padding: '12px', background: '#f0fdf4', borderRadius: '8px' }}>
+            <div style={{ marginBottom: '16px', padding: '12px', background: '#E6F4EE', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '4px' }}>
                 €19,99/maand
               </div>
@@ -615,7 +615,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: '#E6F4EE',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -639,7 +639,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: '#E6F4EE',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -663,7 +663,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: '#E6F4EE',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -687,7 +687,7 @@ export default function HomePage() {
           style={{
             marginBottom: '16px',
             padding: '16px',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: '#E6F4EE',
             border: '1px solid #86efac',
             borderRadius: '10px',
             cursor: 'pointer',
@@ -730,6 +730,7 @@ export default function HomePage() {
     </div>
   )
 }
+
 
 
 

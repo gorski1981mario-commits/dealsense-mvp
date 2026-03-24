@@ -199,3 +199,4 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
 }
 
 export default ScanForm
+

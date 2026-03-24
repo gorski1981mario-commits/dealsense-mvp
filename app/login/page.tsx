@@ -96,7 +96,7 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -201,7 +201,7 @@ export default function LoginPage() {
         {magicLinkSent && (
           <div style={{
             padding: '16px',
-            background: '#dcfce7',
+            background: '#E6F4EE',
             borderRadius: '8px',
             fontSize: '14px',
             color: '#15803d',
@@ -589,7 +589,7 @@ export default function LoginPage() {
         {resetLinkSent && (
           <div style={{
             padding: '16px',
-            background: '#dcfce7',
+            background: '#E6F4EE',
             borderRadius: '8px',
             fontSize: '14px',
             color: '#15803d',
@@ -717,6 +717,7 @@ export default function LoginPage() {
     </div>
   )
 }
+
 
 
 

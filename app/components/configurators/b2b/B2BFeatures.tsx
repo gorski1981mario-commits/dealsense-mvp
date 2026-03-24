@@ -99,7 +99,7 @@ export function VolumePricingTable({ tiers }: VolumePricingTableProps) {
                 <td style={{ padding: '12px' }}>
                   <span style={{ 
                     padding: '2px 8px', 
-                    background: tier.discount === '0%' ? '#F3F4F6' : '#DCFCE7', 
+                    background: tier.discount === '0%' ? '#F3F4F6' : '#E6F4EE', 
                     color: tier.discount === '0%' ? '#6B7280' : '#166534',
                     borderRadius: '4px',
                     fontSize: '12px',
@@ -163,7 +163,7 @@ interface ApprovalWorkflowDisplayProps {
 export function ApprovalWorkflowDisplay({ workflow, totalValue }: ApprovalWorkflowDisplayProps) {
   if (!workflow.required) {
     return (
-      <div style={{ background: '#DCFCE7', border: '1px solid #86EFAC', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
+      <div style={{ background: '#E6F4EE', border: '1px solid #86EFAC', borderRadius: '8px', padding: '12px', marginBottom: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '18px' }}>✅</span>
           <div>
@@ -234,7 +234,7 @@ export function BulkQuantityInput({ value, onChange, unit, minOrder, suggestions
             onClick={() => onChange(qty)}
             style={{
               padding: '4px 12px',
-              background: value === qty ? '#DCFCE7' : '#F3F4F6',
+              background: value === qty ? '#E6F4EE' : '#F3F4F6',
               border: value === qty ? '1px solid #15803D' : '1px solid #E5E7EB',
               borderRadius: '6px',
               fontSize: '12px',
@@ -258,7 +258,7 @@ interface PaymentTermsSelectorProps {
 
 export function PaymentTermsSelector({ value, onChange }: PaymentTermsSelectorProps) {
   const terms = [
-    { id: 'prepayment', label: 'Prepayment', discount: '3% discount', color: '#DCFCE7' },
+    { id: 'prepayment', label: 'Prepayment', discount: '3% discount', color: '#E6F4EE' },
     { id: 'net30', label: 'Net 30 days', discount: 'Standard', color: '#F3F4F6' },
     { id: 'net60', label: 'Net 60 days', discount: '+2% premium', color: '#FEF3C7' },
     { id: 'net90', label: 'Net 90 days', discount: '+4% premium', color: '#FEE2E2' }
@@ -333,3 +333,4 @@ export function UrgencySelector({ value, onChange }: UrgencySelectorProps) {
     </div>
   )
 }
+

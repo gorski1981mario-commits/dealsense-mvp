@@ -30,7 +30,7 @@ export default function LabWaScanPage() {
       <div style={{
         marginTop: '48px',
         padding: '20px',
-        background: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)',
+        background: 'linear-gradient(135deg, #E6F4EE 0%, #bbf7d0 100%)',
         borderRadius: '12px',
         border: '1px solid #86efac'
       }}>
@@ -44,6 +44,7 @@ export default function LabWaScanPage() {
     </div>
   )
 }
+
 
 
 

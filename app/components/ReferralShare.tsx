@@ -72,7 +72,7 @@ Of klik hier: ${shareUrl}
   return (
     <div style={{
       padding: '20px',
-      background: '#F0FDF4',
+      background: '#E6F4EE',
       borderRadius: '12px',
       border: '2px solid #15803d',
       marginTop: '20px'
@@ -262,6 +262,7 @@ Of klik hier: ${shareUrl}
     </div>
   )
 }
+
 
 
 

@@ -180,7 +180,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
               ))}
 
               <div style={{
-                background: '#f0fdf4',
+                background: '#E6F4EE',
                 borderRadius: '8px',
                 padding: '16px',
                 marginTop: '16px'
@@ -196,7 +196,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
                 style={{
                   width: '100%',
                   padding: '16px',
-                  background: analyzing ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)',
+                  background: analyzing ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
@@ -216,7 +216,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
       {/* Analyzing State */}
       {analyzing && (
         <div style={{
-          background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+          background: '#E6F4EE',
           borderRadius: '12px',
           padding: '32px',
           textAlign: 'center'
@@ -271,7 +271,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
           ))}
 
           <div style={{
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+            background: '#E6F4EE',
             borderRadius: '8px',
             padding: '20px',
             marginTop: '24px'
@@ -296,7 +296,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
           </div>
 
           <div style={{
-            background: '#f0fdf4',
+            background: '#E6F4EE',
             border: '1px solid #86efac',
             borderRadius: '8px',
             padding: '16px',
@@ -317,7 +317,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
             style={{
               width: '100%',
               padding: '18px',
-              background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)',
+              background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -341,6 +341,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
     </div>
   )
 }
+
 
 
 

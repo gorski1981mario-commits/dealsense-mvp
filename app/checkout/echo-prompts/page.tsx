@@ -36,7 +36,7 @@ function CheckoutContent() {
         
         <div style={{
           padding: '16px',
-          background: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)',
+          background: 'linear-gradient(135deg, #E6F4EE 0%, #bbf7d0 100%)',
           borderRadius: '12px',
           border: '1px solid #86efac',
           marginBottom: '16px'
@@ -97,6 +97,7 @@ export default function EchoPromptsCheckoutPage() {
     </Suspense>
   )
 }
+
 
 
 

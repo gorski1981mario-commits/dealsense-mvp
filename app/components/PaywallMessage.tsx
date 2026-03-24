@@ -59,7 +59,7 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
       border: '2px solid #86efac',
       borderRadius: '16px',
       padding: '32px',
@@ -130,6 +130,7 @@ export default function PaywallMessage({ currentPackage, requiredPackage, featur
     </div>
   )
 }
+
 
 
 

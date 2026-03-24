@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealSense Interactive Demo Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .demo-section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .demo-header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    
+    .demo-header p {
+      font-size: 16px;
+      color: #6b7280;
+    }
+    
+    /* Package Tabs */
+    .package-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .tab-button {
+      padding: 12px 24px;
+      border: 2px solid #e5e7eb;
+      background: white;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #6b7280;
+    }
+    
+    .tab-button:hover {
+      border-color: #15803d;
+      transform: translateY(-2px);
+    }
+    
+    .tab-button.active {
+      background: #15803d;
+      color: white;
+      border-color: #15803d;
+    }
+    
+    /* Demo Content */
+    .demo-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+      .demo-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Phone Mockup */
+    .phone-mockup {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      aspect-ratio: 9/19.5;
+      background: #1f2937;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #1f2937;
+      border-radius: 0 0 20px 20px;
+      z-index: 10;
+    }
+    
+    .screen-content {
+      padding: 40px 20px 20px;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    /* Steps */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideIn 0.5s ease forwards;
+    }
+    
+    .step:nth-child(1) { animation-delay: 0.1s; }
+    .step:nth-child(2) { animation-delay: 0.3s; }
+    .step:nth-child(3) { animation-delay: 0.5s; }
+    .step:nth-child(4) { animation-delay: 0.7s; }
+    
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .step-number {
+      min-width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #15803d, #16a34a);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+    }
+    
+    .step-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    
+    .step-content p {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+    
+    .step-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #dcfce7;
+      color: #15803d;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    /* Screen Animation */
+    .scan-animation {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .qr-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #15803d, #16a34a);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .scan-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    
+    .scan-subtext {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    .results-preview {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+    }
+    
+    .result-item {
+      padding: 8px;
+      background: white;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .price {
+      font-weight: 700;
+      color: #15803d;
+    }
+    
+    /* Package Features */
+    .package-features {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f0fdf4;
+      border-radius: 12px;
+      border: 2px solid #86efac;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #111827;
+    }
+    
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .feature-icon {
+      color: #15803d;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="demo-section">
+      <div class="demo-header">
+        <h2>🎬 Hoe werkt DealSense?</h2>
+        <p>Kies een pakket om te zien hoe het werkt</p>
+      </div>
+      
+      <!-- Package Tabs -->
+      <div class="package-tabs">
+        <button class="tab-button active" onclick="showPackage('free')">
+          FREE
+        </button>
+        <button class="tab-button" onclick="showPackage('plus')">
+          PLUS
+        </button>
+        <button class="tab-button" onclick="showPackage('pro')">
+          PRO
+        </button>
+        <button class="tab-button" onclick="showPackage('finance')">
+          FINANCE
+        </button>
+      </div>
+      
+      <!-- Demo Content -->
+      <div class="demo-content">
+        <!-- Phone Mockup -->
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="screen-content" id="screenContent">
+              <!-- Content will be injected by JS -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Steps -->
+        <div class="steps-container" id="stepsContainer">
+          <!-- Steps will be injected by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const packages = {
+      free: {
+        screen: `
+          <div class="scan-animation">
+            <div class="qr-icon">📱</div>
+            <div class="scan-text">Scan QR Code</div>
+            <div class="scan-subtext">Richt je camera op de barcode</div>
+            <div class="results-preview">
+              <div class="result-item">
+                <span>🥇 Beste deal</span>
+                <span class="price">€639</span>
+              </div>
+              <div class="result-item">
+                <span>🥈 2e beste</span>
+                <span class="price">€659</span>
+              </div>
+              <div class="result-item">
+                <span>🥉 3e beste</span>
+                <span class="price">€679</span>
+              </div>
+            </div>
+            <div class="package-features">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>3 gratis scans</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>10% commissie op besparingen</span>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            title: 'Scan de barcode',
+            description: 'Richt je camera op de QR code of barcode van het product',
+            badge: 'Gratis'
+          },
+          {
+            title: 'We scannen 1000+ winkels',
+            description: 'Binnen 10 seconden doorzoeken we alle Nederlandse webshops',
+            badge: 'Automatisch'
+          },
+          {
+            title: 'Top 3 deals verschijnen',
+            description: 'Je ziet direct de 3 beste prijzen met besparingen',
+            badge: 'Instant'
+          },
+          {
+            title: '3 gratis scans',
+            description: 'Probeer DealSense met 3 gratis scans. Daarna upgrade naar PLUS voor unlimited.',
+            badge: 'FREE pakket'
+          }
+        ]
+      },
+      plus: {
+        screen: `
+          <div class="scan-animation">
+            <div class="qr-icon">⚡</div>
+            <div class="scan-text">Unlimited Scans</div>
+            <div class="scan-subtext">Geen limiet meer!</div>
+            <div class="results-preview">
+              <div class="result-item">
+                <span>🥇 Beste deal</span>
+                <span class="price">€639</span>
+              </div>
+              <div class="result-item">
+                <span>🥈 2e beste</span>
+                <span class="price">€659</span>
+              </div>
+              <div class="result-item">
+                <span>🥉 3e beste</span>
+                <span class="price">€679</span>
+              </div>
+            </div>
+            <div class="package-features">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Unlimited scans</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Ghost Mode 24h</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>9% commissie</span>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            title: 'Unlimited scans',
+            description: 'Scan zoveel producten als je wilt - geen limiet meer!',
+            badge: '€19,99/mnd'
+          },
+          {
+            title: 'Ghost Mode 24h',
+            description: 'Activeer monitoring - we checken automatisch of de prijs daalt',
+            badge: 'Automatisch'
+          },
+          {
+            title: 'Lagere commissie',
+            description: 'Betaal slechts 9% commissie op besparingen (was 10%)',
+            badge: '9% commissie'
+          },
+          {
+            title: 'Snelle checks',
+            description: 'Perfect voor wie regelmatig producten vergelijkt en wil besparen',
+            badge: 'PLUS pakket'
+          }
+        ]
+      },
+      pro: {
+        screen: `
+          <div class="scan-animation">
+            <div class="qr-icon">🚀</div>
+            <div class="scan-text">PRO Features</div>
+            <div class="scan-subtext">Maximale besparingen</div>
+            <div class="results-preview">
+              <div class="result-item">
+                <span>🥇 Beste deal</span>
+                <span class="price">€639</span>
+              </div>
+              <div class="result-item">
+                <span>🥈 2e beste</span>
+                <span class="price">€659</span>
+              </div>
+              <div class="result-item">
+                <span>🥉 3e beste</span>
+                <span class="price">€679</span>
+              </div>
+            </div>
+            <div class="package-features">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Ghost Mode 48h</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>4 Configurators</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>9% commissie</span>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            title: 'Ghost Mode 48h',
+            description: 'Dubbele monitoring tijd - 48 uur automatische prijscontrole',
+            badge: '€29,99/mnd'
+          },
+          {
+            title: '4 Diensten Configurators',
+            description: 'Vakanties, Verzekeringen, Energie, Telecom - bespaar op alles',
+            badge: 'Exclusief'
+          },
+          {
+            title: 'Unlimited scans + 9%',
+            description: 'Alle PLUS features + extra configurators voor maximale besparing',
+            badge: '9% commissie'
+          },
+          {
+            title: 'Voor professionals',
+            description: 'Maximale features voor wie serieus wil besparen op alle fronten',
+            badge: 'PRO pakket'
+          }
+        ]
+      },
+      finance: {
+        screen: `
+          <div class="scan-animation">
+            <div class="qr-icon">💎</div>
+            <div class="scan-text">Complete Controle</div>
+            <div class="scan-subtext">Alle tools beschikbaar</div>
+            <div class="results-preview">
+              <div class="result-item">
+                <span>🥇 Beste deal</span>
+                <span class="price">€639</span>
+              </div>
+              <div class="result-item">
+                <span>🥈 2e beste</span>
+                <span class="price">€659</span>
+              </div>
+              <div class="result-item">
+                <span>🥉 3e beste</span>
+                <span class="price">€679</span>
+              </div>
+            </div>
+            <div class="package-features">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Ghost Mode 7 dagen</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>8 Configurators</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>9% commissie</span>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            title: 'Ghost Mode 7 dagen',
+            description: 'Hele week monitoring - maximale kans op prijsdalingen',
+            badge: '€39,99/mnd'
+          },
+          {
+            title: '8 Configurators (PRO + Finance)',
+            description: 'Hypotheek, Leasing, Lening, Creditcard + alle PRO configurators',
+            badge: 'Complete suite'
+          },
+          {
+            title: 'Bills Optimizer',
+            description: 'Automatische optimalisatie van al je vaste lasten',
+            badge: 'Exclusief'
+          },
+          {
+            title: 'Complete financiële controle',
+            description: 'Alle tools voor maximale controle over je uitgaven en besparingen',
+            badge: 'FINANCE pakket'
+          }
+        ]
+      }
+    };
+    
+    function showPackage(packageName) {
+      // Update active tab
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Get package data
+      const pkg = packages[packageName];
+      
+      // Update screen content
+      document.getElementById('screenContent').innerHTML = pkg.screen;
+      
+      // Update steps
+      const stepsHTML = pkg.steps.map((step, index) => `
+        <div class="step">
+          <div class="step-number">${index + 1}</div>
+          <div class="step-content">
+            <h3>${step.title}</h3>
+            <p>${step.description}</p>
+            <span class="step-badge">${step.badge}</span>
+          </div>
+        </div>
+      `).join('');
+      
+      document.getElementById('stepsContainer').innerHTML = stepsHTML;
+    }
+    
+    // Initialize with FREE package
+    showPackage('free');
+  </script>
+</body>
+</html>

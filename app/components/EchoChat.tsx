@@ -472,7 +472,7 @@ export default function EchoChat() {
           {messages.length === 0 && (
             <div style={{
               padding: '12px 16px',
-              background: 'linear-gradient(135deg, #E6F4EE 0%, #dcfce7 100%)',
+              background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
               borderBottom: '1px solid #86efac'
             }}>
               <div style={{ fontSize: '11px', color: '#111827', fontWeight: 600, marginBottom: '4px' }}>
@@ -688,6 +688,7 @@ export default function EchoChat() {
     </>
   )
 }
+
 
 
 

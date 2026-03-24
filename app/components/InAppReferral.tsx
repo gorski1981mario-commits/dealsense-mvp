@@ -262,7 +262,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
                     border: `2px solid ${selectedUser?.id === user.id ? '#15803d' : '#E5E7EB'}`,
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    background: selectedUser?.id === user.id ? '#F0FDF4' : 'white',
+                    background: selectedUser?.id === user.id ? '#E6F4EE' : 'white',
                     transition: 'all 0.2s'
                   }}
                 >
@@ -350,6 +350,7 @@ export default function InAppReferral({ currentUserId, currentUserPackage, onClo
     </div>
   )
 }
+
 
 
 

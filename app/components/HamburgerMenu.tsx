@@ -421,7 +421,7 @@ export default function HamburgerMenu() {
                   padding: '10px 16px',
                   borderRadius: '8px',
                   cursor: 'pointer',
-                  background: showDienstenInfo ? '#F0FDF4' : 'transparent'
+                  background: showDienstenInfo ? '#E6F4EE' : 'transparent'
                 }}
               >
                 <ListChecks size={18} color="#111827" strokeWidth={2} />
@@ -579,6 +579,7 @@ export default function HamburgerMenu() {
     </>
   )
 }
+
 
 
 

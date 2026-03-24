@@ -252,7 +252,7 @@ export default function Scanner({ type }: ScannerProps) {
     <div style={{
       marginTop: '24px',
       padding: '20px',
-      background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+      background: '#E6F4EE',
       borderRadius: '12px',
       border: '1px solid #86efac'
     }}>
@@ -299,7 +299,7 @@ export default function Scanner({ type }: ScannerProps) {
                   fontSize: '14px',
                   marginBottom: '12px',
                   boxSizing: 'border-box',
-                  background: autoFilled ? '#f0fdf4' : 'white'
+                  background: autoFilled ? '#E6F4EE' : 'white'
                 }}
               />
               
@@ -308,7 +308,7 @@ export default function Scanner({ type }: ScannerProps) {
                 <div style={{
                   marginBottom: '12px',
                   padding: '12px',
-                  background: '#dcfce7',
+                  background: '#E6F4EE',
                   borderRadius: '8px',
                   fontSize: '13px',
                   color: '#166534'
@@ -419,7 +419,7 @@ export default function Scanner({ type }: ScannerProps) {
         <div style={{
           marginTop: '12px',
           padding: '12px',
-          background: '#dcfce7',
+          background: '#E6F4EE',
           borderRadius: '8px',
           fontSize: '13px',
           color: '#166534'
@@ -453,7 +453,7 @@ export default function Scanner({ type }: ScannerProps) {
               style={{
                 marginBottom: '12px',
                 padding: '12px',
-                background: index === 0 ? '#dcfce7' : 'white',
+                background: index === 0 ? '#E6F4EE' : 'white',
                 border: index === 0 ? '2px solid #86efac' : '1px solid #e5e7eb',
                 borderRadius: '8px'
               }}
@@ -553,7 +553,7 @@ export default function Scanner({ type }: ScannerProps) {
                 style={{
                   marginBottom: '12px',
                   padding: '12px',
-                  background: isSelected ? '#f0fdf4' : '#f9fafb',
+                  background: isSelected ? '#E6F4EE' : '#f9fafb',
                   border: isSelected ? '2px solid #86efac' : '1px solid #e5e7eb',
                   borderRadius: '8px'
                 }}
@@ -640,7 +640,7 @@ export default function Scanner({ type }: ScannerProps) {
             <div style={{
               marginTop: '12px',
               padding: '12px',
-              background: '#dcfce7',
+              background: '#E6F4EE',
               borderRadius: '6px',
               textAlign: 'center'
             }}>
@@ -689,6 +689,7 @@ export default function Scanner({ type }: ScannerProps) {
     </div>
   )
 }
+
 
 
 

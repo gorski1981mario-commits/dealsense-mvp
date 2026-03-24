@@ -45,3 +45,4 @@ export default function SocialProofBadge({ ean }: SocialProofBadgeProps) {
     </div>
   )
 }
+

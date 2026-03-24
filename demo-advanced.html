@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealSense Advanced Demo - Full Features</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .demo-section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .demo-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    
+    .demo-header p {
+      font-size: 18px;
+      color: #6b7280;
+    }
+    
+    /* Package Tabs */
+    .package-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .tab-button {
+      padding: 14px 28px;
+      border: 2px solid #e5e7eb;
+      background: white;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #6b7280;
+      position: relative;
+    }
+    
+    .tab-button:hover {
+      border-color: #15803d;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2);
+    }
+    
+    .tab-button.active {
+      background: #15803d;
+      color: white;
+      border-color: #15803d;
+      box-shadow: 0 6px 20px rgba(21, 128, 61, 0.3);
+    }
+    
+    .tab-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    
+    /* Demo Content */
+    .demo-content {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+    
+    @media (max-width: 1024px) {
+      .demo-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Phone Mockup */
+    .phone-mockup {
+      position: sticky;
+      top: 20px;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      aspect-ratio: 9/19.5;
+      background: linear-gradient(145deg, #1f2937, #111827);
+      border-radius: 45px;
+      padding: 14px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+    }
+    
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #f9fafb;
+      border-radius: 35px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 28px;
+      background: #111827;
+      border-radius: 0 0 24px 24px;
+      z-index: 10;
+    }
+    
+    .screen-content {
+      padding: 45px 20px 20px;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    /* Screen Header */
+    .screen-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .screen-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    
+    .screen-header .package-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #15803d;
+      color: white;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    
+    /* Scan Animation */
+    .scan-animation {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .qr-scanner {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #15803d, #16a34a);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      animation: scanPulse 2s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .qr-scanner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.8);
+      animation: scanLine 2s ease-in-out infinite;
+    }
+    
+    @keyframes scanPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(21, 128, 61, 0); }
+    }
+    
+    @keyframes scanLine {
+      0% { top: 0; left: -100%; }
+      50% { top: 50%; left: 100%; }
+      100% { top: 100%; left: 100%; }
+    }
+    
+    .scan-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    
+    .scan-subtext {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    /* Ghost Mode Toggle */
+    .ghost-mode-section {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .ghost-mode-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .ghost-mode-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 28px;
+      background: #d1d5db;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .toggle-switch.active {
+      background: #15803d;
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .toggle-switch.active::after {
+      left: 25px;
+    }
+    
+    .ghost-mode-info {
+      font-size: 12px;
+      color: #15803d;
+      line-height: 1.5;
+    }
+    
+    .ghost-mode-timer {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: white;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #15803d;
+      margin-top: 8px;
+    }
+    
+    /* Echo Agent */
+    .echo-agent-section {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #93c5fd;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .echo-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .echo-avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    
+    .echo-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+    }
+    
+    .echo-message {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #111827;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      position: relative;
+      animation: messageSlide 0.5s ease;
+    }
+    
+    @keyframes messageSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .echo-typing {
+      display: flex;
+      gap: 4px;
+      padding: 8px;
+    }
+    
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: #3b82f6;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite;
+    }
+    
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+    }
+    
+    /* Results */
+    .results-section {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .results-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .result-item {
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .result-item:hover {
+      background: #f0fdf4;
+      transform: translateX(4px);
+    }
+    
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .result-rank {
+      font-size: 18px;
+      margin-right: 8px;
+    }
+    
+    .result-info {
+      flex: 1;
+    }
+    
+    .result-shop {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111827;
+    }
+    
+    .result-savings {
+      font-size: 10px;
+      color: #15803d;
+      font-weight: 600;
+    }
+    
+    .result-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #15803d;
+    }
+    
+    /* Configurators */
+    .configurators-section {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .configurators-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    
+    .config-card {
+      padding: 12px;
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .config-card:hover {
+      border-color: #15803d;
+      background: #f0fdf4;
+      transform: translateY(-2px);
+    }
+    
+    .config-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    
+    .config-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #111827;
+    }
+    
+    /* Steps Section */
+    .steps-section {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .step-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: stepSlide 0.6s ease forwards;
+    }
+    
+    .step-card:nth-child(1) { animation-delay: 0.1s; }
+    .step-card:nth-child(2) { animation-delay: 0.2s; }
+    .step-card:nth-child(3) { animation-delay: 0.3s; }
+    .step-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    @keyframes stepSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .step-number {
+      min-width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #15803d, #16a34a);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 22px;
+      box-shadow: 0 6px 16px rgba(21, 128, 61, 0.3);
+    }
+    
+    .step-title {
+      flex: 1;
+    }
+    
+    .step-title h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    
+    .step-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #dcfce7;
+      color: #15803d;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    .step-description {
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    
+    .step-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .feature-tag {
+      padding: 6px 12px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #15803d;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="demo-section">
+      <div class="demo-header">
+        <h2>🎬 Volledige DealSense Demo</h2>
+        <p>Zie alle features in actie - kies een pakket</p>
+      </div>
+      
+      <!-- Package Tabs -->
+      <div class="package-tabs">
+        <button class="tab-button active" onclick="showPackage('free')">
+          FREE
+          <span class="tab-badge">3 scans</span>
+        </button>
+        <button class="tab-button" onclick="showPackage('plus')">
+          PLUS
+          <span class="tab-badge">€19,99</span>
+        </button>
+        <button class="tab-button" onclick="showPackage('pro')">
+          PRO
+          <span class="tab-badge">€29,99</span>
+        </button>
+        <button class="tab-button" onclick="showPackage('finance')">
+          FINANCE
+          <span class="tab-badge">€39,99</span>
+        </button>
+      </div>
+      
+      <!-- Demo Content -->
+      <div class="demo-content">
+        <!-- Phone Mockup -->
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="screen-content" id="screenContent">
+              <!-- Content injected by JS -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Steps -->
+        <div class="steps-section" id="stepsSection">
+          <!-- Steps injected by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const packages = {
+      free: {
+        screen: `
+          <div class="screen-header">
+            <h3>DealSense</h3>
+            <span class="package-badge">FREE</span>
+          </div>
+          
+          <div class="scan-animation">
+            <div class="qr-scanner">📱</div>
+            <div class="scan-text">Scan QR Code</div>
+            <div class="scan-subtext">Richt camera op barcode</div>
+          </div>
+          
+          <div class="results-section">
+            <div class="results-header">
+              <span>🎯</span>
+              <span>Top 3 Deals Gevonden</span>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥇</span>
+              <div class="result-info">
+                <div class="result-shop">Coolblue</div>
+                <div class="result-savings">€361 bespaard</div>
+              </div>
+              <div class="result-price">€639</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥈</span>
+              <div class="result-info">
+                <div class="result-shop">MediaMarkt</div>
+                <div class="result-savings">€341 bespaard</div>
+              </div>
+              <div class="result-price">€659</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥉</span>
+              <div class="result-info">
+                <div class="result-shop">Bol.com</div>
+                <div class="result-savings">€321 bespaard</div>
+              </div>
+              <div class="result-price">€679</div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            number: 1,
+            title: 'Scan de barcode',
+            badge: 'Gratis',
+            description: 'Open DealSense, richt je camera op de QR code of barcode van het product. Binnen seconden wordt het product herkend.',
+            features: ['Instant herkenning', '1000+ winkels', 'Real-time prijzen']
+          },
+          {
+            number: 2,
+            title: 'Top 3 deals verschijnen',
+            badge: 'Automatisch',
+            description: 'We scannen alle Nederlandse webshops en tonen direct de 3 beste prijzen met besparingen ten opzichte van de hoogste prijs.',
+            features: ['Beste 3 deals', 'Besparing zichtbaar', 'Direct kopen']
+          },
+          {
+            number: 3,
+            title: '10% commissie op besparing',
+            badge: 'Fair pricing',
+            description: 'Betaal alleen als je bespaart. Bij €361 besparing betaal je €36 commissie. Geen besparing = geen kosten.',
+            features: ['Pay per saving', 'Transparant', 'No hidden fees']
+          },
+          {
+            number: 4,
+            title: '3 gratis scans om te proberen',
+            badge: 'FREE pakket',
+            description: 'Test DealSense met 3 gratis scans. Daarna upgrade naar PLUS (€19,99/mnd) voor unlimited scans en 9% commissie.',
+            features: ['3 free scans', 'No credit card', 'Instant start']
+          }
+        ]
+      },
+      plus: {
+        screen: `
+          <div class="screen-header">
+            <h3>DealSense</h3>
+            <span class="package-badge">PLUS</span>
+          </div>
+          
+          <div class="scan-animation">
+            <div class="qr-scanner">⚡</div>
+            <div class="scan-text">Unlimited Scans</div>
+            <div class="scan-subtext">Geen limiet meer!</div>
+          </div>
+          
+          <div class="ghost-mode-section">
+            <div class="ghost-mode-header">
+              <div class="ghost-mode-title">
+                <span>👻</span>
+                <span>Ghost Mode</span>
+              </div>
+              <div class="toggle-switch active"></div>
+            </div>
+            <div class="ghost-mode-info">
+              We monitoren de prijs 24 uur lang. Als de prijs daalt, krijg je direct een notificatie.
+            </div>
+            <div class="ghost-mode-timer">
+              ⏱️ 23:45:12 remaining
+            </div>
+          </div>
+          
+          <div class="echo-agent-section">
+            <div class="echo-header">
+              <div class="echo-avatar">🤖</div>
+              <div class="echo-name">Echo Agent</div>
+            </div>
+            <div class="echo-message">
+              Ik zie dat Coolblue €639 vraagt voor iPhone 15 Pro. Dit is €361 goedkoper dan de hoogste prijs!
+            </div>
+            <div class="echo-message">
+              💡 Tip: Activeer Ghost Mode voor 24h monitoring. Als de prijs daalt, stuur ik je een notificatie.
+            </div>
+            <div class="echo-typing">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+          
+          <div class="results-section">
+            <div class="results-header">
+              <span>🎯</span>
+              <span>Top 3 Deals</span>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥇</span>
+              <div class="result-info">
+                <div class="result-shop">Coolblue</div>
+                <div class="result-savings">€361 bespaard</div>
+              </div>
+              <div class="result-price">€639</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥈</span>
+              <div class="result-info">
+                <div class="result-shop">MediaMarkt</div>
+                <div class="result-savings">€341 bespaard</div>
+              </div>
+              <div class="result-price">€659</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥉</span>
+              <div class="result-info">
+                <div class="result-shop">Bol.com</div>
+                <div class="result-savings">€321 bespaard</div>
+              </div>
+              <div class="result-price">€679</div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            number: 1,
+            title: 'Unlimited scans',
+            badge: '€19,99/mnd',
+            description: 'Scan zoveel producten als je wilt. Geen limiet meer - perfect voor wie regelmatig online winkelt en wil besparen.',
+            features: ['Unlimited scans', 'No restrictions', 'Cancel anytime']
+          },
+          {
+            number: 2,
+            title: 'Ghost Mode 24h monitoring',
+            badge: 'Automatisch',
+            description: 'Activeer Ghost Mode met één klik. We monitoren de prijs 24 uur lang en sturen een notificatie als de prijs daalt.',
+            features: ['24h monitoring', 'Push notifications', 'Auto-check prijzen']
+          },
+          {
+            number: 3,
+            title: 'Echo Agent - AI assistent',
+            badge: 'Intelligent',
+            description: 'Echo Agent analyseert deals, geeft tips over beste koopmoment en waarschuwt voor prijsstijgingen.',
+            features: ['AI-powered tips', 'Deal analysis', 'Smart recommendations']
+          },
+          {
+            number: 4,
+            title: '9% commissie (was 10%)',
+            badge: 'PLUS voordeel',
+            description: 'Lagere commissie dan FREE. Bij €361 besparing betaal je €32 (was €36). Meer besparen, minder betalen.',
+            features: ['9% commissie', 'Meer besparen', 'Fair pricing']
+          }
+        ]
+      },
+      pro: {
+        screen: `
+          <div class="screen-header">
+            <h3>DealSense</h3>
+            <span class="package-badge">PRO</span>
+          </div>
+          
+          <div class="scan-animation">
+            <div class="qr-scanner">🚀</div>
+            <div class="scan-text">PRO Features</div>
+            <div class="scan-subtext">Maximale besparingen</div>
+          </div>
+          
+          <div class="ghost-mode-section">
+            <div class="ghost-mode-header">
+              <div class="ghost-mode-title">
+                <span>👻</span>
+                <span>Ghost Mode PRO</span>
+              </div>
+              <div class="toggle-switch active"></div>
+            </div>
+            <div class="ghost-mode-info">
+              Extended monitoring: 48 uur in plaats van 24h. Dubbele kans op prijsdalingen!
+            </div>
+            <div class="ghost-mode-timer">
+              ⏱️ 47:32:18 remaining
+            </div>
+          </div>
+          
+          <div class="echo-agent-section">
+            <div class="echo-header">
+              <div class="echo-avatar">🤖</div>
+              <div class="echo-name">Echo Agent PRO</div>
+            </div>
+            <div class="echo-message">
+              📊 Analyse: iPhone 15 Pro prijs is 36% onder marktgemiddelde. Uitstekend moment om te kopen!
+            </div>
+            <div class="echo-message">
+              🔮 Voorspelling: Prijs blijft stabiel komende 48h. Verwacht geen verdere daling.
+            </div>
+            <div class="echo-message">
+              💰 Tip: Check ook je Energie contract - ik zie €240/jaar besparing mogelijk!
+            </div>
+          </div>
+          
+          <div class="results-section">
+            <div class="results-header">
+              <span>🎯</span>
+              <span>Top 3 Deals</span>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥇</span>
+              <div class="result-info">
+                <div class="result-shop">Coolblue</div>
+                <div class="result-savings">€361 bespaard</div>
+              </div>
+              <div class="result-price">€639</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥈</span>
+              <div class="result-info">
+                <div class="result-shop">MediaMarkt</div>
+                <div class="result-savings">€341 bespaard</div>
+              </div>
+              <div class="result-price">€659</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥉</span>
+              <div class="result-info">
+                <div class="result-shop">Bol.com</div>
+                <div class="result-savings">€321 bespaard</div>
+              </div>
+              <div class="result-price">€679</div>
+            </div>
+          </div>
+          
+          <div class="configurators-section">
+            <div class="configurators-header">
+              🎛️ Diensten Configurators
+            </div>
+            <div class="config-grid">
+              <div class="config-card">
+                <div class="config-icon">✈️</div>
+                <div class="config-name">Vakanties</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">🛡️</div>
+                <div class="config-name">Verzekeringen</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">⚡</div>
+                <div class="config-name">Energie</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">📱</div>
+                <div class="config-name">Telecom</div>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            number: 1,
+            title: 'Ghost Mode 48h (dubbel)',
+            badge: '€29,99/mnd',
+            description: 'Extended monitoring - 48 uur in plaats van 24h. Dubbele kans op prijsdalingen en betere deal timing.',
+            features: ['48h monitoring', 'Dubbele kans', 'Extended tracking']
+          },
+          {
+            number: 2,
+            title: 'Echo Agent PRO - Advanced AI',
+            badge: 'Intelligent',
+            description: 'Geavanceerde AI analyse: prijsvoorspellingen, markttrends, beste koopmoment en cross-selling tips.',
+            features: ['Prijsvoorspelling', 'Marktanalyse', 'Smart tips']
+          },
+          {
+            number: 3,
+            title: '4 Diensten Configurators',
+            badge: 'Exclusief',
+            description: 'Bespaar niet alleen op producten maar ook op diensten: Vakanties, Verzekeringen, Energie, Telecom.',
+            features: ['Vakanties', 'Verzekeringen', 'Energie', 'Telecom']
+          },
+          {
+            number: 4,
+            title: 'Maximale besparingen',
+            badge: 'PRO pakket',
+            description: 'Alle PLUS features + 4 configurators + 48h Ghost Mode. Voor wie serieus wil besparen op alle fronten.',
+            features: ['All PLUS features', '9% commissie', 'Max savings']
+          }
+        ]
+      },
+      finance: {
+        screen: `
+          <div class="screen-header">
+            <h3>DealSense</h3>
+            <span class="package-badge">FINANCE</span>
+          </div>
+          
+          <div class="scan-animation">
+            <div class="qr-scanner">💎</div>
+            <div class="scan-text">Complete Suite</div>
+            <div class="scan-subtext">Alle tools beschikbaar</div>
+          </div>
+          
+          <div class="ghost-mode-section">
+            <div class="ghost-mode-header">
+              <div class="ghost-mode-title">
+                <span>👻</span>
+                <span>Ghost Mode FINANCE</span>
+              </div>
+              <div class="toggle-switch active"></div>
+            </div>
+            <div class="ghost-mode-info">
+              Maximum monitoring: 7 dagen (hele week). Maximale kans op beste deal!
+            </div>
+            <div class="ghost-mode-timer">
+              ⏱️ 6d 23:45:12 remaining
+            </div>
+          </div>
+          
+          <div class="echo-agent-section">
+            <div class="echo-header">
+              <div class="echo-avatar">🤖</div>
+              <div class="echo-name">Echo Agent FINANCE</div>
+            </div>
+            <div class="echo-message">
+              📊 Complete analyse: iPhone €639 + Hypotheek optimalisatie €2,400/jaar + Energie switch €240/jaar
+            </div>
+            <div class="echo-message">
+              💰 Totale besparing potentieel: €3,001/jaar across all services!
+            </div>
+            <div class="echo-message">
+              🎯 Prioriteit: Start met Hypotheek (€2,400/jaar) → hoogste impact!
+            </div>
+          </div>
+          
+          <div class="results-section">
+            <div class="results-header">
+              <span>🎯</span>
+              <span>Top 3 Deals</span>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥇</span>
+              <div class="result-info">
+                <div class="result-shop">Coolblue</div>
+                <div class="result-savings">€361 bespaard</div>
+              </div>
+              <div class="result-price">€639</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥈</span>
+              <div class="result-info">
+                <div class="result-shop">MediaMarkt</div>
+                <div class="result-savings">€341 bespaard</div>
+              </div>
+              <div class="result-price">€659</div>
+            </div>
+            <div class="result-item">
+              <span class="result-rank">🥉</span>
+              <div class="result-info">
+                <div class="result-shop">Bol.com</div>
+                <div class="result-savings">€321 bespaard</div>
+              </div>
+              <div class="result-price">€679</div>
+            </div>
+          </div>
+          
+          <div class="configurators-section">
+            <div class="configurators-header">
+              🎛️ Alle Configurators (8)
+            </div>
+            <div class="config-grid">
+              <div class="config-card">
+                <div class="config-icon">✈️</div>
+                <div class="config-name">Vakanties</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">🛡️</div>
+                <div class="config-name">Verzekeringen</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">⚡</div>
+                <div class="config-name">Energie</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">📱</div>
+                <div class="config-name">Telecom</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">🏠</div>
+                <div class="config-name">Hypotheek</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">🚗</div>
+                <div class="config-name">Leasing</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">💰</div>
+                <div class="config-name">Lening</div>
+              </div>
+              <div class="config-card">
+                <div class="config-icon">💳</div>
+                <div class="config-name">Creditcard</div>
+              </div>
+            </div>
+          </div>
+        `,
+        steps: [
+          {
+            number: 1,
+            title: 'Ghost Mode 7 dagen (maximum)',
+            badge: '€39,99/mnd',
+            description: 'Hele week monitoring - 7 dagen prijscontrole. Maximale kans op prijsdalingen en beste deal timing.',
+            features: ['7 dagen monitoring', 'Maximum tracking', 'Best deal guarantee']
+          },
+          {
+            number: 2,
+            title: 'Echo Agent FINANCE - Complete AI',
+            badge: 'Advanced',
+            description: 'Complete financiële analyse: cross-service optimalisatie, totale besparing berekening, prioritering van acties.',
+            features: ['Cross-service analyse', 'Total savings', 'Priority recommendations']
+          },
+          {
+            number: 3,
+            title: '8 Configurators (PRO + Finance)',
+            badge: 'Complete suite',
+            description: 'Alle PRO configurators + 4 finance tools: Hypotheek, Leasing, Lening, Creditcard. Complete financiële controle.',
+            features: ['8 configurators', 'Finance tools', 'Complete control']
+          },
+          {
+            number: 4,
+            title: 'Bills Optimizer',
+            badge: 'Exclusief',
+            description: 'Automatische optimalisatie van al je vaste lasten. Upload facturen, wij vinden betere deals voor alles.',
+            features: ['Auto-optimize', 'All bills', 'Max savings']
+          }
+        ]
+      }
+    };
+    
+    function showPackage(packageName) {
+      // Update active tab
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Get package data
+      const pkg = packages[packageName];
+      
+      // Update screen content with fade
+      const screenContent = document.getElementById('screenContent');
+      screenContent.style.opacity = '0';
+      setTimeout(() => {
+        screenContent.innerHTML = pkg.screen;
+        screenContent.style.opacity = '1';
+        
+        // Add toggle functionality
+        const toggle = screenContent.querySelector('.toggle-switch');
+        if (toggle) {
+          toggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+          });
+        }
+      }, 200);
+      
+      // Update steps with stagger animation
+      const stepsHTML = pkg.steps.map((step) => `
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">${step.number}</div>
+            <div class="step-title">
+              <h3>${step.title}</h3>
+              <span class="step-badge">${step.badge}</span>
+            </div>
+          </div>
+          <div class="step-description">${step.description}</div>
+          <div class="step-features">
+            ${step.features.map(f => `<span class="feature-tag">${f}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+      
+      const stepsSection = document.getElementById('stepsSection');
+      stepsSection.style.opacity = '0';
+      setTimeout(() => {
+        stepsSection.innerHTML = stepsHTML;
+        stepsSection.style.opacity = '1';
+      }, 200);
+    }
+    
+    // Initialize with FREE package
+    window.addEventListener('DOMContentLoaded', () => {
+      showPackage('free');
+    });
+    
+    // Add smooth transitions
+    document.getElementById('screenContent').style.transition = 'opacity 0.3s ease';
+    document.getElementById('stepsSection').style.transition = 'opacity 0.3s ease';
+  </script>
+</body>
+</html>
