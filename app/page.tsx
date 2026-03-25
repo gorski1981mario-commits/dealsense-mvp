@@ -341,28 +341,6 @@ export default function HomePage() {
           }}
         />
 
-        {/* Ghost Mode Toggle */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '12px', 
-          marginBottom: '16px',
-          padding: '12px',
-          background: '#f1f3f5',
-          borderRadius: '10px'
-        }}>
-          <input
-            type="checkbox"
-            id="ghostMode"
-            checked={ghostMode}
-            onChange={(e) => setGhostMode(e.target.checked)}
-            style={{ width: '20px', height: '20px', cursor: 'pointer' }}
-          />
-          <label htmlFor="ghostMode" style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
-            Ghost Mode (24 uur)
-          </label>
-        </div>
-
         <button 
           type="submit" 
           disabled={loading || scansRemaining === 0}
