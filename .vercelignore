@@ -16,6 +16,7 @@ server/market/b2b-*.js
 # Exclude other non-Next.js files
 *.html
 !app/**/*.html
+!public/googleebadb52b89b32072.html
 
 # Exclude development files
 .git/
