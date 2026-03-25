@@ -34,7 +34,6 @@ import {
   Package,
   Wallet,
   Star,
-  TrendingUp,
   EyeOff
 } from 'lucide-react'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
@@ -455,7 +454,10 @@ export default function HamburgerMenu() {
                   
                   <div>
                     <div style={{ fontWeight: 600, color: '#258b52', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <TrendingUp size={16} color="#258b52" strokeWidth={2} />
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#258b52" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 3v18h18"/>
+                        <path d="m19 9-5 5-4-4-3 3"/>
+                      </svg>
                       FINANCE Pakket:
                     </div>
                     <div style={{ color: '#374151', paddingLeft: '12px' }}>

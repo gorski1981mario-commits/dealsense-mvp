@@ -75,8 +75,39 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const isDisabled = loading || (packageType === 'free' && scansRemaining === 0)
 
   return (
-    <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
-      <label style={{
+    <>
+      {/* QR Scanner Button */}
+      <div style={{ marginBottom: '24px' }}>
+        <button
+          type="button"
+          onClick={() => {
+            // TODO: Open QR Scanner modal
+            console.log('QR Scanner clicked')
+          }}
+          style={{
+            width: '100%',
+            padding: '16px',
+            background: '#15803d',
+            color: 'white',
+            border: 'none',
+            borderRadius: '10px',
+            fontSize: '16px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px'
+          }}
+        >
+          <span style={{ fontSize: '20px' }}>📷</span>
+          Scan Barcode/QR
+        </button>
+      </div>
+
+      <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
+        <label style={{
         display: 'block',
         fontSize: '14px',
         fontWeight: 600,
@@ -195,6 +226,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
         {loading ? 'Scannen...' : packageType === 'free' && scansRemaining === 0 ? 'Upgrade voor meer scans' : 'Vergelijk prijzen'}
       </button>
     </form>
+    </>
   )
 }
 

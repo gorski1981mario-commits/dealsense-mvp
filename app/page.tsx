@@ -259,6 +259,35 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* QR Scanner Button */}
+      <div style={{ marginBottom: '24px' }}>
+        <button
+          onClick={() => {
+            // TODO: Open QR Scanner modal
+            console.log('QR Scanner clicked')
+          }}
+          style={{
+            width: '100%',
+            padding: '16px',
+            background: '#15803d',
+            color: 'white',
+            border: 'none',
+            borderRadius: '10px',
+            fontSize: '16px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px'
+          }}
+        >
+          <span style={{ fontSize: '20px' }}>📷</span>
+          Scan Barcode/QR
+        </button>
+      </div>
+
       {/* Scan Form */}
       <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
         <label style={{

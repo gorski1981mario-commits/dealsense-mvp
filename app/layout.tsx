@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
-import { Layers, CirclePlus, Star, TrendingUp } from 'lucide-react'
+import { Layers, CirclePlus, Star } from 'lucide-react'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -107,7 +107,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span>PRO</span>
           </a>
           <a href="/finance" className={`nav-item ${currentPackage === 'finance' ? 'active' : ''}`}>
-            <TrendingUp size={20} strokeWidth={2} />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="m19 9-5 5-4-4-3 3"/>
+            </svg>
             <span>FINANCE</span>
           </a>
         </nav>
