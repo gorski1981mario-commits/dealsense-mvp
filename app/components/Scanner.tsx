@@ -378,6 +378,27 @@ export default function Scanner({ type }: ScannerProps) {
                   Besparing: €{(basePrice - offer.price).toFixed(2)}
                 </div>
               )}
+              
+              {/* Stock Alert - URGENT when 1-3 items left */}
+              {offer.stock && offer.stock <= 3 && offer.stock > 0 && (
+                <div style={{
+                  marginBottom: '8px',
+                  padding: '8px',
+                  background: '#fef3c7',
+                  border: '2px solid #f59e0b',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: '#92400e',
+                  textAlign: 'center'
+                }}>
+                  ⚠️ LAATSTE {offer.stock} {offer.stock === 1 ? 'STUK' : 'STUKS'}!
+                  <div style={{ fontSize: '11px', fontWeight: 500, marginTop: '4px' }}>
+                    Koop nu voordat het uitverkocht is!
+                  </div>
+                </div>
+              )}
+              
               <button
                 onClick={() => handleAddToCart(offer)}
                 style={{
