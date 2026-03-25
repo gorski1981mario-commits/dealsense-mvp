@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard } from 'lucide-react'
+import Scanner from '../components/Scanner'
 import BiometricAuth from '../components/BiometricAuth'
-import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
 import BillsOptimizer from '../components/BillsOptimizer'
 import PaywallMessage from '../components/PaywallMessage'
-import ScanForm from '../components/ScanForm'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
@@ -106,11 +105,8 @@ export default function FinancePage() {
         Voor complete financiële controle. Alle tools, minimale commissie.
       </p>
 
-      {/* Ghost Mode */}
-      <GhostMode packageType="finance" userId={userId} />
-
-      {/* Scan Form */}
-      <ScanForm packageType="finance" />
+      {/* Scanner Component */}
+      <Scanner type="finance" />
 
       <div style={{
         marginTop: '24px',

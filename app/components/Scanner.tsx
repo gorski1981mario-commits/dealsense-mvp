@@ -370,14 +370,15 @@ export default function Scanner({ type }: ScannerProps) {
                 style={{
                   width: '100%',
                   padding: '12px',
-                  background: manualInput.trim() ? 'linear-gradient(135deg, #15803d 0%, #15803d 100%)' : '#d1d5db',
-                  color: 'white',
-                  border: 'none',
+                  background: manualInput.trim() ? '#15803d' : 'white',
+                  color: manualInput.trim() ? 'white' : '#15803d',
+                  border: '2px solid #15803d',
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontWeight: 600,
                   cursor: manualInput.trim() ? 'pointer' : 'not-allowed',
-                  boxShadow: manualInput.trim() ? '0 4px 6px rgba(21, 128, 61, 0.3)' : 'none'
+                  boxShadow: manualInput.trim() ? '0 4px 6px rgba(21, 128, 61, 0.3)' : 'none',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 {processing ? 'Zoeken...' : (autoFilled ? 'Vind goedkoper →' : 'Scan Product')}

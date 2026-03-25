@@ -1,11 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import ScanForm from '../components/ScanForm'
-import BiometricAuth from '../components/BiometricAuth'
-import GhostMode from '../components/GhostMode'
+import Scanner from '../components/Scanner'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
+import BiometricAuth from '../components/BiometricAuth'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 
@@ -84,11 +83,8 @@ export default function PlusPage() {
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
 
-      {/* Ghost Mode */}
-      <GhostMode packageType="plus" userId={userId} />
-
-      {/* Scan Form */}
-      <ScanForm packageType="plus" />
+      {/* Scanner Component */}
+      <Scanner type="plus" />
 
       <div style={{
         marginTop: '24px',

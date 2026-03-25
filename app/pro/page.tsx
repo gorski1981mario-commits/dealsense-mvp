@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone } from 'lucide-react'
+import Scanner from '../components/Scanner'
 import BiometricAuth from '../components/BiometricAuth'
-import GhostMode from '../components/GhostMode'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
 import PaywallMessage from '../components/PaywallMessage'
-import ScanForm from '../components/ScanForm'
 import { BiometricAuth as BiometricService } from '../_lib/biometric'
 import { getDeviceId } from '../_lib/utils'
 import { PackageType, hasConfiguratorAccess } from '../_lib/package-access'
@@ -106,11 +105,8 @@ export default function ProPage() {
       </p>
 
 
-      {/* Ghost Mode */}
-      <GhostMode packageType="pro" userId={userId} />
-
-      {/* Scan Form */}
-      <ScanForm packageType="pro" />
+      {/* Scanner Component */}
+      <Scanner type="pro" />
 
       <div style={{
         marginTop: '24px',
