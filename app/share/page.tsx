@@ -3,11 +3,11 @@
 // PWA Share Target Handler
 // Handles shared URLs from browser/apps (e.g., bol.com product page)
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { parseProductUrl } from '../_lib/urlParser'
 
-export default function SharePage() {
+function SharePageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [processing, setProcessing] = useState(true)
@@ -84,5 +84,28 @@ export default function SharePage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SharePage() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#f9fafb'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔄</div>
+          <div style={{ fontSize: '18px', fontWeight: 600, color: '#15803d' }}>
+            Laden...
+          </div>
+        </div>
+      </div>
+    }>
+      <SharePageContent />
+    </Suspense>
   )
 }
