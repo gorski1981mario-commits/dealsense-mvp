@@ -29,10 +29,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nl">
       <head>
-        <meta name="google-site-verification" content="NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#15803d" />
         <title>DealSense.nl – AI aankoop assistent</title>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Google Merchant Center verification
+              var meta = document.createElement('meta');
+              meta.name = 'google-site-verification';
+              meta.content = 'NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo';
+              document.head.appendChild(meta);
+            `
+          }}
+        />
         <script
           data-cfasync="false"
           data-wpfc-render="false"
