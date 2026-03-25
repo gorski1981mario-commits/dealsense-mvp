@@ -1,48 +1,22 @@
-'use client'
-
 import './globals.css'
-import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
-import { Layers, CirclePlus, Star } from 'lucide-react'
+import BottomNav from './components/BottomNav'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'DealSense.nl – AI aankoop assistent',
+  verification: {
+    google: 'NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo',
+  },
+  viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
+  themeColor: '#15803d',
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  const [currentPackage, setCurrentPackage] = useState<string>('free')
-
-  useEffect(() => {
-    // Ustaw aktywny pakiet na podstawie pathname
-    if (pathname === '/') {
-      setCurrentPackage('free')
-    } else if (pathname === '/plus') {
-      setCurrentPackage('plus')
-    } else if (pathname === '/pro') {
-      setCurrentPackage('pro')
-    } else if (pathname === '/finance') {
-      setCurrentPackage('finance')
-    }
-    // Na innych stronach (configuratory, settings) - nie zmieniaj currentPackage
-    // Pozostaje ostatni ustawiony pakiet
-  }, [pathname])
-
   return (
     <html lang="nl">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="theme-color" content="#15803d" />
-        <title>DealSense.nl – AI aankoop assistent</title>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Google Merchant Center verification
-              var meta = document.createElement('meta');
-              meta.name = 'google-site-verification';
-              meta.content = 'NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo';
-              document.head.appendChild(meta);
-            `
-          }}
-        />
         <script
           data-cfasync="false"
           data-wpfc-render="false"
@@ -104,27 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </footer>
 
         {/* Bottom Navigation */}
-        <nav className="bottom-nav">
-          <a href="/" className={`nav-item ${currentPackage === 'free' ? 'active' : ''}`}>
-            <Layers size={20} strokeWidth={2} />
-            <span>FREE</span>
-          </a>
-          <a href="/plus" className={`nav-item ${currentPackage === 'plus' ? 'active' : ''}`}>
-            <CirclePlus size={20} strokeWidth={2} />
-            <span>PLUS</span>
-          </a>
-          <a href="/pro" className={`nav-item ${currentPackage === 'pro' ? 'active' : ''}`}>
-            <Star size={20} strokeWidth={2} />
-            <span>PRO</span>
-          </a>
-          <a href="/finance" className={`nav-item ${currentPackage === 'finance' ? 'active' : ''}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 3v18h18"/>
-              <path d="m19 9-5 5-4-4-3 3"/>
-            </svg>
-            <span>FINANCE</span>
-          </a>
-        </nav>
+        <BottomNav />
       </body>
     </html>
   )
