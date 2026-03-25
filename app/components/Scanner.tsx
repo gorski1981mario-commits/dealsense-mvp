@@ -50,6 +50,42 @@ export default function Scanner({ type }: ScannerProps) {
     if (typeof window !== 'undefined') {
       const id = localStorage.getItem('dealsense_device_id') || 'anonymous'
       setUserId(id)
+      
+      // Handle URL params (PWA Share Target + Bookmarklet)
+      const urlParams = new URLSearchParams(window.location.search)
+      const token = urlParams.get('token')
+      const sharedUrl = urlParams.get('url')
+      
+      // 1. Token from bookmarklet (base64 encoded URL)
+      if (token) {
+        try {
+          const decodedUrl = atob(token)
+          setManualInput(decodedUrl)
+          
+          if (isValidUrl(decodedUrl)) {
+            const parsed = parseProductUrl(decodedUrl)
+            if (parsed && parsed.isValid) {
+              setParsedUrl(parsed)
+              setAutoFilled(true)
+            }
+          }
+        } catch (error) {
+          console.error('Token decode failed:', error)
+        }
+      }
+      
+      // 2. Shared URL from PWA Share Target
+      else if (sharedUrl) {
+        setManualInput(sharedUrl)
+        
+        if (isValidUrl(sharedUrl)) {
+          const parsed = parseProductUrl(sharedUrl)
+          if (parsed && parsed.isValid) {
+            setParsedUrl(parsed)
+            setAutoFilled(true)
+          }
+        }
+      }
     }
   }, [])
 

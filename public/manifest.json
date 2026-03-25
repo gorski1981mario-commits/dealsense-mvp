@@ -1,0 +1,68 @@
+{
+  "name": "DealSense - Vind de beste deal",
+  "short_name": "DealSense",
+  "description": "Scan producten en vind direct de beste prijs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#15803d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "shortcuts": [
+    {
+      "name": "Scan Product",
+      "short_name": "Scan",
+      "description": "Scan een product barcode",
+      "url": "/?action=scan",
+      "icons": [
+        {
+          "src": "/icon-scan.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Paste URL",
+      "short_name": "URL",
+      "description": "Plak product URL",
+      "url": "/?action=url",
+      "icons": [
+        {
+          "src": "/icon-url.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "categories": ["shopping", "utilities"],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
+}

@@ -17,6 +17,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
+  const [userId, setUserId] = useState('')
   
   // NEW: Ghost Mode, Cookie Consent, Onboarding
   const [ghostMode, setGhostMode] = useState(false)
@@ -29,10 +30,13 @@ export default function HomePage() {
 
   // Load usage count on mount
   useEffect(() => {
-    // Track page view for scanner flow
-    const userId = getDeviceId()
+    // Track page view for scanner flow (only on client)
+    if (typeof window === 'undefined') return
+    
+    const id = getDeviceId()
+    setUserId(id)
     const userPackage = 'free' // HomePage is always FREE package
-    FlowTracker.getInstance().trackEvent(userId, 'scanner', 'view', userPackage)
+    FlowTracker.getInstance().trackEvent(id, 'scanner', 'view', userPackage)
     
     const loadUsageCount = async () => {
       try {
@@ -203,7 +207,7 @@ export default function HomePage() {
           <div style={{ fontSize: '14px', color: '#78350f', marginBottom: '12px' }}>
             Je hebt alle 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen!
           </div>
-          <PaymentButton packageType="plus" userId={getDeviceId()} price={19.99} />
+          <PaymentButton packageType="plus" userId={userId} price={19.99} />
         </div>
       )}
       
@@ -458,7 +462,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <PaymentButton packageType="plus" userId={getDeviceId()} price={19.99} />
+            <PaymentButton packageType="plus" userId={userId} price={19.99} />
             
             <button
               onClick={() => setShowUpgradePrompt(false)}
@@ -708,7 +712,7 @@ export default function HomePage() {
       </div>
 
       {/* Scan History */}
-      <ScanHistory userId={getDeviceId()} packageType="free" />
+      <ScanHistory userId={userId} packageType="free" />
 
       {/* Footer */}
       <div style={{
