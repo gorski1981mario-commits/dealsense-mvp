@@ -5,6 +5,11 @@ const nextConfig = {
   // PWA Security Headers (2025 Best Practices)
   async headers() {
     return [
+      // Google Merchant Center verification file - no CSP
+      {
+        source: '/googleebadb52b89b32072.html',
+        headers: []
+      },
       {
         source: '/:path*',
         headers: [
