@@ -87,7 +87,7 @@ export default function BiometricAuth({ packageType, onSuccess, onCancel, action
             Biometrische authenticatie niet beschikbaar
           </h3>
           <p style={{ fontSize: '14px', color: '#374151', marginBottom: '20px' }}>
-            Je apparaat ondersteunt geen Touch ID. Gebruik Patroon (kropki) als alternatief.
+            Je apparaat ondersteunt geen Touch ID. Gebruik Patroon als alternatief.
           </p>
           <button
             onClick={onCancel || onSuccess}

@@ -55,7 +55,7 @@ export default function ProPage() {
             Beveilig je account met biometrie
           </div>
           <div style={{ fontSize: '13px', color: '#374151', marginBottom: '12px' }}>
-            Gebruik Touch ID (vingerafdruk) of Patroon (kropki) als elektronische handtekening voor financiële acties.
+            Gebruik Touch ID (vingerafdruk) of Patroon als elektronische handtekening voor financiële acties.
           </div>
           <button
             onClick={() => setShowBiometricSetup(true)}
