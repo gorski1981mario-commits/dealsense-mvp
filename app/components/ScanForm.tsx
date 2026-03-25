@@ -17,7 +17,6 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
-  const [ghostMode, setGhostMode] = useState(false)
   const [showOCRScanner, setShowOCRScanner] = useState(false)
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
   const [scanning, setScanning] = useState(false)
@@ -54,8 +53,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
           url: url,
           session_id: getDeviceId(),
           fingerprint: getDeviceId(),
-          category: category,
-          ghost_mode: ghostMode
+          category: category
         })
       })
 
@@ -208,31 +206,6 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
           color: '#111827'
         }}
       />
-
-      {/* Ghost Mode Toggle */}
-      {packageType !== 'free' && (
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '12px', 
-          marginBottom: '16px',
-          padding: '12px',
-          background: '#f1f3f5',
-          borderRadius: '10px'
-        }}>
-          <input
-            type="checkbox"
-            id={`ghostMode-${packageType}`}
-            checked={ghostMode}
-            onChange={(e) => setGhostMode(e.target.checked)}
-            style={{ width: '20px', height: '20px', cursor: 'pointer' }}
-          />
-          <EyeOff size={20} strokeWidth={2} color="#15803d" />
-          <label htmlFor={`ghostMode-${packageType}`} style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
-            Ghost Mode ({packageType === 'plus' ? '24h' : packageType === 'pro' ? '48h' : '7 dagen'})
-          </label>
-        </div>
-      )}
 
       <button 
         type="submit" 
