@@ -3,7 +3,6 @@
 import './globals.css'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import Head from 'next/head'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
 import { Layers, CirclePlus, Star } from 'lucide-react'
@@ -29,10 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="nl">
-      <Head>
-        <meta name="google-site-verification" content="NIjouinoYr-swaCTIe_LsU1WIIIrUEVynpKyUObykIo" />
-      </Head>
       <head>
+        <meta name="google-site-verification" content="NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#15803d" />
         <title>DealSense.nl – AI aankoop assistent</title>
