@@ -14,7 +14,7 @@ interface ScanFormProps {
 function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFormProps) {
   const [url, setUrl] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('electronics')
+  const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
   const [ghostMode, setGhostMode] = useState(false)
   const [showOCRScanner, setShowOCRScanner] = useState(false)
