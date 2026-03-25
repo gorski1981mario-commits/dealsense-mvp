@@ -80,9 +80,9 @@ const aiAssistantItem = {
 // GHOST MODE
 const ghostModeItem = {
   title: 'Ghost Mode',
-  description: 'Automatische prijsmonitoring - mis nooit meer een deal.',
+  description: 'Price monitoring - mis nooit meer een deal.',
   features: [
-    'Automatische prijsupdates',
+    'Prijsupdates',
     'Notificaties bij prijsdalingen',
     'Realtime voorraadstatus',
     '24h/48h/7 dagen (pakket-afhankelijk)'
