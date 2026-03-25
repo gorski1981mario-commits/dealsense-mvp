@@ -259,6 +259,9 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* QR Scanner Component */}
+      <Scanner type="free" />
+
       {/* Scan Form */}
       <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
         <label style={{
