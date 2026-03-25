@@ -8,7 +8,6 @@ import GhostModeButton from './GhostModeButton'
 import WishlistButton from './WishlistButton'
 import SavingsTimeline from './SavingsTimeline'
 import SavingsJournal from './SavingsJournal'
-import { parseProductUrl, isValidUrl } from '../_lib/urlParser'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -34,16 +33,9 @@ export default function Scanner({ type }: ScannerProps) {
   const [scannedEAN, setScannedEAN] = useState<string>('')
   const [scansRemaining, setScansRemaining] = useState<number>(3) // FREE: 3 scans
   const [userId, setUserId] = useState<string>('')
-  const [manualInput, setManualInput] = useState<string>('')
-  const [showManualInput, setShowManualInput] = useState<boolean>(true)
-  
   // Smart Bundles state
   const [smartBundles, setSmartBundles] = useState<any[]>([])
   const [selectedBundleItems, setSelectedBundleItems] = useState<{[key: string]: any}>({})
-  
-  // URL parsing state
-  const [parsedUrl, setParsedUrl] = useState<any>(null)
-  const [autoFilled, setAutoFilled] = useState<boolean>(false)
 
   useEffect(() => {
     // Get userId only on client side
@@ -51,41 +43,7 @@ export default function Scanner({ type }: ScannerProps) {
       const id = localStorage.getItem('dealsense_device_id') || 'anonymous'
       setUserId(id)
       
-      // Handle URL params (PWA Share Target + Bookmarklet)
-      const urlParams = new URLSearchParams(window.location.search)
-      const token = urlParams.get('token')
-      const sharedUrl = urlParams.get('url')
-      
-      // 1. Token from bookmarklet (base64 encoded URL)
-      if (token) {
-        try {
-          const decodedUrl = atob(token)
-          setManualInput(decodedUrl)
-          
-          if (isValidUrl(decodedUrl)) {
-            const parsed = parseProductUrl(decodedUrl)
-            if (parsed && parsed.isValid) {
-              setParsedUrl(parsed)
-              setAutoFilled(true)
-            }
-          }
-        } catch (error) {
-          console.error('Token decode failed:', error)
-        }
-      }
-      
-      // 2. Shared URL from PWA Share Target
-      else if (sharedUrl) {
-        setManualInput(sharedUrl)
-        
-        if (isValidUrl(sharedUrl)) {
-          const parsed = parseProductUrl(sharedUrl)
-          if (parsed && parsed.isValid) {
-            setParsedUrl(parsed)
-            setAutoFilled(true)
-          }
-        }
-      }
+      // URL params handling removed - Scanner only for barcode/QR now
     }
   }, [])
 
@@ -298,116 +256,20 @@ export default function Scanner({ type }: ScannerProps) {
 
       {!scanning && !result && (
         <div>
-          {/* Manual Input Field */}
-          {showManualInput && (
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, marginBottom: '8px', color: '#374151' }}>
-                Plak product URL of typ productnaam:
-              </label>
-              <input
-                type="text"
-                value={manualInput}
-                onChange={(e) => {
-                  const value = e.target.value
-                  setManualInput(value)
-                  
-                  // Auto-parse URL
-                  if (isValidUrl(value)) {
-                    const parsed = parseProductUrl(value)
-                    if (parsed && parsed.isValid) {
-                      setParsedUrl(parsed)
-                      setAutoFilled(true)
-                    } else {
-                      setParsedUrl(null)
-                      setAutoFilled(false)
-                    }
-                  } else {
-                    setParsedUrl(null)
-                    setAutoFilled(false)
-                  }
-                }}
-                placeholder="Plak product URL van bol.com, Amazon, Coolblue..."
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  border: autoFilled ? '2px solid #86efac' : '2px solid #1e40af',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  marginBottom: '12px',
-                  boxSizing: 'border-box',
-                  background: autoFilled ? '#E6F4EE' : 'white'
-                }}
-              />
-              
-              {/* Auto-filled info */}
-              {parsedUrl && autoFilled && (
-                <div style={{
-                  marginBottom: '12px',
-                  padding: '12px',
-                  background: '#E6F4EE',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  color: '#166534'
-                }}>
-                  ✓ Auto-gevuld van {parsedUrl.shop}:<br/>
-                  <strong>{parsedUrl.productName}</strong>
-                  {parsedUrl.ean && (
-                    <><br/>EAN: {parsedUrl.ean}</>
-                  )}
-                </div>
-              )}
-              <button
-                onClick={() => {
-                  if (parsedUrl && autoFilled) {
-                    // Auto-filled from URL - use parsed product name
-                    handleScan(parsedUrl.productName)
-                  } else if (manualInput.trim()) {
-                    // Manual input - use as-is
-                    handleScan(manualInput.trim())
-                  }
-                }}
-                disabled={!manualInput.trim() || processing}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  background: manualInput.trim() ? '#15803d' : 'white',
-                  color: manualInput.trim() ? 'white' : '#15803d',
-                  border: '2px solid #15803d',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  cursor: manualInput.trim() ? 'pointer' : 'not-allowed',
-                  boxShadow: manualInput.trim() ? '0 4px 6px rgba(21, 128, 61, 0.3)' : 'none',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                {processing ? 'Zoeken...' : (autoFilled ? 'Vind goedkoper →' : 'Scan Product')}
-              </button>
-            </div>
-          )}
-
-          {/* OR Divider */}
-          <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
-            <div style={{ flex: 1, height: '1px', background: '#1e40af' }}></div>
-            <span style={{ padding: '0 12px', fontSize: '12px', color: '#111827', fontWeight: 600 }}>OF</span>
-            <div style={{ flex: 1, height: '1px', background: '#1e40af' }}></div>
-          </div>
-
-          {/* QR Code Scanner Button */}
+          {/* Barcode/QR Scanner Button */}
           <button
             onClick={startCamera}
             style={{
               width: '100%',
-              padding: '12px',
+              padding: '14px',
               background: 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
               color: 'white',
               border: 'none',
               borderRadius: '10px',
-              fontSize: '14px',
+              fontSize: '15px',
               fontWeight: 600,
               cursor: 'pointer',
-              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
-              textAlign: 'center'
+              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
             }}
           >
             Scan Barcode/QR

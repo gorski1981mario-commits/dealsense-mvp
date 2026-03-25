@@ -100,7 +100,6 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
             gap: '8px'
           }}
         >
-          <span style={{ fontSize: '20px' }}>📷</span>
           Scan Barcode/QR
         </button>
       </div>
