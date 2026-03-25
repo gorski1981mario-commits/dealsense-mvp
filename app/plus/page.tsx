@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Scanner from '../components/Scanner'
+import ScanForm from '../components/ScanForm'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
 import BiometricAuth from '../components/BiometricAuth'
@@ -83,8 +83,8 @@ export default function PlusPage() {
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
 
-      {/* Scanner Component */}
-      <Scanner type="plus" />
+      {/* Scan Form */}
+      <ScanForm packageType="plus" />
 
       <div style={{
         marginTop: '24px',

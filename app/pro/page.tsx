@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone } from 'lucide-react'
-import Scanner from '../components/Scanner'
+import ScanForm from '../components/ScanForm'
 import BiometricAuth from '../components/BiometricAuth'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
@@ -105,8 +105,8 @@ export default function ProPage() {
       </p>
 
 
-      {/* Scanner Component */}
-      <Scanner type="pro" />
+      {/* Scan Form */}
+      <ScanForm packageType="pro" />
 
       <div style={{
         marginTop: '24px',
