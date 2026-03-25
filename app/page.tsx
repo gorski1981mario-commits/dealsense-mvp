@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Scanner from './components/Scanner'
 import SocialShare from './components/SocialShare'
 import ScanHistory from './components/ScanHistory'
 import PaymentButton from './components/PaymentButton'
@@ -213,9 +212,6 @@ export default function HomePage() {
       )}
       
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>Vind de beste deal</p>
-
-      {/* Scanner Component */}
-      <Scanner type="free" />
 
       {/* Badges */}
       <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>

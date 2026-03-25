@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Scanner from '../components/Scanner'
 import ScanForm from '../components/ScanForm'
 import ScanHistory from '../components/ScanHistory'
 import PaymentButton from '../components/PaymentButton'
@@ -83,9 +82,6 @@ export default function PlusPage() {
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor snelle checks. Je krijgt overzicht en context, maar jij beslist.
       </p>
-
-      {/* Scanner Component */}
-      <Scanner type="plus" />
 
       {/* Scan Form */}
       <ScanForm packageType="plus" />

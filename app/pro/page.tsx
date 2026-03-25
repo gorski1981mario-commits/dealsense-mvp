@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone } from 'lucide-react'
-import Scanner from '../components/Scanner'
 import ScanForm from '../components/ScanForm'
 import BiometricAuth from '../components/BiometricAuth'
 import ScanHistory from '../components/ScanHistory'
@@ -104,9 +103,6 @@ export default function ProPage() {
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor professionals. Maximale features, minimale commissie.
       </p>
-
-      {/* Scanner Component */}
-      <Scanner type="pro" />
 
       {/* Scan Form */}
       <ScanForm packageType="pro" />
