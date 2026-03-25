@@ -18,6 +18,8 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [loading, setLoading] = useState(false)
   const [ghostMode, setGhostMode] = useState(false)
   const [showOCRScanner, setShowOCRScanner] = useState(false)
+  const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
+  const [scanning, setScanning] = useState(false)
 
   const handleScan = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -78,11 +80,11 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
 
   return (
     <>
-      {/* QR Scanner Button */}
+      {/* Barcode/QR Scanner Button - WSZYSTKIE PAKIETY */}
       <div style={{ marginBottom: '24px' }}>
         <button
           type="button"
-          onClick={() => setShowOCRScanner(true)}
+          onClick={() => setShowBarcodeScanner(true)}
           style={{
             width: '100%',
             padding: '16px',
@@ -93,16 +95,40 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
             fontSize: '16px',
             fontWeight: 700,
             cursor: 'pointer',
-            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px'
+            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
           }}
         >
           Scan Barcode/QR
         </button>
       </div>
+
+      {/* OCR Scanner Button - TYLKO FINANCE */}
+      {packageType === 'finance' && (
+        <div style={{ marginBottom: '24px' }}>
+          <button
+            type="button"
+            onClick={() => setShowOCRScanner(true)}
+            style={{
+              width: '100%',
+              padding: '16px',
+              background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '10px',
+              fontSize: '16px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}
+          >
+            💎 Scan Document (OCR)
+          </button>
+        </div>
+      )}
 
       <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
         <label style={{
@@ -225,7 +251,77 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       </button>
     </form>
 
-      {/* OCR Scanner Modal */}
+      {/* Barcode Scanner Modal - WSZYSTKIE PAKIETY */}
+      {showBarcodeScanner && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.9)',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '24px',
+            maxWidth: '500px',
+            width: '100%',
+            textAlign: 'center'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0 }}>Scan Barcode/QR</h3>
+              <button
+                onClick={() => setShowBarcodeScanner(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  padding: '0',
+                  color: '#6B7280'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div style={{ marginBottom: '20px', padding: '20px', background: '#F3F4F6', borderRadius: '12px' }}>
+              <p style={{ fontSize: '14px', color: '#374151', marginBottom: '12px' }}>
+                Richt je camera op de barcode/QR code van het product
+              </p>
+              <div style={{ fontSize: '48px', marginBottom: '12px' }}>📷</div>
+              <p style={{ fontSize: '12px', color: '#6B7280' }}>
+                Barcode scanner wordt binnenkort toegevoegd
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowBarcodeScanner(false)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                background: '#E5E7EB',
+                color: '#374151',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Sluiten
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* OCR Scanner Modal - TYLKO FINANCE */}
       {showOCRScanner && (
         <div style={{
           position: 'fixed',
