@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, ShieldCheck, Zap, Smartphone, Home, Car, Banknote, CreditCard } from 'lucide-react'
+import Scanner from '../components/Scanner'
 import ScanForm from '../components/ScanForm'
 import BiometricAuth from '../components/BiometricAuth'
 import ScanHistory from '../components/ScanHistory'
@@ -104,6 +105,9 @@ export default function FinancePage() {
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>
         Voor complete financiële controle. Alle tools, minimale commissie.
       </p>
+
+      {/* Scanner Component */}
+      <Scanner type="finance" />
 
       {/* Scan Form */}
       <ScanForm packageType="finance" />

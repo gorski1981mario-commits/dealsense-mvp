@@ -5,6 +5,7 @@ import Scanner from './components/Scanner'
 import SocialShare from './components/SocialShare'
 import ScanHistory from './components/ScanHistory'
 import PaymentButton from './components/PaymentButton'
+import ScanForm from './components/ScanForm'
 import { getDeviceId, showToast, createConfetti } from './_lib/utils'
 import { FlowTracker } from './_lib/flow-tracker'
 
@@ -213,6 +214,9 @@ export default function HomePage() {
       
       <p style={{ fontSize: '18px', color: '#1e40af', fontWeight: 600, marginBottom: '32px' }}>Vind de beste deal</p>
 
+      {/* Scanner Component */}
+      <Scanner type="free" />
+
       {/* Badges */}
       <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
         <div style={{
@@ -259,132 +263,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* QR Scanner Button */}
-      <div style={{ marginBottom: '24px' }}>
-        <button
-          onClick={() => {
-            // TODO: Open QR Scanner modal
-            console.log('QR Scanner clicked')
-          }}
-          style={{
-            width: '100%',
-            padding: '16px',
-            background: '#15803d',
-            color: 'white',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '16px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px'
-          }}
-        >
-          <span style={{ fontSize: '20px' }}>📷</span>
-          Scan Barcode/QR
-        </button>
-      </div>
-
-      {/* Scan Form */}
-      <form onSubmit={handleScan} style={{ marginBottom: '24px' }}>
-        <label style={{
-          display: 'block',
-          fontSize: '14px',
-          fontWeight: 600,
-          marginBottom: '6px'
-        }}>Categorie</label>
-        <input
-          type="text"
-          value={category}
-          readOnly
-          placeholder="Automatisch ingevuld via QR-scan"
-          style={{
-            width: '100%',
-            padding: '12px',
-            border: '2px solid #1e40af',
-            borderRadius: '10px',
-            fontSize: '16px',
-            marginBottom: '8px',
-            background: '#f1f5f9',
-            cursor: 'not-allowed',
-            color: '#6b7280'
-          }}
-        />
-        <div style={{ fontSize: '11px', color: '#111827', marginBottom: '16px' }}>
-          ⚠️ Niet ondersteund: voedsel en tweedehands/refurbished producten
-        </div>
-
-        <label style={{
-          display: 'block',
-          fontSize: '14px',
-          fontWeight: 600,
-          marginBottom: '6px'
-        }}>Product URL</label>
-        <input
-          type="url"
-          placeholder="Automatisch ingevuld via QR-scan"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          readOnly
-          style={{
-            width: '100%',
-            padding: '12px',
-            border: '2px solid #1e40af',
-            borderRadius: '10px',
-            fontSize: '16px',
-            marginBottom: '16px',
-            background: '#f1f5f9',
-            cursor: 'not-allowed',
-            color: '#111827'
-          }}
-        />
-
-        <label style={{
-          display: 'block',
-          fontSize: '14px',
-          fontWeight: 600,
-          marginBottom: '6px'
-        }}>Prijs (€)</label>
-        <input
-          type="text"
-          placeholder="Automatisch ingevuld via QR-scan"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          readOnly
-          style={{
-            width: '100%',
-            padding: '12px',
-            border: '2px solid #1e40af',
-            borderRadius: '10px',
-            fontSize: '16px',
-            marginBottom: '16px',
-            background: '#f1f5f9',
-            cursor: 'not-allowed',
-            color: '#111827'
-          }}
-        />
-
-        <button 
-          type="submit" 
-          disabled={loading || scansRemaining === 0}
-          style={{
-            width: '100%',
-            padding: '14px',
-            background: loading || scansRemaining === 0 ? '#9ca3af' : 'linear-gradient(135deg, #15803d 0%, #15803d 100%)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '16px',
-            fontWeight: 700,
-            cursor: loading || scansRemaining === 0 ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {loading ? 'Scannen...' : scansRemaining === 0 ? 'Upgrade voor meer scans' : 'Vergelijk prijzen'}
-        </button>
-      </form>
+      {/* Scan Form Component */}
+      <ScanForm packageType="free" scansRemaining={scansRemaining} onScanComplete={(data) => setResult(data)} />
 
       {/* Skeleton Loader */}
       {loading && (

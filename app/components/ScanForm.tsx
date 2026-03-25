@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import OCRScanner from './OCRScanner'
 import { getDeviceId, showToast } from '../_lib/utils'
 import { FlowTracker } from '../_lib/flow-tracker'
 
@@ -16,6 +17,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [category, setCategory] = useState('electronics')
   const [loading, setLoading] = useState(false)
   const [ghostMode, setGhostMode] = useState(false)
+  const [showOCRScanner, setShowOCRScanner] = useState(false)
 
   const handleScan = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -80,10 +82,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       <div style={{ marginBottom: '24px' }}>
         <button
           type="button"
-          onClick={() => {
-            // TODO: Open QR Scanner modal
-            console.log('QR Scanner clicked')
-          }}
+          onClick={() => setShowOCRScanner(true)}
           style={{
             width: '100%',
             padding: '16px',
@@ -226,9 +225,67 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
         {loading ? 'Scannen...' : packageType === 'free' && scansRemaining === 0 ? 'Upgrade voor meer scans' : 'Vergelijk prijzen'}
       </button>
     </form>
+
+      {/* OCR Scanner Modal */}
+      {showOCRScanner && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.8)',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '24px',
+            maxWidth: '500px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflowY: 'auto'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0 }}>Scan Product Label</h3>
+              <button
+                onClick={() => setShowOCRScanner(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  padding: '0',
+                  color: '#6B7280'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <OCRScanner
+              packageType={packageType === 'free' ? 'pro' : packageType as 'pro' | 'finance'}
+              onScanComplete={(result) => {
+                if (result.success && result.fields) {
+                  if (result.fields.url) setUrl(result.fields.url)
+                  if (result.fields.price) setPrice(result.fields.price.toString())
+                  if (result.fields.category) setCategory(result.fields.category)
+                  
+                  showToast('✓ Product gescand!')
+                  setShowOCRScanner(false)
+                } else {
+                  showToast('⚠️ Scan mislukt - probeer opnieuw')
+                }
+              }}
+            />
+          </div>
+        </div>
+      )}
     </>
   )
 }
 
 export default ScanForm
-
