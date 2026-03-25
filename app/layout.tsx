@@ -31,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#15803d" />
+        <meta name="google-site-verification" content="NIjouinoYr-swaCTIe_LsU1WIIIrUEVynpKyUObykIo" />
         <title>DealSense.nl – AI aankoop assistent</title>
         <script
           data-cfasync="false"
