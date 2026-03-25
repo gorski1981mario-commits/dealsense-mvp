@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { EyeOff } from 'lucide-react'
 import OCRScanner from './OCRScanner'
 import { getDeviceId, showToast } from '../_lib/utils'
 import { FlowTracker } from '../_lib/flow-tracker'
@@ -226,6 +227,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
             onChange={(e) => setGhostMode(e.target.checked)}
             style={{ width: '20px', height: '20px', cursor: 'pointer' }}
           />
+          <EyeOff size={20} strokeWidth={2} color="#15803d" />
           <label htmlFor={`ghostMode-${packageType}`} style={{ fontSize: '14px', fontWeight: 600, cursor: 'pointer', flex: 1 }}>
             Ghost Mode ({packageType === 'plus' ? '24h' : packageType === 'pro' ? '48h' : '7 dagen'})
           </label>
