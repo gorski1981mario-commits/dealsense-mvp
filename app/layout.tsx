@@ -17,7 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nl">
       <head>
-        <meta name="google-site-verification" content="NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo" />
         <script
           data-cfasync="false"
           data-wpfc-render="false"
