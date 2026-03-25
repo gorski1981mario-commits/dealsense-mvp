@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghost Mode & Scan Flow - DealSense Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(to bottom, #f9fafb, #ffffff);
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+    .section { 
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #15803d;
+    }
+    .step {
+      background: #E6F4EE;
+      border-left: 4px solid #15803d;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #15803d;
+      margin-bottom: 8px;
+    }
+    .form-field {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #1e40af;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #f1f5f9;
+      color: #111827;
+      cursor: not-allowed;
+    }
+    .button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #15803d 0%, #15803d 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+    }
+    .button:hover {
+      background: linear-gradient(135deg, #166534 0%, #166534 100%);
+    }
+    .ghost-disabled {
+      background: #f1f3f5;
+      border: 2px solid #d1d5db;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+    .ghost-enabled {
+      background: #E6F4EE;
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .ghost-active {
+      background: #E6F4EE;
+      border: 2px solid #15803d;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .countdown {
+      font-size: 32px;
+      font-weight: 700;
+      color: #15803d;
+      text-align: center;
+      margin: 12px 0;
+    }
+    .offer-card {
+      background: #E6F4EE;
+      border: 2px solid #86efac;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .offer-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 4px;
+    }
+    .stock-alert {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #92400e;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .warning {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: #92400e;
+      margin-bottom: 12px;
+    }
+    .success {
+      background: #E6F4EE;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 32px; color: #111827;">
+      🔍 DealSense - Ghost Mode & Scan Flow Preview
+    </h1>
+
+    <!-- SCENARIO 1: SCAN FORM - VELDEN INGEVULD -->
+    <div class="section">
+      <div class="section-title">📱 SCENARIO 1: Scan Form - Velden Ingevuld</div>
+      
+      <div class="step">
+        <div class="step-title">STAP 1: Gebruiker heeft product gescand (QR/Barcode)</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Velden automatisch ingevuld via token of EAN
+        </p>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Categorie</label>
+        <input type="text" class="form-input" value="electronics" readonly>
+        <div style="font-size: 11px; color: #111827; margin-top: 4px;">
+          ⚠️ Niet ondersteund: voedsel en tweedehands/refurbished producten
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Product URL</label>
+        <input type="text" class="form-input" value="https://bol.com/nl/p/iphone-15-pro/..." readonly>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Prijs (€)</label>
+        <input type="text" class="form-input" value="1330.00" readonly>
+      </div>
+
+      <button class="button">Vergelijk prijzen</button>
+
+      <div class="success" style="margin-top: 16px;">
+        ✓ Velden automatisch ingevuld<br>
+        Gebruiker klikt "Vergelijk prijzen" → Zoeken naar aanbiedingen...
+      </div>
+    </div>
+
+    <!-- SCENARIO 2A: AANBIEDINGEN GEVONDEN - GHOST MODE DISABLED -->
+    <div class="section">
+      <div class="section-title">✅ SCENARIO 2A: Aanbiedingen Gevonden - Ghost Mode DISABLED</div>
+      
+      <div class="step">
+        <div class="step-title">RESULTATEN: 3 aanbiedingen gevonden</div>
+      </div>
+
+      <div class="offer-card">
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">
+          💎 REKOMENDACJA
+        </div>
+        <div class="offer-price">€719.00</div>
+        <div style="font-size: 12px; color: #15803d; margin-bottom: 8px;">
+          Besparing: €611.00
+        </div>
+        <div class="stock-alert">
+          ⚠️ LAATSTE 2 STUKS!<br>
+          <div style="font-size: 11px; font-weight: 500; margin-top: 4px;">
+            Koop nu voordat het uitverkocht is!
+          </div>
+        </div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Toevoegen aan winkelwagen
+        </button>
+      </div>
+
+      <div class="ghost-disabled">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <input type="checkbox" disabled style="width: 20px; height: 20px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+          <label style="font-size: 14px; font-weight: 600; color: #9ca3af; flex: 1;">
+            Ghost Mode (24h/48h/7 dagen)
+          </label>
+        </div>
+      </div>
+
+      <div class="warning">
+        ❌ Ghost Mode = DISABLED (grijs, kan niet klikken)<br>
+        Waarom? We hebben goedkopere aanbiedingen gevonden → koop NU!
+      </div>
+    </div>
+
+    <!-- SCENARIO 2B: GEEN AANBIEDINGEN - GHOST MODE ENABLED -->
+    <div class="section">
+      <div class="section-title">😔 SCENARIO 2B: Geen Aanbiedingen - Ghost Mode ENABLED</div>
+      
+      <div class="step">
+        <div class="step-title">RESULTATEN: 0 aanbiedingen gevonden</div>
+      </div>
+
+      <div class="warning">
+        <strong>😔 We hebben nu niks goedkoper gevonden</strong><br>
+        <div style="font-size: 12px; margin-top: 8px;">
+          Huidige prijs: €1,330.00 (bol.com)<br>
+          Geen enkele aanbieding is op dit moment goedkoper.
+        </div>
+      </div>
+
+      <div class="ghost-enabled">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" style="margin: 0 auto 12px;">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+          <h3 style="font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 8px;">
+            Activeer Ghost Mode
+          </h3>
+          <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+            We monitoren de prijs voor <strong>24 uur</strong> en sturen je een melding als we iets goedkoper vinden!
+          </p>
+        </div>
+
+        <div style="background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+          <div style="font-size: 13px; color: #374151; margin-bottom: 8px;">
+            <strong>Wat krijg je:</strong>
+          </div>
+          <div style="font-size: 12px; color: #6b7280; line-height: 1.6;">
+            ✓ Regelmatig checken<br>
+            ✓ Notificatie bij prijsdaling<br>
+            ✓ Prijsgeschiedenis inzicht<br>
+            ✓ Monitoring voor 24h/48h/7 dagen
+          </div>
+        </div>
+
+        <button class="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 8px;">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+          Activeer Ghost Mode
+        </button>
+
+        <p style="font-size: 11px; color: #6b7280; text-align: center; margin-top: 8px;">
+          Dit is compensatie voor jou - we geven je een kans! 💪
+        </p>
+      </div>
+
+      <div class="success">
+        ✅ Ghost Mode = ENABLED (groen, kan klikken)<br>
+        Gebruiker kan monitoring activeren als we niks vinden
+      </div>
+    </div>
+
+    <!-- SCENARIO 3: GHOST MODE ACTIEF - TIMER -->
+    <div class="section">
+      <div class="section-title">⏰ SCENARIO 3: Ghost Mode Actief - Timer</div>
+      
+      <div class="step">
+        <div class="step-title">Gebruiker heeft Ghost Mode geactiveerd - Monitoring actief</div>
+      </div>
+
+      <div class="ghost-active">
+        <div style="text-align: center;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" style="margin: 0 auto 12px;">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+          <h3 style="font-size: 20px; font-weight: 700; color: #15803d; margin-bottom: 8px;">
+            Ghost Mode Actief!
+          </h3>
+          <p style="font-size: 14px; color: #166534; margin-bottom: 16px;">
+            Monitoren van iPhone 15 Pro
+          </p>
+
+          <div class="countdown">
+            ⏰ 18:23:45
+          </div>
+          <div style="font-size: 13px; color: #6b7280; margin-bottom: 16px;">
+            Resterende monitoring tijd
+          </div>
+
+          <div style="background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 13px; color: #374151; margin-bottom: 8px;">
+              <strong>Status:</strong>
+            </div>
+            <div style="font-size: 12px; color: #6b7280; line-height: 1.6;">
+              📊 Laatste check: 5 minuten geleden<br>
+              🔍 Volgende check: over 25 minuten<br>
+              💰 Laagste prijs: €1,330.00 (geen wijziging)<br>
+              📈 Trend: Stabiel
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <div style="flex: 1; background: white; border-radius: 8px; padding: 8px; text-align: center;">
+              <div style="font-size: 11px; color: #6b7280;">Checks</div>
+              <div style="font-size: 18px; font-weight: 700; color: #15803d;">23</div>
+            </div>
+            <div style="flex: 1; background: white; border-radius: 8px; padding: 8px; text-align: center;">
+              <div style="font-size: 11px; color: #6b7280;">Gevonden</div>
+              <div style="font-size: 18px; font-weight: 700; color: #f59e0b;">0</div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 12px;">
+            <span style="font-size: 16px;">🔔</span>
+            <span style="font-size: 13px; color: #166534; font-weight: 600;">Notificaties ingeschakeld</span>
+          </div>
+
+          <button class="button" style="background: #f4e5b7; color: #92400e; box-shadow: 0 4px 12px rgba(244, 229, 183, 0.3);">
+            Deactiveer Ghost Mode
+          </button>
+        </div>
+      </div>
+
+      <div class="success">
+        ✅ Timer telt real-time af<br>
+        ✅ Toont check status<br>
+        ✅ Gebruiker kan op elk moment deactiveren
+      </div>
+    </div>
+
+    <!-- SCENARIO 4: GHOST MODE - GOEDKOPER GEVONDEN -->
+    <div class="section">
+      <div class="section-title">🎉 SCENARIO 4: Ghost Mode - Goedkoper Gevonden!</div>
+      
+      <div class="step">
+        <div class="step-title">Ghost Mode heeft betere prijs gevonden na 12 uur</div>
+      </div>
+
+      <div class="ghost-active">
+        <div style="text-align: center;">
+          <div style="font-size: 64px; margin-bottom: 12px;">🎉</div>
+          <h3 style="font-size: 22px; font-weight: 700; color: #15803d; margin-bottom: 8px;">
+            We hebben iets goedkoper gevonden!
+          </h3>
+          <p style="font-size: 14px; color: #166534; margin-bottom: 16px;">
+            iPhone 15 Pro
+          </p>
+
+          <div style="background: white; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+            <div style="font-size: 14px; color: #6b7280; margin-bottom: 4px;">Was:</div>
+            <div style="font-size: 20px; font-weight: 700; color: #f59e0b; text-decoration: line-through; margin-bottom: 12px;">
+              €1,330.00
+            </div>
+            <div style="font-size: 14px; color: #6b7280; margin-bottom: 4px;">Nu:</div>
+            <div style="font-size: 32px; font-weight: 900; color: #15803d; margin-bottom: 12px;">
+              €719.00
+            </div>
+            <div style="font-size: 18px; font-weight: 700; color: #15803d; padding: 8px; background: #E6F4EE; border-radius: 6px;">
+              Besparing: €611.00 (46%)
+            </div>
+          </div>
+
+          <div class="stock-alert" style="margin-bottom: 16px;">
+            ⚠️ LAATSTE 2 STUKS!<br>
+            <div style="font-size: 11px; margin-top: 4px;">
+              Koop nu voordat de prijs stijgt of het product uitverkocht is!
+            </div>
+          </div>
+
+          <button class="button">
+            Koop nu - €719.00
+          </button>
+
+          <p style="font-size: 11px; color: #6b7280; margin-top: 8px;">
+            Ghost Mode voltooid - betere prijs gevonden! 🎯
+          </p>
+        </div>
+      </div>
+
+      <div class="success">
+        ✅ Push notificatie verzonden<br>
+        ✅ Email verzonden<br>
+        ✅ Gebruiker ziet besparing en stock alert<br>
+        ✅ Urgentie - koop NU!
+      </div>
+    </div>
+
+    <!-- SCENARIO 5: GHOST MODE - VERLOPEN ZONDER RESULTAAT -->
+    <div class="section">
+      <div class="section-title">⏱️ SCENARIO 5: Ghost Mode - Verlopen Zonder Resultaat</div>
+      
+      <div class="step">
+        <div class="step-title">Ghost Mode verlopen na 24u - geen betere prijs gevonden</div>
+      </div>
+
+      <div class="warning">
+        <div style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 12px;">⏱️</div>
+          <h3 style="font-size: 18px; font-weight: 700; color: #92400e; margin-bottom: 8px;">
+            Ghost Mode verlopen
+          </h3>
+          <p style="font-size: 14px; color: #78350f; margin-bottom: 16px;">
+            iPhone 15 Pro
+          </p>
+
+          <div style="background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 13px; color: #374151; margin-bottom: 8px;">
+              We hebben geen betere prijs gevonden in 24 uur.
+            </div>
+            <div style="font-size: 12px; color: #6b7280; line-height: 1.6;">
+              📊 Checks: 48<br>
+              💰 Laagste prijs: €1,330.00 (geen wijziging)<br>
+              📈 Trend: Stabiel
+            </div>
+          </div>
+
+          <div style="font-size: 13px; color: #78350f; margin-bottom: 12px;">
+            <strong>Je kunt:</strong><br>
+            <div style="font-size: 12px; margin-top: 8px; line-height: 1.6;">
+              1. Ghost Mode opnieuw activeren<br>
+              2. Kopen voor huidige prijs: €1,330.00<br>
+              3. Wachten op een betere deal
+            </div>
+          </div>
+
+          <button class="button">
+            Activeer Ghost Mode opnieuw
+          </button>
+        </div>
+      </div>
+
+      <div class="warning">
+        ⚠️ Push notificatie verzonden<br>
+        Gebruiker kan opnieuw activeren of nu kopen
+      </div>
+    </div>
+
+    <!-- PODSUMOWANIE -->
+    <div class="section" style="background: #E6F4EE; border: 2px solid #15803d;">
+      <div class="section-title" style="border-color: #15803d;">📊 SAMENVATTING GHOST MODE</div>
+      
+      <div style="font-size: 14px; color: #166534; line-height: 1.8;">
+        <strong>BELANGRIJKSTE REGELS:</strong><br><br>
+        
+        ✅ <strong>Ghost Mode DISABLED wanneer:</strong><br>
+        - We hebben goedkopere aanbiedingen gevonden<br>
+        - Gebruiker moet NU kopen<br>
+        - Checkbox grijs, kan niet klikken<br><br>
+        
+        ✅ <strong>Ghost Mode ENABLED wanneer:</strong><br>
+        - We hebben GEEN goedkopere aanbiedingen<br>
+        - 0 resultaten van zoekopdracht<br>
+        - Checkbox groen, kan klikken<br>
+        - Bericht: "We hebben nu niks goedkoper gevonden"<br><br>
+        
+        ✅ <strong>Ghost Mode ACTIEF:</strong><br>
+        - Timer telt real-time af<br>
+        - Check status elke 30min - 6u<br>
+        - Notificaties: gevonden/verlopen<br>
+        - Gebruiker kan op elk moment deactiveren<br><br>
+        
+        ✅ <strong>ALLEEN voor PLUS/PRO/FINANCE</strong><br>
+        - FREE heeft geen Ghost Mode<br>
+        - PLUS: 24u monitoring<br>
+        - PRO: 48u monitoring<br>
+        - FINANCE: 7 dagen monitoring<br><br>
+
+        ⚠️ <strong>STOCK ALERTS:</strong><br>
+        - Alleen tonen als we ECHTE data hebben<br>
+        - NOOIT fake stock info tonen<br>
+        - Beter geen alert dan valse info
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

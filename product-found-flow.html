@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Gevonden Flow - DealSense</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(to bottom, #f9fafb, #ffffff);
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+    .section { 
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #15803d;
+    }
+    .step {
+      background: #E6F4EE;
+      border-left: 4px solid #15803d;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #15803d;
+      margin-bottom: 8px;
+    }
+    .offer-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .offer-card.best {
+      background: #E6F4EE;
+      border: 2px solid #86efac;
+    }
+    .offer-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 4px;
+    }
+    .offer-savings {
+      font-size: 14px;
+      color: #15803d;
+      margin-bottom: 8px;
+    }
+    .locked {
+      background: #f1f3f5;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #6b7280;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .unlocked {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #15803d 0%, #15803d 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.3);
+    }
+    .paywall {
+      background: #E6F4EE;
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .biometric {
+      background: #E6F4EE;
+      border: 2px solid #15803d;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .success {
+      background: #E6F4EE;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+    .warning {
+      background: #E6F4EE;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+    .link {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #15803d;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 32px; color: #111827;">
+      🔍 Product Gevonden Flow - DealSense
+    </h1>
+
+    <!-- STAP 1: PRODUCT GESCAND -->
+    <div class="section">
+      <div class="section-title">📱 STAP 1: Product Gescand</div>
+      
+      <div class="step">
+        <div class="step-title">Gebruiker heeft iPhone 15 Pro gescand</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          EAN: 0194253433316<br>
+          Basis prijs: €1,330.00 (bol.com)
+        </p>
+      </div>
+
+      <div class="success">
+        ✓ QR Code gescand<br>
+        ✓ Product herkend<br>
+        ✓ Zoeken naar aanbiedingen...
+      </div>
+    </div>
+
+    <!-- STAP 2: FREE PACKAGE - EERSTE 3 SCANS (SKLEPY WIDOCZNE) -->
+    <div class="section">
+      <div class="section-title">🆓 STAP 2A: FREE Package - Eerste 3 Scans</div>
+      
+      <div class="step">
+        <div class="step-title">RESULTATEN: 3 aanbiedingen gevonden</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Scans over: 2/3 (nog 2 gratis scans)
+        </p>
+      </div>
+
+      <div class="offer-card best">
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">
+          💎 BESTE DEALSCORE
+        </div>
+        <div class="offer-price">€719.00</div>
+        <div class="offer-savings">Besparing: €611.00 (46%)</div>
+        <div class="unlocked">You-Mobile</div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Ga naar winkel
+        </button>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€759.00</div>
+        <div class="offer-savings">Besparing: €571.00 (43%)</div>
+        <div class="unlocked">Belsimpel</div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Ga naar winkel
+        </button>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€799.00</div>
+        <div class="offer-savings">Besparing: €531.00 (40%)</div>
+        <div class="unlocked">Mobiel.nl</div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Ga naar winkel
+        </button>
+      </div>
+
+      <div class="success">
+        ✅ <strong>FREE Package - Eerste 3 scans:</strong><br>
+        - Winkelnamen ZICHTBAAR (You-Mobile, Belsimpel, Mobiel.nl)<br>
+        - Direct kopen mogelijk<br>
+        - Geen paywall<br>
+        - Commissie: 10%
+      </div>
+    </div>
+
+    <!-- STAP 2B: FREE PACKAGE - NA 3 SCANS (PAYWALL) -->
+    <div class="section">
+      <div class="section-title">🔒 STAP 2B: FREE Package - Na 3 Scans (PAYWALL)</div>
+      
+      <div class="step">
+        <div class="step-title">RESULTATEN: 3 aanbiedingen gevonden</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Scans over: 0/3 (gratis scans op)
+        </p>
+      </div>
+
+      <div class="offer-card best">
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">
+          💎 BESTE DEALSCORE
+        </div>
+        <div class="offer-price">€719.00</div>
+        <div class="offer-savings">Besparing: €611.00 (46%)</div>
+        <div class="locked">
+          🔒 Verborgen - Upgrade om te zien
+        </div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Upgrade voor toegang
+        </button>
+      </div>
+
+      <div class="paywall">
+        <div style="text-align: center;">
+          <div style="font-size: 18px; font-weight: 700; color: #92400e; margin-bottom: 8px;">
+            ⚠️ Gratis scans op
+          </div>
+          <p style="font-size: 14px; color: #78350f; margin-bottom: 12px;">
+            Je hebt alle 3 gratis scans gebruikt. Upgrade naar PLUS voor onbeperkt scannen!
+          </p>
+          <button class="button">
+            Upgrade naar PLUS - €19,99/mnd
+          </button>
+        </div>
+      </div>
+
+      <div class="warning">
+        ❌ <strong>FREE Package - Na 3 scans:</strong><br>
+        - Winkelnamen VERBORGEN (🔒 Verborgen)<br>
+        - Geen toegang tot aanbiedingen<br>
+        - PAYWALL actief<br>
+        - Upgrade nodig
+      </div>
+    </div>
+
+    <!-- STAP 3: PLUS/PRO/FINANCE - VOOR BIOMETRIC AUTH -->
+    <div class="section">
+      <div class="section-title">🔒 STAP 3: PLUS/PRO/FINANCE - Voor Biometric Auth</div>
+      
+      <div class="step">
+        <div class="step-title">RESULTATEN: 3 aanbiedingen gevonden</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Package: PLUS (€19,99/mnd)<br>
+          Onbeperkt scannen
+        </p>
+      </div>
+
+      <div class="offer-card best">
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">
+          💎 BESTE DEALSCORE
+        </div>
+        <div class="offer-price">€719.00</div>
+        <div class="offer-savings">Besparing: €611.00 (46%)</div>
+        <div class="locked">
+          🔒 Verborgen - Bevestig met biometrie
+        </div>
+        <button class="button" style="padding: 10px; font-size: 13px;">
+          Bevestig met vingerafdruk of patroon
+        </button>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€759.00</div>
+        <div class="offer-savings">Besparing: €571.00 (43%)</div>
+        <div class="locked">
+          🔒 Verborgen - Bevestig met biometrie
+        </div>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€799.00</div>
+        <div class="offer-savings">Besparing: €531.00 (40%)</div>
+        <div class="locked">
+          🔒 Verborgen - Bevestig met biometrie
+        </div>
+      </div>
+
+      <div class="warning">
+        ❌ <strong>PLUS/PRO/FINANCE - Voor biometric:</strong><br>
+        - Winkelnamen VERBORGEN (🔒 Verborgen)<br>
+        - Prijzen ZICHTBAAR (€719, €759, €799)<br>
+        - Besparingen ZICHTBAAR (€611, €571, €531)<br>
+        - Biometric auth VEREIST<br>
+        - CORE VALUE: Geen winkelnamen = geen omzeiling!
+      </div>
+    </div>
+
+    <!-- STAP 4: BIOMETRIC AUTHENTICATION -->
+    <div class="section">
+      <div class="section-title">👆 STAP 4: Biometric Authentication</div>
+      
+      <div class="step">
+        <div class="step-title">Gebruiker klikt op beste aanbieding</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Prijs: €719.00<br>
+          Besparing: €611.00
+        </p>
+      </div>
+
+      <div class="biometric">
+        <div style="font-size: 48px; margin-bottom: 12px;">👆</div>
+          <h3 style="font-size: 18px; font-weight: 700; color: #15803d; margin-bottom: 8px;">
+            Bevestig met biometrie
+          </h3>
+          <p style="font-size: 14px; color: #166534; margin-bottom: 16px;">
+            Gebruik je vingerafdruk of patroon om toegang te krijgen tot de winkel
+          </p>
+        <div style="background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+          <div style="font-size: 13px; color: #374151; margin-bottom: 8px;">
+            <strong>Waarom biometrie?</strong>
+          </div>
+          <div style="font-size: 12px; color: #6b7280; line-height: 1.6;">
+            ✓ Elektronische handtekening<br>
+            ✓ Bevestiging van aankoop<br>
+            ✓ Veiligheid en anti-fraude<br>
+            ✓ Commissie berekening (9%)
+          </div>
+        </div>
+        <button class="button">
+          Bevestig met vingerafdruk of patroon
+        </button>
+      </div>
+
+      <div class="success">
+        ✅ <strong>Biometric Authentication:</strong><br>
+        - Touch ID / Patroon vereist<br>
+        - Elektronische handtekening<br>
+        - Commissie: 9% (PLUS/PRO/FINANCE)<br>
+        - Anti-fraude beveiliging
+      </div>
+    </div>
+
+    <!-- STAP 5: NA BIOMETRIC AUTH - WINKELS ZICHTBAAR -->
+    <div class="section">
+      <div class="section-title">✅ STAP 5: Na Biometric Auth - Winkels Zichtbaar</div>
+      
+      <div class="step">
+        <div class="step-title">Biometric auth succesvol - Toegang verleend</div>
+        <p style="font-size: 13px; color: #6b7280;">
+          Commissie berekend: €55.00 (9% van €611 besparing)<br>
+          <strong style="color: #15803d;">Met referral code: €42.80 (7% = 9% - 2%)</strong>
+        </p>
+      </div>
+
+      <div class="success" style="margin-bottom: 16px;">
+        💰 <strong>COMMISSIE OVERZICHT:</strong><br><br>
+        
+        <div style="background: white; border-radius: 8px; padding: 12px; margin-top: 8px; font-size: 14px; line-height: 1.8;">
+          <strong>Besparing:</strong> €611.00<br><br>
+          
+          <div style="margin-bottom: 12px;">
+            <strong>Zonder referral code:</strong><br>
+            Commissie (9%): <strong>€55.00</strong><br>
+            Netto besparing: <strong>€556.00</strong>
+          </div>
+          
+          <div style="margin-top: 12px; padding-left: 12px; border-left: 3px solid #15803d;">
+            <strong style="color: #15803d;">🎁 Met referral code (-2%):</strong><br>
+            <span style="color: #111827;">Commissie (7%): <strong style="color: #15803d;">€42.80</strong></span><br>
+            <span style="color: #15803d; font-weight: 600;">Netto besparing: €568.20</span><br>
+            <span style="font-size: 12px; color: #15803d; font-weight: 600;">Extra voordeel: €12.20 bespaard!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-card best">
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-bottom: 4px;">
+          💎 BESTE DEALSCORE
+        </div>
+        <div class="offer-price">€719.00</div>
+        <div class="offer-savings">Besparing: €611.00 (46%)</div>
+        <div class="unlocked">You-Mobile</div>
+        <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
+          Betrouwbare winkel - 2,341 reviews
+        </div>
+        <a href="https://you-mobile.nl/iphone-15-pro" class="link" style="display: block; text-align: center; margin-bottom: 8px;">
+          Ga naar You-Mobile →
+        </a>
+        
+        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; font-size: 12px; color: #6b7280; margin-top: 8px;">
+          <div style="margin-bottom: 6px;">
+            <strong>Commissie:</strong>
+          </div>
+          <div style="line-height: 1.6;">
+            Standaard (9%): €55.00<br>
+            <div style="margin-top: 6px; padding-left: 8px; border-left: 3px solid #15803d;">
+              <strong style="color: #15803d;">🎁 Met referral (7%): €42.80</strong><br>
+              <span style="font-size: 11px; color: #15803d; font-weight: 600;">Bespaar €12.20!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€759.00</div>
+        <div class="offer-savings">Besparing: €571.00 (43%)</div>
+        <div class="unlocked">Belsimpel</div>
+        <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
+          Betrouwbare winkel - 1,823 reviews
+        </div>
+        <a href="https://belsimpel.nl/iphone-15-pro" class="link" style="display: block; text-align: center; margin-bottom: 8px;">
+          Ga naar Belsimpel →
+        </a>
+        <div style="font-size: 11px; color: #6b7280; text-align: center;">
+          Commissie: €51.40 (9%)
+        </div>
+      </div>
+
+      <div class="offer-card">
+        <div class="offer-price">€799.00</div>
+        <div class="offer-savings">Besparing: €531.00 (40%)</div>
+        <div class="unlocked">Mobiel.nl</div>
+        <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
+          Betrouwbare winkel - 1,234 reviews
+        </div>
+        <a href="https://mobiel.nl/iphone-15-pro" class="link" style="display: block; text-align: center; margin-bottom: 8px;">
+          Ga naar Mobiel.nl →
+        </a>
+        <div style="font-size: 11px; color: #6b7280; text-align: center;">
+          Commissie: €47.80 (9%)
+        </div>
+      </div>
+
+      <div class="success">
+        ✅ <strong>Na Biometric Auth:</strong><br>
+        - Winkelnamen ZICHTBAAR (You-Mobile, Belsimpel, Mobiel.nl)<br>
+        - Links naar winkels ACTIEF<br>
+        - Reviews en ratings ZICHTBAAR<br>
+        - Commissie berekend en getoond<br>
+        - Gebruiker kan direct kopen
+      </div>
+    </div>
+
+    <!-- SAMENVATTING -->
+    <div class="section" style="background: #E6F4EE; border: 2px solid #15803d;">
+      <div class="section-title" style="border-color: #15803d;">📊 SAMENVATTING FLOW</div>
+      
+      <div style="font-size: 14px; color: #166534; line-height: 1.8;">
+        <strong>CORE VALUE - PAYWALL STRATEGIE:</strong><br><br>
+        
+        ✅ <strong>FREE Package (eerste 3 scans):</strong><br>
+        - Winkelnamen ZICHTBAAR<br>
+        - Direct kopen mogelijk<br>
+        - Commissie: 10%<br>
+        - Doel: Laat gebruiker proeven<br><br>
+        
+        ❌ <strong>FREE Package (na 3 scans):</strong><br>
+        - Winkelnamen VERBORGEN<br>
+        - Paywall actief<br>
+        - Upgrade vereist<br>
+        - Doel: Conversie naar PLUS<br><br>
+        
+        🔒 <strong>PLUS/PRO/FINANCE (voor biometric):</strong><br>
+        - Winkelnamen VERBORGEN<br>
+        - Prijzen ZICHTBAAR<br>
+        - Besparingen ZICHTBAAR<br>
+        - Biometric auth VEREIST<br>
+        - Doel: Anti-omzeiling + commissie<br><br>
+        
+        ✅ <strong>PLUS/PRO/FINANCE (na biometric):</strong><br>
+        - Winkelnamen ZICHTBAAR<br>
+        - Links ACTIEF<br>
+        - Reviews ZICHTBAAR<br>
+        - Commissie: 9%<br>
+        - Doel: Gebruiker koopt via ons<br><br>
+
+        <strong style="color: #15803d;">⚠️ WAAROM PAYWALL?</strong><br>
+        Als we winkelnamen tonen voor paywall:<br>
+        → Gebruiker gaat direct naar winkel<br>
+        → Omzeilt ons volledig<br>
+        → ZERO commissie voor ons<br>
+        → Dit is CORE VALUE van ons business model!
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
