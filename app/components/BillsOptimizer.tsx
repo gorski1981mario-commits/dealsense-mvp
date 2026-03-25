@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import AgentEchoLogo from './AgentEchoLogo'
+import OCRScanner from './OCRScanner'
 import { COMMISSION } from '../_lib/constants'
 
 interface BillsOptimizerProps {
@@ -28,6 +29,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
   const [analyzing, setAnalyzing] = useState(false)
   const [results, setResults] = useState<OptimizationResult[]>([])
   const [showResults, setShowResults] = useState(false)
+  const [showOCRScanner, setShowOCRScanner] = useState(false)
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -86,8 +88,9 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
       {/* Upload Section */}
       {!showResults && (
         <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
-          <label style={{ display: 'block', marginBottom: '16px' }}>
-            <div style={{
+          <div 
+            onClick={() => setShowOCRScanner(true)}
+            style={{
               border: '2px dashed #1e40af',
               borderRadius: '8px',
               padding: '40px',
@@ -95,22 +98,14 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
               cursor: 'pointer',
               background: '#f9fafb'
             }}>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>📄</div>
-              <p style={{ fontSize: '16px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>
-                Upload je rekeningen (PDF/Foto)
-              </p>
-              <p style={{ fontSize: '14px', color: '#6b7280' }}>
-                Energie, telefoon, internet, verzekering, etc.
-              </p>
-            </div>
-            <input
-              type="file"
-              multiple
-              accept=".pdf,image/*"
-              onChange={handleFileUpload}
-              style={{ display: 'none' }}
-            />
-          </label>
+            <div style={{ fontSize: '48px', marginBottom: '12px' }}>📄</div>
+            <p style={{ fontSize: '16px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>
+              Upload je rekeningen (PDF/Foto)
+            </p>
+            <p style={{ fontSize: '14px', color: '#6b7280' }}>
+              Energie, telefoon, internet, verzekering, etc.
+            </p>
+          </div>
 
           {/* Bills List */}
           {bills.length > 0 && (
@@ -338,6 +333,75 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
           100% { transform: rotate(360deg); }
         }
       `}</style>
+
+      {/* OCR Scanner Modal - FINANCE */}
+      {showOCRScanner && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.8)',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '24px',
+            maxWidth: '600px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflow: 'auto'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0 }}>Scan Document (OCR)</h3>
+              <button
+                onClick={() => setShowOCRScanner(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  padding: '0',
+                  color: '#6B7280'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <OCRScanner
+              packageType="finance"
+              onScanComplete={(result) => {
+                if (result.success && result.fields) {
+                  // OCR rozpoznał dokument - dodaj do listy rachunków
+                  const newBill: Bill = {
+                    id: `bill-${Date.now()}`,
+                    type: result.documentType === 'energy' ? 'Energie' :
+                          result.documentType === 'telecom' ? 'Telefoon' :
+                          result.documentType === 'insurance' ? 'Verzekering' :
+                          'Onbekend',
+                    amount: result.fields.amount || result.fields.price || 0,
+                    file: undefined
+                  }
+                  
+                  setBills([...bills, newBill])
+                  setShowOCRScanner(false)
+                  
+                  // Toast notification
+                  console.log('✓ Document gescand!', newBill)
+                } else {
+                  console.error('⚠️ Scan mislukt - probeer opnieuw')
+                }
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
