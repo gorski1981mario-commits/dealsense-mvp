@@ -17,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nl">
       <head>
+        <meta name="5548963fd09ec94" content="d576c6fb863602c19121ad5b660e51d3" />
         <script
           data-cfasync="false"
           data-wpfc-render="false"
