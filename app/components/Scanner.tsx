@@ -44,7 +44,28 @@ export default function Scanner({ type }: ScannerProps) {
       const id = localStorage.getItem('dealsense_device_id') || 'anonymous'
       setUserId(id)
       
-      // URL params handling removed - Scanner only for barcode/QR now
+      // GŁÓWNA OPCJA: URL params handling (auto-fill from shared URL)
+      const urlParams = new URLSearchParams(window.location.search)
+      const autoFill = urlParams.get('autoFill')
+      const urlProductName = urlParams.get('productName')
+      const urlPrice = urlParams.get('price')
+      const urlEan = urlParams.get('ean')
+      const urlShop = urlParams.get('shop')
+      const sharedUrl = urlParams.get('url')
+      
+      if (autoFill === 'true' && (urlEan || sharedUrl)) {
+        // Auto-fill from URL token (GŁÓWNA OPCJA)
+        console.log('[URL Token Auto-Fill]', { urlProductName, urlPrice, urlEan, urlShop })
+        
+        if (urlEan) {
+          // Mamy EAN - skanuj automatycznie
+          handleScan(urlEan)
+        } else if (sharedUrl) {
+          // Mamy tylko URL - parsuj i skanuj
+          setError('Przetwarzanie URL produktu...')
+          // TODO: Parse URL and extract EAN, then call handleScan
+        }
+      }
     }
   }, [])
 
