@@ -28,7 +28,7 @@ export default function HomePage() {
   // FAQ accordion state
   const [faqOpen, setFaqOpen] = useState<number | null>(null)
 
-  // Load usage count on mount
+  // Load usage count on mount + handle bookmarklet token
   useEffect(() => {
     // Track page view for scanner flow (only on client)
     if (typeof window === 'undefined') return
@@ -37,6 +37,33 @@ export default function HomePage() {
     setUserId(id)
     const userPackage = 'free' // HomePage is always FREE package
     FlowTracker.getInstance().trackEvent(id, 'scanner', 'view', userPackage)
+    
+    // Handle bookmarklet token (automatic URL transfer)
+    const urlParams = new URLSearchParams(window.location.search)
+    const token = urlParams.get('token')
+    if (token) {
+      try {
+        // Decode base64 token to get original URL
+        const decodedUrl = atob(token)
+        setUrl(decodedUrl)
+        
+        // Auto-detect category from URL
+        if (decodedUrl.includes('bol.com') || decodedUrl.includes('mediamarkt') || decodedUrl.includes('coolblue')) {
+          setCategory('electronics')
+        }
+        
+        // Show success message
+        console.log('✓ Product URL automatisch overgenomen via bookmarklet')
+        
+        // Track bookmarklet usage
+        FlowTracker.getInstance().trackEvent(id, 'scanner', 'view', userPackage)
+        
+        // Clean URL (remove token parameter)
+        window.history.replaceState({}, '', '/')
+      } catch (error) {
+        console.error('Failed to decode bookmarklet token:', error)
+      }
+    }
     
     const loadUsageCount = async () => {
       try {

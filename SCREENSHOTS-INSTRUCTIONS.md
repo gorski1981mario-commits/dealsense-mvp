@@ -36,6 +36,11 @@ Nie mockupy, nie placeholdery - tylko rzeczywiste ekrany z https://dealsense-mvp
 4. Zrób screenshot (Power + Volume Up)
 5. Zapisz jako **1-scanner.png**
 
+**💡 BONUS:** Możesz też pokazać automatyczny token transfer:
+- Zainstaluj bookmarklet (https://dealsense-mvp.vercel.app/install-bookmarklet.html)
+- Kliknij na bol.com
+- URL automatycznie się wypełnia! (UNFAIR ADVANTAGE)
+
 ---
 
 ## 📸 SCREENSHOT 2: RESULTS (Porównanie cen)

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installeer DealSense Bookmarklet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #15803d;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    .bookmarklet-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(21,128,61,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: move;
+    }
+    .bookmarklet-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(21,128,61,0.4);
+    }
+    .instruction {
+      background: #f0fdf4;
+      border-left: 4px solid #15803d;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .instruction h3 {
+      color: #15803d;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .instruction ol {
+      margin-left: 20px;
+      color: #374151;
+    }
+    .instruction li {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    .supported-shops {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .shop {
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #e2e8f0;
+    }
+    .shop.supported {
+      border-color: #86efac;
+      background: #f0fdf4;
+    }
+    .demo {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .demo h3 {
+      color: #92400e;
+      margin-bottom: 10px;
+    }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    .arrow {
+      color: #15803d;
+      font-size: 24px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔖 Installeer DealSense Bookmarklet</h1>
+    <p class="subtitle">Automatisch product URL overnemen van bol.com, Media Markt en meer!</p>
+    
+    <div style="text-align: center; margin: 40px 0;">
+      <a href="javascript:(function(){const currentUrl=window.location.href;const supportedShops=['bol.com','amazon.nl','coolblue.nl','mediamarkt.nl','wehkamp.nl'];const isSupported=supportedShops.some(shop=>currentUrl.includes(shop));if(!isSupported){alert('❌ Deze winkel wordt nog niet ondersteund.\\n\\nOndersteunde winkels:\\n- bol.com\\n- Amazon.nl\\n- Coolblue.nl\\n- MediaMarkt.nl\\n- Wehkamp.nl');return;}const token=btoa(currentUrl);const dealsenseUrl=`https://dealsense-mvp.vercel.app/?token=${token}`;window.open(dealsenseUrl,'_blank');})();" 
+         class="bookmarklet-button"
+         onclick="alert('⚠️ Sleep deze knop naar je bladwijzerbalk!\\n\\nKlik niet - SLEEP!'); return false;">
+        📱 Scan in DealSense
+      </a>
+      <p style="margin-top: 15px; color: #64748b; font-size: 14px;">
+        👆 Sleep deze knop naar je bladwijzerbalk
+      </p>
+    </div>
+    
+    <div class="instruction">
+      <h3>📋 Installatie (Desktop)</h3>
+      <ol>
+        <li><strong>Toon bladwijzerbalk:</strong> Druk <code>Ctrl + Shift + B</code> (Windows) of <code>Cmd + Shift + B</code> (Mac)</li>
+        <li><strong>Sleep knop:</strong> Sleep de groene knop hierboven naar je bladwijzerbalk</li>
+        <li><strong>Klaar!</strong> De bookmarklet is geïnstalleerd</li>
+      </ol>
+    </div>
+    
+    <div class="instruction">
+      <h3>🎯 Hoe te gebruiken?</h3>
+      <ol>
+        <li>Ga naar <strong>bol.com</strong>, <strong>Media Markt</strong> of een andere ondersteunde winkel</li>
+        <li>Open een productpagina</li>
+        <li>Klik op <strong>"📱 Scan in DealSense"</strong> in je bladwijzerbalk</li>
+        <li>DealSense opent automatisch met het product!</li>
+      </ol>
+    </div>
+    
+    <div class="demo">
+      <h3>💡 Voorbeeld Flow</h3>
+      <p><strong>VOOR (handmatig):</strong></p>
+      <ol>
+        <li>Kopieer URL van bol.com</li>
+        <li>Open DealSense</li>
+        <li>Plak URL</li>
+        <li>Klik "Vergelijk prijzen"</li>
+      </ol>
+      <div class="arrow">↓</div>
+      <p><strong>NA (automatisch):</strong></p>
+      <ol>
+        <li>Klik bookmarklet op bol.com</li>
+        <li>✓ Klaar! (DealSense opent automatisch)</li>
+      </ol>
+    </div>
+    
+    <h3 style="color: #15803d; margin: 30px 0 15px 0;">🛍️ Ondersteunde Winkels</h3>
+    <div class="supported-shops">
+      <div class="shop supported">
+        <strong>bol.com</strong><br>
+        <span style="color: #15803d; font-size: 12px;">✓ Ondersteund</span>
+      </div>
+      <div class="shop supported">
+        <strong>Amazon.nl</strong><br>
+        <span style="color: #15803d; font-size: 12px;">✓ Ondersteund</span>
+      </div>
+      <div class="shop supported">
+        <strong>Coolblue.nl</strong><br>
+        <span style="color: #15803d; font-size: 12px;">✓ Ondersteund</span>
+      </div>
+      <div class="shop supported">
+        <strong>MediaMarkt.nl</strong><br>
+        <span style="color: #15803d; font-size: 12px;">✓ Ondersteund</span>
+      </div>
+      <div class="shop supported">
+        <strong>Wehkamp.nl</strong><br>
+        <span style="color: #15803d; font-size: 12px;">✓ Ondersteund</span>
+      </div>
+      <div class="shop">
+        <strong>Meer winkels</strong><br>
+        <span style="color: #64748b; font-size: 12px;">Binnenkort</span>
+      </div>
+    </div>
+    
+    <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin-top: 30px; border: 2px solid #86efac;">
+      <h3 style="color: #15803d; margin-bottom: 10px;">🚀 Unfair Advantage</h3>
+      <p style="color: #374151; line-height: 1.6;">
+        <strong>Concurrenten hebben dit niet!</strong> Met onze bookmarklet kun je producten scannen met één klik, 
+        zonder handmatig URL's te kopiëren. Dit bespaart tijd en maakt het makkelijker om de beste deals te vinden.
+      </p>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
+      <p style="color: #64748b; font-size: 14px;">
+        Problemen met installatie? <a href="mailto:support@dealsense.nl" style="color: #15803d;">Contact support</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

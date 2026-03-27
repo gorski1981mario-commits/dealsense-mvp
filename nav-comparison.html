@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Bar vs Bottom Bar - Dokładne Wymiary</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container { max-width: 500px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 30px; color: #15803d; }
+    
+    /* PHONE PREVIEW */
+    .phone {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      position: relative;
+      width: 100%;
+      height: 600px;
+    }
+    
+    /* TOP BAR - DOKŁADNE WYMIARY Z KODU */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: white;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 12px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #1e1e1e;
+    }
+    .logo-nl { color: #15803d; }
+    .hamburger {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-self: end;
+    }
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background: #1e1e1e;
+      border-radius: 2px;
+    }
+    
+    /* CONTENT */
+    .content {
+      position: absolute;
+      top: 60px;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      background: #F1F3F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+    
+    /* BOTTOM NAV - DOKŁADNE WYMIARY Z KODU */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: white;
+      border-top: 1px solid #E2E8F0;
+      padding: 12px 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #111827;
+      padding: 4px;
+      border-radius: 10px;
+      background: #f0fdf4;
+    }
+    .nav-item.active { background: #dcfce7; }
+    
+    /* MEASUREMENTS */
+    .measurements {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th {
+      background: #15803d;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-size: 13px;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 13px;
+    }
+    .property { font-weight: 600; color: #374151; }
+    .value { color: #15803d; font-family: monospace; }
+    .match { color: #15803d; font-weight: 600; }
+    h2 { margin: 20px 0 10px 0; color: #15803d; font-size: 16px; }
+    .alert {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0fdf4;
+      border-radius: 8px;
+      border-left: 4px solid #15803d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📱 Top Bar vs Bottom Bar</h1>
+    
+    <div class="phone">
+      <!-- TOP BAR -->
+      <div class="top-bar">
+        <div class="logo">D<span class="logo-nl">.nl</span></div>
+        <div style="font-size: 12px; color: #374151;">AI aankoop assistent</div>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      
+      <!-- CONTENT -->
+      <div class="content">Content area</div>
+      
+      <!-- BOTTOM NAV -->
+      <div class="bottom-nav">
+        <div class="nav-item active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>FREE</span>
+        </div>
+        <div class="nav-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          <span>PLUS</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="measurements">
+      <h2>🔍 Porównanie Wymiarów</h2>
+      <table>
+        <tr>
+          <th>Właściwość</th>
+          <th>Top Bar</th>
+          <th>Bottom Bar</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td class="property">height</td>
+          <td class="value">60px</td>
+          <td class="value">60px</td>
+          <td class="match">✓ MATCH</td>
+        </tr>
+        <tr>
+          <td class="property">padding</td>
+          <td class="value">12px 20px</td>
+          <td class="value">12px 20px</td>
+          <td class="match">✓ MATCH</td>
+        </tr>
+        <tr>
+          <td class="property">border</td>
+          <td class="value">1px solid #E2E8F0</td>
+          <td class="value">1px solid #E2E8F0</td>
+          <td class="match">✓ MATCH</td>
+        </tr>
+        <tr>
+          <td class="property">background</td>
+          <td class="value">white</td>
+          <td class="value">white</td>
+          <td class="match">✓ MATCH</td>
+        </tr>
+      </table>
+      
+      <h2>🎯 Nav Items (FREE/PLUS)</h2>
+      <table>
+        <tr>
+          <th>Właściwość</th>
+          <th>Wartość</th>
+        </tr>
+        <tr>
+          <td class="property">font-size</td>
+          <td class="value">11px</td>
+        </tr>
+        <tr>
+          <td class="property">font-weight</td>
+          <td class="value">600</td>
+        </tr>
+        <tr>
+          <td class="property">gap</td>
+          <td class="value">4px</td>
+        </tr>
+        <tr>
+          <td class="property">padding</td>
+          <td class="value">4px</td>
+        </tr>
+        <tr>
+          <td class="property">icon size</td>
+          <td class="value">20px × 20px</td>
+        </tr>
+      </table>
+      
+      <div class="alert">
+        <strong style="color: #15803d;">✓ WSZYSTKO PASUJE!</strong><br>
+        <span style="font-size: 13px; color: #374151;">
+          Top bar i bottom bar mają identyczne wymiary:<br>
+          • Height: 60px<br>
+          • Padding: 12px 20px<br>
+          • Border: 1px solid #E2E8F0<br>
+          • Ikony: 20px, Font: 11px
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
