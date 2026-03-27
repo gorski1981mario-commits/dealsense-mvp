@@ -8,6 +8,7 @@ import GhostModeButton from './GhostModeButton'
 import WishlistButton from './WishlistButton'
 import SavingsTimeline from './SavingsTimeline'
 import SavingsJournal from './SavingsJournal'
+import ReviewsAnalysis from './ReviewsAnalysis'
 
 type ScannerType = 'free' | 'plus' | 'pro' | 'finance' | 'zakelijk'
 
@@ -580,6 +581,14 @@ export default function Scanner({ type }: ScannerProps) {
             </div>
           )}
         </div>
+      )}
+
+      {/* Reviews Analysis - FREE + PLUS */}
+      {scannedEAN && offers.length > 0 && (
+        <ReviewsAnalysis 
+          ean={scannedEAN}
+          productName={productName}
+        />
       )}
 
       {/* Social Share Section - always visible, active after selecting offer (including FREE - main source of advertising) */}

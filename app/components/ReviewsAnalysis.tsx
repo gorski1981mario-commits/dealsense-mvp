@@ -76,19 +76,14 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
 
   if (loading) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <div className="spinner"></div>
-        <p>Analyseren van reviews...</p>
+      <div style={{ padding: '20px', textAlign: 'center', background: '#F9FAFB', borderRadius: '12px', marginTop: '24px' }}>
+        <div style={{ fontSize: '14px', color: '#6B7280' }}>💭 Gebruikerservaringen laden...</div>
       </div>
     )
   }
 
   if (error) {
-    return (
-      <div style={{ padding: '20px', background: '#FEE', borderRadius: '8px' }}>
-        <p style={{ color: '#C00' }}>❌ {error}</p>
-      </div>
-    )
+    return null // Nie pokazuj błędu - po prostu ukryj komponent
   }
 
   if (!data) return null
@@ -110,13 +105,11 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
     }}>
       {/* Header */}
       <div style={{ marginBottom: '20px' }}>
-        <h2 style={{ margin: '0 0 8px 0', fontSize: '20px', fontWeight: 'bold' }}>
-          🤖 AI Reviews Analysis
+        <h2 style={{ margin: '0 0 8px 0', fontSize: '18px', fontWeight: 'bold', color: '#111827' }}>
+          💡 Gebruikerservaringen
         </h2>
-        <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>
-          {totalReviews} reviews • {Object.keys(sources).length} sources
-          {cached && ' • Cached'}
-          {' • '}{responseTime}ms
+        <p style={{ margin: 0, fontSize: '13px', color: '#6B7280' }}>
+          Gebaseerd op {totalReviews} reviews van {Object.keys(sources).length} bronnen
         </p>
       </div>
 
@@ -144,21 +137,21 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
       }}>
         <thead>
           <tr style={{ background: '#F3F4F6' }}>
-            <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #E5E7EB' }}>
-              Sentiment
+            <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #E5E7EB', fontSize: '13px', fontWeight: 600 }}>
+              Beoordeling
             </th>
-            <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid #E5E7EB' }}>
+            <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid #E5E7EB', fontSize: '13px', fontWeight: 600 }}>
               %
             </th>
-            <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid #E5E7EB' }}>
-              Count
+            <th style={{ padding: '12px', textAlign: 'right', borderBottom: '2px solid #E5E7EB', fontSize: '13px', fontWeight: 600 }}>
+              Aantal
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style={{ padding: '12px', borderBottom: '1px solid #E5E7EB' }}>
-              ✅ Pozytywne
+            <td style={{ padding: '12px', borderBottom: '1px solid #E5E7EB', fontSize: '14px' }}>
+              ✅ Positief
             </td>
             <td style={{ padding: '12px', textAlign: 'right', borderBottom: '1px solid #E5E7EB', fontWeight: 'bold', color: '#10B981' }}>
               {analysis.positive_percent}%
@@ -168,8 +161,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
             </td>
           </tr>
           <tr>
-            <td style={{ padding: '12px', borderBottom: '1px solid #E5E7EB' }}>
-              ❌ Negatywne
+            <td style={{ padding: '12px', borderBottom: '1px solid #E5E7EB', fontSize: '14px' }}>
+              ⚠️ Negatief
             </td>
             <td style={{ padding: '12px', textAlign: 'right', borderBottom: '1px solid #E5E7EB', fontWeight: 'bold', color: '#EF4444' }}>
               {analysis.negative_percent}%
@@ -179,8 +172,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
             </td>
           </tr>
           <tr>
-            <td style={{ padding: '12px' }}>
-              ⚪ Neutralne
+            <td style={{ padding: '12px', fontSize: '14px' }}>
+              ⚪ Neutraal
             </td>
             <td style={{ padding: '12px', textAlign: 'right', fontWeight: 'bold', color: '#6B7280' }}>
               {analysis.neutral_percent}%
@@ -194,8 +187,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
 
       {/* Top Pros */}
       <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '12px', color: '#10B981' }}>
-          ✅ Najczęstsze zalety
+        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '12px', color: '#10B981' }}>
+          ✅ Meest gewaardeerd
         </h3>
         <ul style={{ margin: 0, paddingLeft: '20px' }}>
           {analysis.top_pros.map((pro, i) => (
@@ -208,8 +201,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
 
       {/* Top Cons */}
       <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '12px', color: '#EF4444' }}>
-          ❌ Najczęstsze problemy
+        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '12px', color: '#EF4444' }}>
+          ⚠️ Aandachtspunten
         </h3>
         <ul style={{ margin: 0, paddingLeft: '20px' }}>
           {analysis.top_cons.map((con, i) => (
@@ -228,8 +221,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
           borderRadius: '8px',
           border: '2px solid #EF4444'
         }}>
-          <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '12px', color: '#C00' }}>
-            🚨 Krytyczne problemy
+          <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '12px', color: '#DC2626' }}>
+            🚨 Belangrijke waarschuwingen
           </h3>
           <ul style={{ margin: 0, paddingLeft: '20px' }}>
             {analysis.critical_issues.map((issue, i) => (
@@ -243,8 +236,8 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
 
       {/* Sources */}
       <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #E5E7EB' }}>
-        <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px', color: '#666' }}>
-          Źródła opinii
+        <h3 style={{ fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: '#6B7280' }}>
+          Bronnen
         </h3>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {Object.entries(sources).map(([source, stats]) => (
@@ -270,7 +263,7 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
           fontSize: '12px',
           color: '#92400E'
         }}>
-          ⚠️ Analiza AI niedostępna - wyświetlono podstawową analizę
+          ℹ️ Basis analyse - AI analyse tijdelijk niet beschikbaar
         </div>
       )}
     </div>
