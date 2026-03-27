@@ -93,6 +93,13 @@ body {
   backface-visibility: hidden;
 }
 
+/* Bottom Nav - 2 items (FREE + PLUS only) */
+.bottom-nav-two-items {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 10px 16px;
+}
+
 .nav-item {
   display: flex;
   flex-direction: column;
@@ -109,6 +116,13 @@ body {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* Larger nav items for 2-item layout */
+.nav-item-large {
+  gap: 6px;
+  font-size: 13px;
+  padding: 8px;
 }
 
 .nav-item svg {
