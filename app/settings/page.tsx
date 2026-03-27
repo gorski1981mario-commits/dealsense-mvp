@@ -1044,10 +1044,8 @@ export default function SettingsPage() {
         {/* ECHO */}
         <div>
           <div style={{
-            marginBottom: '16px',
             display: 'flex',
-            alignItems: 'baseline',
-            gap: '2px'
+            alignItems: 'baseline'
           }}>
             <span style={{
               color: '#15803d',
@@ -1067,10 +1065,10 @@ export default function SettingsPage() {
             </span>
             <span style={{
               color: '#000',
-              fontSize: '19px',
+              fontSize: '20px',
               lineHeight: 1,
               position: 'relative',
-              top: '-1px'
+              top: '-2px'
             }}>
               ●
             </span>
