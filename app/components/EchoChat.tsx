@@ -355,15 +355,15 @@ export default function EchoChat() {
       {isOpen && (
         <div style={{
           position: 'fixed',
-          bottom: '69px',
+          bottom: '60px',
           right: '1px',
           left: '1px',
           width: 'calc(100vw - 2px)',
           maxWidth: '500px',
           marginLeft: 'auto',
           marginRight: 'auto',
-          height: '540px',
-          maxHeight: '78vh',
+          height: '520px',
+          maxHeight: '76vh',
           background: 'white',
           borderRadius: '16px',
           boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
