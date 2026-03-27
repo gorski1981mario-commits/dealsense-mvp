@@ -68,21 +68,24 @@ Nie mockupy, nie placeholdery - tylko rzeczywiste ekrany z https://dealsense-mvp
 ## 📸 SCREENSHOT 3: ECHO AI (AI Assistent)
 
 ### Co pokazać:
-- Chat interface z Echo AI
-- Popup **"Echo • Je persoonlijke AI agent"**
-- Powitanie: 👋 **"Hallo! Ik ben Echo"**
-- Tekst: **"Jouw persoonlijke AI agent voor deals"**
-- Input field: **"Type een bericht..."**
-- Ikona mikrofonu (voice input)
+- Echo AI panel z funkcjami:
+  - **"Echo • Je persoonlijke AI agent"** (header)
+  - **Jouw besparingen** - Week/Month/Total savings
+  - **Voorraadstatus** - Stock status w sklepach
+  - **Levertijd** - Delivery time comparison
+  - **Garantie & Service** - Warranty info
+  - **Extra voordelen** - Benefits (cashback, gifts)
+- Rozwinięte "Meer functies →" żeby pokazać wszystkie możliwości
+- Stats na dole (Scans, Nauwkeurigheid)
 
 ### Jak zrobić:
-1. Na dowolnym ekranie kliknij ikonę **Echo** (chat bubble) w prawym dolnym rogu
-2. Otworzy się popup z Echo AI
-3. NIE pisz jeszcze wiadomości - zostaw na ekranie powitalnym
-4. Zrób screenshot pokazujący cały popup
+1. Na ekranie Results (po skanowaniu) przewiń w dół
+2. Znajdź sekcję **Echo** (zielony panel)
+3. Kliknij **"Meer functies →"** żeby rozwinąć wszystkie funkcje
+4. Zrób screenshot pokazujący cały panel Echo z rozwiniętymi funkcjami
 5. Zapisz jako **3-echo-ai.png**
 
-**UNFAIR ADVANTAGE:** To pokazuje że mamy AI agenta - konkurencja tego nie ma!
+**UNFAIR ADVANTAGE:** Echo pokazuje savings, stock, delivery, warranty, benefits - konkurencja tego nie ma!
 
 ---
 
@@ -92,7 +95,11 @@ Nie mockupy, nie placeholdery - tylko rzeczywiste ekrany z https://dealsense-mvp
 - Ekran z informacją że produkt nie został znaleziony
 - Komunikat: **"Niet gevonden - Activeer Ghost Mode"**
 - Zielony przycisk **"Activeer Ghost Mode"**
-- Tekst wyjaśniający: **"24u monitoring (PLUS package)"**
+- Funkcje Ghost Mode:
+  - **24u monitoring** (PLUS package)
+  - **Notificaties bij price drop**
+  - **Real-time voorraad status**
+  - **Price updates**
 - Pokazuje że dbamy o klienta (kompensacja)
 
 ### Jak zrobić:
@@ -101,11 +108,11 @@ Nie mockupy, nie placeholdery - tylko rzeczywiste ekrany z https://dealsense-mvp
    - Prijs: €500
 2. Kliknij **"Vergelijk prijzen"**
 3. Aplikacja nie znajdzie produktu
-4. Pokaże się opcja **Ghost Mode**
+4. Pokaże się opcja **Ghost Mode** z opisem funkcji
 5. Zrób screenshot PRZED aktywacją
 6. Zapisz jako **4-ghost-mode.png**
 
-**SEKRET FIRMY:** Ghost Mode to kompensacja dla klienta - pokazuje że dbamy!
+**SEKRET FIRMY:** Ghost Mode = kompensacja + monitoring + notificaties - pokazuje że dbamy!
 
 ---
 
