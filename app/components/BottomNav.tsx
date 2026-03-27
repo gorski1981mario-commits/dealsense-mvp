@@ -25,11 +25,11 @@ export default function BottomNav() {
   return (
     <nav className="bottom-nav bottom-nav-two-items">
       <a href="/" className={`nav-item nav-item-large ${currentPackage === 'free' ? 'active' : ''}`}>
-        <Layers size={24} strokeWidth={2} />
+        <Layers size={20} strokeWidth={2} />
         <span>FREE</span>
       </a>
       <a href="/plus" className={`nav-item nav-item-large ${currentPackage === 'plus' ? 'active' : ''}`}>
-        <CirclePlus size={24} strokeWidth={2} />
+        <CirclePlus size={20} strokeWidth={2} />
         <span>PLUS</span>
       </a>
     </nav>

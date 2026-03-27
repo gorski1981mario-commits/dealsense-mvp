@@ -95,6 +95,7 @@ body {
 
 /* Bottom Nav - 2 items (FREE + PLUS only) */
 .bottom-nav-two-items {
+  height: 60px;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 12px 20px;
@@ -121,9 +122,9 @@ body {
 
 /* Larger nav items for 2-item layout */
 .nav-item-large {
-  gap: 6px;
-  font-size: 13px;
-  padding: 8px;
+  gap: 4px;
+  font-size: 11px;
+  padding: 4px;
 }
 
 .nav-item svg {
