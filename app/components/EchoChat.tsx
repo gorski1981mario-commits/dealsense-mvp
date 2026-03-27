@@ -365,7 +365,7 @@ export default function EchoChat() {
           height: '540px',
           maxHeight: '78vh',
           background: 'white',
-          borderRadius: '16px',
+          borderRadius: '0',
           boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
           display: 'flex',
           flexDirection: 'column',
@@ -375,8 +375,8 @@ export default function EchoChat() {
           {/* Header */}
           <div style={{
             background: '#E6F4EE',
-            padding: '10px 16px',
-            borderRadius: '16px 16px 0 0',
+            padding: '14px 16px',
+            borderRadius: '0',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -425,33 +425,6 @@ export default function EchoChat() {
               </div>
             </div>
           )}
-
-          <div style={{
-            padding: '0',
-            borderBottom: 'none'
-          }}>
-            <div style={{ display: 'none' }}>
-              <div style={{ 
-                fontSize: '12px', 
-                color: '#166534',
-                fontWeight: 600,
-                marginLeft: '4px'
-              }}>
-                Je persoonlijke AI agent
-              </div>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '4px'
-              }}
-            >
-              <X size={18} color="#111827" />
-            </button>
-          </div>
 
           {/* Messages */}
           <div style={{
