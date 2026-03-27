@@ -7,6 +7,30 @@ const smartTargeting = require('./smart-targeting');
 const RotationSystem = require('./rotation-system');
 
 /**
+ * Try multiple URL patterns for a domain until one works
+ * @param {string} domain - Domain name (e.g., 'bol.com')
+ * @param {string} searchTerm - Search query
+ * @param {Object} scraper - Direct scraper instance
+ * @returns {Promise<string>} - Working search URL
+ */
+async function tryMultipleUrls(domain, searchTerm) {
+  const encodedTerm = encodeURIComponent(searchTerm);
+  
+  // Common search URL patterns for NL e-commerce sites
+  const patterns = [
+    `https://www.${domain}/nl/s/?searchtext=${encodedTerm}`,
+    `https://www.${domain}/nl/search?q=${encodedTerm}`,
+    `https://www.${domain}/search?q=${encodedTerm}`,
+    `https://www.${domain}/zoeken?q=${encodedTerm}`,
+    `https://${domain}/nl/s/?searchtext=${encodedTerm}`,
+    `https://${domain}/search?q=${encodedTerm}`
+  ];
+  
+  // Return first pattern (we'll try others if this fails during scraping)
+  return patterns[0];
+}
+
+/**
  * Search for product across multiple NL domains using crawler
  * @param {Object} options - Search options
  * @param {string} options.query - Product name or search query
@@ -23,36 +47,9 @@ async function searchProduct({ query, ean, maxDomains = 30, category = 'products
   const searchTerm = query || ean;
   console.log(`[Crawler Search] Searching for: ${searchTerm}`);
 
-  // ROTATION SYSTEM - każdy user dostaje RÓŻNE sklepy!
-  const useRotation = process.env.ROTATION_ENABLED !== 'false';
-  let targetDomains;
-  
-  if (useRotation && userId) {
-    // ROTATION MODE - inteligentny wybór z rotacją
-    const rotationSystem = new RotationSystem(global.redisClient);
-    targetDomains = await rotationSystem.selectDomainsForUser(userId, searchTerm, {
-      userLocation,
-      geoEnabled,
-      maxDomains
-    });
-    
-    // Stats
-    const stats = await rotationSystem.getStats(userId, searchTerm);
-    console.log(`[Crawler Search] 🔄 ROTATION: ${targetDomains.length} domains (${stats.seenDomains} seen, ${stats.coverage}% coverage)`);
-    
-  } else if (process.env.USE_SMART_TARGETING !== 'false') {
-    // SMART TARGETING - tylko najlepsze domeny (bez rotacji)
-    targetDomains = smartTargeting.selectBestDomains(searchTerm, category, {
-      maxDomains: Math.min(maxDomains, 5),
-      includeBackup: true
-    });
-    console.log(`[Crawler Search] 🎯 SMART: Targeting ${targetDomains.length} best domains`);
-    
-  } else {
-    // RANDOM - stary sposób (na ślepo)
-    targetDomains = selectTargetDomains(maxDomains, category);
-    console.log(`[Crawler Search] 🔀 RANDOM: Targeting ${targetDomains.length} domains`);
-  }
+  // DIRECT SELECTION - wybierz domeny elektroniczne bezpośrednio
+  let targetDomains = selectTargetDomains(maxDomains, category);
+  console.log(`[Crawler Search] 🎯 DIRECT: Targeting ${targetDomains.length} electronics domains`);
 
   // Generate search URLs for each domain with MULTI-FALLBACK
   const searchUrls = [];
@@ -121,18 +118,63 @@ async function searchProduct({ query, ean, maxDomains = 30, category = 'products
  * Returns mix of 60% niszowe + 40% giganci (for best deals)
  */
 function selectTargetDomains(maxDomains, category) {
-  // Load category-specific domains from JSON files
-  const dienstenDomains = loadDienstenDomains(category);
-  const financeDomains = loadFinanceDomains(category);
+  const allDomains = domains.giganci || [];
+  const niszoweDomains = domains.niszowe || [];
   
-  // If we have category-specific domains, use them
-  if (dienstenDomains.length > 0) {
-    return dienstenDomains.slice(0, maxDomains);
+  // For products category, filter to electronics domains only
+  let targetDomains = [];
+  
+  if (category === 'products' || !category) {
+    // Electronics keywords to filter domains
+    const electronicsKeywords = [
+      'bol.com', 'coolblue', 'mediamarkt', 'saturn', 'wehkamp',
+      'belsimpel', 'mobiel', 'kpn', 'vodafone', 't-mobile', 'tele2',
+      'apple', 'samsung', 'sony', 'lg', 'philips', 'canon', 'nikon',
+      'alternate', 'azerty', 'tweakers', 'beslist', 'informatique',
+      'centralpoint', 'mycom', 'paradigit', 'conrad', 'game-mania',
+      'nedgame', 'dyson', 'garmin', 'tomtom',
+      'elektro', 'laptop', 'computer', 'gaming', 'telefoon', 'gsm',
+      'smartphone', 'tablet', 'ipad', 'tv', 'audio', 'camera',
+      'drone', 'smart-home', 'domotica', 'led', 'batterij', 'accu',
+      'kabel', 'printer', 'gadget', 'tech', 'electronica', 'hardware'
+    ];
+    
+    // Filter giganci for electronics
+    const electronicsGiganci = allDomains.filter(domain => 
+      electronicsKeywords.some(keyword => domain.includes(keyword))
+    );
+    
+    // Filter niszowe for electronics
+    const electronicsNiszowe = niszoweDomains.filter(domain =>
+      electronicsKeywords.some(keyword => domain.includes(keyword))
+    );
+    
+    // Use ONLY giganci (niszowe domains don't exist - they're fictional)
+    // 100% giganci, 0% niszowe
+    targetDomains = electronicsGiganci.slice(0, maxDomains);
+  } else {
+    // For other categories, use old logic
+    const dienstenDomains = loadDienstenDomains(category);
+    const financeDomains = loadFinanceDomains(category);
+  
+    // If we have category-specific domains, use them
+    if (dienstenDomains.length > 0) {
+      return dienstenDomains.slice(0, maxDomains);
+    }
+  
+    if (financeDomains.length > 0) {
+      return financeDomains.slice(0, maxDomains);
+    }
+    
+    // Fallback to all domains
+    const giganci = domains.giganci || [];
+    const niszowe = domains.niszowe || [];
+    const niszoweCount = Math.ceil(maxDomains * 0.6);
+    const giganciCount = maxDomains - niszoweCount;
+    targetDomains = [...niszowe.slice(0, niszoweCount), ...giganci.slice(0, giganciCount)];
   }
   
-  if (financeDomains.length > 0) {
-    return financeDomains.slice(0, maxDomains);
-  }
+  return targetDomains;
   
   // Fallback to general product domains (giganci + niszowe)
   const giganci = domains.giganci || [];

@@ -59,12 +59,12 @@ export const TEXTS = {
   appNameShort: 'D.nl',
   tagline: 'AI aankoop assistent',
   
-  // Package names
+  // Package names (TYLKO FREE i PLUS aktywne)
   packageFree: 'FREE',
   packagePlus: 'PLUS',
-  packagePro: 'PRO',
-  packageFinance: 'FINANCE',
-  packageZakelijk: 'ZAKELIJK B2B',
+  // packagePro: 'PRO',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // packageFinance: 'FINANCE',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // packageZakelijk: 'ZAKELIJK B2B',  // ODPIĘTE - B2B module
   
   // Common actions
   upgradeNow: 'Upgrade nu',
@@ -83,51 +83,48 @@ export const TEXTS = {
 } as const
 
 /**
- * Package pricing
+ * Package pricing (TYLKO FREE i PLUS aktywne)
  */
 export const PRICING = {
   free: '€0',
   plus: '€19,99',
-  pro: '€29,99',
-  finance: '€39,99',
-  zakelijk: '€59,99',
+  // pro: '€29,99',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // finance: '€39,99',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // zakelijk: '€59,99',  // ODPIĘTE - B2B module
 } as const
 
 /**
  * Commission rates (on transaction value, not subscription price)
  * FREE: 10% commission on transaction
- * PLUS/PRO/FINANCE: 9% commission on transaction
- * ZAKELIJK B2B: 10% commission on B2B transaction
+ * PLUS: 9% commission on transaction
  */
 export const COMMISSION = {
   free: '10%',
   plus: '9%',
-  pro: '9%',
-  finance: '9%',
-  zakelijk: '10%',
+  // pro: '9%',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // finance: '9%',  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // zakelijk: '9%',  // ODPIĘTE - B2B module
 } as const
 
 /**
- * Feature limits
+ * Feature limits (TYLKO FREE i PLUS)
  */
 export const LIMITS = {
   freeScans: 3,
   freeCategories: 10,
   plusCategories: 10,
-  proCategories: 16,
-  financeCategories: 21,
+  // proCategories: 16,  // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // financeCategories: 21,  // ODPIĘTE - w _BACKUP_PRO_FINANCE
 } as const
 
 /**
  * Ghost Mode durations (in seconds)
  * PLUS: 24 hours
- * PRO: 48 hours
- * FINANCE: 7 days
  */
 export const GHOST_MODE = {
   plus: 24 * 60 * 60,      // 24 hours
-  pro: 48 * 60 * 60,       // 48 hours
-  finance: 7 * 24 * 60 * 60, // 7 days
+  // pro: 48 * 60 * 60,       // ODPIĘTE - w _BACKUP_PRO_FINANCE
+  // finance: 7 * 24 * 60 * 60, // ODPIĘTE - w _BACKUP_PRO_FINANCE
 } as const
 
 /**

@@ -41,6 +41,26 @@ export const FEATURE_FLAGS = {
   DEBUG_MODE: true,  // 🔧 TESTING MODE - logi włączone
 
   /**
+   * PRO_ENABLED
+   * 
+   * Kontroluje czy pakiet PRO jest widoczny i dostępny
+   * 
+   * false = WYŁĄCZONY - brak API dla konfiguratorów
+   * true = WŁĄCZONY - gdy dostaniemy więcej API
+   */
+  PRO_ENABLED: false,  // 🚫 PRO ODPIĘTE - brak API (tylko SearchAPI.io)
+
+  /**
+   * FINANCE_ENABLED
+   * 
+   * Kontroluje czy pakiet FINANCE jest widoczny i dostępny
+   * 
+   * false = WYŁĄCZONY - brak API dla konfiguratorów
+   * true = WŁĄCZONY - gdy dostaniemy więcej API
+   */
+  FINANCE_ENABLED: false,  // 🚫 FINANCE ODPIĘTE - brak API (tylko SearchAPI.io)
+
+  /**
    * ZAKELIJK_ENABLED
    * 
    * Kontroluje czy pakiet ZAKELIJK B2B jest widoczny i dostępny

@@ -35,11 +35,34 @@ class RotationSystem {
   
   /**
    * Load all 1000 domains from domains-1000-nl-final.js
+   * FILTERED to electronics only for products
    */
   loadAllDomains() {
     try {
       const domains = require('./domains-1000-nl-final');
-      return [...domains.giganci, ...domains.niszowe];
+      const allDomains = [...domains.giganci, ...domains.niszowe];
+      
+      // Filter to electronics domains only
+      const electronicsKeywords = [
+        'bol.com', 'coolblue', 'mediamarkt', 'saturn', 'wehkamp',
+        'belsimpel', 'mobiel', 'kpn', 'vodafone', 't-mobile', 'tele2',
+        'apple', 'samsung', 'sony', 'lg', 'philips', 'canon', 'nikon',
+        'alternate', 'azerty', 'tweakers', 'beslist', 'informatique',
+        'centralpoint', 'mycom', 'paradigit', 'conrad', 'game-mania',
+        'nedgame', 'dyson', 'garmin', 'tomtom',
+        'elektro', 'laptop', 'computer', 'gaming', 'telefoon', 'gsm',
+        'smartphone', 'tablet', 'ipad', 'tv', 'audio', 'camera',
+        'drone', 'smart-home', 'domotica', 'led', 'batterij', 'accu',
+        'kabel', 'printer', 'gadget', 'tech', 'electronica', 'hardware'
+      ];
+      
+      const electronicsDomains = allDomains.filter(domain =>
+        electronicsKeywords.some(keyword => domain.includes(keyword))
+      );
+      
+      console.log(`[Rotation] Loaded ${electronicsDomains.length} electronics domains (filtered from ${allDomains.length})`);
+      
+      return electronicsDomains;
     } catch (error) {
       console.error('[Rotation] Failed to load domains:', error.message);
       return [];

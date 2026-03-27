@@ -25,8 +25,9 @@ export function calculateCommission(
   amount: number,
   packageType: PackageType
 ): CommissionResult {
-  // Get commission rate from constants
-  const rateStr = COMMISSION[packageType] || '10%'
+  // Get commission rate from constants (only FREE and PLUS active)
+  // PRO/FINANCE/ZAKELIJK are on shelf, use default 9%
+  const rateStr = (COMMISSION as any)[packageType] || '9%'
   const rate = parseFloat(rateStr.replace('%', ''))
   const rateDecimal = rate / 100
   
@@ -70,5 +71,5 @@ export function calculateNetSavings(
  * @returns Formatted commission string (e.g., "10%")
  */
 export function formatCommission(packageType: PackageType): string {
-  return COMMISSION[packageType] || '10%'
+  return (COMMISSION as any)[packageType] || '9%'
 }

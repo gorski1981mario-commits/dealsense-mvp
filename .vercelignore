@@ -8,6 +8,11 @@ server/**/*
 _BACKUP_B2B_MODULE/
 _BACKUP_B2B_MODULE/**/*
 
+# ⚠️ EXCLUDE PRO/FINANCE BACKUP - TEMPORARILY DISABLED
+# PRO/FINANCE packages disabled - only SearchAPI.io available (no other APIs)
+_BACKUP_PRO_FINANCE/
+_BACKUP_PRO_FINANCE/**/*
+
 # ⛔ B2B CONFIGURATORS - FROZEN UNTIL Q3 2026 - DO NOT DEPLOY!
 app/components/configurators/b2b/
 app/components/configurators/b2b/**/*

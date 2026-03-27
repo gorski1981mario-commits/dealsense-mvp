@@ -205,6 +205,9 @@ class StealthBrowser {
       // Wait for page to be fully loaded
       await this.page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {})
 
+      // AUTO-CLICK COOKIE BANNERS (Dutch sites)
+      await this.handleCookieBanners()
+
       // Get HTML content
       const html = await this.page.content()
 
@@ -259,6 +262,205 @@ class StealthBrowser {
     }
 
     return null
+  }
+
+  /**
+   * AUTO-CLICK COOKIE BANNERS
+   * SMART DETECTION - automatically finds cookie buttons without hardcoded selectors
+   */
+  async handleCookieBanners() {
+    if (!this.page) return;
+
+    try {
+      // Wait longer for cookie banner to appear (some sites load it slowly)
+      await this.page.waitForTimeout(3000);
+
+      // SMART DETECTION: Find all buttons and links on page
+      const cookieButton = await this.page.evaluate(() => {
+        // Keywords that indicate "accept all cookies" in Dutch/English
+        const acceptKeywords = [
+          'alle cookies toestaan',
+          'alles toestaan',
+          'accepteren',
+          'akkoord',
+          'accept all',
+          'accept cookies',
+          'toestemming',
+          'agree',
+          'i agree'
+        ];
+
+        // Keywords that indicate "reject" or "settings" (avoid these)
+        const rejectKeywords = [
+          'weigeren',
+          'afwijzen',
+          'reject',
+          'alleen noodzakelijke',
+          'alleen essentiële',
+          'instellingen',
+          'settings',
+          'aanpassen',
+          'customize'
+        ];
+
+        // Find all clickable elements
+        const elements = Array.from(document.querySelectorAll('button, a, [role="button"]'));
+
+        // Score each element
+        let bestMatch = null;
+        let bestScore = 0;
+
+        for (const el of elements) {
+          const text = (el.textContent || '').toLowerCase().trim();
+          const ariaLabel = (el.getAttribute('aria-label') || '').toLowerCase();
+          const className = (el.className || '').toLowerCase();
+          const id = (el.id || '').toLowerCase();
+          
+          const fullText = `${text} ${ariaLabel} ${className} ${id}`;
+
+          // Skip if contains reject keywords
+          if (rejectKeywords.some(keyword => fullText.includes(keyword))) {
+            continue;
+          }
+
+          // Calculate score based on accept keywords
+          let score = 0;
+          for (const keyword of acceptKeywords) {
+            if (fullText.includes(keyword)) {
+              score += keyword.length; // Longer matches = higher score
+            }
+          }
+
+          // Bonus points for being in a modal/dialog
+          const isInModal = el.closest('[role="dialog"], .modal, .cookie, [class*="cookie"], [id*="cookie"]');
+          if (isInModal) {
+            score += 10;
+          }
+
+          // Bonus for being a button (not just a link)
+          if (el.tagName === 'BUTTON') {
+            score += 5;
+          }
+
+          // Check if visible
+          const rect = el.getBoundingClientRect();
+          const isVisible = rect.width > 0 && rect.height > 0;
+          if (!isVisible) {
+            score = 0; // Invisible = no score
+          }
+
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = el;
+          }
+        }
+
+        // Return the selector for best match
+        if (bestMatch && bestScore > 5) {
+          // Generate unique selector
+          if (bestMatch.id) {
+            return `#${bestMatch.id}`;
+          }
+          
+          // Use text content as selector
+          const text = bestMatch.textContent.trim();
+          if (text) {
+            return `text=${text}`;
+          }
+        }
+
+        return null;
+      });
+
+      if (cookieButton) {
+        console.log(`[Cookie Banner] 🎯 Smart detection found: ${cookieButton}`);
+        
+        try {
+          // Click using the found selector
+          if (cookieButton.startsWith('text=')) {
+            const text = cookieButton.substring(5);
+            await this.page.click(`text="${text}"`);
+          } else {
+            await this.page.click(cookieButton);
+          }
+          
+          console.log('[Cookie Banner] ✅ Clicked cookie consent button (smart detection)');
+          await this.page.waitForTimeout(2000);
+          return;
+        } catch (err) {
+          console.log('[Cookie Banner] Smart click failed, trying fallback...');
+        }
+      }
+
+      // Common Dutch cookie consent button selectors
+      const cookieSelectors = [
+        // Text-based (most reliable) - EXACT matches from screenshots
+        'button:has-text("Alle cookies toestaan")',      // Paradigit.nl
+        'button:has-text("Alles toestaan")',             // Cameraland.nl
+        'button:has-text("Accepteren")',
+        'button:has-text("Akkoord")',
+        'button:has-text("Accept")',
+        'button:has-text("Toestemming")',
+        'button:has-text("Alle cookies accepteren")',
+        'button:has-text("Toestaan")',
+        'a:has-text("Alle cookies toestaan")',
+        'a:has-text("Alles toestaan")',
+        'a:has-text("Accepteren")',
+        'a:has-text("Akkoord")',
+        
+        // Common class/id names
+        '[id*="accept"][id*="cookie"]',
+        '[id*="cookie"][id*="accept"]',
+        '[class*="accept"][class*="cookie"]',
+        '[class*="cookie"][class*="accept"]',
+        '[data-consent="accept"]',
+        '[data-cookie="accept"]',
+        
+        // Common frameworks
+        '.cookie-consent-accept',
+        '.cookie-accept',
+        '#cookie-accept',
+        '#accept-cookies',
+        '.accept-all-cookies',
+        
+        // Specific Dutch sites
+        '[data-testid="cookie-accept"]',
+        '[aria-label*="accepteren"]',
+        '[aria-label*="akkoord"]'
+      ];
+
+      // Try each selector
+      for (const selector of cookieSelectors) {
+        try {
+          // Check if button exists AND is visible
+          const button = await this.page.$(selector);
+          if (button) {
+            const isVisible = await button.isVisible().catch(() => false);
+            if (isVisible) {
+              console.log(`[Cookie Banner] Found visible button: ${selector}`);
+              
+              // Scroll button into view (sometimes it's off-screen)
+              await button.scrollIntoViewIfNeeded().catch(() => {});
+              await this.page.waitForTimeout(500);
+              
+              // Click the button
+              await button.click();
+              console.log('[Cookie Banner] ✅ Clicked cookie consent button');
+              
+              // Wait for banner to disappear
+              await this.page.waitForTimeout(2000);
+              return; // Success, stop trying
+            }
+          }
+        } catch (err) {
+          // Continue to next selector
+        }
+      }
+
+      console.log('[Cookie Banner] No cookie banner found (or already accepted)');
+    } catch (error) {
+      console.log('[Cookie Banner] Error handling cookies:', error.message);
+    }
   }
 
   /**

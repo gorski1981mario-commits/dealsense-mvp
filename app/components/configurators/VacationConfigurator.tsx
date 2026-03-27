@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Lock, Unlock, Download, Sun } from 'lucide-react'
 import { useConfigurationLock } from '../../_lib/hooks/useConfigurationLock'
-import { useConfiguratorSearch } from '../../_hooks/useConfiguratorSearch'
+import { useVacationSearch } from '../../_hooks/useVacationSearch'
 import { FlowTracker } from '../../_lib/flow-tracker'
 import ProgressTracker from '../shared/ProgressTracker'
 import LockPanel from '../shared/LockPanel'
@@ -57,8 +57,8 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
     handleDownloadPDF: downloadPDF
   } = useConfigurationLock({ userId: userId || 'anonymous', sector: 'vacation' })
   
-  // Crawler search hook
-  const { search, loading: searching, error: searchError, results: searchResults } = useConfiguratorSearch()
+  // Vacation search hook - REAL API with SearchAPI.io
+  const { search, loading: searching, error: searchError, results: searchResults } = useVacationSearch()
   
   // Active field tracking for visual highlight
   const [activeField, setActiveField] = useState<string | null>(null)
@@ -136,16 +136,18 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
       await lockConfig(parameters)
     }
     
-    // Search for vacation offers
+    // Search for vacation offers - REAL API with SearchAPI.io (Google Flights + Hotels)
     await search({
-      query: `${destination} vakantie ${duration} dagen ${adults} volwassenen ${children} kinderen ${stars} sterren ${board}`,
-      category: 'vacation',
+      destination,
+      departureAirport,
+      departureDate,
+      duration,
+      adults,
+      children,
+      stars,
+      board,
       packageType: pkg,
-      userId: uid,
-      metadata: { 
-        adults, children, destination, duration, stars, board, transport, accommodationType,
-        departureAirport, dateFlexibility, directFlightsOnly, minReviewScore, lastMinute
-      }
+      userId: uid
     })
     
     setView('results')
@@ -544,65 +546,18 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
   };
 
   if (view === 'results') {
-    // Mock offers voor demo (later vervangen door echte API)
-    const mockOffers = [
-      {
-        agency: 'Vakantieveilingen',
-        price: 4263,
-        pricePerPerson: 1421,
-        stars: 4,
-        board: 'All Inclusive',
-        directFlight: true,
-        reviewScore: 8.5,
-        destination: destination,
-        url: 'https://www.vakantieveilingen.nl/...'
-      },
-      {
-        agency: 'Goedkopevliegtickets',
-        price: 4366,
-        pricePerPerson: 1455,
-        stars: 4,
-        board: 'All Inclusive',
-        directFlight: true,
-        reviewScore: 8.2,
-        destination: destination,
-        url: 'https://www.goedkopevliegtickets.nl/...'
-      },
-      {
-        agency: 'TUI',
-        price: 5650,
-        pricePerPerson: 1883,
-        stars: 4,
-        board: 'All Inclusive',
-        directFlight: true,
-        reviewScore: 8.0,
-        destination: destination,
-        url: 'https://www.tui.nl/...',
-        isReference: true // Najdroższa oferta = referentie
-      }
-    ];
-    
-    const offers = mockOffers;
+    // REAL DATA from SearchAPI.io (Google Flights + Hotels)
+    const offers = searchResults?.offers || [];
     const hasOffers = offers.length > 0;
     
-    // REFERENTIE PRIJS: Najdroższa oferta (meestal gigant zoals TUI)
-    const referenceOffer = offers.find(o => o.isReference) || offers[offers.length - 1];
-    const referencePrice = referenceOffer.price;
+    // Get reference price and savings from API response
+    const referencePrice = searchResults?.referencePrice || 0;
+    const bestPrice = searchResults?.basePrice || 0;
+    const maxSavings = searchResults?.maxSavings || 0;
+    const savingsPercent = searchResults?.savingsPercent || 0;
     
-    // BESTE DEAL: Najtańsza oferta
-    const bestOffer = offers[0];
-    const bestPrice = bestOffer.price;
-    
-    // OSZCZĘDNOŚCI: Referentie - Beste deal
-    const maxSavings = referencePrice - bestPrice;
-    const savingsPercent = Math.round((maxSavings / referencePrice) * 100);
-    
-    // Add savings to each offer
-    const offersWithSavings = offers.map(offer => ({
-      ...offer,
-      savings: referencePrice - offer.price,
-      savingsPercent: Math.round(((referencePrice - offer.price) / referencePrice) * 100)
-    })).filter(o => !o.isReference); // Verberg referentie oferte
+    // Offers already have savings calculated by API
+    const offersWithSavings = offers
     
     const commission = packageType === 'free' ? 0.10 : 0.09;
     const commissionAmount = Math.round(maxSavings * commission);
@@ -647,7 +602,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                 
                 <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px', flexWrap: 'wrap' }}>
                   {offer.directFlight && <span>✈️ Directe vlucht</span>}
-                  <span>⭐ Beoordeling: {offer.reviewScore}/10</span>
+                  <span>⭐ Beoordeling: {offer.reviewScore.toFixed(1)}/10</span>
                   <span style={{ color: '#15803d', fontWeight: 600 }}>💸 Bespaar: €{offer.savings}</span>
                 </div>
                 
@@ -690,7 +645,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
             <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#111827', marginBottom: '8px' }}>✅ Toegang verkregen!</h2>
             <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>Je kunt nu boeken bij de beste reisorganisaties</p>
             <div style={{ background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '10px 12px', marginBottom: '20px', fontSize: '13px', color: '#6B7280' }}>
-              💡 <strong>Referentie:</strong> {referenceOffer.agency} €{referencePrice} (standaard prijs bij grote reisorganisaties)
+              💡 <strong>Referentie:</strong> TUI €{referencePrice} (standaard prijs bij grote reisorganisaties)
             </div>
 
             {offersWithSavings.map((offer, i) => (
@@ -701,7 +656,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
                   <div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>
-                      {offer.agency}
+                      {offer.agencyDisplay}
                     </div>
                     <div style={{ fontSize: '14px', color: '#6B7280' }}>
                       {getDestinationDisplayName(offer.destination)} • {offer.stars}⭐ {offer.board}
@@ -716,7 +671,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                 
                 <div style={{ display: 'flex', gap: '12px', fontSize: '12px', color: '#6B7280', marginBottom: '12px', flexWrap: 'wrap' }}>
                   {offer.directFlight && <span>✈️ Directe vlucht</span>}
-                  <span>⭐ Beoordeling: {offer.reviewScore}/10</span>
+                  <span>⭐ Beoordeling: {offer.reviewScore.toFixed(1)}/10</span>
                   <span style={{ color: '#15803d', fontWeight: 600 }}>💸 Bespaar: €{offer.savings}</span>
                 </div>
                 
@@ -724,7 +679,7 @@ export default function VacationConfigurator({ packageType = 'pro', userId }: Va
                   onClick={() => window.open(offer.url, '_blank')}
                   style={{ width: '100%', padding: '12px', background: '#15803d', color: 'white', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
                 >
-                  🌐 Boek bij {offer.agency} →
+                  🌐 Boek bij {offer.agencyDisplay} →
                 </button>
               </div>
             ))}

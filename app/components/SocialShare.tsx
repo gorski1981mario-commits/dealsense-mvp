@@ -22,7 +22,8 @@ export default function SocialShare({
   const baseUrl = 'https://dealsense.nl'
   const hasPackage = userPackage !== 'free'
   
-  const commissionRate = parseFloat(COMMISSION[userPackage].replace('%', '')) / 100
+  // PRO/FINANCE/ZAKELIJK are on shelf, use default 9%
+  const commissionRate = parseFloat(((COMMISSION as any)[userPackage] || '9%').replace('%', '')) / 100
   const savingsAfterCommission = withCode 
     ? savings * (1 - commissionRate + 0.02)
     : savings * (1 - commissionRate)

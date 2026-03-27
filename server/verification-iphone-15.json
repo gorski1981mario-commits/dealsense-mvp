@@ -1,0 +1,58 @@
+{
+  "product": "iPhone 15",
+  "expectedPrice": 879,
+  "totalResults": 26,
+  "topOffers": [
+    {
+      "title": "Apple iPhone 15",
+      "seller": "Telefoongigant.nl",
+      "price": 518,
+      "condition": "Refurbished",
+      "rating": 4.7,
+      "reviews": 46000,
+      "link": "https://www.google.com/search?q=iPhone+15&oq=iPhone+15&gl=nl&hl=nl&udm=28#oshopproduct=cid:15168191807714091233,gid:6601648695432433635,mid:576462758755759090,oid:5232109745356941792,iid:1157433105169110837,rds:UENfNjYwMTY0ODY5NTQzMjQzMzYzNXxQUk9EX1BDXzY2MDE2NDg2OTU0MzI0MzM2MzU=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Apple iPhone 15 Plus",
+      "seller": "Back Market",
+      "price": 491,
+      "condition": "Refurbished",
+      "rating": 4.6,
+      "reviews": 9,
+      "link": "https://www.google.com/search?q=iPhone+15&oq=iPhone+15&gl=nl&hl=nl&udm=28#oshopproduct=cid:12463372720145295942,gid:4702526954592161872,mid:576462756293218671,oid:16277048087766740496,iid:4504646700526581010,rds:UENfNDcwMjUyNjk1NDU5MjE2MTg3MnxQUk9EX1BDXzQ3MDI1MjY5NTQ1OTIxNjE4NzI=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Apple iPhone 15 Pro Max",
+      "seller": "Swappie",
+      "price": 669,
+      "condition": "Refurbished",
+      "rating": 4.5,
+      "reviews": 25000,
+      "link": "https://www.google.com/search?q=iPhone+15&oq=iPhone+15&gl=nl&hl=nl&udm=28#oshopproduct=cid:16422193020211154932,gid:9324660314854852149,mid:576462543689088874,oid:15439233947801964305,iid:1776920746762901859,rds:UENfOTMyNDY2MDMxNDg1NDg1MjE0OXxQUk9EX1BDXzkzMjQ2NjAzMTQ4NTQ4NTIxNDk=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Apple iPhone 15 Pro",
+      "seller": "Telefoongigant.nl",
+      "price": 514.99,
+      "condition": "Refurbished",
+      "rating": 4.4,
+      "reviews": 15000,
+      "link": "https://www.google.com/search?q=iPhone+15&oq=iPhone+15&gl=nl&hl=nl&udm=28#oshopproduct=cid:11613549576802410242,gid:11795796123145720151,oid:5195648640711484410,iid:5154330071323803211,rds:UENfMTE3OTU3OTYxMjMxNDU3MjAxNTF8UFJPRF9QQ18xMTc5NTc5NjEyMzE0NTcyMDE1MQ==,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Apple Iphone 15 256gb Blue (unlocked) - Good",
+      "seller": "eBay",
+      "price": 400.61,
+      "condition": "Refurbished",
+      "rating": 4.7,
+      "reviews": 46000,
+      "link": "https://www.google.com/search?q=iPhone+15&oq=iPhone+15&gl=nl&hl=nl&udm=28#oshopproduct=oid:4961892884192550698,iid:11877416197999582857,rds:UENfNjYwMTY0ODY5NTQzMjQzMzYzNXxQUk9EX1BDXzY2MDE2NDg2OTU0MzI0MzM2MzU=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    }
+  ],
+  "analysis": {
+    "accessories": 0,
+    "used": 0,
+    "realistic": 5,
+    "valid": 5
+  }
+}

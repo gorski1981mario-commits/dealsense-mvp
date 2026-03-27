@@ -74,18 +74,29 @@ async function getRealVacationPrice(config) {
     console.log(`[Vacation API] Searching real prices via Google Flights/Hotels: ${config.departureAirport} -> ${destinationIATA}`);
 
     // Search flights and hotels in parallel using Google API
-    const [flightPrice, hotelPrice] = await Promise.all([
+    const [flightPrice, hotelData] = await Promise.all([
       searchGoogleFlights(config.departureAirport, destinationIATA, config.departureDate, returnDateStr, config.adults, config.children),
       searchGoogleHotels(config.destination, config.departureDate, returnDateStr, config.adults, config.children, config.stars)
     ]);
 
-    if (!flightPrice || !hotelPrice) {
+    if (!flightPrice || !hotelData) {
       console.warn(`[Vacation API] Could not get prices from Google API`);
       return null;
     }
 
+    const hotelPrice = hotelData.price;
     const totalPrice = flightPrice + hotelPrice;
     const perPerson = Math.round(totalPrice / (config.adults + (config.children || 0)));
+
+    // Generate Google Flights search URL (since API doesn't provide booking links)
+    const flightSearchUrl = buildGoogleFlightsUrl(
+      config.departureAirport,
+      destinationIATA,
+      config.departureDate,
+      returnDateStr,
+      config.adults,
+      config.children
+    );
 
     console.log(`[Vacation API] Found real price: €${totalPrice} (flight: €${flightPrice}, hotel: €${hotelPrice})`);
 
@@ -94,6 +105,10 @@ async function getRealVacationPrice(config) {
       perPerson: perPerson,
       flight: flightPrice,
       hotel: hotelPrice,
+      hotelName: hotelData.hotelName,
+      hotelLink: hotelData.hotelLink, // Direct booking link to hotel
+      hotelRating: hotelData.rating,
+      flightSearchUrl: flightSearchUrl, // Google Flights search URL
       isEstimated: false, // REAL PRICE from Google!
       source: 'Google Flights/Hotels (SearchAPI.io)'
     };
@@ -102,6 +117,17 @@ async function getRealVacationPrice(config) {
     console.error('[Vacation API] Error fetching real prices:', error.message);
     return null;
   }
+}
+
+/**
+ * Build Google Flights search URL with parameters
+ * Since Google Flights API doesn't provide booking links, we generate a search URL
+ */
+function buildGoogleFlightsUrl(origin, destination, departDate, returnDate, adults, children) {
+  // Format: https://www.google.com/travel/flights?q=Flights%20from%20AMS%20to%20IST%20on%202026-07-15%20return%202026-07-25%202%20adults%202%20children
+  const query = `Flights from ${origin} to ${destination} on ${departDate} return ${returnDate} ${adults} adults ${children || 0} children`;
+  const encodedQuery = encodeURIComponent(query);
+  return `https://www.google.com/travel/flights?q=${encodedQuery}`;
 }
 
 /**
@@ -173,10 +199,10 @@ async function searchGoogleHotels(destination, checkIn, checkOut, adults, childr
       return null;
     }
 
-    // Get cheapest hotel
+    // Get cheapest hotel - use total_price.extracted_price_before_taxes
     const hotels = response.data.properties
-      .filter(h => h.rate_per_night && h.rate_per_night.lowest)
-      .sort((a, b) => parseFloat(a.rate_per_night.lowest) - parseFloat(b.rate_per_night.lowest));
+      .filter(h => h.total_price && h.total_price.extracted_price_before_taxes)
+      .sort((a, b) => a.total_price.extracted_price_before_taxes - b.total_price.extracted_price_before_taxes);
 
     if (hotels.length === 0) {
       console.warn('[Google Hotels] No hotels with prices');
@@ -184,12 +210,19 @@ async function searchGoogleHotels(destination, checkIn, checkOut, adults, childr
     }
 
     const cheapestHotel = hotels[0];
-    const pricePerNight = parseFloat(cheapestHotel.rate_per_night.lowest);
+    const totalPrice = cheapestHotel.total_price.extracted_price_before_taxes;
     const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-    const totalPrice = Math.round(pricePerNight * nights);
 
-    console.log(`[Google Hotels] Found hotel: €${totalPrice} (${nights} nights)`);
-    return totalPrice;
+    console.log(`[Google Hotels] Found hotel: ${cheapestHotel.name || 'Unknown'} - €${totalPrice} (${nights} nights)`);
+    
+    // Return price AND booking link
+    return {
+      price: totalPrice,
+      hotelName: cheapestHotel.name || 'Unknown',
+      hotelLink: cheapestHotel.link || cheapestHotel.url || null,
+      rating: cheapestHotel.rating || null,
+      nights: nights
+    };
 
   } catch (error) {
     console.error('[Google Hotels] Error:', error.message);
@@ -264,6 +297,10 @@ async function getRealPricesForAllAgencies(config) {
       perPerson: perPerson,
       flight: Math.round(basePrice.flight * multiplier),
       hotel: Math.round(basePrice.hotel * multiplier),
+      hotelName: basePrice.hotelName,
+      hotelLink: basePrice.hotelLink, // Direct booking link to hotel
+      hotelRating: basePrice.hotelRating,
+      flightSearchUrl: basePrice.flightSearchUrl, // Google Flights search URL
       isEstimated: false, // Based on REAL price!
       source: basePrice.source,
       basePrice: basePrice.total

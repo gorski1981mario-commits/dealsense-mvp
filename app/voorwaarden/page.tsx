@@ -8,7 +8,7 @@ export default function VoorwaardenPage() {
       </h1>
       
       <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '32px' }}>
-        Laatst bijgewerkt: 16 maart 2026
+        Laatst bijgewerkt: 27 maart 2026
       </p>
 
       <div style={{ marginBottom: '32px' }}>
@@ -66,7 +66,7 @@ export default function VoorwaardenPage() {
           Na 3 scans is een upgrade naar een betaald pakket vereist voor verdere scans.
         </p>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-          We bieden verschillende pakketten aan (FREE, PLUS, PRO, FINANCE) met verschillende functionaliteiten. 
+          We bieden verschillende pakketten aan (FREE en PLUS) met verschillende functionaliteiten. 
           De specifieke voorwaarden per pakket zijn beschikbaar op onze website.
         </p>
       </div>

@@ -71,9 +71,8 @@ const aiAssistantItem = {
     'Productadvies op maat',
     'Garantie-informatie',
     'Bespaartips',
-    '⚡ Configuraties automatisch invullen',
-    'Jij controleert en bevestigt',
-    'Financieel advies (FINANCE)'
+    '⚡ Automatisch advies',
+    'Jij controleert en bevestigt'
   ]
 }
 
@@ -85,7 +84,7 @@ const ghostModeItem = {
     'Prijsupdates',
     'Notificaties bij prijsdalingen',
     'Realtime voorraadstatus',
-    '24h/48h/7 dagen (pakket-afhankelijk)'
+    '24h monitoring (PLUS pakket)'
   ]
 }
 

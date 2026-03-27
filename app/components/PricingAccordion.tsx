@@ -11,6 +11,7 @@ interface Package {
   color: string
 }
 
+// TYLKO FREE i PLUS - PRO/FINANCE odpięte (brak API)
 const packages: Package[] = [
   {
     id: 'free',
@@ -41,41 +42,9 @@ const packages: Package[] = [
       '🎁 Referral PLUS2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging. Onbeperkt delen!'
     ],
     color: '#15803d'
-  },
-  {
-    id: 'pro',
-    name: 'PRO',
-    price: '€29,99/mnd',
-    features: [
-      '✓ Onbeperkt scans - producten én diensten',
-      '✓ 16 categorieën (Vakanties, Verzekeringen, Energie, Telecom)',
-      '✓ Slechts 9% commissie op besparingen',
-      '✓ Ghost Mode - prijsmonitoring (48 uur)',
-      '✓ Prioriteit support',
-      '✓ 1000+ Nederlandse webshops',
-      '✓ Echo - volledige AI assistent',
-      '🎁 Referral PRO2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
-    ],
-    color: '#15803d'
-  },
-  {
-    id: 'finance',
-    name: 'FINANCE',
-    price: '€39,99/mnd',
-    features: [
-      '✓ Alles inclusief - alle 20+ categorieën',
-      '✓ Hypotheken, Leningen, Leasing, Creditcards',
-      '✓ Vergelijk alle financiële producten',
-      '✓ Slechts 9% commissie op besparingen',
-      '✓ Ghost Mode - anonieme vergelijking (7 dagen)',
-      '✓ VIP support - directe hulp',
-      '✓ 1000+ Nederlandse webshops',
-      '✓ Echo - premium AI assistent + financieel advies',
-      '💬 Extra Echo prompts: koop 10.000 prompts voor €9,99 (zelfkostenprijs)',
-      '🎁 Referral FINANCE2026: deel code, vrienden -2% op eerste maand, jij -2% bij verlenging'
-    ],
-    color: '#15803d'
   }
+  // PRO i FINANCE ODPIĘTE - backup w _BACKUP_PRO_FINANCE
+  // Przywrócimy gdy dostaniemy więcej API (Travelpayouts, Independer, etc.)
 ]
 
 export default function PricingAccordion() {

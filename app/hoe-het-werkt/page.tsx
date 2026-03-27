@@ -160,7 +160,7 @@ export default function HoeHetWerktPage() {
               <span style={{ color: '#374151', fontWeight: 600, fontSize: '16px', marginLeft: '8px' }}>jouw AI assistent</span>
             </div>
             <div style={{ fontSize: '14px', color: '#374151', lineHeight: '1.6' }}>
-              Stel vragen over producten, garanties of besparingen. Echo helpt je de beste keuze maken met persoonlijk advies. Beschikbaar in PLUS, PRO en FINANCE pakketten.
+              Stel vragen over producten, garanties of besparingen. Echo helpt je de beste keuze maken met persoonlijk advies. Beschikbaar in PLUS pakket.
             </div>
           </div>
         </div>

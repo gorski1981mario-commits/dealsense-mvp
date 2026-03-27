@@ -74,7 +74,7 @@ export default function BillsOptimizer({ userId }: BillsOptimizerProps = {}) {
   const totalSavings = results.reduce((sum, r) => sum + r.savings, 0)
   const totalPenalties = results.reduce((sum, r) => sum + r.penalty, 0)
   const netSavings = (totalSavings * 12) - totalPenalties
-  const commissionRate = parseFloat(COMMISSION.zakelijk.replace('%', '')) / 100
+  const commissionRate = parseFloat(COMMISSION.plus.replace('%', '')) / 100  // ZAKELIJK odpięty - używamy PLUS
   const commission = Math.round(netSavings * commissionRate)
 
   return (

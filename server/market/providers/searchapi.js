@@ -78,7 +78,15 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
   const seen = new Set();
   const allOffers = [];
 
-  const q = (query && String(query).trim()) || (ean ? String(ean).trim() : "");
+  // FIXED: Używaj TYLKO nazwy produktu (bez EAN)
+  // Google Shopping lepiej radzi sobie z nazwami niż z kodami EAN
+  const hasEan = ean && String(ean).trim().length > 0;
+  const productName = query && String(query).trim();
+  
+  // Priorytet: nazwa produktu > EAN
+  // Google Shopping często nie rozpoznaje EAN lub zwraca błędne wyniki
+  const q = productName || (hasEan ? String(ean).trim() : "");
+  
   if (!q) return null;
 
   for (let page = 1; page <= numPages; page++) {
@@ -96,17 +104,25 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
     
     let response;
     try {
+      const params = {
+        api_key: key,
+        engine: "google_shopping",
+        q,
+        gl: "nl", // Netherlands
+        hl: "nl", // Dutch language
+        location: "Netherlands",
+        num: want,
+        page,
+      };
+      
+      // DEBUG: Pokaż co wysyłamy
+      console.log(`[SearchAPI] Query sent to Google Shopping: "${q}"`);
+      if (hasEan) {
+        console.log(`[SearchAPI] EAN provided: ${ean}, ProductName: "${productName || 'no name'}"`);
+      }
+      
       response = await axios.get("https://www.searchapi.io/api/v1/search", {
-        params: {
-          api_key: key,
-          engine: "google_shopping",
-          q,
-          gl: "nl", // Netherlands
-          hl: "nl", // Dutch language
-          location: "Netherlands",
-          num: want,
-          page,
-        },
+        params,
         timeout: timeoutMs,
         validateStatus: () => true,
       });

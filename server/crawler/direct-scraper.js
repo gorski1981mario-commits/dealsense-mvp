@@ -66,16 +66,56 @@ class DirectScraper {
   }
 
   /**
-   * Fetch HTML with GotFetcher (supports IPRoyal proxy)
+   * Fetch HTML with smart fallback strategy:
+   * 1. Try GotFetcher first (fast, works for simple sites)
+   * 2. If fails with 404/418/403 -> fallback to Playwright (JavaScript rendering)
    */
   async fetchHtml(url) {
     // Random delay to avoid rate limiting (500-2000ms)
     const delay = Math.floor(Math.random() * 1500) + 500;
     await new Promise(resolve => setTimeout(resolve, delay));
     
-    // Use GotFetcher which supports IPRoyal proxy
-    const html = await this.fetcher.fetch(url);
-    return html;
+    try {
+      // Try GotFetcher first (fast)
+      const html = await this.fetcher.fetch(url);
+      return html;
+    } catch (error) {
+      // Check if it's a bot detection error
+      const needsPlaywright = 
+        error.message.includes('404') ||
+        error.message.includes('418') || // I'm a Teapot = bot detection
+        error.message.includes('403') ||
+        error.message.includes('NEEDS_PLAYWRIGHT');
+      
+      if (needsPlaywright) {
+        console.log(`[Direct Scraper] GotFetcher blocked (${error.message}), trying Playwright...`);
+        return await this.fetchWithPlaywright(url);
+      }
+      
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch HTML with Playwright (JavaScript rendering, stealth mode)
+   */
+  async fetchWithPlaywright(url) {
+    const StealthBrowser = require('./lib/stealth-browser');
+    
+    const browser = new StealthBrowser({
+      enabled: process.env.USE_PROXY === 'true',
+      provider: process.env.PROXY_PROVIDER || 'iproyal',
+      username: process.env.PROXY_USERNAME,
+      password: process.env.PROXY_PASSWORD
+    });
+    
+    try {
+      await browser.launch();
+      const html = await browser.fetch(url);
+      return html;
+    } finally {
+      await browser.close();
+    }
   }
 
   /**
@@ -103,4 +143,6 @@ class DirectScraper {
   }
 }
 
+// Export both instance and class
 module.exports = new DirectScraper();
+module.exports.DirectScraper = DirectScraper;

@@ -1,0 +1,54 @@
+{
+  "product": "Samsung Galaxy S24",
+  "expectedPrice": 899,
+  "totalResults": 40,
+  "topOffers": [
+    {
+      "title": "Samsung Galaxy S24",
+      "seller": "Gsmweb.nl",
+      "price": 42,
+      "rating": 4.6,
+      "reviews": 57000,
+      "link": "https://www.google.com/search?q=Samsung+Galaxy+S24&oq=Samsung+Galaxy+S24&gl=nl&hl=nl&udm=28#oshopproduct=cid:10607730618104467270,gid:2099649792654594352,mid:576462517318422192,oid:15628956191682417177,iid:4638485865692136752,rds:UENfMjA5OTY0OTc5MjY1NDU5NDM1MnxQUk9EX1BDXzIwOTk2NDk3OTI2NTQ1OTQzNTI=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Samsung Galaxy S24 Ultra",
+      "seller": "Gsmweb.nl",
+      "price": 78,
+      "rating": 4.6,
+      "reviews": 154000,
+      "link": "https://www.google.com/search?q=Samsung+Galaxy+S24&oq=Samsung+Galaxy+S24&gl=nl&hl=nl&udm=28#oshopproduct=cid:3948505073455977035,gid:4010143927307777393,mid:576462770869180404,oid:10283073986131665715,iid:4902586243828331150,rds:UENfNDAxMDE0MzkyNzMwNzc3NzM5M3xQUk9EX1BDXzQwMTAxNDM5MjczMDc3NzczOTM=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Galaxy S24 128GB - Groen - Simlockvrij",
+      "seller": "Back Market",
+      "price": 488.06,
+      "condition": "Refurbished",
+      "rating": 4.6,
+      "reviews": 75000,
+      "link": "https://www.google.com/search?q=Samsung+Galaxy+S24&oq=Samsung+Galaxy+S24&gl=nl&hl=nl&udm=28#oshopproduct=oid:5128535048550922798,iid:12778285807613651432,rds:UENfODg4ODI5NzkwMDk4MDQyMjkxNXxQUk9EX1BDXzg4ODgyOTc5MDA5ODA0MjI5MTU=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Samsung Galaxy S24 128GB Cobalt Violet met hollandsnieuwe Abonnement - Naar Eigen Wens Samen te Stellen",
+      "seller": "Mobiel.nl",
+      "price": 456,
+      "rating": 4.6,
+      "reviews": 57000,
+      "link": "https://www.google.com/search?q=Samsung+Galaxy+S24&oq=Samsung+Galaxy+S24&gl=nl&hl=nl&udm=28#oshopproduct=oid:1016811383830211295,iid:4549619563117533929,rds:UENfMjA5OTY0OTc5MjY1NDU5NDM1MnxQUk9EX1BDXzIwOTk2NDk3OTI2NTQ1OTQzNTI=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Samsung Galaxy S24 FE",
+      "seller": "Gsmweb.nl",
+      "price": 48,
+      "rating": 4.6,
+      "reviews": 75000,
+      "link": "https://www.google.com/search?q=Samsung+Galaxy+S24&oq=Samsung+Galaxy+S24&gl=nl&hl=nl&udm=28#oshopproduct=cid:6465168259350073370,gid:8888297900980422915,mid:576462796158738728,oid:4435013470295550317,iid:8530469163087106216,rds:UENfODg4ODI5NzkwMDk4MDQyMjkxNXxQUk9EX1BDXzg4ODgyOTc5MDA5ODA0MjI5MTU=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    }
+  ],
+  "analysis": {
+    "accessories": 0,
+    "used": 0,
+    "realistic": 2,
+    "valid": 2
+  }
+}

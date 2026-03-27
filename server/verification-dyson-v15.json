@@ -1,0 +1,54 @@
+{
+  "product": "Dyson V15",
+  "expectedPrice": 599,
+  "totalResults": 40,
+  "topOffers": [
+    {
+      "title": "Dyson V15 Detect Absolute",
+      "seller": "Coolblue",
+      "price": 549,
+      "rating": 4.6,
+      "reviews": 27000,
+      "link": "https://www.google.com/search?q=Dyson+V15&oq=Dyson+V15&gl=nl&hl=nl&udm=28#oshopproduct=cid:15392527172885785051,gid:3179591074276238152,mid:576462852948626346,oid:11131778700436404351,iid:12805396686493723119,rds:UENfMzE3OTU5MTA3NDI3NjIzODE1MnxQUk9EX1BDXzMxNzk1OTEwNzQyNzYyMzgxNTI=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Dyson V15 Detect Fluffy",
+      "seller": "bol.com",
+      "price": 499,
+      "rating": 4.5,
+      "reviews": 20000,
+      "link": "https://www.google.com/search?q=Dyson+V15&oq=Dyson+V15&gl=nl&hl=nl&udm=28#oshopproduct=cid:12474812298189633373,gid:8908434059311386230,mid:576462828422429362,oid:8108475885020856111,iid:12328851957997602651,rds:UENfODkwODQzNDA1OTMxMTM4NjIzMHxQUk9EX1BDXzg5MDg0MzQwNTkzMTEzODYyMzA=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Dyson V15 Detect",
+      "seller": "Marktplaats",
+      "price": 499,
+      "condition": "Tweedehands",
+      "rating": 4.5,
+      "reviews": 24000,
+      "link": "https://www.google.com/search?q=Dyson+V15&oq=Dyson+V15&gl=nl&hl=nl&udm=28#oshopproduct=cid:6099511557562194717,gid:4288428057206782059,mid:576462808301427043,oid:5379920016131953847,iid:16219058173669286156,rds:UENfNDI4ODQyODA1NzIwNjc4MjA1OXxQUk9EX1BDXzQyODg0MjgwNTcyMDY3ODIwNTk=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Dyson V15 Origin Steelstofzuiger",
+      "seller": "MediaMarkt",
+      "price": 466,
+      "rating": 4.6,
+      "reviews": 330,
+      "link": "https://www.google.com/search?q=Dyson+V15&oq=Dyson+V15&gl=nl&hl=nl&udm=28#oshopproduct=cid:1116613801952953723,gid:17198445149905533652,oid:11376914613108760917,iid:586429310487478386,rds:UENfMTcxOTg0NDUxNDk5MDU1MzM2NTJ8UFJPRF9QQ18xNzE5ODQ0NTE0OTkwNTUzMzY1Mg==,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    },
+    {
+      "title": "Dyson v15 detect fluffy",
+      "seller": "tvoutlet.tv",
+      "price": 689,
+      "rating": 4.2,
+      "reviews": 783,
+      "link": "https://www.google.com/search?q=Dyson+V15&oq=Dyson+V15&gl=nl&hl=nl&udm=28#oshopproduct=oid:13704280823505683303,iid:9345744222983015073,rds:UENfOTQ5NzY3MTAzOTU4NTY5NzE1OHxQUk9EX1BDXzk0OTc2NzEwMzk1ODU2OTcxNTg=,pvt:hg,pvo:3&oshop=apv&pvs=0"
+    }
+  ],
+  "analysis": {
+    "accessories": 0,
+    "used": 1,
+    "realistic": 5,
+    "valid": 4
+  }
+}

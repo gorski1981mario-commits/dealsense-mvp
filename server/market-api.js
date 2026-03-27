@@ -36,7 +36,7 @@ const adaptiveFetch = require("./lib/adaptiveFetch");
 // ---------- USTAWIENIA CRAWLERA I API ----------
 /** Czy używać własnego crawlera (true) czy zewnętrznych API (false) */
 const USE_OWN_CRAWLER = (() => {
-  const v = String(process.env.USE_OWN_CRAWLER || "true").trim().toLowerCase();
+  const v = String(process.env.USE_OWN_CRAWLER || "false").trim().toLowerCase();
   return v === "1" || v === "true";
 })();
 /** Ile domen crawlować (dla własnego crawlera) */
@@ -45,7 +45,7 @@ const CRAWLER_MAX_DOMAINS = Number(process.env.CRAWLER_MAX_DOMAINS) || 30;
 /** Ile wyników prosić z API na jedną stronę (SearchAPI.io). Więcej = więcej ofert na stronę (jeśli API zwraca). */
 const GOOGLE_SHOPPING_NUM_RESULTS = Number(process.env.GOOGLE_SHOPPING_NUM_RESULTS) || 100;
 /** Ile stron pobrać (page=1, 2, …). 1 = jeden request ≈ 1 s, ~30 sklepów jak wcześniej. Więcej stron = więcej ofert, ale dłużej. */
-const GOOGLE_SHOPPING_NUM_PAGES = Number(process.env.GOOGLE_SHOPPING_NUM_PAGES) || 1;
+const GOOGLE_SHOPPING_NUM_PAGES = Number(process.env.GOOGLE_SHOPPING_NUM_PAGES) || 2;
 /** true = najpierw sklepy niszowe (mniej recenzji), potem cena rosnąco. false = jak wcześniej (cena + popularność). */
 const SORT_NICHE_SHOPS_FIRST = true;
 
@@ -556,6 +556,54 @@ function nlRetailOnlyConfig() {
     "karwei",
     "action",
     "hema",
+    
+    // Electronics & Tech NL
+    "belsimpel",
+    "mobiel.nl",
+    "gsmpunt",
+    "phonehouse",
+    "kpn",
+    "t-mobile",
+    "vodafone",
+    "tele2",
+    "conrad",
+    "conrad.nl",
+    "centralpoint",
+    "azerty",
+    "mycom",
+    "informatique",
+    "bytes",
+    
+    // Gaming & Entertainment NL
+    "nedgame",
+    "gamemania",
+    "intertoys",
+    "bart smit",
+    "my nintendo store",
+    "playstation store",
+    
+    // Home & Appliances NL
+    "bijenkorf",
+    "de bijenkorf",
+    "vanden borre",
+    "krefel",
+    "electro world",
+    "ep:",
+    
+    // Fashion & Lifestyle NL
+    "zalando",
+    "zalando.nl",
+    "aboutyou",
+    "about you",
+    "omoda",
+    "omoda.nl",
+    
+    // Sports NL
+    "decathlon",
+    "intersport",
+    "aktiesport",
+    "bever",
+    
     // NL marketplaces that are still retail-ish are intentionally NOT included here.
   ];
 
@@ -906,7 +954,10 @@ function offerDedupKey(o) {
   return `${o.url || ""}|${o.seller || ""}|${o.price ?? ""}`;
 }
 
-async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
+async function fetchGoogleShoppingOffers(productName, maxResults = 60, ean = null) {
+  // DEBUG: Sprawdź co dostajemy
+  console.log(`[fetchGoogleShoppingOffers] productName type: ${typeof productName}, value:`, productName);
+  
   const provider = String(process.env.MARKET_PROVIDER || "").trim().toLowerCase() || "searchapi";
   const providerChain = (() => {
     const raw = String(process.env.MARKET_PROVIDER_CHAIN || "").trim();
@@ -999,7 +1050,7 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60) {
             withTimeout(
               fetchSearchApiOffers({
                 query: q,
-                ean: null,
+                ean: ean,
                 maxResults,
                 pages: numPages,
                 apiKey: key,
@@ -1133,6 +1184,17 @@ function applyDealScoreV2(offers, userBasePrice = null, options = {}) {
 async function fetchMarketOffers(productName, ean = null, options = {}) {
   const startedTotal = Date.now();
   let offers = null;
+  
+  // FIXED: Obsługa obu formatów wywołania
+  // Format 1: fetchMarketOffers(productName, ean, options)
+  // Format 2: fetchMarketOffers({productName, ean, ...options})
+  if (typeof productName === 'object' && productName !== null) {
+    // Format 2 - obiekt jako pierwszy parametr
+    const params = productName;
+    productName = params.productName || null;
+    ean = params.ean || null;
+    options = params;
+  }
   
   // Extract rotation options
   const { userId = null, userLocation = null, geoEnabled = false, basePrice: userBasePrice = null } = options;
@@ -1461,7 +1523,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         return null;
       }
       
-      offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS);
+      offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS, ean);
       if (offers && offers.length > 0) {
         // FILTRY CAŁKOWICIE WYŁĄCZONE - zwracamy wszystkie oferty z SearchAPI
         const allShops = [...new Set(offers.map(o => o.seller))];
@@ -1540,7 +1602,6 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'screenprotector', 'screen protector', 'schermbeschermer',
           'oordopjes', 'earbuds', 'oortjes',
           'bundle', 'bundel',
-          'set', 'kit',
           '+ case', '+ hoes',
           '+ charger', '+ oplader',
           'inclusief hoes', 'inclusief oplader',
@@ -1589,7 +1650,17 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'open box',
           'openbox',
           'returned',
-          'like new'
+          'like new',
+          // Abonament/Contract (NL + EN)
+          'abonnement',
+          'met abonnement',
+          '+ abonnement',
+          'inclusief abonnement',
+          'subscription',
+          'contract',
+          'met contract',
+          '+ contract',
+          'inclusief contract'
         ];
         
         const beforeKeywordFilter = offers.length;
@@ -1597,7 +1668,32 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           const title = (o.title || '').toLowerCase();
           const description = (o.description || '').toLowerCase();
           const combined = title + ' ' + description;
-          return !bannedKeywords.some(keyword => combined.includes(keyword));
+          
+          // Sprawdź banned keywords (akcesoria, używane)
+          const hasBannedKeyword = bannedKeywords.some(keyword => combined.includes(keyword));
+          if (hasBannedKeyword) return false;
+          
+          // EXACT MATCHING: Jeśli productName zawiera pełny kod produktu (np. DHP484Z, DHP484RMJ),
+          // pokazuj TYLKO oferty z tym dokładnym kodem
+          const productNameLower = (effectiveProductName || '').toLowerCase();
+          
+          // Wyciągnij kod produktu (np. "Makita DHP484Z" → "dhp484z")
+          // Pattern: marka + kod alfanumeryczny (min 6 znaków)
+          const productCodeMatch = productNameLower.match(/([a-z]{3,}[\d]{3,}[a-z\d]*)/);
+          
+          if (productCodeMatch) {
+            const productCode = productCodeMatch[1]; // np. "dhp484z", "dhp484rmj"
+            
+            // Sprawdź czy oferta zawiera dokładnie ten kod
+            const offerHasExactCode = title.includes(productCode);
+            
+            // Jeśli nie ma dokładnego kodu, odrzuć ofertę
+            if (!offerHasExactCode) {
+              return false;
+            }
+          }
+          
+          return true;
         });
         
         if (!LOG_SILENT_2 && beforeKeywordFilter !== offers.length) {
@@ -1778,15 +1874,11 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         setRedisCache(cacheKey, scoredOffers);
       }
       
-      // Return offers + smartBundles (jeśli są)
-      if (smartBundles.length > 0) {
-        return {
-          offers: scoredOffers,
-          smartBundles: smartBundles
-        };
-      }
-      
-      return scoredOffers;
+      // FIXED: Zawsze zwracaj obiekt z polem offers (ujednolicony format)
+      return {
+        offers: scoredOffers,
+        smartBundles: smartBundles.length > 0 ? smartBundles : undefined
+      };
     }
     
     // Brak ofert - negative cache

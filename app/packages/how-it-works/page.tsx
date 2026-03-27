@@ -26,6 +26,7 @@ export default function PackagesHowItWorksPage() {
             <li>3 gratis scans (lifetime)</li>
             <li>Alleen totale besparing zichtbaar</li>
             <li>Geen winkelnamen of links</li>
+            <li>10% commissie op besparing</li>
             <li>Ideaal om te testen</li>
           </ul>
         </div>
@@ -39,52 +40,14 @@ export default function PackagesHowItWorksPage() {
           <div style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#d97706' }}>
             PLUS - Voor regelmatige shoppers
           </div>
-          <div style={{ fontSize: '32px', fontWeight: 900, marginBottom: '16px' }}>€19,99</div>
+          <div style={{ fontSize: '32px', fontWeight: 900, marginBottom: '16px' }}>€19,99/mnd</div>
           <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
             <li>Onbeperkt scans</li>
             <li>Top 3 deals met winkelnamen + links</li>
             <li>Ghost Mode (24h monitoring)</li>
-            <li>10 shopping categorieën</li>
-            <li>10% commissie op besparing</li>
-          </ul>
-        </div>
-
-        <div style={{
-          padding: '24px',
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          borderRadius: '12px',
-          border: '2px solid #2563eb'
-        }}>
-          <div style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#1e40af' }}>
-            PRO - Voor professionals
-          </div>
-          <div style={{ fontSize: '32px', fontWeight: 900, marginBottom: '16px' }}>€29,99</div>
-          <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
-            <li>Alles van PLUS</li>
-            <li>16 categorieën (shopping + services)</li>
-            <li>Vacations & Insurance modules</li>
-            <li>PDF rapporten</li>
-            <li>5% commissie op besparing</li>
-          </ul>
-        </div>
-
-        <div style={{
-          padding: '24px',
-          background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
-          borderRadius: '12px',
-          border: '2px solid #7c3aed'
-        }}>
-          <div style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#6b21a8' }}>
-            FINANCE - Complete controle
-          </div>
-          <div style={{ fontSize: '32px', fontWeight: 900, marginBottom: '16px' }}>€39,99</div>
-          <ul style={{ fontSize: '14px', color: '#374151', lineHeight: '1.8', paddingLeft: '20px' }}>
-            <li>Alles van PRO</li>
-            <li>21 categorieën (all-in)</li>
-            <li>Finance modules (hypotheek, leningen, leasing)</li>
-            <li>Ghost Mode (5 min monitoring)</li>
-            <li>OCR scan (foto's van bonnen)</li>
-            <li>0% commissie</li>
+            <li>Echo AI assistent</li>
+            <li>10 productcategorieën</li>
+            <li>9% commissie op besparing</li>
           </ul>
         </div>
       </div>
@@ -110,7 +73,7 @@ export default function PackagesHowItWorksPage() {
           color: '#374151',
           fontFamily: 'monospace'
         }}>
-          Voorbeeld PLUS (10% commissie):
+          Voorbeeld PLUS (9% commissie):
           <br />
           Oorspronkelijke prijs: €100
           <br />
@@ -118,9 +81,9 @@ export default function PackagesHowItWorksPage() {
           <br />
           Besparing: €20
           <br />
-          Commissie: €20 × 10% = €2
+          Commissie: €20 × 9% = €1,80
           <br />
-          <strong>Jij betaalt: €80 + €2 = €82 (€18 goedkoper!)</strong>
+          <strong>Jij betaalt: €80 + €1,80 = €81,80 (€18,20 goedkoper!)</strong>
         </div>
       </div>
 

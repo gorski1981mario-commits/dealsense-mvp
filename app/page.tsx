@@ -47,7 +47,6 @@ export default function HomePage() {
             base_price: 0,
             url: '',
             session_id: getDeviceId(),
-            fingerprint: getDeviceId(),
             dry_run: true
           })
         })
@@ -108,7 +107,6 @@ export default function HomePage() {
           base_price: priceNum,
           url: url,
           session_id: getDeviceId(),
-          fingerprint: getDeviceId(),
           category: category,
           ghost_mode: ghostMode
         })
