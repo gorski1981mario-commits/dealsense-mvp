@@ -1198,7 +1198,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
   }
   
   // Extract rotation options
-  const { userId = null, userLocation = null, geoEnabled = false, basePrice: userBasePrice = null } = options;
+  const { userId = null, userLocation = null, geoEnabled = false, basePrice: userBasePrice = null, baseSeller = null } = options;
   
   // Jeśli nie mamy nazwy produktu, ale mamy EAN, użyj EAN jako zapytania
   const effectiveProductName = (productName && String(productName).trim()) || (ean ? String(ean).trim() : "");
@@ -1985,6 +1985,21 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     })();
     
     if (offers && offers.length > 0) {
+      // FILTR: Odrzuć oferty z tego samego sklepu co baseSeller (gdzie user skanował)
+      if (baseSeller) {
+        const baseSellerLower = baseSeller.toLowerCase();
+        const beforeBaseSellerFilter = offers.length;
+        offers = offers.filter(o => {
+          const seller = (o.seller || '').toLowerCase();
+          // Odrzuć jeśli seller zawiera baseSeller lub baseSeller zawiera seller
+          return !seller.includes(baseSellerLower) && !baseSellerLower.includes(seller);
+        });
+        
+        if (!LOG_SILENT_2 && beforeBaseSellerFilter !== offers.length) {
+          console.log(`[BASE SELLER FILTER] ${beforeBaseSellerFilter} → ${offers.length} offers (usunięto oferty z ${baseSeller})`);
+        }
+      }
+      
       const scoredOffers = applyDealScoreV2(offers, userBasePrice, {
         userId,
         productName: effectiveProductName,
