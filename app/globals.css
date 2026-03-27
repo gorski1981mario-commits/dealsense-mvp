@@ -96,10 +96,11 @@ body {
 /* Bottom Nav - 2 items (FREE + PLUS only) */
 .bottom-nav-two-items {
   height: 60px;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
-  padding: 12px 20px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  padding: 0 20px;
 }
 
 .nav-item {
@@ -122,9 +123,11 @@ body {
 
 /* Larger nav items for 2-item layout */
 .nav-item-large {
-  gap: 4px;
+  flex: 1;
+  height: 44px;
+  gap: 3px;
   font-size: 11px;
-  padding: 4px;
+  padding: 8px 4px;
 }
 
 .nav-item svg {
