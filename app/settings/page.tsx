@@ -1133,48 +1133,10 @@ export default function SettingsPage() {
                     }} />
                   </button>
                 </div>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #E5E7EB'
-                }}>
-                  <div>
-                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>Auto-configuratie</div>
-                    <div style={{ fontSize: '12px', color: '#6B7280' }}>Echo kan configuraties automatisch invullen</div>
-                  </div>
-                  <button
-                    onClick={handleEchoAutoConfigToggle}
-                    style={{
-                      width: '44px',
-                      height: '24px',
-                      borderRadius: '12px',
-                      background: echoAutoConfig ? '#15803d' : '#E5E7EB',
-                      border: 'none',
-                      cursor: 'pointer',
-                      position: 'relative',
-                      transition: 'background 0.2s'
-                    }}
-                  >
-                    <div style={{
-                      width: '20px',
-                      height: '20px',
-                      borderRadius: '50%',
-                      background: 'white',
-                      position: 'absolute',
-                      top: '2px',
-                      left: echoAutoConfig ? '22px' : '2px',
-                      transition: 'left 0.2s'
-                    }} />
-                  </button>
-                </div>
               </>
             ) : null}
 
-            {/* Auto-configuratie - visible for all, disabled for FREE */}
+            {/* Barcode Scanner - coming soon */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -1182,27 +1144,24 @@ export default function SettingsPage() {
               padding: '12px',
               borderRadius: '8px',
               border: '1px solid #E5E7EB',
-              opacity: userPackage === 'free' ? 0.6 : 1
+              opacity: 0.6
             }}>
               <div>
                 <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
-                  Auto-configuratie {userPackage === 'free' && '🔒'}
+                  Barcode Scanner 🔒
                 </div>
-                <div style={{ fontSize: '12px', color: userPackage === 'free' ? '#111827' : '#6B7280' }}>
-                  {userPackage === 'free' 
-                    ? 'Upgrade naar PLUS voor deze functie' 
-                    : 'Echo kan configuraties automatisch invullen'}
+                <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                  Wordt binnenkort toegevoegd
                 </div>
               </div>
               <button
-                onClick={userPackage === 'free' ? () => { router.push('/packages'); setTimeout(() => window.scrollTo(0, 0), 100) } : handleEchoAutoConfigToggle}
                 style={{
                   width: '44px',
                   height: '24px',
                   borderRadius: '12px',
-                  background: userPackage === 'free' ? '#E5E7EB' : (echoAutoConfig ? '#15803d' : '#E5E7EB'),
+                  background: '#E5E7EB',
                   border: 'none',
-                  cursor: userPackage === 'free' ? 'pointer' : 'pointer',
+                  cursor: 'not-allowed',
                   position: 'relative',
                   transition: 'background 0.2s'
                 }}
@@ -1214,7 +1173,7 @@ export default function SettingsPage() {
                   background: 'white',
                   position: 'absolute',
                   top: '2px',
-                  left: (userPackage !== 'free' && echoAutoConfig) ? '22px' : '2px',
+                  left: '2px',
                   transition: 'left 0.2s'
                 }} />
               </button>
