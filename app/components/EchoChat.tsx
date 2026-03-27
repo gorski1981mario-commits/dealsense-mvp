@@ -356,9 +356,9 @@ export default function EchoChat() {
         <div style={{
           position: 'fixed',
           bottom: '69px',
-          right: '4px',
-          left: '4px',
-          width: 'calc(100vw - 8px)',
+          right: '2px',
+          left: '2px',
+          width: 'calc(100vw - 4px)',
           maxWidth: '500px',
           marginLeft: 'auto',
           marginRight: 'auto',
