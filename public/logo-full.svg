@@ -2,9 +2,8 @@
   <!-- Background -->
   <rect width="512" height="512" fill="white" rx="80"/>
   
-  <!-- Logo DealSense.nl - DOKŁADNIE te same proporcje co D.nl -->
-  <!-- Używam tej samej logiki: DealSense. (czarne) + nl (zielone) -->
-  <text x="256" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="900" text-anchor="middle">
-    <tspan fill="#1e1e1e">DealSense.</tspan><tspan fill="#15803d">nl</tspan>
+  <!-- Logo DealSense.nl - "nl" większe żeby "l" było wyższe (jak w D.nl) -->
+  <text x="256" y="280" font-family="system-ui, -apple-system, sans-serif" font-weight="900" text-anchor="middle">
+    <tspan font-size="80" fill="#1e1e1e">DealSense.</tspan><tspan font-size="85" fill="#15803d">nl</tspan>
   </text>
 </svg>

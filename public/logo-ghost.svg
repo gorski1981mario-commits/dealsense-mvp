@@ -4,7 +4,7 @@
   
   <!-- Ghost Mode logo - EyeOff z Lucide (dokładna kopia z hamburgera) -->
   <!-- Scaled 10x (24px → 240px) i wycentrowane -->
-  <g transform="translate(256, 256) scale(10)">
+  <g transform="translate(136, 136) scale(10)">
     <!-- EyeOff path z Lucide -->
     <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" 
           fill="none" 

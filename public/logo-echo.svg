@@ -3,15 +3,8 @@
   <rect width="512" height="512" fill="white" rx="80"/>
   
   <!-- Logo Echo - E (zielone) + ch (niebieskie) + ● (czarne kółko) -->
-  <!-- Wycentrowane w kadrze -->
-  <g font-family="system-ui, -apple-system, sans-serif" font-weight="700">
-    <!-- E - zielone, duże (28px scaled to 280px) -->
-    <text x="120" y="320" font-size="280" fill="#15803d">E</text>
-    
-    <!-- ch - niebieskie, mniejsze (24px scaled to 240px) -->
-    <text x="300" y="315" font-size="240" fill="#3b82f6">ch</text>
-    
-    <!-- ● - czarne kółko (26px scaled to 260px) -->
-    <text x="460" y="305" font-size="260" fill="#000000">●</text>
-  </g>
+  <!-- Wycentrowane w kadrze, wszystkie litery na baseline -->
+  <text x="256" y="300" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">
+    <tspan font-size="280" fill="#15803d">E</tspan><tspan font-size="240" fill="#3b82f6">ch</tspan><tspan font-size="260" fill="#000000">●</tspan>
+  </text>
 </svg>
