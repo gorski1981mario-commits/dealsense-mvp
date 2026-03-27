@@ -167,3 +167,4 @@ function renderSimpleChart(prices: number[], analysis: PriceAnalysis): string {
   return chart
 }
 
+

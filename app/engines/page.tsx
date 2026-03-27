@@ -2,7 +2,7 @@ export const revalidate = 60
 
 export default function EnginesOverviewPage() {
   const engines = [
-    { name: 'FREE', path: '/engines/free', speed: '3s', accuracy: '85%', color: '#258b52' },
+    { name: 'FREE', path: '/engines/free', speed: '3s', accuracy: '85%', color: '#15803d' },
     { name: 'PLUS', path: '/engines/plus', speed: '5s', accuracy: '90%', color: '#15803d' },
     { name: 'PREMIUM', path: '/engines/premium', speed: '8s', accuracy: '95%', color: '#166534' },
     { name: 'PRO', path: '/engines/pro', speed: '10s', accuracy: '97%', color: '#14532d' },
@@ -75,6 +75,7 @@ export default function EnginesOverviewPage() {
     </div>
   )
 }
+
 
 
 

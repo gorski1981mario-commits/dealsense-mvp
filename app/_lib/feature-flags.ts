@@ -111,3 +111,4 @@ export function checkAccess(userHasAccess: boolean): boolean {
  *    - app/vaste-lasten/page.tsx (all configurators)
  *    - app/components/configurators/ConfiguratorGuard.tsx
  */
+

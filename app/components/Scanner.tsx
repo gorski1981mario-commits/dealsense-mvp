@@ -643,3 +643,4 @@ export default function Scanner({ type }: ScannerProps) {
 
 
 
+

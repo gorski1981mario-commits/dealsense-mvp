@@ -80,3 +80,4 @@ export async function incrementScanCountInDB(userId: string): Promise<void> {
 
   // MOCK: No-op for now
 }
+

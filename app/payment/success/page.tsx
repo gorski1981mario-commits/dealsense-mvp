@@ -130,7 +130,7 @@ function PaymentSuccessContent() {
           style={{
             width: '100%',
             padding: '14px',
-            background: '#258b52',
+            background: '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -187,6 +187,7 @@ export default function PaymentSuccessPage() {
     </Suspense>
   )
 }
+
 
 
 

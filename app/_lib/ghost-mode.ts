@@ -267,3 +267,4 @@ export class GhostMode {
     return permission === 'granted'
   }
 }
+

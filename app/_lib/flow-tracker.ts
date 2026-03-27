@@ -362,3 +362,4 @@ export class FlowTracker {
     localStorage.removeItem(`${this.storageKey}_${userId}`)
   }
 }
+

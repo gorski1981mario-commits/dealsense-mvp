@@ -59,3 +59,4 @@ export async function GET(request: Request) {
     lastUpdated: new Date().toISOString()
   })
 }
+

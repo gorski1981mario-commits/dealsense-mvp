@@ -39,16 +39,16 @@ export default function PreviewPage() {
             padding: '16px',
             background: 'white',
             borderRadius: '10px',
-            border: '2px solid #258b52'
+            border: '2px solid #15803d'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <span style={{ fontSize: '14px', fontWeight: 600 }}>1. Coolblue</span>
-              <span style={{ fontSize: '18px', fontWeight: 700, color: '#258b52' }}>€765</span>
+              <span style={{ fontSize: '18px', fontWeight: 700, color: '#15803d' }}>€765</span>
             </div>
             <div style={{ fontSize: '12px', color: '#374151', marginBottom: '8px' }}>
               Rating: 4.5/5 • 1,250 reviews
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#258b52' }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#15803d' }}>
               Besparing: €134 (15%)
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function PreviewPage() {
             <div style={{ fontSize: '12px', color: '#374151', marginBottom: '8px' }}>
               Rating: 4.3/5 • 890 reviews
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#258b52' }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#15803d' }}>
               Besparing: €89 (10%)
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function PreviewPage() {
             <div style={{ fontSize: '12px', color: '#374151', marginBottom: '8px' }}>
               Rating: 4.7/5 • 2,100 reviews
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 600, color: '#258b52' }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: '#15803d' }}>
               Besparing: €71 (8%)
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function PreviewPage() {
           <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
             💰 Jouw besparing
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 900, color: '#258b52', marginBottom: '8px' }}>
+          <div style={{ fontSize: '24px', fontWeight: 900, color: '#15803d', marginBottom: '8px' }}>
             €134
           </div>
           <div style={{ fontSize: '13px', color: '#374151' }}>
@@ -111,7 +111,7 @@ export default function PreviewPage() {
 
       <div style={{
         padding: '24px',
-        background: 'linear-gradient(135deg, #258b52 0%, #1e7043 100%)',
+        background: 'linear-gradient(135deg, #15803d 0%, #1e7043 100%)',
         borderRadius: '12px',
         color: 'white',
         textAlign: 'center'
@@ -128,7 +128,7 @@ export default function PreviewPage() {
             display: 'inline-block',
             padding: '12px 24px',
             background: 'white',
-            color: '#258b52',
+            color: '#15803d',
             borderRadius: '8px',
             fontSize: '14px',
             fontWeight: 600,
@@ -141,6 +141,7 @@ export default function PreviewPage() {
     </div>
   )
 }
+
 
 
 

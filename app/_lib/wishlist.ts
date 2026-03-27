@@ -226,3 +226,4 @@ export class Wishlist {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(allItems))
   }
 }
+

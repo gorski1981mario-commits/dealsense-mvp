@@ -241,3 +241,4 @@ export function generateConfiguratorURL(
 
   return `${baseURL}?${params.toString()}`
 }
+

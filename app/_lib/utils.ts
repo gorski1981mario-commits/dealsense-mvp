@@ -51,3 +51,4 @@ export function createConfetti(): void {
     setTimeout(() => document.body.removeChild(confetti), 3000)
   }
 }
+

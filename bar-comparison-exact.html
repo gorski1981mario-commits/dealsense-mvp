@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Bar vs Bottom Bar - Dokładne Wymiary</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 30px; color: #15803d; }
+    
+    .bar-container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .bar {
+      background: white;
+      margin: 10px 0;
+      position: relative;
+    }
+    
+    .top-bar-demo {
+      height: 60px;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 12px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    
+    .bottom-bar-demo {
+      height: 60px;
+      border-top: 1px solid #E2E8F0;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .measurements {
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    
+    th {
+      background: #15803d;
+      color: white;
+      padding: 10px;
+      text-align: left;
+      font-size: 13px;
+    }
+    
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 13px;
+    }
+    
+    .property { font-weight: 600; color: #374151; }
+    .value { color: #15803d; font-family: monospace; }
+    .different { background: #fef3c7; }
+    
+    .visual-box {
+      border: 2px dashed #15803d;
+      padding: 10px;
+      margin: 10px 0;
+      background: #f0fdf4;
+    }
+    
+    .dimension-label {
+      font-size: 11px;
+      color: #64748b;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📏 Top Bar vs Bottom Bar - Dokładne Wymiary</h1>
+    
+    <div class="bar-container">
+      <h2 style="color: #15803d; margin-bottom: 15px;">Top Bar</h2>
+      <div class="bar top-bar-demo">
+        <div style="font-size: 24px; font-weight: 900;">D<span style="color: #15803d;">.nl</span></div>
+        <div style="font-size: 12px; color: #374151;">AI aankoop assistent</div>
+        <div style="text-align: right;">☰</div>
+      </div>
+      <div class="visual-box">
+        <div class="dimension-label">height: 60px</div>
+        <div class="dimension-label">padding: 12px 20px (góra/dół: 12px, boki: 20px)</div>
+        <div class="dimension-label">border-bottom: 1px solid #E2E8F0</div>
+        <div class="dimension-label">Wewnętrzna wysokość: 60px - 12px - 12px - 1px = 35px</div>
+      </div>
+    </div>
+    
+    <div class="bar-container">
+      <h2 style="color: #15803d; margin-bottom: 15px;">Bottom Bar (AKTUALNE)</h2>
+      <div class="bar bottom-bar-demo">
+        <div style="flex: 1; text-align: center; font-size: 11px; font-weight: 600;">FREE</div>
+        <div style="flex: 1; text-align: center; font-size: 11px; font-weight: 600;">PLUS</div>
+      </div>
+      <div class="visual-box">
+        <div class="dimension-label">height: 60px</div>
+        <div class="dimension-label">padding: 0 20px (góra/dół: 0px, boki: 20px)</div>
+        <div class="dimension-label">border-top: 1px solid #E2E8F0</div>
+        <div class="dimension-label">Wewnętrzna wysokość: 60px - 0px - 0px - 1px = 59px</div>
+      </div>
+    </div>
+    
+    <div class="bar-container">
+      <h2 style="color: #15803d; margin-bottom: 15px;">📊 Porównanie Wymiarów</h2>
+      <table>
+        <tr>
+          <th>Właściwość</th>
+          <th>Top Bar</th>
+          <th>Bottom Bar</th>
+          <th>Różnica</th>
+        </tr>
+        <tr>
+          <td class="property">height</td>
+          <td class="value">60px</td>
+          <td class="value">60px</td>
+          <td style="color: #15803d;">✓ MATCH</td>
+        </tr>
+        <tr class="different">
+          <td class="property">padding góra/dół</td>
+          <td class="value">12px</td>
+          <td class="value">0px</td>
+          <td style="color: #dc2626;">✗ RÓŻNE</td>
+        </tr>
+        <tr>
+          <td class="property">padding boki</td>
+          <td class="value">20px</td>
+          <td class="value">20px</td>
+          <td style="color: #15803d;">✓ MATCH</td>
+        </tr>
+        <tr>
+          <td class="property">border</td>
+          <td class="value">1px bottom</td>
+          <td class="value">1px top</td>
+          <td style="color: #15803d;">✓ MATCH</td>
+        </tr>
+        <tr class="different">
+          <td class="property">Wewnętrzna wysokość</td>
+          <td class="value">35px</td>
+          <td class="value">59px</td>
+          <td style="color: #dc2626;">✗ RÓŻNE</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="bar-container" style="background: #fef3c7; border: 2px solid #f59e0b;">
+      <h2 style="color: #92400e; margin-bottom: 15px;">⚠️ PROBLEM ZNALEZIONY!</h2>
+      <p style="color: #78350f; line-height: 1.6; margin-bottom: 10px;">
+        <strong>Top bar:</strong> Ma padding 12px góra/dół, więc zawartość ma tylko 35px wysokości<br>
+        <strong>Bottom bar:</strong> Ma padding 0px góra/dół, więc zawartość ma 59px wysokości
+      </p>
+      <p style="color: #78350f; line-height: 1.6;">
+        <strong>Rozwiązanie:</strong> Dodaj padding 12px do bottom bar żeby wyrównać wewnętrzną przestrzeń!
+      </p>
+    </div>
+    
+    <div class="bar-container" style="background: #f0fdf4; border: 2px solid #15803d;">
+      <h2 style="color: #15803d; margin-bottom: 15px;">✅ POPRAWKA</h2>
+      <div style="background: #f9fafb; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px;">
+        <strong>.bottom-nav-two-items:</strong><br>
+        <div style="color: #dc2626;">- padding: 0 20px;</div>
+        <div style="color: #15803d;">+ padding: 12px 20px;</div>
+        <br>
+        <div style="color: #64748b;">/* Teraz oba bary mają padding: 12px 20px */</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

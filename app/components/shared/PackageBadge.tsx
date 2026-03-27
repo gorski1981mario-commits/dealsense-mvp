@@ -9,7 +9,7 @@ export default function PackageBadge({ type, label }: PackageBadgeProps) {
       display: 'inline-block',
       padding: '4px 12px',
       background: 'rgba(37,139,82,0.12)',
-      color: '#258b52',
+      color: '#15803d',
       borderRadius: '6px',
       fontSize: '12px',
       fontWeight: 700
@@ -18,6 +18,7 @@ export default function PackageBadge({ type, label }: PackageBadgeProps) {
     </span>
   )
 }
+
 
 
 

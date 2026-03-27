@@ -103,7 +103,7 @@ export default function VasteLastenPage() {
                 <div style={{ fontSize: '16px', fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
                   {config.title}
                 </div>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: config.package === 'PRO' ? '#15803d' : '#258b52', background: config.package === 'PRO' ? '#E6F4EE' : 'rgba(37,139,82,0.12)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                <div style={{ fontSize: '12px', fontWeight: 600, color: config.package === 'PRO' ? '#15803d' : '#15803d', background: config.package === 'PRO' ? '#E6F4EE' : 'rgba(37,139,82,0.12)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block' }}>
                   {config.package}
                 </div>
               </div>
@@ -117,6 +117,7 @@ export default function VasteLastenPage() {
     </div>
   )
 }
+
 
 
 

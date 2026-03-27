@@ -73,3 +73,4 @@ export function calculateNetSavings(
 export function formatCommission(packageType: PackageType): string {
   return (COMMISSION as any)[packageType] || '9%'
 }
+

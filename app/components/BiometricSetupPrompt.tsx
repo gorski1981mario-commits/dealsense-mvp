@@ -146,7 +146,7 @@ export default function BiometricSetupPrompt({ onComplete, onSkip }: BiometricSe
             style={{
               width: '100%',
               padding: '14px',
-              background: '#258b52',
+              background: '#15803d',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -298,7 +298,7 @@ export default function BiometricSetupPrompt({ onComplete, onSkip }: BiometricSe
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#258b52'
+                    e.currentTarget.style.borderColor = '#15803d'
                     e.currentTarget.style.background = '#E6F4EE'
                   }}
                   onMouseLeave={(e) => {
@@ -354,7 +354,7 @@ export default function BiometricSetupPrompt({ onComplete, onSkip }: BiometricSe
             style={{
               width: '100%',
               padding: '14px',
-              background: '#258b52',
+              background: '#15803d',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -372,6 +372,7 @@ export default function BiometricSetupPrompt({ onComplete, onSkip }: BiometricSe
 
   return null
 }
+
 
 
 

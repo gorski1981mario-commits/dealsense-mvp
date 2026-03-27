@@ -104,3 +104,4 @@ export function useConfigurationLock({ userId, sector }: UseConfigurationLockPro
     handleDownloadPDF
   }
 }
+

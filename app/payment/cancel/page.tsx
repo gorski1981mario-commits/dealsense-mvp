@@ -90,7 +90,7 @@ function PaymentCancelContent() {
           style={{
             width: '100%',
             padding: '14px',
-            background: '#258b52',
+            background: '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -132,7 +132,7 @@ function PaymentCancelContent() {
           fontSize: '13px',
           color: '#6B7280'
         }}>
-          Hulp nodig? <a href="mailto:info@dealsense.nl" style={{ color: '#258b52', textDecoration: 'none', fontWeight: 600 }}>
+          Hulp nodig? <a href="mailto:info@dealsense.nl" style={{ color: '#15803d', textDecoration: 'none', fontWeight: 600 }}>
             Neem contact op
           </a>
         </div>
@@ -152,6 +152,7 @@ export default function PaymentCancelPage() {
     </Suspense>
   )
 }
+
 
 
 

@@ -174,3 +174,4 @@ export class SavingsTimeline {
     localStorage.setItem(`${this.STORAGE_KEY}_${ean}`, JSON.stringify(history))
   }
 }
+

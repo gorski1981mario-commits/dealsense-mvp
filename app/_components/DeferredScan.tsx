@@ -19,7 +19,7 @@ export default function DeferredScan() {
         onClick={() => setActive(!active)}
         style={{
           padding: '8px 16px',
-          background: active ? '#258b52' : '#E2E8F0',
+          background: active ? '#15803d' : '#E2E8F0',
           color: active ? 'white' : '#374151',
           border: 'none',
           borderRadius: '6px',
@@ -33,6 +33,7 @@ export default function DeferredScan() {
     </div>
   )
 }
+
 
 
 

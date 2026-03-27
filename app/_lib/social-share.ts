@@ -223,3 +223,4 @@ if (typeof window !== 'undefined') {
     if (data) SocialShare.shareToLinkedIn(data, messageIndex)
   }
 }
+

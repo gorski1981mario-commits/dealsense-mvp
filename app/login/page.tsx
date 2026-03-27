@@ -118,7 +118,7 @@ export default function LoginPage() {
             color: '#111827',
             textDecoration: 'none'
           }}>
-            D<span style={{ color: '#111827' }}>.</span><span style={{ color: '#258b52' }}>nl</span>
+            D<span style={{ color: '#111827' }}>.</span><span style={{ color: '#15803d' }}>nl</span>
           </a>
           <p style={{ fontSize: '14px', color: '#6B7280', marginTop: '8px' }}>
             AI aankoop assistent
@@ -143,7 +143,7 @@ export default function LoginPage() {
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: 600,
-              color: mode === 'signin' ? '#258b52' : '#6B7280',
+              color: mode === 'signin' ? '#15803d' : '#6B7280',
               cursor: 'pointer'
             }}
           >
@@ -159,7 +159,7 @@ export default function LoginPage() {
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: 600,
-              color: mode === 'signup' ? '#258b52' : '#6B7280',
+              color: mode === 'signup' ? '#15803d' : '#6B7280',
               cursor: 'pointer'
             }}
           >
@@ -175,7 +175,7 @@ export default function LoginPage() {
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: 600,
-              color: mode === 'magic' ? '#258b52' : '#6B7280',
+              color: mode === 'magic' ? '#15803d' : '#6B7280',
               cursor: 'pointer'
             }}
           >
@@ -272,7 +272,7 @@ export default function LoginPage() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#258b52',
+                  color: '#15803d',
                   fontSize: '13px',
                   cursor: 'pointer',
                   textDecoration: 'underline'
@@ -288,7 +288,7 @@ export default function LoginPage() {
               style={{
                 width: '100%',
                 padding: '14px',
-                background: '#258b52',
+                background: '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -447,7 +447,7 @@ export default function LoginPage() {
               style={{
                 width: '100%',
                 padding: '14px',
-                background: '#258b52',
+                background: '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -503,7 +503,7 @@ export default function LoginPage() {
               style={{
                 width: '100%',
                 padding: '14px',
-                background: '#258b52',
+                background: '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -554,7 +554,7 @@ export default function LoginPage() {
               style={{
                 width: '100%',
                 padding: '14px',
-                background: '#258b52',
+                background: '#15803d',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -706,10 +706,10 @@ export default function LoginPage() {
 
         {/* Footer Links */}
         <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '12px', color: '#6B7280' }}>
-          <a href="/privacy" style={{ color: '#258b52', textDecoration: 'none', marginRight: '16px' }}>
+          <a href="/privacy" style={{ color: '#15803d', textDecoration: 'none', marginRight: '16px' }}>
             Privacy
           </a>
-          <a href="/voorwaarden" style={{ color: '#258b52', textDecoration: 'none' }}>
+          <a href="/voorwaarden" style={{ color: '#15803d', textDecoration: 'none' }}>
             Voorwaarden
           </a>
         </div>
@@ -717,6 +717,7 @@ export default function LoginPage() {
     </div>
   )
 }
+
 
 
 

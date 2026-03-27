@@ -511,3 +511,4 @@ async function detectTextPatterns(data: Buffer, width: number, height: number): 
   // Photos have <5% or >40%
   return transitionRatio > 0.1 && transitionRatio < 0.4
 }
+

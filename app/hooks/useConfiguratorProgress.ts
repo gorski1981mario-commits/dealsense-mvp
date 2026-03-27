@@ -108,3 +108,4 @@ export const useConfiguratorProgress = create<ConfiguratorProgressState>((set, g
     return fieldNames.every(name => valid.has(name))
   }
 }))
+

@@ -36,3 +36,4 @@ export function DealSenseLogoSVG({ width = 512, height = 512 }: { width?: number
     </svg>
   )
 }
+

@@ -112,3 +112,4 @@ function getCommission(packageType: string): string {
       return '10%'
   }
 }
+

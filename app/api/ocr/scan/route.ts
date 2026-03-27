@@ -579,3 +579,4 @@ function extractCancellationPenalty(text: string): {
 
   return result
 }
+

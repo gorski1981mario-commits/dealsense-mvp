@@ -424,3 +424,4 @@ function getDeviceId(): string {
   }
   return deviceId
 }
+

@@ -319,3 +319,4 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
     </div>
   )
 }
+

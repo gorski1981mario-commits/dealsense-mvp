@@ -169,7 +169,7 @@ export default function HoeHetWerktPage() {
       <div style={{
         marginTop: '48px',
         padding: '24px',
-        background: 'linear-gradient(135deg, #258b52 0%, #1e7043 100%)',
+        background: 'linear-gradient(135deg, #15803d 0%, #1e7043 100%)',
         borderRadius: '12px',
         color: 'white',
         textAlign: 'center'
@@ -186,7 +186,7 @@ export default function HoeHetWerktPage() {
             display: 'inline-block',
             padding: '12px 24px',
             background: 'white',
-            color: '#258b52',
+            color: '#15803d',
             borderRadius: '8px',
             fontSize: '14px',
             fontWeight: 600,
@@ -199,6 +199,7 @@ export default function HoeHetWerktPage() {
     </div>
   )
 }
+
 
 
 

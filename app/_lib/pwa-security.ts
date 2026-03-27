@@ -343,3 +343,4 @@ export const pwaSecurity = PWASecurity.getInstance()
 if (typeof window !== 'undefined') {
   pwaSecurity.initialize()
 }
+

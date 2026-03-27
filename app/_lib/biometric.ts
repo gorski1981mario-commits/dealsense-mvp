@@ -131,3 +131,4 @@ export class BiometricAuth {
     localStorage.removeItem(this.STORAGE_KEY)
   }
 }
+

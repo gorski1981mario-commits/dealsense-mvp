@@ -635,3 +635,4 @@ export class GhostModeV2 {
     return `${hours} ${hours === 1 ? 'godzinę' : 'godzin'}`
   }
 }
+

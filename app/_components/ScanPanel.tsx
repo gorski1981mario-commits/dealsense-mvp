@@ -68,7 +68,7 @@ export default function ScanPanel() {
           style={{
             width: '100%',
             padding: '12px',
-            background: loading ? '#9ca3af' : '#258b52',
+            background: loading ? '#9ca3af' : '#15803d',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -83,6 +83,7 @@ export default function ScanPanel() {
     </div>
   )
 }
+
 
 
 

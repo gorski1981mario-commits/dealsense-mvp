@@ -158,3 +158,4 @@ export class SavingsJournal {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(allEntries))
   }
 }
+

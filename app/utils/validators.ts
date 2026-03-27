@@ -104,3 +104,4 @@ export const successMessages = {
   phone: '✅ Geldig telefoonnummer',
   amount: '✅ Geldig bedrag'
 }
+

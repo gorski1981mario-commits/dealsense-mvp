@@ -65,7 +65,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
         <div style={{
           padding: '6px 12px',
           background: 'rgba(37,139,82,0.12)',
-          color: '#258b52',
+          color: '#15803d',
           borderRadius: '6px',
           fontSize: '12px',
           fontWeight: 700
@@ -148,7 +148,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
             borderRadius: '8px',
             fontSize: '13px',
             fontWeight: 600,
-            color: '#258b52',
+            color: '#15803d',
             cursor: 'pointer'
           }}
         >
@@ -184,6 +184,7 @@ export default function ScanHistory({ userId, packageType }: ScanHistoryProps) {
     </div>
   )
 }
+
 
 
 

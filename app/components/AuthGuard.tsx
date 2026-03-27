@@ -44,7 +44,7 @@ export default function AuthGuard({ children, requireAuth = true, redirectTo = '
             width: '48px',
             height: '48px',
             border: '4px solid #E5E7EB',
-            borderTopColor: '#258b52',
+            borderTopColor: '#15803d',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
             margin: '0 auto 16px'
@@ -104,7 +104,7 @@ export default function AuthGuard({ children, requireAuth = true, redirectTo = '
             style={{
               width: '100%',
               padding: '14px',
-              background: '#258b52',
+              background: '#15803d',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
@@ -122,6 +122,7 @@ export default function AuthGuard({ children, requireAuth = true, redirectTo = '
 
   return <>{children}</>
 }
+
 
 
 
