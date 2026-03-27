@@ -1136,49 +1136,6 @@ export default function SettingsPage() {
               </>
             ) : null}
 
-            {/* Barcode Scanner - coming soon */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #E5E7EB',
-              opacity: 0.6
-            }}>
-              <div>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
-                  Barcode Scanner 🔒
-                </div>
-                <div style={{ fontSize: '12px', color: '#6B7280' }}>
-                  Wordt binnenkort toegevoegd
-                </div>
-              </div>
-              <button
-                style={{
-                  width: '44px',
-                  height: '24px',
-                  borderRadius: '12px',
-                  background: '#E5E7EB',
-                  border: 'none',
-                  cursor: 'not-allowed',
-                  position: 'relative',
-                  transition: 'background 0.2s'
-                }}
-              >
-                <div style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: 'white',
-                  position: 'absolute',
-                  top: '2px',
-                  left: '2px',
-                  transition: 'left 0.2s'
-                }} />
-              </button>
-            </div>
-
             {userPackage !== 'free' && (
               <div style={{
                   padding: '12px',
