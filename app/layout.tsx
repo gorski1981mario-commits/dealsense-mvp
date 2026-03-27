@@ -2,6 +2,7 @@ import './globals.css'
 import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
 import BottomNav from './components/BottomNav'
+import ServiceWorkerRegistration from './components/ServiceWorkerRegistration'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -36,6 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        {/* Service Worker Registration */}
+        <ServiceWorkerRegistration />
+        
         {/* Top Bar */}
         <header className="top-bar">
           <a href="/" className="logo">
