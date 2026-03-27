@@ -55,7 +55,7 @@ const { createCode, consumeCode, createPromoCode, redeemPromoCode } = require(".
 const { applyPlanToSession, getEffectivePlanId } = require("./billing/applyPlan");
 const { extractEANFromURL, extractEANFromHTML } = require("./ean-extractor");
 const { inferCountryFromHostname } = require("./country-config");
-const { searchBolComByEAN } = require("./bol-api");
+// const { searchBolComByEAN } = require("./bol-api"); // COMMENTED - file doesn't exist, using SearchAPI only
 const { analyzeOffersV2 } = require("./pricing/v2");
 const { detectCategory } = require("./category-detector");
 const {
