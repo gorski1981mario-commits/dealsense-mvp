@@ -1543,13 +1543,31 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         })();
         
         // ═══════════════════════════════════════════════════════════════
+        // SMART BUNDLES - WYCIĄGNIJ AKCESORIA PRZED FILTRAMI!
+        // ═══════════════════════════════════════════════════════════════
+        let smartBundles = []
+        const bundleResult = extractSmartBundles(offers, effectiveProductName)
+        if (bundleResult && bundleResult.smartBundles && bundleResult.smartBundles.length > 0) {
+          smartBundles = bundleResult.smartBundles
+          if (!LOG_SILENT_2) {
+            console.log(`[SMART BUNDLES] Extracted ${smartBundles.length} bundle types from ${offers.length} RAW offers`)
+          }
+          // Użyj TYLKO głównych produktów do filtrowania (akcesoria już zapisane w smartBundles)
+          offers = bundleResult.mainProducts
+          if (!LOG_SILENT_2) {
+            console.log(`[SMART BUNDLES] Main products: ${offers.length}, Accessories saved: ${bundleResult.accessories?.length || 0}`)
+          }
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
         // FILTRY - KOLEJNOŚĆ OD NAJLŻEJSZYCH DO NAJCIĘŻSZYCH
+        // (TYLKO dla głównych produktów, akcesoria już w smartBundles)
         // ═══════════════════════════════════════════════════════════════
         
-        // FILTR 1: PRICE RANGE (30%-200%) - POLUZOWANY
+        // FILTR 1: PRICE RANGE (40%-150%) - ZBALANSOWANY
         if (userBasePrice && userBasePrice > 0) {
-          const minPrice = userBasePrice * 0.3;  // 30% base price (było 40%)
-          const maxPrice = userBasePrice * 2.0;  // 200% base price (było 150%)
+          const minPrice = userBasePrice * 0.4;  // 40% base price (odrzuca akcesoria)
+          const maxPrice = userBasePrice * 1.5;  // 150% base price (odrzuca overpriced)
           
           const beforePriceFilter = offers.length;
           offers = offers.filter(o => {
@@ -1562,21 +1580,38 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           }
         }
         
-        // FILTR 2: BANNED SELLERS - TYLKO KRYTYCZNE (10 sklepów)
+        // FILTR 2: BANNED SELLERS - WZMOCNIONY (używane + marketplace + serwisy)
         const bannedSellers = [
           // Używane/Second-hand (KRYTYCZNE)
-          'marktplaats',           // Prywatne ogłoszenia (używane)
-          'back market',           // Refurbished
-          'backmarket',
-          '2dehands',              // Używane (NL)
-          'vinted',                // Używane
-          'ebay',                  // Marketplace (używane)
-          'swappie',               // Refurbished phones
+          'marktplaats',
+          'back market', 'backmarket', 'back-market',
+          '2dehands', '2de hands',
+          'vinted',
+          'ebay',
+          'swappie',
+          'refurbed',
+          'rebuy',
+          'refurbished.nl',
+          'telefoongigant',        // Często refurbished
+          'nextmac',               // Refurbished Apple
+          'you-mobile',            // Często używane/refurb
+          'vabo',                  // Refurbished
+          // Serwisy napraw
+          'reparatie', 'reparatiecenter',
+          'repair', 'repair center', 'repaircenter',
+          'iservices',
+          'gsm repair', 'phone repair',
+          'telefoon reparatie',
           // Marketplace international (KRYTYCZNE)
-          'fruugo',                // Marketplace
-          'aliexpress',            // Chiny
-          'joom',                  // Rosja
-          'wish'                   // Chiny
+          'fruugo',
+          'aliexpress', 'ali express',
+          'joom',
+          'wish',
+          'temu',                  // Chiny
+          'banggood',
+          'gearbest',
+          // Outlets
+          'outlet', 'tvoutlet', 'tv outlet'
         ];
         
         const beforeSellerFilter = offers.length;
@@ -1589,11 +1624,11 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           console.log(`[2. BANNED SELLERS] ${beforeSellerFilter} → ${offers.length} offers (usunięto: ${beforeSellerFilter - offers.length})`);
         }
         
-        // FILTR 3: BANNED KEYWORDS - LEKKI (akcesoria + używane)
+        // FILTR 3: BANNED KEYWORDS - WZMOCNIONY (akcesoria + używane + condition)
         const bannedKeywords = [
           // Akcesoria (NL + EN)
           'hoes', 'hoesje', 'case', 'cover',
-          'bandje', 'band', 'strap',
+          'bandje', 'band', 'strap', 'polsband', 'armband',
           'filter', 'stofzak',
           'tas', 'bag',
           'oplader', 'charger', 'lader',
@@ -1601,6 +1636,44 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'adapter',
           'screenprotector', 'screen protector', 'schermbeschermer',
           'oordopjes', 'earbuds', 'oortjes',
+          // Akcesoria - SŁUCHAWKI
+          'ear pad', 'ear pads', 'oorkussen', 'oorkussens',
+          'ear cushion', 'ear cushions', 'kussen',
+          'headband', 'hoofdband',
+          // Akcesoria - ZEGARKI
+          'watch band', 'watch strap', 'horlogeband',
+          'siliconen band', 'silicone strap',
+          'leren band', 'leather strap',
+          // Akcesoria - ODZIEŻ/OBUWIE
+          'laces', 'veters', 'schoenveters',
+          'insoles', 'inlegzolen', 'zolen',
+          'patch', 'patches', 'opnaaier',
+          'button', 'buttons', 'knoop', 'knopen',
+          'riem', 'belt',
+          // Akcesoria - AIRFRYER/AGD
+          'mand', 'mandje', 'basket',
+          'deksel', 'lid', 'cover',
+          'pan', 'pans', 'baking pan',
+          'bakplaat', 'baking tray',
+          'rooster', 'rack', 'grill',
+          // Akcesoria - MYJKI/ODKURZACZE
+          'nozzle', 'spuitmond', 'mondstuk',
+          'hose', 'slang',
+          'lance', 'spuitlans',
+          'brush', 'borstel',
+          // Akcesoria - EKSPRESY DO KAWY
+          'capsule', 'capsules', 'cups', 'kopjes',
+          'milk frother', 'melkopschuimer',
+          'water tank', 'waterreservoir',
+          // Akcesoria - ELEKTRONIKA
+          'accu', 'batterij', 'battery',
+          'li-ion', 'lithium', 'lithium-ion',
+          '18v', '12v', '14.4v', '20v', '36v',
+          'mah', 'ah', 'wh',
+          'onderdelen', 'onderdeel', 'parts', 'spare parts',
+          'accessoire', 'accessoires', 'accessories',
+          'reserve', 'replacement',
+          'wisselstuk', 'wisselstukken',
           'bundle', 'bundel',
           '+ case', '+ hoes',
           '+ charger', '+ oplader',
@@ -1637,6 +1710,23 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'open doos',
           'geopend',
           'beschadigd',
+          'outlet',
+          'outlet model',
+          'outlet product',
+          // Ślady użytkowania (KRYTYCZNE!)
+          'zichtbare gebruikssporen',
+          'gebruikssporen',
+          'lichte gebruikssporen',
+          'lichte krassen',
+          'kleine krassen',
+          'krasjes',
+          'gebruikerssporen',
+          'sporen van gebruik',
+          'tekenen van gebruik',
+          'grade a', 'grade b', 'grade c',
+          'conditie a', 'conditie b', 'conditie c',
+          'batterijconditie',
+          'battery health',
           // Używane/Refurbished (EN)
           'used',
           'second hand',
@@ -1649,8 +1739,16 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'reconditioned',
           'open box',
           'openbox',
+          'open-box',
           'returned',
+          'customer return',
+          'customer returns',
           'like new',
+          'ex display',
+          'ex-display',
+          'b-stock',
+          'b stock',
+          'clearance',
           // Abonament/Contract (NL + EN)
           'abonnement',
           'met abonnement',
@@ -1667,7 +1765,21 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         offers = offers.filter(o => {
           const title = (o.title || '').toLowerCase();
           const description = (o.description || '').toLowerCase();
-          const combined = title + ' ' + description;
+          const condition = (o.condition || '').toLowerCase();
+          const combined = title + ' ' + description + ' ' + condition;
+          
+          // KRYTYCZNE: Sprawdź pole 'condition' (refurbished/tweedehands)
+          if (condition.includes('refurbished') || 
+              condition.includes('refurb') || 
+              condition.includes('tweedehands') || 
+              condition.includes('gebruikt') || 
+              condition.includes('used') || 
+              condition.includes('renewed') ||
+              condition.includes('reconditioned') ||
+              condition.includes('pre-owned') ||
+              condition.includes('second hand')) {
+            return false;
+          }
           
           // Sprawdź banned keywords (akcesoria, używane)
           const hasBannedKeyword = bannedKeywords.some(keyword => combined.includes(keyword));
@@ -1700,6 +1812,39 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           console.log(`[3. BANNED KEYWORDS] ${beforeKeywordFilter} → ${offers.length} offers (usunięto: ${beforeKeywordFilter - offers.length})`);
         }
         
+        // FILTR 3B: PRICE SANITY CHECK - odrzuć podejrzanie tanie oferty
+        // Jeśli oszczędności > 50%, to prawdopodobnie akcesoria/refurb/błąd
+        if (userBasePrice && userBasePrice > 0) {
+          const beforeSanityCheck = offers.length;
+          offers = offers.filter(o => {
+            const price = o.price || 0;
+            const savings = userBasePrice - price;
+            const savingsPercent = (savings / userBasePrice) * 100;
+            
+            // KRYTYCZNE: Jeśli oszczędności > 50%, to podejrzane
+            // Wyjątek: Trusted sellers (bol.com, coolblue, amazon.nl, expert, mediamarkt)
+            const seller = (o.seller || '').toLowerCase();
+            const isTrustedSeller = ['bol.com', 'bol', 'coolblue', 'amazon.nl', 'expert', 'mediamarkt'].some(trusted => seller.includes(trusted));
+            
+            // Trusted sellers: max 70% oszczędności (flash sales, outlets mogą być legit)
+            // Inne sklepy: max 50% oszczędności (zbyt duże ryzyko akcesoriów/refurb)
+            const maxSavings = isTrustedSeller ? 70 : 50;
+            
+            if (savingsPercent > maxSavings) {
+              if (!LOG_SILENT_2) {
+                console.log(`[SANITY CHECK] Odrzucono: ${o.seller} €${price} (${savingsPercent.toFixed(1)}% oszczędności - za dużo!)`);
+              }
+              return false;
+            }
+            
+            return true;
+          });
+          
+          if (!LOG_SILENT_2 && beforeSanityCheck !== offers.length) {
+            console.log(`[3B. PRICE SANITY CHECK] ${beforeSanityCheck} → ${offers.length} offers (usunięto podejrzanie tanie: ${beforeSanityCheck - offers.length})`);
+          }
+        }
+        
         // FILTR 4: NL+BE - .nl + .be DOMENY + 100 NL + 100 BE SKLEPÓW
         const { getAllBelgiumShops } = require('./market/belgium-shops');
         const belgiumShops = getAllBelgiumShops();
@@ -1722,7 +1867,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'tele2', 'simyo', 'youfone', 'hollandsnieuwe', 'ben',
           'lebara', 'lycamobile', 'budgetmobiel', 'simpel', 'robin-mobile',
           'izi deals', 'izideals', 'onestop', 'coolshop', 'davidtelecom',
-          'gsmdeal', 'budgetphone', 'you-mobile', 'mobieltje', 'gsm-shop',
+          'gsmdeal', 'budgetphone', 'mobieltje', 'gsm-shop',
           
           // Moda & Lifestyle (15)
           'nike', 'adidas', 'hm', 'h&m', 'zara',
@@ -1822,25 +1967,15 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
       }
     }
 
-    // ✅ SMART BUNDLES - wykorzystaj "śmieciowe" dane z SearchAPI!
-    let smartBundles = []
+    // ✅ SMART BUNDLES - już wyciągnięte wcześniej (przed filtrami)
+    // smartBundles variable już istnieje z wcześniejszego extractSmartBundles
+    
+    const LOG_SILENT_2 = (() => {
+      const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
+      return v === "1" || v === "true";
+    })();
+    
     if (offers && offers.length > 0) {
-      const LOG_SILENT_2 = (() => {
-        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
-        return v === "1" || v === "true";
-      })();
-      
-      // Extract Smart Bundles PRZED DealScore (używamy RAW danych)
-      const bundleResult = extractSmartBundles(offers, effectiveProductName)
-      if (bundleResult && bundleResult.smartBundles && bundleResult.smartBundles.length > 0) {
-        smartBundles = bundleResult.smartBundles
-        if (!LOG_SILENT_2) {
-          console.log(`[SMART BUNDLES] Extracted ${smartBundles.length} bundle types from ${offers.length} offers`)
-        }
-        // Użyj mainProducts zamiast wszystkich offers (bez akcesoriów)
-        offers = bundleResult.mainProducts
-      }
-      
       const scoredOffers = applyDealScoreV2(offers, userBasePrice, {
         userId,
         productName: effectiveProductName,

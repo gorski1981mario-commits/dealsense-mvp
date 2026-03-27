@@ -59,7 +59,7 @@
 
 ---
 
-## 🚫 BANNED KEYWORDS (PO HOLENDERSKU!):
+## 🚫 BANNED KEYWORDS (PO HOLENDERSKU!) - WZMOCNIONE:
 
 ### Akcesoria (NL + EN):
 - **Etui:** hoes, hoesje, case, cover
@@ -71,6 +71,19 @@
 - **Adaptery:** adapter
 - **Folie:** screenprotector, screen protector, schermbeschermer
 - **Słuchawki (akcesoria):** oordopjes, earbuds, oortjes
+
+### Akcesoria - AIRFRYER/AGD (NOWE!):
+- **Kosze:** mand, mandje, basket
+- **Pokrywki:** deksel, lid
+- **Patelnie:** pan, pans, baking pan
+- **Blachy:** bakplaat, baking tray
+- **Ruszty:** rooster, rack, grill
+
+### Akcesoria - ELEKTRONIKA (NOWE!):
+- **Akumulatory:** accu, batterij, battery
+- **Części:** onderdelen, onderdeel, parts, spare parts
+- **Akcesoria:** accessoire, accessoires, accessories
+- **Zamienniki:** reserve, replacement, wisselstuk
 
 ### Używane/Refurbished (NL):
 - **Używany:** gebruikt, tweedehands, tweede hands, 2e hands, 2dehands
@@ -146,10 +159,16 @@ SearchAPI (10-40 ofert)
 4. BANNED KEYWORDS (NL!)
     ↓ odrzuca akcesoria + używane (po holendersku!)
     ↓
-5. QUALITY FILTER
+5. CONDITION CHECK
+    ↓ odrzuca używane/refurbished
+    ↓
+6. PRICE SANITY CHECK
+    ↓ odrzuca oferty z oszczędnościami > 50% (60% dla trusted)
+    ↓
+7. QUALITY FILTER
     ↓ odrzuca untrusted sellers
     ↓
-6. DEALSCORE V2 (trust 25)
+8. DEALSCORE V2 (trust 25)
     ↓ weryfikacja jakości
     ↓
 7. STANDARD ROTATION (40/30/20/10)
