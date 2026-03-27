@@ -135,15 +135,16 @@ function getTrustScore(offer) {
 /**
  * Sprawdza czy oferta jest trusted
  * 
- * NOWA LOGIKA: Wszystkie sklepy .nl przechodzą (threshold = 0)
- * Ale trusted sellers dostają wyższy score dla rankingu
+ * ORYGINALNY SYSTEM: Trust minimum = 50
+ * Tylko sprawdzone sklepy z dobrą reputacją
+ * Średnia 4.0+ reviews, HTTPS, polityka zwrotów
  */
 function isTrusted(offer) {
   const score = getTrustScore(offer);
   
-  // THRESHOLD = 0 - wszystkie sklepy .nl przechodzą
-  // Filtrowanie po .nl domenę jest w market-api.js
-  return score >= 0;
+  // THRESHOLD = 50 - tylko sprawdzone sklepy
+  // Eliminuje scam, podejrzane sklepy, nowe domeny
+  return score >= 50;
 }
 
 /**

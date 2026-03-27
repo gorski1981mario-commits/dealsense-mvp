@@ -242,6 +242,199 @@ const CATEGORY_PROFILES = {
       max: 40
     },
     examples: ['Bosch GSR 18V-55 brushless', 'Makita DHP484 18V', 'DeWalt DCD796']
+  },
+
+  // 8. KSIĄŻKI - STRICT (ISBN/tytuł)
+  books: {
+    name: 'Książki',
+    priority: 'ISBN_FIRST',
+    strictness: 'STRICT',
+    searchStrategy: {
+      eanWeight: 95, // ISBN = EAN
+      brandWeight: 60, // Wydawca
+      modelWeight: 90, // Tytuł
+      specWeight: 50,
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[title] [author] [isbn] best price NL',
+      fallback: '[title] [author]',
+      maxVariants: 3
+    },
+    filters: {
+      bannedKeywords: ['ebook', 'digital', 'pdf', 'kindle'],
+      minSimilarity: 85,
+      trustMinimum: 50,
+      allowSuspicious: false
+    },
+    expectedSavings: {
+      min: 15,
+      avg: 35,
+      max: 55
+    },
+    examples: ['Harry Potter Complete Collection', 'Sapiens Yuval Noah Harari']
+  },
+
+  // 9. ROWERY - SPEC HEAVY (frame size, motor)
+  bikes: {
+    name: 'Rowery',
+    priority: 'SPEC_FIRST',
+    strictness: 'MID_STRICT',
+    searchStrategy: {
+      eanWeight: 60,
+      brandWeight: 90,
+      modelWeight: 85,
+      specWeight: 95, // Frame size, motor, battery
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[brand] [model] [frame_size] [motor] NL',
+      fallback: '[brand] [model] [type]',
+      maxVariants: 5
+    },
+    filters: {
+      bannedKeywords: ['used', 'tweedehands', 'occasion', 'frame only', 'zonder accu'],
+      minSimilarity: 80,
+      trustMinimum: 50,
+      allowSuspicious: false
+    },
+    expectedSavings: {
+      min: 10,
+      avg: 20,
+      max: 40
+    },
+    examples: ['Gazelle Orange C7 HMB', 'VanMoof S3', 'Batavus e-bike']
+  },
+
+  // 10. DZIECKO/BABY - STRICT (bezpieczeństwo!)
+  baby: {
+    name: 'Dziecko i baby',
+    priority: 'TRUST_FIRST',
+    strictness: 'STRICT',
+    searchStrategy: {
+      eanWeight: 85,
+      brandWeight: 95, // Brand BARDZO ważny (bezpieczeństwo)
+      modelWeight: 85,
+      specWeight: 70,
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[brand] [model] [year] best price NL',
+      fallback: '[brand] [model]',
+      maxVariants: 3
+    },
+    filters: {
+      bannedKeywords: ['used', 'tweedehands', 'occasion', 'damaged'],
+      minSimilarity: 85,
+      trustMinimum: 60, // Wyższy trust (bezpieczeństwo dzieci!)
+      allowSuspicious: false,
+      trustedMerchantsOnly: true
+    },
+    expectedSavings: {
+      min: 10,
+      avg: 20,
+      max: 30
+    },
+    examples: ['Bugaboo Fox 5', 'Maxi-Cosi Pebble 360', 'Nuna MIXX Next']
+  },
+
+  // 11. AGD KUCHENNE - MID STRICT
+  kitchen_appliances: {
+    name: 'AGD kuchenne',
+    priority: 'SPEC_FIRST',
+    strictness: 'MID_STRICT',
+    searchStrategy: {
+      eanWeight: 75,
+      brandWeight: 80,
+      modelWeight: 85,
+      specWeight: 90, // Moc, pojemność
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[brand] [model] [capacity] [power] NL',
+      fallback: '[brand] [model]',
+      maxVariants: 4
+    },
+    filters: {
+      bannedKeywords: ['refurbished', 'used', 'tweedehands', 'onderdelen'],
+      minSimilarity: 80,
+      trustMinimum: 50,
+      allowSuspicious: false
+    },
+    expectedSavings: {
+      min: 15,
+      avg: 25,
+      max: 45
+    },
+    examples: ['KitchenAid Artisan', 'Nespresso Vertuo', 'Philips Airfryer XXL']
+  },
+
+  // 12. KOSMETYKI - BRAND HEAVY
+  cosmetics: {
+    name: 'Kosmetyki',
+    priority: 'BRAND_FIRST',
+    strictness: 'STRICT',
+    searchStrategy: {
+      eanWeight: 80,
+      brandWeight: 95, // Brand BARDZO ważny
+      modelWeight: 85,
+      specWeight: 60,
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[brand] [product] [size] best price NL',
+      fallback: '[brand] [product]',
+      maxVariants: 3
+    },
+    filters: {
+      bannedKeywords: ['fake', 'replica', 'namaak', 'tester', 'sample'],
+      minSimilarity: 85,
+      trustMinimum: 55,
+      allowSuspicious: false
+    },
+    expectedSavings: {
+      min: 10,
+      avg: 25,
+      max: 35
+    },
+    examples: ['Estee Lauder Advanced Night Repair', 'Chanel No 5', 'La Mer Creme']
+  },
+
+  // 13. BIURO - STRICT (drukarki, monitory)
+  office: {
+    name: 'Biuro',
+    priority: 'SPEC_FIRST',
+    strictness: 'STRICT',
+    searchStrategy: {
+      eanWeight: 85,
+      brandWeight: 80,
+      modelWeight: 90,
+      specWeight: 85,
+      fuzzyMatch: false,
+      exactMatch: true
+    },
+    queryBuilder: {
+      primary: '[brand] [model] [specs] best price NL',
+      fallback: '[brand] [model]',
+      maxVariants: 3
+    },
+    filters: {
+      bannedKeywords: ['refurbished', 'used', 'tweedehands', 'cartridge', 'toner'],
+      minSimilarity: 85,
+      trustMinimum: 50,
+      allowSuspicious: false
+    },
+    expectedSavings: {
+      min: 15,
+      avg: 30,
+      max: 50
+    },
+    examples: ['HP OfficeJet Pro 9010', 'Canon Pixma', 'Dell UltraSharp monitor']
   }
 };
 
