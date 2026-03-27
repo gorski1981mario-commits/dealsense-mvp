@@ -19,15 +19,27 @@ export default function VasteLastenPage() {
     }
   }, [userId])
 
-  const configurators = [
-    { href: '/vacations', Icon: Sun, title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO', requiredPackage: 'pro' as const },
-    { href: '/insurance', Icon: ShieldCheck, title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO', requiredPackage: 'pro' as const },
-    { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO', requiredPackage: 'pro' as const },
-    { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO', requiredPackage: 'pro' as const },
-    { href: '/mortgage', Icon: Home, title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE', requiredPackage: 'finance' as const },
-    { href: '/leasing', Icon: Car, title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE', requiredPackage: 'finance' as const },
-    { href: '/loan', Icon: Banknote, title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE', requiredPackage: 'finance' as const },
-    { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE', requiredPackage: 'finance' as const }
+  // ⚠️ PRO/FINANCE KONFIGURATORY ODPIĘTE - backup w _BACKUP_PRO_FINANCE
+  // Przywrócimy gdy dostaniemy więcej API (Travelpayouts, Independer, etc.)
+  const configurators: Array<{
+    href: string
+    Icon: any
+    title: string
+    desc: string
+    package: string
+    requiredPackage: 'pro' | 'finance'
+  }> = [
+    // PRO configurators - ODPIĘTE (brak API)
+    // { href: '/vacations', Icon: Sun, title: 'Vakanties', desc: 'Vergelijk vakantieaanbiedingen', package: 'PRO', requiredPackage: 'pro' as const },
+    // { href: '/insurance', Icon: ShieldCheck, title: 'Verzekeringen', desc: 'Vind de beste verzekering', package: 'PRO', requiredPackage: 'pro' as const },
+    // { href: '/energy', Icon: Zap, title: 'Energie', desc: 'Bespaar op stroom & gas', package: 'PRO', requiredPackage: 'pro' as const },
+    // { href: '/telecom', Icon: Smartphone, title: 'Telecom', desc: 'Mobiel, internet & TV', package: 'PRO', requiredPackage: 'pro' as const },
+    
+    // FINANCE configurators - ODPIĘTE (brak API)
+    // { href: '/mortgage', Icon: Home, title: 'Hypotheek', desc: 'Beste hypotheek rente', package: 'FINANCE', requiredPackage: 'finance' as const },
+    // { href: '/leasing', Icon: Car, title: 'Leasing', desc: 'Auto leasing vergelijken', package: 'FINANCE', requiredPackage: 'finance' as const },
+    // { href: '/loan', Icon: Banknote, title: 'Lening', desc: 'Persoonlijke lening', package: 'FINANCE', requiredPackage: 'finance' as const },
+    // { href: '/creditcard', Icon: CreditCard, title: 'Creditcard', desc: 'Beste creditcard deals', package: 'FINANCE', requiredPackage: 'finance' as const }
   ]
 
   return (
@@ -36,23 +48,28 @@ export default function VasteLastenPage() {
         Vaste lasten configurators
       </h1>
       
-      <p style={{ fontSize: '16px', color: '#111827', marginBottom: '16px', lineHeight: '1.6' }}>
-        Gebruik onze geavanceerde configurators om de beste deals te vinden en te besparen op je vaste lasten.
+      <p style={{ fontSize: '16px', color: '#111827', marginBottom: '24px', lineHeight: '1.6' }}>
+        Binnenkort beschikbaar: geavanceerde configurators voor vakanties, verzekeringen, energie en meer.
       </p>
 
-      <div style={{ 
-        background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)', 
-        border: '2px solid #86efac',
-        borderRadius: '12px',
-        padding: '16px',
-        marginBottom: '24px'
-      }}>
-        <div style={{ fontSize: '14px', color: '#166534', lineHeight: '1.6' }}>
-          <strong>📦 Pakket PRO:</strong> 4 configurators (Vakanties, Verzekeringen, Energie, Telecom)
-          <br />
-          <strong>💰 Pakket FINANCE:</strong> 8 configurators (alle PRO + Hypotheek, Leasing, Lening, Creditcard)
+      {configurators.length === 0 && (
+        <div style={{ 
+          background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)', 
+          border: '2px solid #86efac',
+          borderRadius: '12px',
+          padding: '24px',
+          textAlign: 'center'
+        }}>
+          <div style={{ fontSize: '16px', fontWeight: 600, color: '#166534', marginBottom: '8px' }}>
+            🚧 Configurators binnenkort beschikbaar
+          </div>
+          <div style={{ fontSize: '14px', color: '#166534', lineHeight: '1.6' }}>
+            We werken aan geavanceerde configurators voor vakanties, verzekeringen, energie, telecom en financiële diensten.
+            <br />
+            Gebruik nu onze <strong>Scanner</strong> om producten te vergelijken!
+          </div>
         </div>
-      </div>
+      )}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
         {configurators.map((config) => (

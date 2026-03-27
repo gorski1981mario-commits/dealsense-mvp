@@ -13,11 +13,13 @@ export default function BottomNav() {
       setCurrentPackage('free')
     } else if (pathname === '/plus') {
       setCurrentPackage('plus')
-    } else if (pathname === '/pro') {
-      setCurrentPackage('pro')
-    } else if (pathname === '/finance') {
-      setCurrentPackage('finance')
     }
+    // PRO/FINANCE ODPIĘTE - backup w _BACKUP_PRO_FINANCE
+    // else if (pathname === '/pro') {
+    //   setCurrentPackage('pro')
+    // } else if (pathname === '/finance') {
+    //   setCurrentPackage('finance')
+    // }
   }, [pathname])
 
   return (
@@ -30,7 +32,8 @@ export default function BottomNav() {
         <CirclePlus size={20} strokeWidth={2} />
         <span>PLUS</span>
       </a>
-      <a href="/pro" className={`nav-item ${currentPackage === 'pro' ? 'active' : ''}`}>
+      {/* PRO/FINANCE ODPIĘTE - backup w _BACKUP_PRO_FINANCE */}
+      {/* <a href="/pro" className={`nav-item ${currentPackage === 'pro' ? 'active' : ''}`}>
         <Star size={20} strokeWidth={2} />
         <span>PRO</span>
       </a>
@@ -40,7 +43,7 @@ export default function BottomNav() {
           <path d="m19 9-5 5-4-4-3 3"/>
         </svg>
         <span>FINANCE</span>
-      </a>
+      </a> */}
     </nav>
   )
 }

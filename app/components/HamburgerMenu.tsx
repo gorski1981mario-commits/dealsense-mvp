@@ -91,8 +91,6 @@ const ghostModeItem = {
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [userPackage, setUserPackage] = useState<PackageType>('free')
-  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
-  const [showDienstenInfo, setShowDienstenInfo] = useState(false)
   const [showEchoInfo, setShowEchoInfo] = useState(false)
   const [showGhostModeInfo, setShowGhostModeInfo] = useState(false)
   const router = useRouter()
@@ -180,123 +178,7 @@ export default function HamburgerMenu() {
         />
       )}
 
-      {/* Upgrade Prompt Modal */}
-      {showUpgradePrompt && (
-        <div
-          onClick={() => setShowUpgradePrompt(false)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.7)',
-            zIndex: 1002,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px'
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
-              borderRadius: '16px',
-              padding: '32px',
-              maxWidth: '400px',
-              width: '100%',
-              border: '2px solid #F59E0B'
-            }}
-          >
-            <div style={{
-              width: '64px',
-              height: '64px',
-              background: '#F59E0B',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 24px'
-            }}>
-              <Lock size={32} color="white" strokeWidth={2} />
-            </div>
-
-            <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#92400E', marginBottom: '12px', textAlign: 'center' }}>
-              Diensten Configurators
-            </h3>
-
-            <p style={{ fontSize: '16px', color: '#78350F', marginBottom: '24px', textAlign: 'center', lineHeight: '1.6' }}>
-              Je hebt momenteel het <strong>{userPackage.toUpperCase()}</strong> pakket.
-              <br />
-              Upgrade naar <strong>PRO</strong> voor toegang tot configurators.
-            </p>
-
-            <div style={{
-              background: 'white',
-              borderRadius: '12px',
-              padding: '20px',
-              marginBottom: '24px',
-              textAlign: 'left'
-            }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: '#92400E', marginBottom: '12px' }}>
-                PRO pakket - €29.99/maand:
-              </div>
-              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
-                ✓ Onbeperkt scans - producten én diensten
-              </div>
-              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
-                ✓ Ghost Mode (48 uur)
-              </div>
-              <div style={{ fontSize: '14px', color: '#78350F', marginBottom: '8px' }}>
-                ✓ 4 Diensten Configurators
-              </div>
-              <div style={{ fontSize: '14px', color: '#78350F' }}>
-                ✓ Slechts 9% commissie
-              </div>
-            </div>
-
-            <button
-              onClick={() => {
-                setShowUpgradePrompt(false)
-                setIsOpen(false)
-                router.push('/pro')
-              }}
-              style={{
-                width: '100%',
-                padding: '14px 32px',
-                background: '#F59E0B',
-                color: 'white',
-                border: 'none',
-                borderRadius: '10px',
-                fontSize: '16px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 4px 6px rgba(245, 158, 11, 0.3)',
-                marginBottom: '12px'
-              }}
-            >
-              Upgrade naar PRO →
-            </button>
-
-            <button
-              onClick={() => setShowUpgradePrompt(false)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                background: 'transparent',
-                color: '#92400E',
-                border: 'none',
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              Sluiten
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Upgrade Prompt Modal - ODPIĘTE (PRO/FINANCE backup) */}
 
       {/* Menu Panel */}
       <div style={{
@@ -396,80 +278,7 @@ export default function HamburgerMenu() {
               </div>
             </div>
 
-            {/* DIENSTEN CONFIGURATORS - Expandable Info */}
-            <div style={{ marginBottom: '24px' }}>
-              <div style={{
-                fontSize: '12px',
-                fontWeight: 600,
-                color: '#15803d',
-                letterSpacing: '0.5px',
-                marginBottom: '12px',
-                textTransform: 'uppercase'
-              }}>
-                DIENSTEN (Vergelijken)
-              </div>
-              
-              {/* Clickable header to expand/collapse */}
-              <div
-                onClick={() => setShowDienstenInfo(!showDienstenInfo)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '10px 16px',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  background: showDienstenInfo ? '#E6F4EE' : 'transparent'
-                }}
-              >
-                <ListChecks size={18} color="#111827" strokeWidth={2} />
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827' }}>
-                  Diensten Configurators
-                </div>
-              </div>
-
-              {/* Expandable content */}
-              {showDienstenInfo && (
-                <div style={{ 
-                  marginTop: '8px', 
-                  padding: '12px 16px',
-                  background: '#F9FAFB',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  lineHeight: '1.6'
-                }}>
-                  <div style={{ marginBottom: '12px' }}>
-                    <div style={{ fontWeight: 600, color: '#15803d', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Star size={16} color="#15803d" strokeWidth={2} />
-                      PRO Pakket:
-                    </div>
-                    <div style={{ color: '#374151', paddingLeft: '12px' }}>
-                      • Vakanties<br />
-                      • Verzekeringen<br />
-                      • Energie<br />
-                      • Telecom
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div style={{ fontWeight: 600, color: '#258b52', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#258b52" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 3v18h18"/>
-                        <path d="m19 9-5 5-4-4-3 3"/>
-                      </svg>
-                      FINANCE Pakket:
-                    </div>
-                    <div style={{ color: '#374151', paddingLeft: '12px' }}>
-                      • Alle PRO configurators +<br />
-                      • Hypotheek<br />
-                      • Leasing<br />
-                      • Lening<br />
-                      • Creditcard
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            {/* DIENSTEN - ODPIĘTE (PRO/FINANCE backup w _BACKUP_PRO_FINANCE) */}
 
             {/* INNE FUNCTIES */}
             <div style={{ marginTop: '24px' }}>
