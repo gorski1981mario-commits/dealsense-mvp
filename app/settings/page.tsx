@@ -1081,11 +1081,11 @@ export default function SettingsPage() {
               <div style={{
                 padding: '16px',
                 borderRadius: '8px',
-                border: '1px solid #FEE2E2',
-                background: '#FEF2F2',
+                border: '1px solid #E5E7EB',
+                background: '#F9FAFB',
                 marginBottom: '12px'
               }}>
-                <div style={{ fontSize: '14px', fontWeight: 500, color: '#DC2626', marginBottom: '4px' }}>
+                <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', marginBottom: '4px' }}>
                   Echo niet beschikbaar
                 </div>
                 <div style={{ fontSize: '13px', color: '#6B7280' }}>
