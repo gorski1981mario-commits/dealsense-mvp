@@ -138,22 +138,18 @@ export default function EchoChat() {
     if (offTopicKeywords.test(userInput)) {
       return {
         role: 'assistant',
-        content: '⚠️ Sorry, ik help alleen met financiële producten en DealSense app.\n\nIk kan je helpen met:\n🛡️ Verzekeringen\n✈️ Vakanties\n⚡ Energie\n📱 Telecom\n💳 Leningen & Hypotheken\n\nWaar kan ik je mee helpen?',
-        suggestions: ['Verzekeringen', 'Energie besparen', 'Vakanties']
+        content: '⚠️ Sorry, ik help alleen met DealSense app en productadvies.\n\nIk kan je helpen met:\n� Productadvies\n📋 Garantie-informatie\n� Bespaartips\n� Scanner uitleg\n\nWaar kan ik je mee helpen?',
+        suggestions: ['Productadvies', 'Hoe werkt Scanner?', 'Bespaartips']
       }
     }
     
-    // Detect intent
+    // Detect intent - TYLKO dla PLUS package (produktadvies, geen konfiguratory)
     const intents = {
-      insurance: /ubezpieczeni|verzekering|auto|motor|zorg|woon|leven|reis|aansprakelijk/i,
-      vacation: /wakacje|vakantie|hotel|vlucht|reis naar|urlaub/i,
-      energy: /energia|energie|stroom|gas|elektriciteit/i,
-      telecom: /internet|telefon|mobiel|tv|ziggo|kpn/i,
-      subscriptions: /abonnement|netflix|spotify|disney/i,
-      optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren/i,
+      optimize: /oszczędz|bespaar|goedkoper|optimaliseer|verbeteren|product|advies/i,
+      scanner: /scanner|scan|barcode|qr|product vergelijk/i,
       // Help & Knowledge base
       help: /help|hulp|hoe werkt|uitleg|wat is|wat betekent|waar vind ik/i,
-      packages: /pakiet|abonnement|free|plus|pro|finance|zakelijk|b2b|verschil|upgrade/i,
+      packages: /pakiet|abonnement|free|plus|verschil|upgrade/i,
       usp: /waarom dealsense|verschil met|beter dan|concurrent|andere app|vergelijk/i,
       howItWorks: /hoe werkt|ranking|algoritme|paywall|commissie|verdien/i
     }
@@ -173,17 +169,17 @@ export default function EchoChat() {
     if (intents.howItWorks.test(userInput)) {
       return {
         role: 'assistant',
-        content: '⚙️ **Hoe DealSense werkt:**\n\n**1. Deal Score**\nDeal Score is ons unieke beoordelingssysteem, gebaseerd op zorgvuldig geselecteerde parameters. Het garandeert maximale veiligheid, gemak en zekerheid bij het kiezen van de beste deals voor jou.\n\nWe selecteren TOP 3 beste deals op basis van:\n• Prijs\n• Kwaliteit\n• Betrouwbaarheid\n• Gebruikerservaringen\n\n**2. Paywall (9% commissie)**\nJe betaalt alleen als je bespaart.\nCommissie = 9% van jaarlijkse besparing.\n\n**3. Jouw voordeel**\nToegang tot beste deals + PDF bewijs + redirect naar aanbieder.\n\nVragen?',
-        suggestions: ['Wat zijn de pakketten?', 'Waarom DealSense?', 'Start configuratie']
+        content: '⚙️ **Hoe DealSense werkt:**\n\n**1. Scanner**\nScan producten met barcode/QR of voer URL in.\n\n**2. Deal Score**\nOns unieke beoordelingssysteem selecteert TOP 3 beste deals op basis van:\n• Prijs\n• Kwaliteit\n• Betrouwbaarheid\n• Gebruikerservaringen\n\n**3. Commissie (9% PLUS, 10% FREE)**\nJe betaalt alleen als je bespaart.\n\n**4. Jouw voordeel**\nToegang tot beste deals + redirect naar webshop.\n\nVragen?',
+        suggestions: ['Wat zijn de pakketten?', 'Waarom DealSense?', 'Hoe werkt Scanner?']
       }
     }
     
-    // Packages explanation
+    // Packages explanation - ALLEEN FREE en PLUS
     if (intents.packages.test(userInput)) {
       return {
         role: 'assistant',
-        content: '📦 **DealSense Pakketten:**\n\n**FREE** - Gratis\n• Basis toegang\n\n**PLUS** - €19,99/mnd\n• Echo AI chat\n• Advies & tips\n\n**PRO** - €29,99/mnd\n• Alles van PLUS +\n• Diensten configurators\n\n**FINANCE** - €39,99/mnd\n• Alles van PRO +\n• Financiële producten\n\n**ZAKELIJK B2B** - €59,99/mnd\n• B2B Procurement\n• 10 industrieën\n• RFQ systeem\n\nWil je upgraden?',
-        suggestions: ['Upgrade naar PRO', 'Upgrade naar FINANCE', 'Meer info']
+        content: '📦 **DealSense Pakketten:**\n\n**FREE** - €0\n• 3 gratis scans\n• Basis prijsvergelijking\n• 1000+ Nederlandse webshops\n• 10% commissie op besparingen\n\n**PLUS** - €19,99/mnd\n• Onbeperkt scannen\n• Echo AI assistent (jij!)\n• Ghost Mode (24h monitoring)\n• 9% commissie\n• Referral code PLUS2026\n\n💡 **Verschil:**\nPLUS = Unlimited scans + Echo + Ghost Mode + lagere commissie\n\nWil je upgraden naar PLUS?',
+        suggestions: ['Upgrade naar PLUS', 'Wat is Ghost Mode?', 'Meer info']
       }
     }
     
@@ -191,7 +187,7 @@ export default function EchoChat() {
     if (intents.help.test(userInput)) {
       return {
         role: 'assistant',
-        content: '👋 **Ik help je graag!**\n\nWat wil je weten?\n\n🎯 **Populaire vragen:**\n• Hoe werkt DealSense?\n• Wat zijn de pakketten?\n• Waarom DealSense beter is?\n• Hoe gebruik ik configuraties?\n• Waar vind ik mijn opgeslagen deals?\n\nStel je vraag!',
+        content: '👋 **Ik help je graag!**\n\nWat wil je weten?\n\n🎯 **Populaire vragen:**\n• Hoe werkt DealSense?\n• Wat zijn de pakketten?\n• Waarom DealSense beter is?\n• Hoe gebruik ik de Scanner?\n• Wat is Ghost Mode?\n\nStel je vraag!',
         suggestions: ['Hoe werkt het?', 'Pakketten uitleg', 'Waarom DealSense?']
       }
     }
