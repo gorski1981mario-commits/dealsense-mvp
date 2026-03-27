@@ -383,21 +383,10 @@ export default function EchoChat() {
             borderBottom: '2px solid #15803d'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: '2px'
-              }}>
-                <span style={{ color: '#15803d', fontWeight: 700, fontSize: '18px' }}>E</span>
-                <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '15px' }}>ch</span>
-                <div style={{
-                  width: '10px',
-                  height: '10px',
-                  background: '#111827',
-                  borderRadius: '50%',
-                  marginLeft: '2px',
-                  marginBottom: '3px'
-                }} />
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <span style={{ color: '#15803d', fontWeight: 700, fontSize: '18px', lineHeight: 1 }}>E</span>
+                <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '15px', lineHeight: 1 }}>ch</span>
+                <span style={{ color: '#000', fontSize: '18px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
               </div>
               <div style={{ 
                 fontSize: '12px', 
