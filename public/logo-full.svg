@@ -3,8 +3,8 @@
   <rect width="512" height="512" fill="white" rx="80"/>
   
   <!-- Logo DealSense.nl - pełna nazwa -->
-  <!-- DealSense (czarne) + .nl (zielone) -->
+  <!-- DealSense. (czarne) + nl (zielone) -->
   <text x="256" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="900" text-anchor="middle">
-    <tspan fill="#1e1e1e">DealSense</tspan><tspan fill="#15803d">.nl</tspan>
+    <tspan fill="#1e1e1e">DealSense.</tspan><tspan fill="#15803d">nl</tspan>
   </text>
 </svg>

@@ -2,24 +2,21 @@
   <!-- Background -->
   <rect width="512" height="512" fill="white" rx="80"/>
   
-  <!-- Ghost Mode logo - duch z ikoną oka (monitoring) -->
-  <!-- Duch (uproszczony kształt) -->
-  <path d="M 256 120 Q 180 120 180 200 L 180 320 Q 180 340 200 340 Q 210 320 220 340 Q 230 320 240 340 Q 250 320 256 340 Q 262 320 272 340 Q 282 320 292 340 Q 302 320 312 340 Q 332 340 332 320 L 332 200 Q 332 120 256 120 Z" 
-        fill="#9ca3af" 
-        opacity="0.6"/>
-  
-  <!-- Oczy ducha -->
-  <circle cx="230" cy="220" r="15" fill="#1e1e1e"/>
-  <circle cx="282" cy="220" r="15" fill="#1e1e1e"/>
-  
-  <!-- Ikona oka (monitoring) -->
-  <g transform="translate(256, 400)">
-    <!-- Oko -->
-    <ellipse cx="0" cy="0" rx="40" ry="25" fill="none" stroke="#15803d" stroke-width="8"/>
+  <!-- Ghost Mode logo - zielone przekreślone oko (EyeOff) -->
+  <g transform="translate(256, 256)">
+    <!-- Oko (elipsa) -->
+    <path d="M -80 0 Q -80 -40 0 -40 Q 80 -40 80 0 Q 80 40 0 40 Q -80 40 -80 0 Z" 
+          fill="none" 
+          stroke="#15803d" 
+          stroke-width="12"/>
+    
     <!-- Źrenica -->
-    <circle cx="0" cy="0" r="12" fill="#15803d"/>
+    <circle cx="0" cy="0" r="20" fill="#15803d"/>
+    
+    <!-- Przekreślenie (linia przez oko) -->
+    <line x1="-100" y1="-60" x2="100" y2="60" 
+          stroke="#15803d" 
+          stroke-width="12" 
+          stroke-linecap="round"/>
   </g>
-  
-  <!-- Tekst "Ghost Mode" -->
-  <text x="256" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#1e1e1e" text-anchor="middle">Ghost Mode</text>
 </svg>
