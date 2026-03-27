@@ -465,13 +465,12 @@ export default function EchoChat() {
             {messages.length === 0 && (
               <div style={{
                 textAlign: 'center',
-                color: '#6B7280',
                 fontSize: '14px',
                 marginTop: '40px'
               }}>
                 <div style={{ fontSize: '32px', marginBottom: '8px' }}>👋</div>
-                <div style={{ fontWeight: 600, marginBottom: '4px' }}>Hallo! Ik ben Echo</div>
-                <div>Jouw persoonlijke AI agent voor deals</div>
+                <div style={{ fontWeight: 600, marginBottom: '4px', color: '#15803d' }}>Hallo! Ik ben Echo</div>
+                <div style={{ color: '#3b82f6' }}>Jouw persoonlijke AI agent voor deals</div>
               </div>
             )}
 
