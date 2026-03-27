@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate DealSense Icons</title>
+</head>
+<body>
+    <h1>DealSense Icon Generator</h1>
+    <p>Generating icons...</p>
+    
+    <canvas id="canvas192" width="192" height="192" style="border:1px solid #ccc; margin:10px;"></canvas>
+    <canvas id="canvas512" width="512" height="512" style="border:1px solid #ccc; margin:10px;"></canvas>
+    
+    <div id="downloads"></div>
+    
+    <script>
+        function generateIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // White background with rounded corners
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Scale factors
+            const scale = size / 512;
+            
+            // Logo D.nl - KANONICZNE (dokładnie jak w top bar)
+            // Wycentrowane w kadrze
+            ctx.font = `900 ${240 * scale}px system-ui, -apple-system, sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            
+            // Zmierzę całą szerokość "D.nl" żeby wycentrować
+            const fullText = 'D.nl';
+            const fullWidth = ctx.measureText(fullText).width;
+            const dText = ctx.measureText('D.');
+            
+            // Wycentrowane - środek kadru to size/2, z małą korektą w lewo
+            const centerX = size / 2 - 3 * scale;
+            const startX = centerX - fullWidth / 2;
+            
+            // D. (czarne)
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#1e1e1e';
+            ctx.fillText('D.', startX, 320 * scale);
+            
+            // nl (zielone, zaraz po D.)
+            ctx.fillStyle = '#15803d';
+            ctx.fillText('nl', startX + dText.width, 320 * scale);
+            
+            // Create download link
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                a.textContent = `Download icon-${size}.png`;
+                a.style.display = 'block';
+                a.style.margin = '10px';
+                document.getElementById('downloads').appendChild(a);
+            });
+        }
+        
+        // Generate both icons
+        generateIcon('canvas192', 192);
+        generateIcon('canvas512', 512);
+        
+        document.querySelector('p').textContent = 'Icons generated! Click links below to download:';
+    </script>
+</body>
+</html>

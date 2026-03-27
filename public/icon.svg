@@ -1,0 +1,10 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="white" rx="80"/>
+  
+  <!-- Logo D.nl - KANONICZNE (dokładnie jak w top bar) -->
+  <!-- Wycentrowane - przesunięte w lewo żeby l się zmieściło -->
+  <text x="253" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="240" font-weight="900" text-anchor="middle">
+    <tspan fill="#1e1e1e">D.</tspan><tspan fill="#15803d">nl</tspan>
+  </text>
+</svg>

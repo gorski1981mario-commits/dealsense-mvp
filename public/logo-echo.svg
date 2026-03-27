@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="white" rx="80"/>
+  
+  <!-- Logo Echo - E (zielone) + ch (niebieskie) + ● (czarne kółko) -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-weight="700">
+    <!-- E - zielone, duże -->
+    <text x="140" y="300" font-size="280" fill="#15803d">E</text>
+    
+    <!-- ch - niebieskie, mniejsze -->
+    <text x="320" y="300" font-size="240" fill="#3b82f6">ch</text>
+    
+    <!-- ● - czarne kółko -->
+    <text x="500" y="285" font-size="260" fill="#000000">●</text>
+  </g>
+</svg>
