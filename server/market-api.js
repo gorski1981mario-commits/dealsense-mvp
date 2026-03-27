@@ -1604,7 +1604,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'iservices',
           'gsm repair', 'phone repair',
           'telefoon reparatie',
-          // Marketplace international (KRYTYCZNE)
+          // Marketplace international (KRYTYCZNE - nie NL/BE)
           'fruugo',
           'aliexpress', 'ali express',
           'joom',
@@ -1612,6 +1612,10 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'temu',                  // Chiny
           'banggood',
           'gearbest',
+          'etsy',                  // Międzynarodowy marketplace (nie NL/BE)
+          'onbuy', 'onbuy.com',    // UK marketplace
+          'cdiscount',             // Francja
+          'rakuten',               // Japonia/międzynarodowy
           // Outlets
           'outlet', 'tvoutlet', 'tv outlet'
         ];
