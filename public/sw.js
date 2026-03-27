@@ -1,10 +1,10 @@
 // Service Worker for DealSense PWA
-const CACHE_NAME = 'dealsense-v1';
+const CACHE_NAME = 'dealsense-v2';
 const urlsToCache = [
   '/',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  '/icon-192-v2.png',
+  '/icon-512-v2.png'
 ];
 
 // Install event
