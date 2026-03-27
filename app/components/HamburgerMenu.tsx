@@ -63,19 +63,6 @@ const otherItems: MenuItem[] = [
   { icon: Users, title: 'Waarom geen partnerschappen', path: '/waarom-geen-partnerschappen' }
 ]
 
-// AI ASSISTENT
-const aiAssistantItem = {
-  title: 'Echo AI Assistent',
-  description: 'Echo configureert voor jou - jij beslist, Echo regelt.',
-  features: [
-    'Productadvies op maat',
-    'Garantie-informatie',
-    'Bespaartips',
-    '⚡ Automatisch advies',
-    'Jij controleert en bevestigt'
-  ]
-}
-
 // GHOST MODE
 const ghostModeItem = {
   title: 'Ghost Mode',
@@ -91,7 +78,6 @@ const ghostModeItem = {
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [userPackage, setUserPackage] = useState<PackageType>('free')
-  const [showEchoInfo, setShowEchoInfo] = useState(false)
   const [showGhostModeInfo, setShowGhostModeInfo] = useState(false)
   const router = useRouter()
   const userId = typeof window !== 'undefined' ? getDeviceId() : 'user_demo'
@@ -309,48 +295,8 @@ export default function HamburgerMenu() {
             </div>
           </div>
 
-          {/* ECHO AI ASSISTENT - Expandable */}
-          <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #E5E7EB' }}>
-            <div 
-              onClick={() => setShowEchoInfo(!showEchoInfo)}
-              style={{
-                padding: '10px 16px',
-                background: 'transparent',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                    <span style={{ color: '#15803d', fontWeight: 700, fontSize: '20px', lineHeight: 1 }}>E</span>
-                    <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: '16px', lineHeight: 1 }}>ch</span>
-                    <span style={{ color: '#000', fontSize: '20px', lineHeight: 1, position: 'relative', top: '-2px' }}>●</span>
-                  </div>
-                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>AI Assistent</span>
-                </div>
-              </div>
-              
-              {showEchoInfo && (
-                <div style={{ marginTop: '8px', paddingLeft: '28px' }}>
-                  <div style={{ fontSize: '12px', color: '#111827', marginBottom: '12px', lineHeight: '1.5', fontWeight: 600 }}>
-                    {aiAssistantItem.description}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#111827', fontWeight: 500 }}>
-                    {aiAssistantItem.features.map((feature, idx) => (
-                      <div key={idx} style={{ marginBottom: '4px' }}>• {feature}</div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
           {/* GHOST MODE - Expandable */}
-          <div style={{ marginTop: '4px' }}>
+          <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #E5E7EB' }}>
             <div 
               onClick={() => setShowGhostModeInfo(!showGhostModeInfo)}
               style={{
