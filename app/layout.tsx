@@ -6,11 +6,13 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'DealSense.nl – AI aankoop assistent',
+  description: 'Scan producten en vind direct de beste prijs',
   verification: {
     google: 'NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo',
   },
   viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
   themeColor: '#15803d',
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
