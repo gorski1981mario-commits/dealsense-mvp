@@ -138,8 +138,10 @@ Response:
 ### 1. Sprawdź że masz SearchAPI key w .env:
 ```bash
 # server/.env
-GOOGLE_SHOPPING_API_KEY=TxZ91oHM53qcbiMvcWpD8vVQ
+GOOGLE_SHOPPING_API_KEY=your_searchapi_key_here
 ```
+
+**⚠️ WAŻNE:** Klucz API pobierz z https://www.searchapi.io/
 
 ### 2. (Opcjonalnie) Dodaj AI keys jeśli chcesz pełną analizę:
 ```bash
