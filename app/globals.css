@@ -97,8 +97,8 @@ body {
 .bottom-nav-two-items {
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  padding: 10px 16px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  padding: 12px 20px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
 .nav-item {
