@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { EyeOff } from 'lucide-react'
 import OCRScanner from './OCRScanner'
+import Scanner from './Scanner'
 import { getDeviceId, showToast } from '../_lib/utils'
 import { FlowTracker } from '../_lib/flow-tracker'
 
@@ -266,13 +267,35 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
               </button>
             </div>
             
-            <div style={{ marginBottom: '20px', padding: '20px', background: '#F3F4F6', borderRadius: '12px' }}>
-              <p style={{ fontSize: '14px', color: '#374151', marginBottom: '12px' }}>
-                Richt je camera op de barcode/QR code van het product
+            <div style={{ 
+              marginBottom: '20px', 
+              padding: '32px 20px', 
+              background: 'linear-gradient(135deg, #E6F4EE 0%, #F0F9FF 100%)', 
+              borderRadius: '16px',
+              border: '2px dashed #15803d'
+            }}>
+              <div style={{ 
+                width: '80px', 
+                height: '80px', 
+                margin: '0 auto 16px',
+                background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 16px rgba(21, 128, 61, 0.3)'
+              }}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <path d="M9 3v18"/>
+                  <path d="M15 3v18"/>
+                </svg>
+              </div>
+              <p style={{ fontSize: '16px', color: '#15803d', marginBottom: '8px', fontWeight: 600 }}>
+                Scan je product
               </p>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>📷</div>
-              <p style={{ fontSize: '12px', color: '#6B7280' }}>
-                Barcode scanner wordt binnenkort toegevoegd
+              <p style={{ fontSize: '13px', color: '#6B7280' }}>
+                Richt je camera op de barcode/QR code
               </p>
             </div>
 
