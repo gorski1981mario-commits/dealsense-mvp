@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "nl.dilsons.dealsense",
+    "package_name": "nl.dealsense.app",
     "sha256_cert_fingerprints": [
       "PLACEHOLDER_SHA256_FINGERPRINT_WILL_BE_GENERATED_DURING_BUILD"
     ]

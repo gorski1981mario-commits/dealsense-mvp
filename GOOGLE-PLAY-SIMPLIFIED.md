@@ -14,12 +14,12 @@
 
 ### **2. Digital Asset Links** ✅
 - Lokalizacja: `public/.well-known/assetlinks.json`
-- Package: `nl.dilsons.dealsense`
+- Package: `nl.dealsense.app`
 - ⚠️ SHA256 fingerprint będzie dodany po wygenerowaniu keystore
 
 ### **3. Privacy Policy** ✅
 - Lokalizacja: `app/privacy/page.tsx`
-- URL: `https://dilsons.nl/privacy`
+- URL: `https://dealsense.nl/privacy`
 - Zgodna z GDPR i Google Play wymaganiami
 
 ---
@@ -34,14 +34,14 @@
 
 1. **Otwórz:** https://www.pwabuilder.com/
 
-2. **Wpisz URL:** `https://dilsons.nl`
+2. **Wpisz URL:** `https://dealsense.nl`
 
 3. **Kliknij "Start"** - PWA Builder przeskanuje manifest
 
 4. **Wybierz "Android"** → **"Generate Package"**
 
 5. **Wypełnij:**
-   - Package ID: `nl.dilsons.dealsense`
+   - Package ID: `nl.dealsense.app`
    - App name: `DealSense`
    - Version: `1.0.0`
    - Version code: `1`
@@ -110,9 +110,9 @@ Bespaar tijd en geld met DealSense!
 ```
 
 **Contact:**
-- Email: support@dilsons.nl
-- Website: https://dilsons.nl
-- Privacy policy: https://dilsons.nl/privacy ✅
+- Email: support@dealsense.nl
+- Website: https://dealsense.nl
+- Privacy policy: https://dealsense.nl/privacy ✅
 
 **Category:**
 - App: `Shopping`
@@ -181,7 +181,7 @@ Potrzebujesz **2-8 screenshots** (540x720 minimum):
 - Tekst: "Vind ook de beste accessoires"
 
 **Jak zrobić:**
-1. Otwórz dilsons.nl na telefonie
+1. Otwórz dealsense.nl na telefonie
 2. Zrób screenshot (Power + Volume Down)
 3. Przytnij do 540x720 lub większe
 4. Upload do Google Play Console
@@ -268,8 +268,8 @@ Wyniki się pokazują!
 
 - **PWA Builder:** https://www.pwabuilder.com/
 - **Google Play Console:** https://play.google.com/console
-- **Privacy Policy:** https://dilsons.nl/privacy ✅
-- **Asset Links:** https://dilsons.nl/.well-known/assetlinks.json ✅
+- **Privacy Policy:** https://dealsense.nl/privacy ✅
+- **Asset Links:** https://dealsense.nl/.well-known/assetlinks.json ✅
 
 ---
 

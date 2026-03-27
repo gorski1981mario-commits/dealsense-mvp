@@ -125,8 +125,8 @@ export default function PrivacyPage() {
           Voor vragen over privacy:
         </p>
         <ul style={{ marginLeft: '24px', listStyle: 'none' }}>
-          <li>📧 Email: support@dilsons.nl</li>
-          <li>🌐 Website: https://dilsons.nl</li>
+          <li>📧 Email: support@dealsense.nl</li>
+          <li>🌐 Website: https://dealsense.nl</li>
         </ul>
       </section>
 
