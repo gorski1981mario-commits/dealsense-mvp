@@ -205,33 +205,6 @@ export default function PricingAccordion() {
                     >
                       {loading === pkg.id ? 'Laden...' : 'Koop nu →'}
                     </button>
-                    
-                    {(pkg.id === 'plus' || pkg.id === 'pro' || pkg.id === 'finance') && (
-                      <button
-                        onClick={() => handlePromptsPurchase()}
-                        style={{
-                          width: '100%',
-                          marginTop: '8px',
-                          padding: '10px',
-                          background: 'white',
-                          color: '#15803d',
-                          border: '2px solid #15803d',
-                          borderRadius: '8px',
-                          fontSize: '13px',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#E6F4EE'
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'white'
-                        }}
-                      >
-                        💬 Koop 10.000 extra Echo prompts (€9,99)
-                      </button>
-                    )}
                   </>
                 )}
               </div>

@@ -514,7 +514,7 @@ export default function HomePage() {
           </div>
           {faqOpen === 0 && (
             <p style={{ marginTop: '12px', color: '#111827' }}>
-              Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS, PRO of FINANCE voor onbeperkt scannen en betaal je 9% commissie op besparingen.
+              Je krijgt 3 gratis scans om DealSense te proberen. Daarna kun je upgraden naar PLUS voor onbeperkt scannen en betaal je 9% commissie op besparingen.
             </p>
           )}
         </div>

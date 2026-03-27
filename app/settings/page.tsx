@@ -1089,7 +1089,7 @@ export default function SettingsPage() {
                   Echo niet beschikbaar
                 </div>
                 <div style={{ fontSize: '13px', color: '#6B7280' }}>
-                  Upgrade naar PLUS, PRO of FINANCE voor Echo AI assistent
+                  Upgrade naar PLUS voor Echo AI assistent
                 </div>
               </div>
             )}
@@ -1330,7 +1330,7 @@ export default function SettingsPage() {
                     <div style={{ marginBottom: '4px' }}>• Al je opgeslagen configuraties en scans</div>
                     <div style={{ marginBottom: '4px' }}>• Je scan geschiedenis en besparingen</div>
                     <div style={{ marginBottom: '4px' }}>• Ghost Mode monitoring en prijsalerts</div>
-                    <div style={{ marginBottom: '4px' }}>• Je pakket abonnement (PLUS/PRO/FINANCE)</div>
+                    <div style={{ marginBottom: '4px' }}>• Je pakket abonnement (PLUS)</div>
                     <div style={{ marginBottom: '4px' }}>• Alle persoonlijke instellingen en voorkeuren</div>
                     <div style={{ marginBottom: '4px' }}>• Biometrische authenticatie en backup codes</div>
                     <div style={{ marginBottom: '12px' }}>• Referral codes en commissies</div>
