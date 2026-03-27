@@ -355,7 +355,7 @@ export default function EchoChat() {
       {isOpen && (
         <div style={{
           position: 'fixed',
-          bottom: '50px',
+          bottom: '65px',
           right: '1px',
           left: '1px',
           width: 'calc(100vw - 2px)',
