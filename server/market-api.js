@@ -1184,6 +1184,7 @@ function applyDealScoreV2(offers, userBasePrice = null, options = {}) {
 async function fetchMarketOffers(productName, ean = null, options = {}) {
   const startedTotal = Date.now();
   let offers = null;
+  let smartBundles = []; // Smart Bundles - dostępne w całym scope
   
   // FIXED: Obsługa obu formatów wywołania
   // Format 1: fetchMarketOffers(productName, ean, options)
@@ -1545,7 +1546,6 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         // ═══════════════════════════════════════════════════════════════
         // SMART BUNDLES - WYCIĄGNIJ AKCESORIA PRZED FILTRAMI!
         // ═══════════════════════════════════════════════════════════════
-        let smartBundles = []
         const bundleResult = extractSmartBundles(offers, effectiveProductName)
         if (bundleResult && bundleResult.smartBundles && bundleResult.smartBundles.length > 0) {
           smartBundles = bundleResult.smartBundles
@@ -1592,6 +1592,8 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'refurbed',
           'rebuy',
           'refurbished.nl',
+          'used products',         // Używane produkty
+          'used',                  // Używane (ogólne)
           'telefoongigant',        // Często refurbished
           'nextmac',               // Refurbished Apple
           'you-mobile',            // Często używane/refurb
@@ -1892,6 +1894,13 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         offers = offers.filter(o => {
           const url = (o.url || '').toLowerCase();
           const seller = (o.seller || '').toLowerCase();
+          
+          // BLACKLIST: Odrzuć inne kraje (nie NL/BE)
+          const bannedDomains = ['.fr', '.de', '.pl', '.it', '.es', '.pt', '.at', '.ch', '.se', '.dk', '.no', '.fi'];
+          const hasBannedDomain = bannedDomains.some(domain => url.includes(domain) || seller.includes(domain));
+          if (hasBannedDomain) {
+            return false;
+          }
           
           // Przepuść jeśli: .nl DOMENA
           const hasNLDomain = url.includes('.nl') || seller.includes('.nl');
