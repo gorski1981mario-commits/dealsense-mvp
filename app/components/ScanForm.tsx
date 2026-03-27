@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { EyeOff } from 'lucide-react'
 import OCRScanner from './OCRScanner'
-import Scanner from './Scanner'
+import jsQR from 'jsqr'
 import { getDeviceId, showToast } from '../_lib/utils'
 import { FlowTracker } from '../_lib/flow-tracker'
 
@@ -21,6 +21,115 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [showOCRScanner, setShowOCRScanner] = useState(false)
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
   const [scanning, setScanning] = useState(false)
+  const [cameraActive, setCameraActive] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const animationFrameId = useRef<number | null>(null)
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+      })
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+        videoRef.current.play()
+        setCameraActive(true)
+        scanQRCode()
+      }
+    } catch (err) {
+      showToast('⚠️ Camera toegang geweigerd')
+    }
+  }
+
+  const stopCamera = () => {
+    if (videoRef.current?.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream
+      stream.getTracks().forEach(track => track.stop())
+      videoRef.current.srcObject = null
+    }
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current)
+    }
+    setCameraActive(false)
+  }
+
+  const scanQRCode = (): void => {
+    if (!videoRef.current || !canvasRef.current || !cameraActive) return
+
+    const video = videoRef.current
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+
+    if (!ctx || video.readyState !== video.HAVE_ENOUGH_DATA) {
+      animationFrameId.current = requestAnimationFrame(scanQRCode)
+      return
+    }
+
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    const code = jsQR(imageData.data, imageData.width, imageData.height)
+
+    if (code) {
+      handleBarcodeDetected(code.data)
+      stopCamera()
+    } else {
+      animationFrameId.current = requestAnimationFrame(scanQRCode)
+    }
+  }
+
+  const handleBarcodeDetected = async (ean: string) => {
+    setScanning(true)
+    showToast(`📱 Code gescand: ${ean}`)
+    
+    try {
+      const response = await fetch('/api/crawler/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          ean,
+          category: 'electronics',
+          packageType,
+          userId: getDeviceId()
+        })
+      })
+
+      const result = await response.json()
+
+      if (result.paywall) {
+        showToast(`⚠️ ${result.message}`)
+        setTimeout(() => {
+          if (confirm(`${result.message}\n\nUpgrade nu naar PLUS?`)) {
+            window.location.href = '/packages'
+          }
+        }, 1000)
+      } else if (result.offers && result.offers.length > 0) {
+        showToast('✓ Producten gevonden!')
+        if (onScanComplete) {
+          onScanComplete(result)
+        }
+      } else {
+        showToast('⚠️ Geen aanbiedingen gevonden')
+      }
+    } catch (err) {
+      showToast('⚠️ Netwerkfout - probeer opnieuw')
+    } finally {
+      setScanning(false)
+      setShowBarcodeScanner(false)
+    }
+  }
+
+  useEffect(() => {
+    if (showBarcodeScanner && !cameraActive) {
+      startCamera()
+    }
+    return () => {
+      stopCamera()
+    }
+  }, [showBarcodeScanner])
 
   const handleScan = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -267,37 +376,80 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
               </button>
             </div>
             
-            <div style={{ 
-              marginBottom: '20px', 
-              padding: '32px 20px', 
-              background: 'linear-gradient(135deg, #E6F4EE 0%, #F0F9FF 100%)', 
-              borderRadius: '16px',
-              border: '2px dashed #15803d'
-            }}>
-              <div style={{ 
-                width: '80px', 
-                height: '80px', 
-                margin: '0 auto 16px',
-                background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
-                borderRadius: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 8px 16px rgba(21, 128, 61, 0.3)'
-              }}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                  <path d="M9 3v18"/>
-                  <path d="M15 3v18"/>
-                </svg>
+            {cameraActive ? (
+              <div style={{ marginBottom: '20px', position: 'relative' }}>
+                <video
+                  ref={videoRef}
+                  style={{
+                    width: '100%',
+                    maxHeight: '400px',
+                    borderRadius: '16px',
+                    objectFit: 'cover'
+                  }}
+                  playsInline
+                />
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '200px',
+                  height: '200px',
+                  border: '3px solid #15803d',
+                  borderRadius: '12px',
+                  pointerEvents: 'none'
+                }} />
+                {scanning && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '20px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'rgba(21, 128, 61, 0.9)',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: 600
+                  }}>
+                    Scannen...
+                  </div>
+                )}
               </div>
-              <p style={{ fontSize: '16px', color: '#15803d', marginBottom: '8px', fontWeight: 600 }}>
-                Scan je product
-              </p>
-              <p style={{ fontSize: '13px', color: '#6B7280' }}>
-                Richt je camera op de barcode/QR code
-              </p>
-            </div>
+            ) : (
+              <div style={{ 
+                marginBottom: '20px', 
+                padding: '32px 20px', 
+                background: 'linear-gradient(135deg, #E6F4EE 0%, #F0F9FF 100%)', 
+                borderRadius: '16px',
+                border: '2px dashed #15803d'
+              }}>
+                <div style={{ 
+                  width: '80px', 
+                  height: '80px', 
+                  margin: '0 auto 16px',
+                  background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+                  borderRadius: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 16px rgba(21, 128, 61, 0.3)'
+                }}>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <path d="M9 3v18"/>
+                    <path d="M15 3v18"/>
+                  </svg>
+                </div>
+                <p style={{ fontSize: '16px', color: '#15803d', marginBottom: '8px', fontWeight: 600 }}>
+                  Camera wordt gestart...
+                </p>
+                <p style={{ fontSize: '13px', color: '#6B7280' }}>
+                  Sta camera toegang toe
+                </p>
+              </div>
+            )}
 
             <button
               onClick={() => setShowBarcodeScanner(false)}
