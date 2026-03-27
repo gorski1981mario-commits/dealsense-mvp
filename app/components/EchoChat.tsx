@@ -375,7 +375,7 @@ export default function EchoChat() {
           {/* Header */}
           <div style={{
             background: '#E6F4EE',
-            padding: '14px 16px',
+            padding: '10px 16px',
             borderRadius: '16px 16px 0 0',
             display: 'flex',
             justifyContent: 'space-between',
