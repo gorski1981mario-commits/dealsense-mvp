@@ -103,28 +103,45 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
       borderRadius: '12px',
       boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
     }}>
-      {/* Header */}
+      {/* Header with DealScore Badge */}
       <div style={{ marginBottom: '20px' }}>
-        <h2 style={{ margin: '0 0 8px 0', fontSize: '18px', fontWeight: 'bold', color: '#111827' }}>
-          💡 Gebruikerservaringen
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#111827' }}>
+            💡 Gebruikerservaringen
+          </h2>
+          <div style={{
+            padding: '4px 10px',
+            background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+            borderRadius: '6px',
+            fontSize: '10px',
+            fontWeight: 700,
+            color: '#FFF',
+            letterSpacing: '0.5px'
+          }}>
+            DEALSCORE™
+          </div>
+        </div>
         <p style={{ margin: 0, fontSize: '13px', color: '#6B7280' }}>
           Gebaseerd op {totalReviews} reviews van {Object.keys(sources).length} bronnen
         </p>
       </div>
 
-      {/* Verdict - BIG */}
+      {/* DealScore Verdict - BIG */}
       <div style={{
         padding: '20px',
         background: verdictColor,
-        borderRadius: '8px',
+        borderRadius: '12px',
         marginBottom: '20px',
-        color: '#FFF'
+        color: '#FFF',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
       }}>
-        <div style={{ fontSize: '48px', fontWeight: 'bold', marginBottom: '8px' }}>
+        <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '8px', opacity: 0.9, letterSpacing: '1px' }}>
+          DEALSCORE™ KWALITEIT
+        </div>
+        <div style={{ fontSize: '48px', fontWeight: 'bold', marginBottom: '8px', lineHeight: '1' }}>
           {analysis.verdict.score}/10
         </div>
-        <div style={{ fontSize: '18px', fontWeight: '500' }}>
+        <div style={{ fontSize: '16px', fontWeight: '500', opacity: 0.95 }}>
           {analysis.verdict.text}
         </div>
       </div>
@@ -251,6 +268,39 @@ export default function ReviewsAnalysis({ ean, productName }: ReviewsAnalysisPro
             </div>
           ))}
         </div>
+      </div>
+
+      {/* DealScore Info Footer */}
+      <div style={{
+        marginTop: '20px',
+        paddingTop: '16px',
+        borderTop: '1px solid #E5E7EB'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          marginBottom: '8px'
+        }}>
+          <div style={{
+            padding: '4px 10px',
+            background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
+            borderRadius: '6px',
+            fontSize: '10px',
+            fontWeight: 700,
+            color: '#FFF',
+            letterSpacing: '0.5px'
+          }}>
+            DEALSCORE™
+          </div>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: '#111827' }}>
+            Kwaliteitssysteem
+          </span>
+        </div>
+        <p style={{ margin: 0, fontSize: '12px', color: '#6B7280', lineHeight: '1.5' }}>
+          DealScore analyseert productkwaliteit op basis van echte gebruikerservaringen. 
+          Ons unieke systeem combineert reviews van meerdere bronnen voor een betrouwbaar oordeel.
+        </p>
       </div>
 
       {/* Fallback warning */}
