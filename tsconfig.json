@@ -38,6 +38,9 @@
   "exclude": [
     "node_modules",
     "_BACKUP_B2B_MODULE",
-    "_BACKUP_PRO_FINANCE"
+    "_BACKUP_PRO_FINANCE",
+    "_BACKUP_PRO_FINANCE_FEATURES",
+    "app/ocr-demo",
+    "app/api/ocr"
   ]
 }

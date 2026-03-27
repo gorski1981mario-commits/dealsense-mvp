@@ -12,6 +12,15 @@ _BACKUP_B2B_MODULE/**/*
 # PRO/FINANCE packages disabled - only SearchAPI.io available (no other APIs)
 _BACKUP_PRO_FINANCE/
 _BACKUP_PRO_FINANCE/**/*
+_BACKUP_PRO_FINANCE_FEATURES/
+_BACKUP_PRO_FINANCE_FEATURES/**/*
+
+# ⚠️ EXCLUDE PRO/FINANCE FEATURES - ODPIĘTE
+# OCR, Bills Optimizer, Advanced features - backup na półce
+app/ocr-demo/
+app/ocr-demo/**/*
+app/api/ocr/
+app/api/ocr/**/*
 
 # ⛔ B2B CONFIGURATORS - FROZEN UNTIL Q3 2026 - DO NOT DEPLOY!
 app/components/configurators/b2b/
