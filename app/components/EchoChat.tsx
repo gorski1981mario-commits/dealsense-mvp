@@ -98,7 +98,7 @@ export default function EchoChat() {
     if (!input.trim()) return
 
     if (userPackage === 'free') {
-      alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS, PRO, FINANCE en ZAKELIJK abonnees. Upgrade om Echo te gebruiken!')
+      alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS abonnees. Upgrade naar PLUS om Echo te gebruiken!')
       return
     }
 
@@ -196,69 +196,23 @@ export default function EchoChat() {
       }
     }
     
-    // PLUS: Can chat, but needs upgrade for configurators
+    // PLUS: General advice and product recommendations (no configurators)
     if (userPackage === 'plus') {
-      // PLUS users want to use configurators → upgrade prompt
-      if (intents.vacation.test(userInput) || intents.insurance.test(userInput) || 
-          intents.energy.test(userInput) || intents.telecom.test(userInput)) {
-        return {
-          role: 'assistant',
-          content: '🔒 Automatische configuraties zijn beschikbaar vanaf PRO pakket.\n\n**Upgrade naar PRO voor:**\n✨ Auto-fill configuraties\n🤖 AI assistentie bij invullen\n📊 Persoonlijke analyse\n🎯 TOP 3 beste deals\n\n**Of gebruik handmatig:**\nJe kunt ook zelf de configurator invullen zonder Echo.',
-          suggestions: ['⬆️ Upgrade naar PRO', 'Handmatig invullen', 'Vertel meer']
-        }
-      }
-      
-      // PLUS users asking about optimization
+      // Product advice
       if (intents.optimize.test(userInput)) {
         return {
           role: 'assistant',
-          content: '💡 Ik kan je adviseren over besparen!\n\nMaar voor automatische configuraties en diepgaande analyse heb je PRO of FINANCE nodig.\n\n**PRO pakket:**\n✨ Auto-fill configuraties\n📊 Persoonlijke analyse\n🎯 Beste deals\n\n**FINANCE pakket:**\n✨ Alles van PRO +\n💼 Beheer alle rekeningen\n📄 Documenten analyse\n🤝 Uitgebreide ondersteuning\n\nWaar kan ik je nu mee helpen?',
-          suggestions: ['Upgrade naar PRO', 'Algemeen advies', 'Prijzen vergelijken']
+          content: '💡 Ik kan je adviseren over besparen!\n\n**Wat ik voor je kan doen:**\n✅ Productadvies op maat\n✅ Garantie-informatie\n✅ Bespaartips\n✅ Algemene vragen\n\n**Let op:** Gebruik de Scanner om producten te vergelijken en de beste deals te vinden!\n\nWaar kan ik je mee helpen?',
+          suggestions: ['Productadvies', 'Garantie info', 'Bespaartips']
         }
       }
     }
-    
-    // PRO/FINANCE: Full access to configurators
-    if (userPackage === 'pro' || userPackage === 'finance') {
-      // Detect which configurator user wants
-      if (intents.vacation.test(userInput) && ctx.mode === 'idle') {
-        setContext({ mode: 'configurator', configuratorType: 'vacation', collectedData: {}, currentStep: 0 })
-        return {
-          role: 'assistant',
-          content: '✈️ Super! Ik help je met het vinden van de perfecte vakantie.\n\nWaar wil je naartoe? (bijv. Spanje, Italië, Thailand)',
-          suggestions: ['🇪🇸 Spanje', '🇮🇹 Italië', '🇹🇭 Thailand', '🇬🇷 Griekenland']
-        }
-      }
 
-      if (intents.insurance.test(userInput) && ctx.mode === 'idle') {
-        setContext({ mode: 'configurator', configuratorType: 'insurance', collectedData: {}, currentStep: 0 })
-        return {
-          role: 'assistant',
-          content: '🛡️ Ik help je met verzekeringen! Welke verzekering zoek je?',
-          suggestions: ['🚗 Auto', '🏠 Woon', '❤️ Zorg', '✈️ Reis']
-        }
-      }
-
-      // Continue conversation flow
-      if (ctx.mode === 'configurator' && ctx.configuratorType === 'vacation') {
-        return handleVacationFlow(userInput, ctx)
-      }
-
-      if (ctx.mode === 'configurator' && ctx.configuratorType === 'insurance') {
-        return handleInsuranceFlow(userInput, ctx)
-      }
-      
-      // IMPORTANT: Echo can SUGGEST and CONFIGURE, but CANNOT execute final actions
-      // Final confirmations (payments, uploads, contracts) MUST be done by user
-      // This is for security and legal protection
-      // This applies to ALL packages including FINANCE - no one-click execution
-    }
-
-    // Default helpful response
+    // Default helpful response - PLUS package
     return {
       role: 'assistant',
-      content: '👋 Ik ben Echo, je persoonlijke AI assistent!\n\nIk kan je helpen met:\n🛡️ Verzekeringen\n✈️ Vakanties\n⚡ Energie\n📱 Internet & TV\n\nWaar kan ik je mee helpen?',
-      suggestions: ['Verzekeringen', 'Vakanties', 'Energie besparen']
+      content: '👋 Ik ben Echo, je persoonlijke AI assistent!\n\n**Ik kan je helpen met:**\n� Productadvies op maat\n📋 Garantie-informatie\n💰 Bespaartips\n❓ Algemene vragen\n\n**Tip:** Gebruik de Scanner om producten te vergelijken!\n\nWaar kan ik je mee helpen?',
+      suggestions: ['Productadvies', 'Garantie info', 'Hoe werkt Scanner?']
     }
   }
 
@@ -471,18 +425,18 @@ export default function EchoChat() {
             </button>
           </div>
 
-          {/* Auto-configuratie info banner */}
-          {messages.length === 0 && (
+          {/* Welcome banner - PLUS package */}
+          {messages.length === 0 && userPackage === 'plus' && (
             <div style={{
               padding: '12px 16px',
               background: 'linear-gradient(135deg, #E6F4EE 0%, #E6F4EE 100%)',
               borderBottom: '1px solid #86efac'
             }}>
               <div style={{ fontSize: '11px', color: '#111827', fontWeight: 600, marginBottom: '4px' }}>
-                ⚡ Auto-configuratie
+                👋 Welkom bij Echo AI
               </div>
               <div style={{ fontSize: '10px', color: '#111827', lineHeight: '1.4' }}>
-                Echo kan configuraties voor je invullen. Voer een gesprek, Echo vraagt details, jij controleert en bevestigt.
+                Jouw persoonlijke assistent voor productadvies, garantie-informatie en bespaartips.
               </div>
             </div>
           )}
