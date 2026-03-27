@@ -47,10 +47,10 @@
   "categories": ["shopping", "utilities"],
   "shortcuts": [
     {
-      "name": "Scan Product",
+      "name": "Scanner",
       "short_name": "Scan",
-      "description": "Scan barcode en vind beste prijs",
-      "url": "/scanner",
+      "description": "Scan product en vind beste prijs",
+      "url": "/",
       "icons": [
         {
           "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
@@ -59,10 +59,10 @@
       ]
     },
     {
-      "name": "Configurator",
-      "short_name": "Config",
-      "description": "Vind beste deals voor energie, telecom en meer",
-      "url": "/vaste-lasten",
+      "name": "Pakketten",
+      "short_name": "Pakket",
+      "description": "Bekijk PLUS, PRO en FINANCE pakketten",
+      "url": "/packages",
       "icons": [
         {
           "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
@@ -71,22 +71,10 @@
       ]
     },
     {
-      "name": "Mijn Deals",
-      "short_name": "Deals",
-      "description": "Bekijk opgeslagen deals",
-      "url": "/deals",
-      "icons": [
-        {
-          "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Account",
-      "short_name": "Account",
-      "description": "Instellingen en pakket beheren",
-      "url": "/account",
+      "name": "Statistieken",
+      "short_name": "Stats",
+      "description": "Bekijk je scan geschiedenis",
+      "url": "/statistics",
       "icons": [
         {
           "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
@@ -97,25 +85,46 @@
   ],
   "screenshots": [
     {
-      "src": "https://dealsense-mvp.vercel.app/screenshots/scanner.png",
+      "src": "https://dealsense-mvp.vercel.app/screenshots/1-scanner.png",
       "sizes": "1170x2532",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Product Scanner - Scan barcode en vind beste prijs"
+      "label": "Product Scanner - Scan product URL en vind beste prijs direct"
     },
     {
-      "src": "https://dealsense-mvp.vercel.app/screenshots/results.png",
+      "src": "https://dealsense-mvp.vercel.app/screenshots/2-results.png",
       "sizes": "1170x2532",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Resultaten - Vergelijk prijzen van verschillende winkels"
+      "label": "Vergelijk Prijzen - Bespaar tot 60% met slimme prijsvergelijking"
     },
     {
-      "src": "https://dealsense-mvp.vercel.app/screenshots/configurator.png",
+      "src": "https://dealsense-mvp.vercel.app/screenshots/3-echo-ai.png",
       "sizes": "1170x2532",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Configurator - Vind beste deals voor energie, telecom en meer"
+      "label": "Echo AI Agent - Krijg antwoorden over voorraad, levertijd en garantie"
+    },
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/4-ghost-mode.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Ghost Mode - 24u monitoring wanneer product niet beschikbaar is"
+    },
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/5-menu.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Volledige Functies - Scanner, Statistieken, Settings en meer"
+    },
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/6-social-share.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Deel je Besparingen - Vertel vrienden over je deals via social media"
     }
   ]
 }

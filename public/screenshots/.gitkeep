@@ -1,3 +1,54 @@
-# Screenshots folder
-# Add real app screenshots here (1170x2532 PNG for iPhone)
-# Recommended: 3-5 screenshots showing main features
+# Screenshots folder - WYMAGANE DLA APP STORE
+# Dodaj 6 profesjonalnych screenshotów (1170x2532 PNG dla iPhone 13 Pro Max)
+
+# WYMAGANE SCREENSHOTY (pokazują PRAWDZIWE ATUTY!):
+
+# 1. 1-scanner.png - Product Scanner
+#    - Logo D.nl bovenaan
+#    - Input "Product URL" + "Huidige prijs"
+#    - Groene knop "Vind beste prijs"
+#    - Clean, minimalistisch design
+
+# 2. 2-results.png - Vergelijk Prijzen (POKAZUJE WARTOŚĆ!)
+#    - 3 offertes met prijzen
+#    - Oszczędności in % en € (DUŻE BESPARINGEN!)
+#    - Ratings (⭐⭐⭐⭐⭐)
+#    - Sklepy UKRYTE (🔒 Verborgen)
+#    - Groene knop "Ontgrendel voor €X"
+
+# 3. 3-echo-ai.png - Echo AI Agent (UNFAIR ADVANTAGE!)
+#    - Chat interface met Echo
+#    - Vraag: "Is dit product op voorraad?"
+#    - Antwoord van Echo AI
+#    - Icoon rechtsonder (chat bubble)
+#    - SEKRET FIRMY - konkurencja tego nie ma!
+
+# 4. 4-ghost-mode.png - Ghost Mode (KOMPENSACJA!)
+#    - Melding "Niet gevonden"
+#    - Groene knop "Activeer Ghost Mode"
+#    - "24u monitoring (PLUS)"
+#    - Uitleg wat Ghost Mode doet
+#    - Pokazuje że dbamy o klienta!
+
+# 5. 5-menu.png - Hamburger Menu (VOLLEDIG OVERZICHT)
+#    - Hamburger menu open
+#    - FREE en PLUS paketten
+#    - Scanner, Statistics, Settings
+#    - Hoe het werkt, Privacy
+#    - Professionele iconen
+
+# 6. 6-social-share.png - Deel Besparingen (VIRALITEIT!)
+#    - "Je hebt €200 bespaard!"
+#    - Share knoppen: WhatsApp, Facebook, Twitter, LinkedIn
+#    - Voorgevulde tekst met besparingen
+#    - Social proof!
+
+# JAK ZROBIĆ:
+# 1. Otwórz https://dealsense-mvp.vercel.app na iPhone 13 Pro Max
+# 2. Zrób screenshoty dokładnie jak opisane powyżej
+# 3. Resize do 1170x2532 px (użyj iloveimg.com/resize-image)
+# 4. Zapisz z DOKŁADNYMI nazwami: 1-scanner.png, 2-results.png, etc.
+# 5. Wrzuć tutaj (public/screenshots/)
+# 6. Commit i push
+
+# OTWÓRZ app-store-preview.html W PRZEGLĄDARCE ŻEBY ZOBACZYĆ DOKŁADNE INSTRUKCJE!
