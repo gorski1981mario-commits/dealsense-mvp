@@ -44,5 +44,78 @@
       "url": "url"
     }
   },
-  "categories": ["shopping", "utilities"]
+  "categories": ["shopping", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Scan Product",
+      "short_name": "Scan",
+      "description": "Scan barcode en vind beste prijs",
+      "url": "/scanner",
+      "icons": [
+        {
+          "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Configurator",
+      "short_name": "Config",
+      "description": "Vind beste deals voor energie, telecom en meer",
+      "url": "/vaste-lasten",
+      "icons": [
+        {
+          "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Mijn Deals",
+      "short_name": "Deals",
+      "description": "Bekijk opgeslagen deals",
+      "url": "/deals",
+      "icons": [
+        {
+          "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "short_name": "Account",
+      "description": "Instellingen en pakket beheren",
+      "url": "/account",
+      "icons": [
+        {
+          "src": "https://dealsense-mvp.vercel.app/icon-192-v2.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/scanner.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Product Scanner - Scan barcode en vind beste prijs"
+    },
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/results.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Resultaten - Vergelijk prijzen van verschillende winkels"
+    },
+    {
+      "src": "https://dealsense-mvp.vercel.app/screenshots/configurator.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Configurator - Vind beste deals voor energie, telecom en meer"
+    }
+  ]
 }

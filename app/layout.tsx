@@ -22,6 +22,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="5548963fd09ec94" content="d576c6fb863602c19121ad5b660e51d3" />
         <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                  }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                  });
+                });
+              }
+            `
+          }}
+        />
+        <script
           data-cfasync="false"
           data-wpfc-render="false"
           dangerouslySetInnerHTML={{
