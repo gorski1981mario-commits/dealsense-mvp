@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Test - DealSense</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #15803d;
+      font-size: 24px;
+    }
+    .test-section {
+      margin-bottom: 24px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+    }
+    .test-section h2 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #374151;
+    }
+    .status {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .status.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .status.success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .status.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #15803d;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    button:hover {
+      background: #166534;
+    }
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    video {
+      width: 100%;
+      max-height: 400px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: #000;
+    }
+    canvas {
+      display: none;
+    }
+    .scan-overlay {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .scan-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      border: 3px solid #15803d;
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    .scan-line {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: #15803d;
+      animation: scan 2s linear infinite;
+    }
+    @keyframes scan {
+      0%, 100% { top: 20%; }
+      50% { top: 80%; }
+    }
+    .log {
+      background: #1f2937;
+      color: #10b981;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 Camera Test Suite</h1>
+
+    <!-- Test 1: Browser Support -->
+    <div class="test-section">
+      <h2>1️⃣ Browser Support Check</h2>
+      <div id="browserStatus" class="status pending">⏳ Checking...</div>
+      <div id="browserDetails" style="font-size: 13px; color: #6b7280;"></div>
+    </div>
+
+    <!-- Test 2: Permissions -->
+    <div class="test-section">
+      <h2>2️⃣ Camera Permission</h2>
+      <div id="permissionStatus" class="status pending">⏳ Waiting...</div>
+      <button id="requestPermission">Request Camera Permission</button>
+    </div>
+
+    <!-- Test 3: Camera Stream -->
+    <div class="test-section">
+      <h2>3️⃣ Camera Stream Test</h2>
+      <div id="streamStatus" class="status pending">⏳ Waiting...</div>
+      <button id="startCamera" disabled>Start Camera</button>
+      <div id="videoContainer" style="display: none;">
+        <div class="scan-overlay">
+          <video id="video" autoplay playsinline></video>
+          <div class="scan-frame">
+            <div class="scan-line"></div>
+          </div>
+        </div>
+        <canvas id="canvas"></canvas>
+        <button id="stopCamera">Stop Camera</button>
+      </div>
+    </div>
+
+    <!-- Test 4: Barcode Scanning -->
+    <div class="test-section">
+      <h2>4️⃣ Barcode/QR Scanning Test</h2>
+      <div id="scanStatus" class="status pending">⏳ Waiting for camera...</div>
+      <div id="scanResult" style="display: none; margin-top: 12px; padding: 12px; background: #d1fae5; border-radius: 8px; color: #065f46; font-weight: 600;"></div>
+    </div>
+
+    <!-- Test 5: Console Log -->
+    <div class="test-section">
+      <h2>5️⃣ Console Log</h2>
+      <div id="log" class="log">Waiting for events...</div>
+    </div>
+  </div>
+
+  <!-- jsQR Library -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+  <script>
+    // Logger
+    const log = (message, type = 'info') => {
+      const timestamp = new Date().toLocaleTimeString();
+      const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+      const logEl = document.getElementById('log');
+      logEl.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+      logEl.scrollTop = logEl.scrollHeight;
+      console.log(`[${timestamp}] ${message}`);
+    };
+
+    // Elements
+    const browserStatus = document.getElementById('browserStatus');
+    const browserDetails = document.getElementById('browserDetails');
+    const permissionStatus = document.getElementById('permissionStatus');
+    const streamStatus = document.getElementById('streamStatus');
+    const scanStatus = document.getElementById('scanStatus');
+    const scanResult = document.getElementById('scanResult');
+    const requestPermissionBtn = document.getElementById('requestPermission');
+    const startCameraBtn = document.getElementById('startCamera');
+    const stopCameraBtn = document.getElementById('stopCamera');
+    const videoContainer = document.getElementById('videoContainer');
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+
+    let stream = null;
+    let animationFrameId = null;
+
+    // Test 1: Browser Support
+    function checkBrowserSupport() {
+      log('Checking browser support...');
+      
+      const hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+      const hasCanvas = !!document.createElement('canvas').getContext;
+      const hasJsQR = typeof jsQR !== 'undefined';
+      
+      const details = [];
+      details.push(`User Agent: ${navigator.userAgent}`);
+      details.push(`getUserMedia: ${hasGetUserMedia ? '✅' : '❌'}`);
+      details.push(`Canvas API: ${hasCanvas ? '✅' : '❌'}`);
+      details.push(`jsQR Library: ${hasJsQR ? '✅' : '❌'}`);
+      
+      browserDetails.innerHTML = details.join('<br>');
+      
+      if (hasGetUserMedia && hasCanvas && hasJsQR) {
+        browserStatus.className = 'status success';
+        browserStatus.textContent = '✅ Browser fully supported';
+        log('Browser support: OK', 'success');
+        return true;
+      } else {
+        browserStatus.className = 'status error';
+        browserStatus.textContent = '❌ Browser not supported';
+        log('Browser support: FAILED', 'error');
+        return false;
+      }
+    }
+
+    // Test 2: Request Permission
+    async function requestPermission() {
+      log('Requesting camera permission...');
+      permissionStatus.className = 'status pending';
+      permissionStatus.textContent = '⏳ Requesting permission...';
+      
+      try {
+        const testStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        testStream.getTracks().forEach(track => track.stop());
+        
+        permissionStatus.className = 'status success';
+        permissionStatus.textContent = '✅ Permission granted';
+        startCameraBtn.disabled = false;
+        log('Camera permission: GRANTED', 'success');
+      } catch (err) {
+        permissionStatus.className = 'status error';
+        permissionStatus.textContent = `❌ Permission denied: ${err.message}`;
+        log(`Camera permission: DENIED - ${err.message}`, 'error');
+      }
+    }
+
+    // Test 3: Start Camera
+    async function startCamera() {
+      log('Starting camera stream...');
+      streamStatus.className = 'status pending';
+      streamStatus.textContent = '⏳ Starting camera...';
+      
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'environment',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          }
+        });
+        
+        video.srcObject = stream;
+        await video.play();
+        
+        videoContainer.style.display = 'block';
+        startCameraBtn.style.display = 'none';
+        
+        streamStatus.className = 'status success';
+        streamStatus.textContent = '✅ Camera active';
+        scanStatus.className = 'status pending';
+        scanStatus.textContent = '⏳ Scanning for barcodes...';
+        
+        log('Camera stream: ACTIVE', 'success');
+        log(`Video dimensions: ${video.videoWidth}x${video.videoHeight}`);
+        
+        // Start scanning
+        scanBarcode();
+      } catch (err) {
+        streamStatus.className = 'status error';
+        streamStatus.textContent = `❌ Camera failed: ${err.message}`;
+        log(`Camera stream: FAILED - ${err.message}`, 'error');
+      }
+    }
+
+    // Test 4: Scan Barcode
+    function scanBarcode() {
+      if (!stream) return;
+      
+      const ctx = canvas.getContext('2d');
+      
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+        
+        if (code) {
+          scanStatus.className = 'status success';
+          scanStatus.textContent = '✅ Barcode detected!';
+          scanResult.style.display = 'block';
+          scanResult.textContent = `📱 Scanned: ${code.data}`;
+          log(`Barcode detected: ${code.data}`, 'success');
+          
+          // Don't stop, keep scanning
+        }
+      }
+      
+      animationFrameId = requestAnimationFrame(scanBarcode);
+    }
+
+    // Stop Camera
+    function stopCamera() {
+      log('Stopping camera...');
+      
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+      
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      
+      video.srcObject = null;
+      videoContainer.style.display = 'none';
+      startCameraBtn.style.display = 'block';
+      
+      streamStatus.className = 'status pending';
+      streamStatus.textContent = '⏳ Camera stopped';
+      scanStatus.className = 'status pending';
+      scanStatus.textContent = '⏳ Waiting for camera...';
+      
+      log('Camera stopped', 'success');
+    }
+
+    // Event Listeners
+    requestPermissionBtn.addEventListener('click', requestPermission);
+    startCameraBtn.addEventListener('click', startCamera);
+    stopCameraBtn.addEventListener('click', stopCamera);
+
+    // Auto-run Test 1
+    window.addEventListener('load', () => {
+      log('Camera Test Suite initialized');
+      checkBrowserSupport();
+    });
+  </script>
+</body>
+</html>
