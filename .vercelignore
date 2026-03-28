@@ -51,6 +51,29 @@ node_modules/
 **/*.spec.js
 **/*.spec.ts
 
+# ⚠️ BACKUP CONFIGURATORS - DO NOT DEPLOY
+# These are backup/old versions - not in use
+app/creditcard/
+app/creditcard/**/*
+app/energy/
+app/energy/**/*
+app/finance/
+app/finance/**/*
+app/insurance/
+app/insurance/**/*
+app/leasing/
+app/leasing/**/*
+app/loan/
+app/loan/**/*
+app/mortgage/
+app/mortgage/**/*
+app/subscriptions/
+app/subscriptions/**/*
+app/telecom/
+app/telecom/**/*
+app/vacations/
+app/vacations/**/*
+
 # OLD HTML CONFIGURATORS - DO NOT DEPLOY (TSX versions in app/components/configurators/)
 *-configurator-FINAL.html
 *-configurator-full.html
