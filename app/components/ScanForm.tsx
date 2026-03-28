@@ -3,14 +3,14 @@
 import { useState, useRef, useEffect } from 'react'
 import { EyeOff } from 'lucide-react'
 import OCRScanner from './OCRScanner'
-import jsQR from 'jsqr'
+import SimpleScanner from './SimpleScanner'
 import { getDeviceId, showToast } from '../_lib/utils'
 import { FlowTracker } from '../_lib/flow-tracker'
 
 interface ScanFormProps {
   packageType: 'free' | 'plus' | 'pro' | 'finance'
   scansRemaining?: number
-  onScanComplete?: (result: any) => void
+  onScanComplete?: (data: any) => void
 }
 
 function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFormProps) {
@@ -18,150 +18,30 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
-  const [showOCRScanner, setShowOCRScanner] = useState(false)
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
-  const [scanning, setScanning] = useState(false)
-  const [cameraActive, setCameraActive] = useState(false)
-  const [cameraError, setCameraError] = useState<string | null>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationFrameId = useRef<number | null>(null)
-  const cameraStarted = useRef(false)
 
-  const startCamera = async () => {
-    setCameraError(null)
-    
-    // Check if browser supports camera
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      const errorMsg = 'Je browser ondersteunt geen camera toegang. Gebruik Chrome, Safari of Firefox.'
-      console.error('[Camera] Browser not supported')
-      showToast(`⚠️ ${errorMsg}`)
-      setCameraError(errorMsg)
-      return
-    }
-    
+  const handleBarcodeScanned = async (code: string) => {
+    setShowBarcodeScanner(false)
+    showToast(`📱 Code gescand: ${code}`)
+    setLoading(true)
+
     try {
-      console.log('[Camera] Requesting getUserMedia...')
-      
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
-          facingMode: 'environment',
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
-        }
-      })
-      
-      console.log('[Camera] ✅ Stream obtained')
-      
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        
-        // Wait for video metadata to load before playing
-        videoRef.current.onloadedmetadata = () => {
-          console.log('[Camera] Video metadata loaded, playing...')
-          videoRef.current?.play()
-            .then(() => {
-              console.log('[Camera] ✅ Video playing!')
-              setCameraActive(true)
-              // Start scanning after video is playing
-              setTimeout(() => scanQRCode(), 500)
-            })
-            .catch(err => {
-              console.error('[Camera] Play error:', err)
-              showToast('⚠️ Video afspelen mislukt')
-            })
-        }
-      }
-    } catch (err: any) {
-      console.error('[Camera] ❌ getUserMedia error:', err.name, err.message)
-      
-      let errorMessage = 'Camera toegang geweigerd'
-      if (err.name === 'NotAllowedError') {
-        errorMessage = 'Camera toegang geweigerd. Klik op "Toestaan" in de browser.'
-      } else if (err.name === 'NotFoundError') {
-        errorMessage = 'Geen camera gevonden op dit apparaat'
-      } else if (err.name === 'NotReadableError') {
-        errorMessage = 'Camera wordt al gebruikt door een andere app'
-      } else if (err.name === 'OverconstrainedError') {
-        errorMessage = 'Camera voldoet niet aan de vereisten'
-      } else if (err.name === 'NotSupportedError' || window.location.protocol === 'http:') {
-        errorMessage = '⚠️ Camera werkt alleen op HTTPS. Test op deployed versie (Vercel).'
-      }
-      
-      showToast(`⚠️ ${errorMessage}`)
-      setCameraError(errorMessage)
-      setCameraActive(false)
-    }
-  }
-
-  const stopCamera = () => {
-    if (videoRef.current?.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream
-      stream.getTracks().forEach(track => track.stop())
-      videoRef.current.srcObject = null
-    }
-    if (animationFrameId.current) {
-      cancelAnimationFrame(animationFrameId.current)
-    }
-    setCameraActive(false)
-  }
-
-  const scanQRCode = (): void => {
-    if (!videoRef.current || !canvasRef.current) return
-
-    const video = videoRef.current
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-
-    if (!ctx || video.readyState !== video.HAVE_ENOUGH_DATA) {
-      animationFrameId.current = requestAnimationFrame(scanQRCode)
-      return
-    }
-
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-    const code = jsQR(imageData.data, imageData.width, imageData.height)
-
-    if (code) {
-      handleBarcodeDetected(code.data)
-      stopCamera()
-    } else {
-      animationFrameId.current = requestAnimationFrame(scanQRCode)
-    }
-  }
-
-  const handleBarcodeDetected = async (ean: string) => {
-    setScanning(true)
-    showToast(`📱 Code gescand: ${ean}`)
-    
-    try {
-      const response = await fetch('/api/crawler/search', {
+      const res = await fetch('/api/crawler/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          ean,
-          category: 'electronics',
-          packageType,
-          userId: getDeviceId()
+        body: JSON.stringify({
+          ean: code,
+          session_id: getDeviceId(),
+          fingerprint: getDeviceId()
         })
       })
 
-      const result = await response.json()
+      const data = await res.json()
 
-      if (result.paywall) {
-        showToast(`⚠️ ${result.message}`)
-        setTimeout(() => {
-          if (confirm(`${result.message}\n\nUpgrade nu naar PLUS?`)) {
-            window.location.href = '/packages'
-          }
-        }, 1000)
-      } else if (result.offers && result.offers.length > 0) {
-        showToast('✓ Producten gevonden!')
+      if (res.ok && data && data.offers && data.offers.length > 0) {
+        showToast('✓ Aanbiedingen gevonden!')
         if (onScanComplete) {
-          onScanComplete(result)
+          onScanComplete(data)
         }
       } else {
         showToast('⚠️ Geen aanbiedingen gevonden')
@@ -169,26 +49,9 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
     } catch (err) {
       showToast('⚠️ Netwerkfout - probeer opnieuw')
     } finally {
-      setScanning(false)
-      setShowBarcodeScanner(false)
+      setLoading(false)
     }
   }
-
-  useEffect(() => {
-    if (showBarcodeScanner && !cameraStarted.current) {
-      console.log('[Camera] Modal opened, starting camera...')
-      cameraStarted.current = true
-      startCamera()
-    }
-    
-    return () => {
-      if (showBarcodeScanner) {
-        console.log('[Camera] Cleaning up camera...')
-        cameraStarted.current = false
-        stopCamera()
-      }
-    }
-  }, [showBarcodeScanner])
 
   const handleScan = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -395,143 +258,12 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       </button>
     </form>
 
-      {/* Barcode Scanner Modal - WSZYSTKIE PAKIETY */}
+      {/* New Simple Scanner */}
       {showBarcodeScanner && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.9)',
-          zIndex: 10000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px'
-        }}>
-          <div style={{
-            background: 'white',
-            borderRadius: '16px',
-            padding: '24px',
-            maxWidth: '500px',
-            width: '100%',
-            textAlign: 'center'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0 }}>Scan Barcode/QR</h3>
-              <button
-                onClick={() => setShowBarcodeScanner(false)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  fontSize: '24px',
-                  cursor: 'pointer',
-                  padding: '0',
-                  color: '#6B7280'
-                }}
-              >
-                ×
-              </button>
-            </div>
-            
-            {cameraActive ? (
-              <div style={{ marginBottom: '20px', position: 'relative' }}>
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  muted
-                  style={{
-                    width: '100%',
-                    maxHeight: '400px',
-                    borderRadius: '16px',
-                    objectFit: 'cover'
-                  }}
-                />
-                <canvas ref={canvasRef} style={{ display: 'none' }} />
-                <div style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '200px',
-                  height: '200px',
-                  border: '3px solid #15803d',
-                  borderRadius: '12px',
-                  pointerEvents: 'none'
-                }} />
-                {scanning && (
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '20px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    background: 'rgba(21, 128, 61, 0.9)',
-                    color: 'white',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600
-                  }}>
-                    Scannen...
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div style={{ 
-                marginBottom: '20px', 
-                padding: '32px 20px', 
-                background: 'linear-gradient(135deg, #E6F4EE 0%, #F0F9FF 100%)', 
-                borderRadius: '16px',
-                border: '2px dashed #15803d'
-              }}>
-                <div style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  margin: '0 auto 16px',
-                  background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
-                  borderRadius: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 8px 16px rgba(21, 128, 61, 0.3)'
-                }}>
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    <path d="M9 3v18"/>
-                    <path d="M15 3v18"/>
-                  </svg>
-                </div>
-                <p style={{ fontSize: '16px', color: cameraError ? '#dc2626' : '#15803d', marginBottom: '8px', fontWeight: 600 }}>
-                  {cameraError || 'Camera wordt gestart...'}
-                </p>
-                {!cameraError && (
-                  <p style={{ fontSize: '13px', color: '#6B7280' }}>
-                    Sta camera toegang toe
-                  </p>
-                )}
-              </div>
-            )}
-
-            <button
-              onClick={() => setShowBarcodeScanner(false)}
-              style={{
-                width: '100%',
-                padding: '12px',
-                background: '#E5E7EB',
-                color: '#374151',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              Sluiten
-            </button>
-          </div>
-        </div>
+        <SimpleScanner
+          onScan={handleBarcodeScanned}
+          onClose={() => setShowBarcodeScanner(false)}
+        />
       )}
 
       {/* OCR Scanner Modal - TYLKO FINANCE */}
