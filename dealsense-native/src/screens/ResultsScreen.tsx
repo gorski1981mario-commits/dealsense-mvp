@@ -8,8 +8,9 @@ interface ResultsScreenProps {
   packageType: 'free' | 'plus'
   onNewScan: () => void
   onUpgrade?: () => void
+  onActivateGhostMode?: () => void
 }
-
+, onActivateGhostMode
 export default function ResultsScreen({ result, packageType, onNewScan, onUpgrade }: ResultsScreenProps) {
   const handleOpenShop = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Failed to open URL:', err))
@@ -91,6 +92,20 @@ export default function ResultsScreen({ result, packageType, onNewScan, onUpgrad
           </Text>
           <TouchableOpacity style={styles.upgradeButton} onPress={onUpgrade}>
             <Text style={styles.upgradeButtonText}>Upgrade voor €19,99/mnd</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {packageType === 'plus' && result.savings < 10 && onActivateGhostMode && (
+        <View style={styles.ghostModeCard}>
+          <Text style={styles.ghostModeTitle}>👻 Ghost Mode</Text>
+          <Text style={styles.ghostModeText}>
+            Niet tevreden met deze prijs? Activeer Ghost Mode en we monitoren
+            automatisch de prijs voor 24 uur. Je krijgt een notificatie als we een
+            betere deal vinden!
+          </Text>
+          <TouchableOpacity style={styles.ghostModeButton} onPress={onActivateGhostMode}>
+            <Text style={styles.ghostModeButtonText}>Activeer Ghost Mode (24u)</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -253,6 +268,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   upgradeButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  ghostModeCard: {
+    margin: 20,
+    padding: 20,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#9ca3af',
+  },
+  ghostModeTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  ghostModeText: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  ghostModeButton: {
+    backgroundColor: COLORS.text,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  ghostModeButtonText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#fff',

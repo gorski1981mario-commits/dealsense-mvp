@@ -1,3 +1,8 @@
+# ⛔ CRITICAL: React Native app - separate mobile app
+# This is NOT part of Next.js PWA - runs with Expo
+dealsense-native/
+dealsense-native/**/*
+
 # ⛔ CRITICAL: Server-side crawler - separate Node.js backend
 # This is NOT part of Next.js app - runs on Render.com
 server/
