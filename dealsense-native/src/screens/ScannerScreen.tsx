@@ -8,9 +8,11 @@ import type { ScanResult } from '../types'
 
 interface ScannerScreenProps {
   onScanComplete: (result: ScanResult) => void
+  onOpenEcho?: () => void
+  packageType?: 'free' | 'plus'
 }
 
-export default function ScannerScreen({ onScanComplete }: ScannerScreenProps) {
+export default function ScannerScreen({ onScanComplete, onOpenEcho, packageType }: ScannerScreenProps) {
   const [permission, requestPermission] = useCameraPermissions()
   const [scanned, setScanned] = useState(false)
   const [scanning, setScanning] = useState(false)
