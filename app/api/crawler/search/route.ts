@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       await incrementScanCount(userId)
     }
 
-    // PRODUCTION: Call actual crawler
+    // Call SearchAPI.io directly (ONLY API we use)
     const searchTerm = ean || query
     
     if (!searchTerm) {
@@ -64,42 +64,63 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // PRODUCTION: Call KWANT Backend (includes crawler)
-    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://dealsense-aplikacja.onrender.com'
-    let crawlerResult
+    const SEARCHAPI_KEY = process.env.GOOGLE_SHOPPING_API_KEY
+    
+    if (!SEARCHAPI_KEY) {
+      console.error('[SearchAPI] Missing API key')
+      return NextResponse.json(
+        { error: 'SearchAPI key not configured' },
+        { status: 500 }
+      )
+    }
+
+    let offers: any[] = []
     
     try {
-      // Call KWANT backend which integrates crawler
-      const response = await fetch(`${BACKEND_URL}/api/scan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          product_name: searchTerm,
-          ean: ean || null,
-          base_price: 999, // Default for search
-          category,
-          packageType,
-          session_id: userId,
-          fingerprint: userId
-        }),
-        signal: AbortSignal.timeout(30000) // 30s timeout
+      // Call SearchAPI.io Google Shopping API
+      const searchApiUrl = new URL('https://www.searchapi.io/api/v1/search')
+      searchApiUrl.searchParams.set('engine', 'google_shopping')
+      searchApiUrl.searchParams.set('q', searchTerm)
+      searchApiUrl.searchParams.set('gl', 'nl') // Netherlands
+      searchApiUrl.searchParams.set('hl', 'nl') // Dutch language
+      searchApiUrl.searchParams.set('num', '20') // Get 20 results
+      searchApiUrl.searchParams.set('api_key', SEARCHAPI_KEY)
+      
+      console.log('[SearchAPI] Calling:', searchApiUrl.toString().replace(SEARCHAPI_KEY, 'HIDDEN'))
+      
+      const response = await fetch(searchApiUrl.toString(), {
+        method: 'GET',
+        signal: AbortSignal.timeout(15000) // 15s timeout
       })
       
       if (!response.ok) {
-        throw new Error(`Backend error: ${response.status}`)
+        throw new Error(`SearchAPI error: ${response.status}`)
       }
       
       const data = await response.json()
-      crawlerResult = { 
-        offers: data.result?.offers || [],
-        cached: data.cached || false
-      }
+      
+      // Parse SearchAPI.io response
+      const shoppingResults = data.shopping_results || []
+      
+      offers = shoppingResults.map((item: any) => ({
+        title: item.title || '',
+        price: parseFloat(item.extracted_price || item.price || '0'),
+        currency: item.currency || 'EUR',
+        seller: item.source || 'Unknown',
+        link: item.link || '',
+        thumbnail: item.thumbnail || '',
+        rating: item.rating || null,
+        reviews: item.reviews || null,
+        delivery: item.delivery || null,
+        position: item.position || 0
+      })).filter((offer: any) => offer.price > 0) // Filter out invalid prices
+      
+      console.log(`[SearchAPI] Found ${offers.length} offers`)
+      
     } catch (error) {
-      console.error('[Crawler Error]', error)
-      crawlerResult = { offers: [] }
+      console.error('[SearchAPI Error]', error)
+      offers = []
     }
-
-    const offers = crawlerResult.offers || []
 
     // Filter based on package limits
     const maxOffers = getMaxOffers(packageType)

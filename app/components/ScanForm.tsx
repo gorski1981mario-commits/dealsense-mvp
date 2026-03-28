@@ -212,59 +212,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
     }
   }, [showBarcodeScanner])
 
-  const handleScan = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    const priceNum = parseFloat(price.replace(',', '.'))
-    if (!url || !price || isNaN(priceNum)) {
-      showToast('⚠️ Vul alle velden in')
-      return
-    }
-
-    // Check if user can continue (anti-abuse)
-    const userId = getDeviceId()
-    const canContinue = await FlowTracker.getInstance().canContinue(userId, 'scanner', packageType)
-    
-    if (!canContinue.allowed) {
-      showToast(`⚠️ ${canContinue.reason}`)
-      return
-    }
-
-    // Track scan action
-    FlowTracker.getInstance().trackEvent(userId, 'scanner', 'action', packageType, { price: priceNum, category })
-
-    setLoading(true)
-
-    try {
-      const res = await fetch('/api/scan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          price: priceNum,
-          url: url,
-          session_id: getDeviceId(),
-          fingerprint: getDeviceId(),
-          category: category
-        })
-      })
-
-      const data = await res.json()
-
-      if (res.ok && data) {
-        showToast('✓ Vergelijking voltooid!')
-        if (onScanComplete) {
-          onScanComplete(data)
-        }
-      } else {
-        showToast(data.error || 'Er is iets misgegaan')
-      }
-    } catch (err) {
-      console.error('Scan error:', err)
-      showToast('Netwerkfout - probeer opnieuw')
-    } finally {
-      setLoading(false)
-    }
-  }
+  // Manual scan form removed - scanner works via barcode only
 
   const isDisabled = loading || (packageType === 'free' && scansRemaining === 0)
 
