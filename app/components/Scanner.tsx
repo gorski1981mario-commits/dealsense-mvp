@@ -86,29 +86,69 @@ export default function Scanner({ type }: ScannerProps) {
       }
       
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
+        video: { 
+          facingMode: 'environment',
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        }
       })
+      
+      console.log('[Scanner] Stream obtained:', stream.id)
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream
+        console.log('[Scanner] Stream assigned to video element')
         
-        // CRITICAL: Set scanning FIRST so video element is in DOM
+        // Show video element in DOM IMMEDIATELY
         setScanning(true)
+        console.log('[Scanner] Video element shown in DOM')
         
-        // Wait for next tick to ensure video is in DOM
-        setTimeout(() => {
-          if (!videoRef.current) return
-          
-          videoRef.current.play().then(() => {
-            // Wait for video metadata before scanning
-            videoRef.current?.addEventListener('loadedmetadata', () => {
-              scanQRCode()
-            })
-          }).catch(playErr => {
-            console.error('[Scanner] Play error:', playErr)
-            setError(`Video afspelen mislukt: ${playErr.message}`)
-            setScanning(false)
+        // Wait for React to render video element (double RAF for safety)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (!videoRef.current) {
+              console.error('[Scanner] Video ref lost after render')
+              return
+            }
+            
+            console.log('[Scanner] Attempting to play video...')
+            
+            const playPromise = videoRef.current.play()
+            
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  console.log('[Scanner] ✅ Video playing successfully!')
+                  console.log('[Scanner] Video dimensions:', 
+                    videoRef.current?.videoWidth, 'x', 
+                    videoRef.current?.videoHeight)
+                  
+                  // Check if video is already ready
+                  if (videoRef.current && videoRef.current.readyState >= 2) {
+                    console.log('[Scanner] Video ready, starting scan...')
+                    scanQRCode()
+                  } else {
+                    // Wait for loadedmetadata event
+                    videoRef.current?.addEventListener('loadedmetadata', () => {
+                      console.log('[Scanner] Metadata loaded, starting scan...')
+                      scanQRCode()
+                    }, { once: true })
+                  }
+                })
+                .catch(playErr => {
+                  console.error('[Scanner] ❌ Play error:', playErr.name, playErr.message)
+                  setError(`Video afspelen mislukt: ${playErr.message}`)
+                  
+                  // Cleanup on error
+                  setScanning(false)
+                  if (videoRef.current?.srcObject) {
+                    const tracks = (videoRef.current.srcObject as MediaStream).getTracks()
+                    tracks.forEach(track => track.stop())
+                  }
+                })
+            }
           })
-        }, 100)
+        })
       }
     } catch (err: any) {
       console.error('[Scanner] Camera error:', err)

@@ -29,40 +29,87 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const startCamera = async () => {
     try {
       console.log('[Camera] Requesting getUserMedia...')
+      
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
+        video: { 
+          facingMode: 'environment',
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        }
       })
       
-      console.log('[Camera] Stream obtained')
+      console.log('[Camera] Stream obtained:', stream.id)
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream
+        console.log('[Camera] Stream assigned to video element')
         
-        // CRITICAL: Set cameraActive FIRST so video element is in DOM
+        // Show video element in DOM IMMEDIATELY
         setCameraActive(true)
+        console.log('[Camera] Video element shown in DOM')
         
-        // Wait for next tick to ensure video is in DOM
-        setTimeout(() => {
-          if (!videoRef.current) return
-          
-          console.log('[Camera] Starting video playback...')
-          videoRef.current.play().then(() => {
-            console.log('[Camera] Video playing successfully!')
+        // Wait for React to render video element (double RAF for safety)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (!videoRef.current) {
+              console.error('[Camera] Video ref lost after render')
+              return
+            }
             
-            // Wait for video metadata
-            videoRef.current?.addEventListener('loadedmetadata', () => {
-              console.log(`[Camera] Video ready: ${videoRef.current?.videoWidth}x${videoRef.current?.videoHeight}`)
-              scanQRCode()
-            })
-          }).catch(playErr => {
-            console.error('[Camera] Play error:', playErr)
-            showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
-            setCameraActive(false)
+            console.log('[Camera] Attempting to play video...')
+            
+            const playPromise = videoRef.current.play()
+            
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  console.log('[Camera] ✅ Video playing successfully!')
+                  console.log('[Camera] Video dimensions:', 
+                    videoRef.current?.videoWidth, 'x', 
+                    videoRef.current?.videoHeight)
+                  
+                  // Check if video is already ready
+                  if (videoRef.current && videoRef.current.readyState >= 2) {
+                    console.log('[Camera] Video ready, starting scan...')
+                    scanQRCode()
+                  } else {
+                    // Wait for loadedmetadata event
+                    videoRef.current?.addEventListener('loadedmetadata', () => {
+                      console.log('[Camera] Metadata loaded, starting scan...')
+                      scanQRCode()
+                    }, { once: true })
+                  }
+                })
+                .catch(playErr => {
+                  console.error('[Camera] ❌ Play error:', playErr.name, playErr.message)
+                  showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
+                  
+                  // Cleanup on error
+                  setCameraActive(false)
+                  if (videoRef.current?.srcObject) {
+                    const tracks = (videoRef.current.srcObject as MediaStream).getTracks()
+                    tracks.forEach(track => track.stop())
+                  }
+                })
+            }
           })
-        }, 100)
+        })
       }
     } catch (err: any) {
-      console.error('[Camera] Error:', err)
-      showToast(`⚠️ Camera toegang geweigerd: ${err.message}`)
+      console.error('[Camera] ❌ getUserMedia error:', err.name, err.message)
+      
+      let errorMessage = 'Camera toegang geweigerd'
+      if (err.name === 'NotAllowedError') {
+        errorMessage = 'Camera toegang geweigerd door gebruiker'
+      } else if (err.name === 'NotFoundError') {
+        errorMessage = 'Geen camera gevonden op dit apparaat'
+      } else if (err.name === 'NotReadableError') {
+        errorMessage = 'Camera wordt al gebruikt door een andere app'
+      } else if (err.name === 'OverconstrainedError') {
+        errorMessage = 'Camera voldoet niet aan de vereisten'
+      }
+      
+      showToast(`⚠️ ${errorMessage}`)
     }
   }
 
