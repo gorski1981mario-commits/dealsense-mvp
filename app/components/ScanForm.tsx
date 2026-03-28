@@ -207,12 +207,14 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
     if (showBarcodeScanner) {
       console.log('[Camera] Modal opened, starting camera...')
       // Small delay to ensure video element is in DOM
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         startCamera()
       }, 100)
-    }
-    return () => {
-      stopCamera()
+      
+      return () => {
+        clearTimeout(timer)
+        stopCamera()
+      }
     }
   }, [showBarcodeScanner])
 
