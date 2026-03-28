@@ -7,9 +7,10 @@ interface ResultsScreenProps {
   result: ScanResult
   packageType: 'free' | 'plus'
   onNewScan: () => void
+  onUpgrade?: () => void
 }
 
-export default function ResultsScreen({ result, packageType, onNewScan }: ResultsScreenProps) {
+export default function ResultsScreen({ result, packageType, onNewScan, onUpgrade }: ResultsScreenProps) {
   const handleOpenShop = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Failed to open URL:', err))
   }
@@ -88,7 +89,7 @@ export default function ResultsScreen({ result, packageType, onNewScan }: Result
           <Text style={styles.upgradeText}>
             Zie winkelnamen en krijg directe links naar de beste deals
           </Text>
-          <TouchableOpacity style={styles.upgradeButton}>
+          <TouchableOpacity style={styles.upgradeButton} onPress={onUpgrade}>
             <Text style={styles.upgradeButtonText}>Upgrade voor €19,99/mnd</Text>
           </TouchableOpacity>
         </View>
