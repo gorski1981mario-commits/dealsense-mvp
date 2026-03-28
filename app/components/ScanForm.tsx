@@ -22,11 +22,13 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
   const [scanning, setScanning] = useState(false)
   const [cameraActive, setCameraActive] = useState(false)
+  const [cameraError, setCameraError] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameId = useRef<number | null>(null)
 
   const startCamera = async () => {
+    setCameraError(null)
     try {
       console.log('[Camera] Requesting getUserMedia...')
       
@@ -114,8 +116,8 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       }
       
       showToast(`⚠️ ${errorMessage}`)
+      setCameraError(errorMessage)
       setCameraActive(false)
-      setShowBarcodeScanner(false)
     }
   }
 
@@ -200,19 +202,13 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   }
 
   useEffect(() => {
-    console.log('[Camera] cameraActive state changed to:', cameraActive)
-  }, [cameraActive])
-
-  useEffect(() => {
     if (showBarcodeScanner) {
-      console.log('[Camera] Modal opened, starting camera...')
-      // Small delay to ensure video element is in DOM
-      const timer = setTimeout(() => {
-        startCamera()
-      }, 100)
-      
-      return () => {
-        clearTimeout(timer)
+      console.log('[Camera] Modal opened, starting camera immediately...')
+      startCamera()
+    }
+    
+    return () => {
+      if (showBarcodeScanner) {
         stopCamera()
       }
     }
@@ -531,12 +527,14 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
                     <path d="M15 3v18"/>
                   </svg>
                 </div>
-                <p style={{ fontSize: '16px', color: '#15803d', marginBottom: '8px', fontWeight: 600 }}>
-                  Camera wordt gestart...
+                <p style={{ fontSize: '16px', color: cameraError ? '#dc2626' : '#15803d', marginBottom: '8px', fontWeight: 600 }}>
+                  {cameraError || 'Camera wordt gestart...'}
                 </p>
-                <p style={{ fontSize: '13px', color: '#6B7280' }}>
-                  Sta camera toegang toe
-                </p>
+                {!cameraError && (
+                  <p style={{ fontSize: '13px', color: '#6B7280' }}>
+                    Sta camera toegang toe
+                  </p>
+                )}
               </div>
             )}
 
