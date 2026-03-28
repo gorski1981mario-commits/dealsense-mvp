@@ -54,11 +54,22 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        setCameraActive(true)
-        console.log('[Camera] ✅ Camera active, starting scan...')
         
-        // Start scanning immediately
-        setTimeout(() => scanQRCode(), 500)
+        // Wait for video metadata to load before playing
+        videoRef.current.onloadedmetadata = () => {
+          console.log('[Camera] Video metadata loaded, playing...')
+          videoRef.current?.play()
+            .then(() => {
+              console.log('[Camera] ✅ Video playing!')
+              setCameraActive(true)
+              // Start scanning after video is playing
+              setTimeout(() => scanQRCode(), 500)
+            })
+            .catch(err => {
+              console.error('[Camera] Play error:', err)
+              showToast('⚠️ Video afspelen mislukt')
+            })
+        }
       }
     } catch (err: any) {
       console.error('[Camera] ❌ getUserMedia error:', err.name, err.message)
