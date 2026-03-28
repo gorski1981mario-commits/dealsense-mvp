@@ -19,6 +19,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
+  const [showOCRScanner, setShowOCRScanner] = useState(false)
 
   const handleBarcodeScanned = async (code: string) => {
     setShowBarcodeScanner(false)
