@@ -24,7 +24,13 @@ export default function SimpleCameraTest() {
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        setStatus('✅ KAMERA DZIAŁA!')
+        
+        // Wait for video to load
+        videoRef.current.onloadedmetadata = () => {
+          console.log('Video metadata loaded')
+          videoRef.current?.play()
+          setStatus('✅ KAMERA DZIAŁA!')
+        }
       }
       
     } catch (err: any) {

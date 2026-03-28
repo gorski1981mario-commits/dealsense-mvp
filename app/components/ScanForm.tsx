@@ -50,64 +50,15 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
         }
       })
       
-      console.log('[Camera] Stream obtained:', stream.id)
+      console.log('[Camera] ✅ Stream obtained')
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        console.log('[Camera] Stream assigned to video element')
-        
-        // Show video element in DOM IMMEDIATELY
-        console.log('[Camera] Setting cameraActive to TRUE...')
         setCameraActive(true)
-        console.log('[Camera] setCameraActive(true) called')
-        console.log('[Camera] Current cameraActive state:', cameraActive)
+        console.log('[Camera] ✅ Camera active, starting scan...')
         
-        // Wait for React to render video element (double RAF for safety)
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            if (!videoRef.current) {
-              console.error('[Camera] Video ref lost after render')
-              return
-            }
-            
-            console.log('[Camera] Attempting to play video...')
-            
-            const playPromise = videoRef.current.play()
-            
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  console.log('[Camera] ✅ Video playing successfully!')
-                  console.log('[Camera] Video dimensions:', 
-                    videoRef.current?.videoWidth, 'x', 
-                    videoRef.current?.videoHeight)
-                  
-                  // Check if video is already ready
-                  if (videoRef.current && videoRef.current.readyState >= 2) {
-                    console.log('[Camera] Video ready, starting scan...')
-                    scanQRCode()
-                  } else {
-                    // Wait for loadedmetadata event
-                    videoRef.current?.addEventListener('loadedmetadata', () => {
-                      console.log('[Camera] Metadata loaded, starting scan...')
-                      scanQRCode()
-                    }, { once: true })
-                  }
-                })
-                .catch(playErr => {
-                  console.error('[Camera] ❌ Play error:', playErr.name, playErr.message)
-                  showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
-                  
-                  // Cleanup on error
-                  setCameraActive(false)
-                  if (videoRef.current?.srcObject) {
-                    const tracks = (videoRef.current.srcObject as MediaStream).getTracks()
-                    tracks.forEach(track => track.stop())
-                  }
-                })
-            }
-          })
-        })
+        // Start scanning immediately
+        setTimeout(() => scanQRCode(), 500)
       }
     } catch (err: any) {
       console.error('[Camera] ❌ getUserMedia error:', err.name, err.message)
