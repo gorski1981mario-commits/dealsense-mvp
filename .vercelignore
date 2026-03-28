@@ -96,6 +96,16 @@ app/lab/**/*
 app/lab-wa/
 app/lab-wa/**/*
 
+# ⛔ UNUSED API ROUTES - BACKUP ONLY (only /api/crawler/search is used)
+app/api/backend-proxy/
+app/api/backend-proxy/**/*
+app/api/kwant/
+app/api/kwant/**/*
+app/api/wakacje/
+app/api/wakacje/**/*
+app/api/ocr/
+app/api/ocr/**/*
+
 # ⛔ HTML PREVIEW FILES - Development only
 *-preview.html
 *-demo.html
