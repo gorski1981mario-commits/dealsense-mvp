@@ -10,8 +10,8 @@ interface ResultsScreenProps {
   onUpgrade?: () => void
   onActivateGhostMode?: () => void
 }
-, onActivateGhostMode
-export default function ResultsScreen({ result, packageType, onNewScan, onUpgrade }: ResultsScreenProps) {
+
+export default function ResultsScreen({ result, packageType, onNewScan, onUpgrade, onActivateGhostMode }: ResultsScreenProps) {
   const handleOpenShop = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Failed to open URL:', err))
   }
