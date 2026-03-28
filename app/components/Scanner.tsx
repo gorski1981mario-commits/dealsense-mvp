@@ -90,12 +90,23 @@ export default function Scanner({ type }: ScannerProps) {
       })
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
-        setScanning(true)
-        scanQRCode()
+        
+        // Mobile fix: use .then() for play()
+        videoRef.current.play().then(() => {
+          setScanning(true)
+          
+          // Wait for video metadata before scanning
+          videoRef.current?.addEventListener('loadedmetadata', () => {
+            scanQRCode()
+          })
+        }).catch(playErr => {
+          console.error('[Scanner] Play error:', playErr)
+          setError(`Video afspelen mislukt: ${playErr.message}`)
+        })
       }
-    } catch (err) {
-      setError('Camera toegang geweigerd')
+    } catch (err: any) {
+      console.error('[Scanner] Camera error:', err)
+      setError(`Camera toegang geweigerd: ${err.message}`)
     }
   }
 

@@ -28,21 +28,34 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
 
   const startCamera = async () => {
     try {
+      console.log('[Camera] Requesting getUserMedia...')
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' }
       })
+      
+      console.log('[Camera] Stream obtained')
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        await videoRef.current.play()
-        setCameraActive(true)
-        // Wait for video to be ready before scanning
-        setTimeout(() => {
-          scanQRCode()
-        }, 100)
+        
+        // Mobile fix: use .then() instead of await
+        console.log('[Camera] Starting video playback...')
+        videoRef.current.play().then(() => {
+          console.log('[Camera] Video playing successfully!')
+          setCameraActive(true)
+          
+          // Wait for video metadata
+          videoRef.current?.addEventListener('loadedmetadata', () => {
+            console.log(`[Camera] Video ready: ${videoRef.current?.videoWidth}x${videoRef.current?.videoHeight}`)
+            scanQRCode()
+          })
+        }).catch(playErr => {
+          console.error('[Camera] Play error:', playErr)
+          showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
+        })
       }
-    } catch (err) {
-      showToast('⚠️ Camera toegang geweigerd')
-      console.error('Camera error:', err)
+    } catch (err: any) {
+      console.error('[Camera] Error:', err)
+      showToast(`⚠️ Camera toegang geweigerd: ${err.message}`)
     }
   }
 
