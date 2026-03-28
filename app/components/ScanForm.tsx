@@ -102,16 +102,20 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       
       let errorMessage = 'Camera toegang geweigerd'
       if (err.name === 'NotAllowedError') {
-        errorMessage = 'Camera toegang geweigerd door gebruiker'
+        errorMessage = 'Camera toegang geweigerd. Klik op "Toestaan" in de browser.'
       } else if (err.name === 'NotFoundError') {
         errorMessage = 'Geen camera gevonden op dit apparaat'
       } else if (err.name === 'NotReadableError') {
         errorMessage = 'Camera wordt al gebruikt door een andere app'
       } else if (err.name === 'OverconstrainedError') {
         errorMessage = 'Camera voldoet niet aan de vereisten'
+      } else if (err.name === 'NotSupportedError' || window.location.protocol === 'http:') {
+        errorMessage = '⚠️ Camera werkt alleen op HTTPS. Test op deployed versie (Vercel).'
       }
       
       showToast(`⚠️ ${errorMessage}`)
+      setCameraActive(false)
+      setShowBarcodeScanner(false)
     }
   }
 
