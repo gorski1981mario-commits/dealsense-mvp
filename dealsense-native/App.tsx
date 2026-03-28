@@ -5,11 +5,12 @@ import ScannerScreen from './src/screens/ScannerScreen'
 import ResultsScreen from './src/screens/ResultsScreen'
 import UpgradeScreen from './src/screens/UpgradeScreen'
 import PaywallScreen from './src/screens/PaywallScreen'
+import EchoScreen from './src/screens/EchoScreen'
 import { storage } from './src/lib/storage'
 import { payment } from './src/lib/payment'
 import { COLORS } from './src/lib/constants'
 import type { ScanResult, UserProfile } from './src/types'
-
+ | 'echo'
 type AppState = 'loading' | 'scanner' | 'results' | 'upgrade' | 'paywall'
 
 export default function App() {
@@ -130,6 +131,15 @@ export default function App() {
     )
   }
 
+  if (appState === 'echo' && userProfile) {
+    return (
+      <View style={styles.container}>
+        <EchoScreen packageType={userProfile.packageType} onClose={handleCloseEcho} />
+        <StatusBar style="dark" />
+      </View>
+    )
+  }
+
   if (appState === 'paywall' && userProfile) {
     return (
       <View style={styles.container}>
@@ -158,7 +168,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ScannerScreen onScanComplete={handleScanComplete} />
+      <ScannerScreen
+        onScanComplete={handleScanComplete}
+        onOpenEcho={handleOpenEcho}
+        packageType={userProfile?.packageType}
+      />
       <StatusBar style="light" />
     </View>
   )
