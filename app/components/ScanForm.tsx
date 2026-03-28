@@ -33,12 +33,16 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       })
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
+        await videoRef.current.play()
         setCameraActive(true)
-        scanQRCode()
+        // Wait for video to be ready before scanning
+        setTimeout(() => {
+          scanQRCode()
+        }, 100)
       }
     } catch (err) {
       showToast('⚠️ Camera toegang geweigerd')
+      console.error('Camera error:', err)
     }
   }
 
@@ -55,7 +59,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   }
 
   const scanQRCode = (): void => {
-    if (!videoRef.current || !canvasRef.current || !cameraActive) return
+    if (!videoRef.current || !canvasRef.current) return
 
     const video = videoRef.current
     const canvas = canvasRef.current
