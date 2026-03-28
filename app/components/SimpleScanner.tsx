@@ -18,27 +18,43 @@ export default function SimpleScanner({ onScan, onClose }: SimpleScannerProps) {
   const startedRef = useRef(false)
 
   const startScanning = async () => {
+    console.log('[SimpleScanner] Starting camera...')
+    
     try {
       setError(null)
       
+      console.log('[SimpleScanner] Calling getUserMedia...')
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' }
       })
       
+      console.log('[SimpleScanner] Got stream:', stream.id)
       streamRef.current = stream
       
       if (videoRef.current) {
+        console.log('[SimpleScanner] Assigning stream to video element')
         videoRef.current.srcObject = stream
         
         videoRef.current.onloadedmetadata = () => {
+          console.log('[SimpleScanner] Video metadata loaded, playing...')
           videoRef.current?.play()
-          setScanning(true)
-          scanningRef.current = true
-          requestAnimationFrame(scanFrame)
+            .then(() => {
+              console.log('[SimpleScanner] Video playing!')
+              setScanning(true)
+              scanningRef.current = true
+              requestAnimationFrame(scanFrame)
+            })
+            .catch(playErr => {
+              console.error('[SimpleScanner] Play error:', playErr)
+              setError(`Video afspelen mislukt: ${playErr.message}`)
+            })
         }
+      } else {
+        console.error('[SimpleScanner] videoRef.current is null!')
       }
+      
     } catch (err: any) {
-      console.error('Camera error:', err)
+      console.error('[SimpleScanner] Camera error:', err)
       setError(`Camera fout: ${err.message}`)
     }
   }
