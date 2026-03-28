@@ -314,6 +314,9 @@ export default function Scanner({ type }: ScannerProps) {
         <div>
           <video
             ref={videoRef}
+            autoPlay
+            playsInline
+            muted
             style={{
               width: '100%',
               maxWidth: '400px',

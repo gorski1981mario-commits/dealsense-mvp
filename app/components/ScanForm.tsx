@@ -397,13 +397,15 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
               <div style={{ marginBottom: '20px', position: 'relative' }}>
                 <video
                   ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
                   style={{
                     width: '100%',
                     maxHeight: '400px',
                     borderRadius: '16px',
                     objectFit: 'cover'
                   }}
-                  playsInline
                 />
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
                 <div style={{
