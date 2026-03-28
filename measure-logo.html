@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Measure Logo</title>
+    <style>
+        /* Kopiuję dokładnie CSS z globals.css */
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1e1e1e;
+            text-decoration: none;
+        }
+        .logo-dot {
+            color: #1e1e1e;
+        }
+        .logo-nl {
+            color: #15803d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logo Measurement</h1>
+    
+    <!-- Dokładnie taki sam HTML jak w layout.tsx -->
+    <a href="/" class="logo" id="logo">
+        D<span class="logo-dot" id="dot">.</span><span class="logo-nl" id="nl">nl</span>
+    </a>
+    
+    <div id="measurements" style="margin-top: 20px; font-family: monospace;"></div>
+    
+    <script>
+        const logo = document.getElementById('logo');
+        const dot = document.getElementById('dot');
+        const nl = document.getElementById('nl');
+        
+        const logoStyle = window.getComputedStyle(logo);
+        const dotStyle = window.getComputedStyle(dot);
+        const nlStyle = window.getComputedStyle(nl);
+        
+        const measurements = document.getElementById('measurements');
+        measurements.innerHTML = `
+            <h3>Computed Styles:</h3>
+            <p><strong>Logo (D):</strong></p>
+            <ul>
+                <li>font-size: ${logoStyle.fontSize}</li>
+                <li>font-weight: ${logoStyle.fontWeight}</li>
+                <li>font-family: ${logoStyle.fontFamily}</li>
+            </ul>
+            
+            <p><strong>Dot (.):</strong></p>
+            <ul>
+                <li>font-size: ${dotStyle.fontSize}</li>
+                <li>font-weight: ${dotStyle.fontWeight}</li>
+                <li>font-family: ${dotStyle.fontFamily}</li>
+            </ul>
+            
+            <p><strong>NL:</strong></p>
+            <ul>
+                <li>font-size: ${nlStyle.fontSize}</li>
+                <li>font-weight: ${nlStyle.fontWeight}</li>
+                <li>font-family: ${nlStyle.fontFamily}</li>
+            </ul>
+            
+            <h3>Bounding Boxes:</h3>
+            <p>Logo width: ${logo.getBoundingClientRect().width}px</p>
+            <p>Logo height: ${logo.getBoundingClientRect().height}px</p>
+        `;
+    </script>
+</body>
+</html>

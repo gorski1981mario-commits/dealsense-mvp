@@ -21,6 +21,32 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false)
   const [showOCRScanner, setShowOCRScanner] = useState(false)
 
+  // Check if scanned code is in URL params (from native scanner)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const scannedCode = params.get('scan')
+      if (scannedCode) {
+        handleBarcodeScanned(scannedCode)
+        // Clean URL
+        window.history.replaceState({}, '', window.location.pathname)
+      }
+    }
+  }, [])
+
+  const openNativeScanner = () => {
+    // Try to open native scanner app
+    const deepLink = 'dealsense://scan'
+    
+    // Attempt to open deep link
+    window.location.href = deepLink
+    
+    // Fallback to web scanner after 1 second if native app not installed
+    setTimeout(() => {
+      setShowBarcodeScanner(true)
+    }, 1000)
+  }
+
   const handleBarcodeScanned = async (code: string) => {
     setShowBarcodeScanner(false)
     showToast(`📱 Code gescand: ${code}`)
@@ -116,7 +142,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       <div style={{ marginBottom: '24px' }}>
         <button
           type="button"
-          onClick={() => setShowBarcodeScanner(true)}
+          onClick={openNativeScanner}
           style={{
             width: '100%',
             padding: '16px',
@@ -130,7 +156,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
             boxShadow: '0 4px 6px rgba(21, 128, 61, 0.3)'
           }}
         >
-          Scan Barcode/QR
+          📱 Scan Barcode/QR
         </button>
       </div>
 

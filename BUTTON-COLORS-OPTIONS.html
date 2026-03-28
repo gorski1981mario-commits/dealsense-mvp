@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealSense - Button Colors Options</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 40px;
+      background: #f8fafc;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 { color: #258b52; margin-bottom: 30px; text-align: center; }
+    h2 { color: #374151; margin-top: 30px; margin-bottom: 15px; font-size: 18px; }
+    .section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .button-demo {
+      padding: 25px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-radius: 12px;
+      border: 1px solid #86efac;
+    }
+    .button-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+    .button-desc {
+      font-size: 11px;
+      color: #166534;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .demo-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+    .demo-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .demo-button:active {
+      transform: translateY(0);
+    }
+    .color-info {
+      font-size: 10px;
+      color: #64748b;
+      font-family: monospace;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎨 Kolory Przycisków Akcji</h1>
+  <p style="text-align: center; color: #64748b; margin-bottom: 30px;">
+    Przyciski dla akcji finansowych i poważnych skutków - muszą się wyróżniać
+  </p>
+
+  <!-- OPCJA 1: CIEMNOZIELONE -->
+  <div class="section">
+    <h2>Opcja 1: Ciemnozielone (Aktualnie używane) ⭐ POLECAM</h2>
+    <div class="button-grid">
+      
+      <div class="button-demo">
+        <div class="button-label">Podstawowy Ciemnozielony</div>
+        <div class="button-desc">Obecny kolor - profesjonalny, finansowy</div>
+        <button class="demo-button" style="background: #258b52; color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #258b52; color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#258b52 | rgb(37, 139, 82)</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Ciemniejszy Zielony</div>
+        <div class="button-desc">Bardziej wyrazisty, poważniejszy</div>
+        <button class="demo-button" style="background: #16a34a; color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #16a34a; color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#16a34a | rgb(22, 163, 74)</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Bardzo Ciemny Zielony</div>
+        <div class="button-desc">Maksymalny kontrast, bardzo poważny</div>
+        <button class="demo-button" style="background: #15803d; color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #15803d; color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#15803d | rgb(21, 128, 61)</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Prawie Czarny Zielony</div>
+        <div class="button-desc">Ekstremalnie ciemny, bardzo profesjonalny</div>
+        <button class="demo-button" style="background: #14532d; color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #14532d; color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#14532d | rgb(20, 83, 45)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OPCJA 2: GRADIENT BUTTONS -->
+  <div class="section">
+    <h2>Opcja 2: Gradienty (Nowoczesne)</h2>
+    <div class="button-grid">
+      
+      <div class="button-demo">
+        <div class="button-label">Gradient Zielony Jasny→Ciemny</div>
+        <div class="button-desc">Nowoczesny, dynamiczny wygląd</div>
+        <button class="demo-button" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">Gradient: #16a34a → #15803d</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Gradient Intensywny</div>
+        <div class="button-desc">Bardziej wyrazisty gradient</div>
+        <button class="demo-button" style="background: linear-gradient(135deg, #258b52 0%, #14532d 100%); color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: linear-gradient(135deg, #258b52 0%, #14532d 100%); color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">Gradient: #258b52 → #14532d</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Gradient Subtelny</div>
+        <div class="button-desc">Delikatny gradient, elegancki</div>
+        <button class="demo-button" style="background: linear-gradient(135deg, #16a34a 0%, #16a34a 50%, #15803d 100%); color: white;">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: linear-gradient(135deg, #16a34a 0%, #16a34a 50%, #15803d 100%); color: white;">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">Gradient: #16a34a → #15803d (soft)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OPCJA 3: Z CIENIEM -->
+  <div class="section">
+    <h2>Opcja 3: Z Cieniem (3D Effect)</h2>
+    <div class="button-grid">
+      
+      <div class="button-demo">
+        <div class="button-label">Cień Subtelny</div>
+        <div class="button-desc">Lekki efekt 3D, profesjonalny</div>
+        <button class="demo-button" style="background: #258b52; color: white; box-shadow: 0 4px 6px rgba(37, 139, 82, 0.3);">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #258b52; color: white; box-shadow: 0 4px 6px rgba(37, 139, 82, 0.3);">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#258b52 + shadow 0.3</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Cień Wyraźny</div>
+        <div class="button-desc">Mocniejszy efekt 3D, wyróżnia się</div>
+        <button class="demo-button" style="background: #258b52; color: white; box-shadow: 0 6px 12px rgba(37, 139, 82, 0.4);">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #258b52; color: white; box-shadow: 0 6px 12px rgba(37, 139, 82, 0.4);">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#258b52 + shadow 0.4</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Cień Intensywny</div>
+        <div class="button-desc">Bardzo mocny efekt, maksymalne wyróżnienie</div>
+        <button class="demo-button" style="background: #15803d; color: white; box-shadow: 0 8px 16px rgba(21, 128, 61, 0.5);">
+          Start Scanner
+        </button>
+        <button class="demo-button" style="background: #15803d; color: white; box-shadow: 0 8px 16px rgba(21, 128, 61, 0.5);">
+          Potwierdź Płatność
+        </button>
+        <div class="color-info">#15803d + shadow 0.5</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OPCJA 4: HOVER STATES -->
+  <div class="section">
+    <h2>Opcja 4: Efekty Hover (Interaktywność)</h2>
+    <div class="button-grid">
+      
+      <div class="button-demo">
+        <div class="button-label">Hover: Jaśniejszy</div>
+        <div class="button-desc">Po najechaniu staje się jaśniejszy</div>
+        <button class="demo-button" style="background: #258b52; color: white;" 
+                onmouseover="this.style.background='#16a34a'" 
+                onmouseout="this.style.background='#258b52'">
+          Start Scanner (najedź myszką)
+        </button>
+        <div class="color-info">Normal: #258b52 → Hover: #16a34a</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Hover: Ciemniejszy</div>
+        <div class="button-desc">Po najechaniu staje się ciemniejszy</div>
+        <button class="demo-button" style="background: #258b52; color: white;" 
+                onmouseover="this.style.background='#15803d'" 
+                onmouseout="this.style.background='#258b52'">
+          Start Scanner (najedź myszką)
+        </button>
+        <div class="color-info">Normal: #258b52 → Hover: #15803d</div>
+      </div>
+
+      <div class="button-demo">
+        <div class="button-label">Hover: Scale + Shadow</div>
+        <div class="button-desc">Powiększa się i dodaje cień</div>
+        <button class="demo-button" style="background: #258b52; color: white;" 
+                onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 12px rgba(37,139,82,0.4)'" 
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+          Start Scanner (najedź myszką)
+        </button>
+        <div class="color-info">#258b52 + transform + shadow</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PORÓWNANIE -->
+  <div class="section">
+    <h2>Porównanie: Wszystkie Przyciski Obok Siebie</h2>
+    <div style="display: grid; gap: 12px; margin-top: 20px;">
+      <button class="demo-button" style="background: #258b52; color: white;">
+        1. Podstawowy (#258b52) - AKTUALNY
+      </button>
+      <button class="demo-button" style="background: #16a34a; color: white;">
+        2. Ciemniejszy (#16a34a)
+      </button>
+      <button class="demo-button" style="background: #15803d; color: white;">
+        3. Bardzo Ciemny (#15803d)
+      </button>
+      <button class="demo-button" style="background: #14532d; color: white;">
+        4. Prawie Czarny (#14532d)
+      </button>
+      <button class="demo-button" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white;">
+        5. Gradient Nowoczesny
+      </button>
+      <button class="demo-button" style="background: #258b52; color: white; box-shadow: 0 6px 12px rgba(37, 139, 82, 0.4);">
+        6. Z Cieniem (#258b52 + shadow)
+      </button>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 12px; border: 1px solid #86efac; text-align: center;">
+    <h3 style="color: #166534; margin-bottom: 15px; font-size: 20px;">💡 Moja Rekomendacja</h3>
+    <p style="color: #166534; line-height: 1.6; font-size: 15px; margin-bottom: 10px;">
+      <strong>Opcja 1: Bardzo Ciemny Zielony (#15803d)</strong> + <strong>Opcja 3: Cień Subtelny</strong>
+    </p>
+    <p style="color: #166534; line-height: 1.6; font-size: 14px;">
+      Wyraźnie ciemniejszy niż obecny, profesjonalny, wyróżnia się od tła.<br/>
+      Cień dodaje głębi i pokazuje że to ważny przycisk akcji.
+    </p>
+    <div style="margin-top: 15px;">
+      <button class="demo-button" style="background: #15803d; color: white; box-shadow: 0 4px 6px rgba(21, 128, 61, 0.3); max-width: 300px; margin: 0 auto;">
+        Przykład: Start Scanner
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>

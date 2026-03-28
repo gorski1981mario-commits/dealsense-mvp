@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "DealSense Scanner",
+    "slug": "dealsense-scanner",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "dealsense",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#15803d"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "nl.dealsense.scanner",
+      "infoPlist": {
+        "NSCameraUsageDescription": "DealSense heeft camera toegang nodig om barcodes en QR codes te scannen.",
+        "NSMicrophoneUsageDescription": "DealSense heeft geen microfoon toegang nodig."
+      }
+    },
+    "android": {
+      "package": "nl.dealsense.scanner",
+      "permissions": ["CAMERA"],
+      "adaptiveIcon": {
+        "backgroundColor": "#15803d",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "dealsense-mvp.vercel.app",
+              "pathPrefix": "/scan"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "DealSense heeft camera toegang nodig om barcodes en QR codes te scannen."
+        }
+      ]
+    ]
+  }
+}

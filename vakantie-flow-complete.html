@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vakantie - Complete Flow - DealSense</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #F7F9F8;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .section:last-child { border-bottom: none; }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .form-group { margin-bottom: 14px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        /* STEPPER */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #F3F4F6;
+            border-radius: 10px;
+            padding: 8px 12px;
+            width: fit-content;
+        }
+
+        .stepper-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: #111827;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stepper-btn:hover { background: #1E7F5C; color: white; }
+        .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .stepper-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        /* CHILDREN AGE */
+        .children-ages {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .age-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .age-select select {
+            flex: 1;
+            padding: 8px 10px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* INPUTS */
+        input[type="date"], select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            background: white;
+            transition: all 0.15s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1E7F5C;
+            box-shadow: 0 0 0 3px rgba(30, 127, 92, 0.1);
+        }
+
+        /* CHECKBOXES */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .checkbox-item:hover { border-color: #1E7F5C; background: #E6F4EE; }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* RADIO */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .radio-item:hover { border-color: #1E7F5C; background: #E6F4EE; }
+
+        .radio-item input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .radio-item label {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* BUTTONS */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1E7F5C 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-top: 24px;
+            box-shadow: 0 4px 12px rgba(30, 127, 92, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 127, 92, 0.4);
+        }
+
+        .back-btn {
+            padding: 10px 16px;
+            background: #F3F4F6;
+            color: #111827;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .back-btn:hover { background: #E5E7EB; }
+
+        /* RESULTS */
+        .results-container, .payment-container, .unlocked-container {
+            display: none;
+        }
+
+        .results-container.active, .payment-container.active, .unlocked-container.active {
+            display: block;
+        }
+
+        .result-card {
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .result-card.best {
+            border-color: #1E7F5C;
+            background: #E6F4EE;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .result-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .result-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E7F5C;
+        }
+
+        .result-location {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .result-score {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #1E7F5C;
+            color: white;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .locked-icon {
+            font-size: 32px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .payment-box {
+            background: #E6F4EE;
+            border: 2px solid #1E7F5C;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .payment-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E7F5C;
+            margin: 12px 0;
+        }
+
+        .hotel-detail {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .hotel-detail.best {
+            border-color: #1E7F5C;
+            background: #E6F4EE;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 10px;
+            background: #1E7F5C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary:hover {
+            background: #15803d;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 10px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <!-- STEP 1: CONFIGURATOR -->
+    <div class="container" id="configurator">
+        <h1>🏖️ Vakantie Configurator</h1>
+
+        <form id="vacationForm">
+            <!-- 1. REIZIGERS -->
+            <div class="section">
+                <div class="section-title">1. Reizigers</div>
+                
+                <div class="form-group">
+                    <label>Volwassenen (18+)</label>
+                    <div class="stepper">
+                        <button type="button" class="stepper-btn" id="adultsDecrement">−</button>
+                        <div class="stepper-value" id="adultsValue">2</div>
+                        <button type="button" class="stepper-btn" id="adultsIncrement">+</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Kinderen (0-17)</label>
+                    <div class="stepper">
+                        <button type="button" class="stepper-btn" id="childrenDecrement">−</button>
+                        <div class="stepper-value" id="childrenValue">0</div>
+                        <button type="button" class="stepper-btn" id="childrenIncrement">+</button>
+                    </div>
+                    <div class="children-ages" id="childrenAges"></div>
+                </div>
+            </div>
+
+            <!-- 2. BESTEMMING & DATUM -->
+            <div class="section">
+                <div class="section-title">2. Bestemming & Datum</div>
+                
+                <div class="form-group">
+                    <label>Bestemming</label>
+                    <select id="destination">
+                        <option value="">Kies bestemming...</option>
+                        <optgroup label="🔥 Meest populair voor Nederlanders">
+                            <option value="turkije">🔥 🇹🇷 Turkije</option>
+                            <option value="griekenland">🔥 🇬🇷 Griekenland</option>
+                            <option value="spanje">🔥 🇪🇸 Spanje</option>
+                            <option value="egypte">🔥 🇪🇬 Egypte</option>
+                            <option value="portugal">🔥 🇵🇹 Portugal</option>
+                            <option value="italie">🔥 🇮🇹 Italië</option>
+                            <option value="frankrijk">🔥 🇫🇷 Frankrijk</option>
+                            <option value="kroatie">🔥 🇭🇷 Kroatië</option>
+                            <option value="thailand">🔥 🇹🇭 Thailand</option>
+                            <option value="dubai">🔥 🇦🇪 Dubai (VAE)</option>
+                        </optgroup>
+                        <optgroup label="Andere bestemmingen">
+                            <option value="marokko">🇲🇦 Marokko</option>
+                            <option value="tunesie">🇹🇳 Tunesië</option>
+                            <option value="cyprus">🇨🇾 Cyprus</option>
+                            <option value="malta">🇲🇹 Malta</option>
+                            <option value="bulgarije">🇧🇬 Bulgarije</option>
+                            <option value="mexico">🇲🇽 Mexico</option>
+                            <option value="dominicaanse">🇩🇴 Dominicaanse Republiek</option>
+                            <option value="cuba">🇨🇺 Cuba</option>
+                            <option value="jamaica">🇯🇲 Jamaica</option>
+                            <option value="bali">🇮🇩 Indonesië (Bali)</option>
+                            <option value="malediven">🇲🇻 Malediven</option>
+                            <option value="srilanka">🇱🇰 Sri Lanka</option>
+                            <option value="vietnam">🇻🇳 Vietnam</option>
+                            <option value="usa">🇺🇸 Verenigde Staten</option>
+                            <option value="canada">🇨🇦 Canada</option>
+                            <option value="zuidafrika">🇿🇦 Zuid-Afrika</option>
+                            <option value="kenia">🇰🇪 Kenia</option>
+                            <option value="tanzania">🇹🇿 Tanzania</option>
+                            <option value="australie">🇦🇺 Australië</option>
+                            <option value="nieuwzeeland">🇳🇿 Nieuw-Zeeland</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Vertrekdatum</label>
+                    <input type="date" id="departureDate">
+                </div>
+
+                <div class="form-group">
+                    <label>Duur</label>
+                    <select id="duration">
+                        <option value="7">7 dagen</option>
+                        <option value="10">10 dagen</option>
+                        <option value="14" selected>14 dagen</option>
+                        <option value="21">21 dagen</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 3. VERVOER -->
+            <div class="section">
+                <div class="section-title">3. Vervoer</div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="transport" value="flight" id="flight" checked>
+                        <label for="flight">✈️ Vliegtuig</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="transport" value="own" id="own">
+                        <label for="own">🚗 Eigen vervoer</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="transport" value="bus" id="bus">
+                        <label for="bus">🚌 Bus</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ACCOMMODATIE -->
+            <div class="section">
+                <div class="section-title">4. Accommodatie</div>
+                
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="accommodationType">
+                        <option value="hotel">🏨 Hotel</option>
+                        <option value="apartment">🏠 Appartement</option>
+                        <option value="resort">🏖️ Resort</option>
+                        <option value="park">🏡 Vakantiepark</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Hotel categorie (sterren)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="stars3" value="3">
+                            <label for="stars3">⭐⭐⭐ 3 sterren</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="stars4" value="4" checked>
+                            <label for="stars4">⭐⭐⭐⭐ 4 sterren</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="stars5" value="5">
+                            <label for="stars5">⭐⭐⭐⭐⭐ 5 sterren</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. VERBLIJF TYPE -->
+            <div class="section">
+                <div class="section-title">5. Verblijf type</div>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="board" value="bb" id="bb">
+                        <label for="bb">🍳 Logies & Ontbijt</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="board" value="hb" id="hb">
+                        <label for="hb">🍽️ Halfpension</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="board" value="fb" id="fb">
+                        <label for="fb">🍽️🍽️ Volpension</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="board" value="ai" id="ai" checked>
+                        <label for="ai">🍹 All Inclusive</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="board" value="uai" id="uai">
+                        <label for="uai">🍹+ Ultra All Inclusive</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. EXTRA FILTERS -->
+            <div class="section">
+                <div class="section-title">6. Extra voorkeuren</div>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="pool" value="pool">
+                        <label for="pool">🏊 Zwembad</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="wifi" value="wifi">
+                        <label for="wifi">📶 Wifi</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="parking" value="parking">
+                        <label for="parking">🅿️ Parkeren</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="kids" value="kids">
+                        <label for="kids">👶 Kinderclub</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="spa" value="spa">
+                        <label for="spa">💆 Spa/Wellness</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="beach" value="beach">
+                        <label for="beach">🏖️ Strand</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="adults" value="adults">
+                        <label for="adults">🔞 Adults Only</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Zoek beste vakantie →
+            </button>
+        </form>
+    </div>
+
+    <!-- STEP 2: RESULTS (LOCKED) -->
+    <div class="container results-container" id="results">
+        <button class="back-btn" onclick="showConfigurator()">← Terug</button>
+        
+        <h1>🎉 3 beste aanbiedingen gevonden!</h1>
+        
+        <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">
+            We doorz ochten 50% e-commerce giganten + 50% niszowe biura met Ranking 4.0 (AI + kwant)
+        </p>
+
+        <div class="locked-icon">🔒</div>
+
+        <div class="result-card best">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Delphin Imperial</div>
+                <div class="result-price">€1.749</div>
+            </div>
+            <div class="result-location">📍 Lara, Turkije • Ultra All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.8/5</span>
+                <span>🛡️ 9/10</span>
+                <span>Score: 9.2</span>
+            </div>
+            <span class="badge">BESTE DEAL</span>
+        </div>
+
+        <div class="result-card">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Rixos Premium Belek</div>
+                <div class="result-price">€1.899</div>
+            </div>
+            <div class="result-location">📍 Belek, Turkije • All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.5/5</span>
+                <span>🛡️ 9/10</span>
+                <span>Score: 8.8</span>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Maxx Royal Belek</div>
+                <div class="result-price">€2.299</div>
+            </div>
+            <div class="result-location">📍 Belek, Turkije • Ultra All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.7/5</span>
+                <span>🛡️ 10/10</span>
+                <span>Score: 9.0</span>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div style="font-size: 14px; color: #374151; margin-bottom: 8px;">
+                Betaal 10% commissie om toegang te krijgen
+            </div>
+            <div class="payment-amount">€174,90</div>
+            <div style="font-size: 12px; color: #6B7280; margin-bottom: 16px;">
+                (10% van €1.749 × 2 personen)
+            </div>
+            <button class="submit-btn" onclick="showPayment()">
+                Betaal en krijg toegang →
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 3: PAYMENT -->
+    <div class="container payment-container" id="payment">
+        <button class="back-btn" onclick="showResults()">← Terug</button>
+        
+        <h1>💳 Betaling</h1>
+        
+        <div class="payment-box">
+            <div style="font-size: 16px; color: #374151; margin-bottom: 12px;">
+                Totaal te betalen
+            </div>
+            <div class="payment-amount">€174,90</div>
+            <div style="font-size: 13px; color: #6B7280; margin-bottom: 20px;">
+                10% commissie voor toegang tot 3 beste deals
+            </div>
+            <button class="submit-btn" onclick="showUnlocked()">
+                Betaal met Stripe →
+            </button>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #6B7280;">
+            🔒 Veilige betaling via Stripe
+        </div>
+    </div>
+
+    <!-- STEP 4: UNLOCKED -->
+    <div class="container unlocked-container" id="unlocked">
+        <h1>✅ Toegang verkregen!</h1>
+        
+        <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">
+            Je hebt nu toegang tot de 3 beste deals + TikTok reviews
+        </p>
+
+        <div class="hotel-detail best">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Delphin Imperial</div>
+                <div class="result-price">€1.749 p.p.</div>
+            </div>
+            <div class="result-location">📍 Lara, Turkije • Ultra All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.8/5 (2.341 reviews)</span>
+                <span>🛡️ Betrouwbaar 9/10</span>
+            </div>
+            <span class="badge">BESTE DEAL - BESPAAR €450</span>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="redirectToAgency('https://www.corendon.nl')">
+                    🌐 Boek bij Corendon
+                </button>
+                <button class="btn-secondary" onclick="openTikTok('Delphin Imperial Lara')">
+                    📱 TikTok reviews
+                </button>
+            </div>
+        </div>
+
+        <div class="hotel-detail">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Rixos Premium Belek</div>
+                <div class="result-price">€1.899 p.p.</div>
+            </div>
+            <div class="result-location">📍 Belek, Turkije • All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.5/5 (1.892 reviews)</span>
+                <span>🛡️ Betrouwbaar 9/10</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="redirectToAgency('https://www.tui.nl')">
+                    🌐 Boek bij TUI
+                </button>
+                <button class="btn-secondary" onclick="openTikTok('Rixos Premium Belek')">
+                    📱 TikTok reviews
+                </button>
+            </div>
+        </div>
+
+        <div class="hotel-detail">
+            <div class="result-header">
+                <div class="result-name">⭐⭐⭐⭐⭐ Maxx Royal Belek</div>
+                <div class="result-price">€2.299 p.p.</div>
+            </div>
+            <div class="result-location">📍 Belek, Turkije • Ultra All Inclusive</div>
+            <div class="result-score">
+                <span>⭐ 4.7/5 (3.127 reviews)</span>
+                <span>🛡️ Betrouwbaar 10/10</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="redirectToAgency('https://www.sunweb.nl')">
+                    🌐 Boek bij Sunweb
+                </button>
+                <button class="btn-secondary" onclick="openTikTok('Maxx Royal Belek')">
+                    📱 TikTok reviews
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // STEPPER LOGIC
+        let adults = 2, children = 0;
+        
+        document.getElementById('adultsDecrement').addEventListener('click', () => {
+            if (adults > 1) { adults--; document.getElementById('adultsValue').textContent = adults; }
+        });
+        document.getElementById('adultsIncrement').addEventListener('click', () => {
+            if (adults < 9) { adults++; document.getElementById('adultsValue').textContent = adults; }
+        });
+
+        function updateChildrenAges() {
+            const container = document.getElementById('childrenAges');
+            container.innerHTML = '';
+            for (let i = 0; i < children; i++) {
+                container.innerHTML += `
+                    <div class="age-select">
+                        <label style="margin: 0; min-width: 70px;">Kind ${i + 1}:</label>
+                        <select>
+                            <option value="">Leeftijd...</option>
+                            ${Array.from({length: 18}, (_, i) => `<option value="${i}">${i} jaar</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('childrenDecrement').addEventListener('click', () => {
+            if (children > 0) { children--; document.getElementById('childrenValue').textContent = children; updateChildrenAges(); }
+        });
+        document.getElementById('childrenIncrement').addEventListener('click', () => {
+            if (children < 4) { children++; document.getElementById('childrenValue').textContent = children; updateChildrenAges(); }
+        });
+
+        // DEFAULT DATE
+        const today = new Date();
+        today.setDate(today.getDate() + 30);
+        document.getElementById('departureDate').value = today.toISOString().split('T')[0];
+
+        // NAVIGATION
+        document.getElementById('vacationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('configurator').style.display = 'none';
+            document.getElementById('results').classList.add('active');
+        });
+
+        function showConfigurator() {
+            document.getElementById('configurator').style.display = 'block';
+            document.getElementById('results').classList.remove('active');
+        }
+
+        function showResults() {
+            document.getElementById('results').classList.add('active');
+            document.getElementById('payment').classList.remove('active');
+        }
+
+        function showPayment() {
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('payment').classList.add('active');
+        }
+
+        function showUnlocked() {
+            document.getElementById('payment').classList.remove('active');
+            document.getElementById('unlocked').classList.add('active');
+        }
+
+        // REDIRECT TO AGENCY
+        function redirectToAgency(url) {
+            window.open(url, '_blank');
+        }
+
+        // TIKTOK
+        function openTikTok(hotelName) {
+            const searchQuery = `${hotelName} hotel review`;
+            window.open(`https://www.tiktok.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
