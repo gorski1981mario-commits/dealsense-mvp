@@ -45,8 +45,10 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
         console.log('[Camera] Stream assigned to video element')
         
         // Show video element in DOM IMMEDIATELY
+        console.log('[Camera] Setting cameraActive to TRUE...')
         setCameraActive(true)
-        console.log('[Camera] Video element shown in DOM')
+        console.log('[Camera] setCameraActive(true) called')
+        console.log('[Camera] Current cameraActive state:', cameraActive)
         
         // Wait for React to render video element (double RAF for safety)
         requestAnimationFrame(() => {
@@ -194,7 +196,12 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   }
 
   useEffect(() => {
+    console.log('[Camera] cameraActive state changed to:', cameraActive)
+  }, [cameraActive])
+
+  useEffect(() => {
     if (showBarcodeScanner && !cameraActive) {
+      console.log('[Camera] Modal opened, starting camera...')
       startCamera()
     }
     return () => {
