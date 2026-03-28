@@ -91,18 +91,24 @@ export default function Scanner({ type }: ScannerProps) {
       if (videoRef.current) {
         videoRef.current.srcObject = stream
         
-        // Mobile fix: use .then() for play()
-        videoRef.current.play().then(() => {
-          setScanning(true)
+        // CRITICAL: Set scanning FIRST so video element is in DOM
+        setScanning(true)
+        
+        // Wait for next tick to ensure video is in DOM
+        setTimeout(() => {
+          if (!videoRef.current) return
           
-          // Wait for video metadata before scanning
-          videoRef.current?.addEventListener('loadedmetadata', () => {
-            scanQRCode()
+          videoRef.current.play().then(() => {
+            // Wait for video metadata before scanning
+            videoRef.current?.addEventListener('loadedmetadata', () => {
+              scanQRCode()
+            })
+          }).catch(playErr => {
+            console.error('[Scanner] Play error:', playErr)
+            setError(`Video afspelen mislukt: ${playErr.message}`)
+            setScanning(false)
           })
-        }).catch(playErr => {
-          console.error('[Scanner] Play error:', playErr)
-          setError(`Video afspelen mislukt: ${playErr.message}`)
-        })
+        }, 100)
       }
     } catch (err: any) {
       console.error('[Scanner] Camera error:', err)

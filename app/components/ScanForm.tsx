@@ -37,21 +37,28 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
       if (videoRef.current) {
         videoRef.current.srcObject = stream
         
-        // Mobile fix: use .then() instead of await
-        console.log('[Camera] Starting video playback...')
-        videoRef.current.play().then(() => {
-          console.log('[Camera] Video playing successfully!')
-          setCameraActive(true)
+        // CRITICAL: Set cameraActive FIRST so video element is in DOM
+        setCameraActive(true)
+        
+        // Wait for next tick to ensure video is in DOM
+        setTimeout(() => {
+          if (!videoRef.current) return
           
-          // Wait for video metadata
-          videoRef.current?.addEventListener('loadedmetadata', () => {
-            console.log(`[Camera] Video ready: ${videoRef.current?.videoWidth}x${videoRef.current?.videoHeight}`)
-            scanQRCode()
+          console.log('[Camera] Starting video playback...')
+          videoRef.current.play().then(() => {
+            console.log('[Camera] Video playing successfully!')
+            
+            // Wait for video metadata
+            videoRef.current?.addEventListener('loadedmetadata', () => {
+              console.log(`[Camera] Video ready: ${videoRef.current?.videoWidth}x${videoRef.current?.videoHeight}`)
+              scanQRCode()
+            })
+          }).catch(playErr => {
+            console.error('[Camera] Play error:', playErr)
+            showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
+            setCameraActive(false)
           })
-        }).catch(playErr => {
-          console.error('[Camera] Play error:', playErr)
-          showToast(`⚠️ Video afspelen mislukt: ${playErr.message}`)
-        })
+        }, 100)
       }
     } catch (err: any) {
       console.error('[Camera] Error:', err)
