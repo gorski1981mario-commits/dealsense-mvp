@@ -200,9 +200,12 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   }, [cameraActive])
 
   useEffect(() => {
-    if (showBarcodeScanner && !cameraActive) {
+    if (showBarcodeScanner) {
       console.log('[Camera] Modal opened, starting camera...')
-      startCamera()
+      // Small delay to ensure video element is in DOM
+      setTimeout(() => {
+        startCamera()
+      }, 100)
     }
     return () => {
       stopCamera()

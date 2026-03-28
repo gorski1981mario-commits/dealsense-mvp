@@ -51,7 +51,7 @@ node_modules/
 **/*.spec.js
 **/*.spec.ts
 
-# ⚠️ BACKUP CONFIGURATORS - DO NOT DEPLOY
+# ⛔ BACKUP CONFIGURATORS - DO NOT DEPLOY
 # These are backup/old versions - not in use
 app/creditcard/
 app/creditcard/**/*
@@ -73,6 +73,28 @@ app/telecom/
 app/telecom/**/*
 app/vacations/
 app/vacations/**/*
+
+# ⛔ TEST/UNUSED APP FOLDERS - DO NOT DEPLOY
+app/wakacje/
+app/wakacje/**/*
+app/camera-test/
+app/camera-test/**/*
+app/dlss/
+app/dlss/**/*
+app/gqld/
+app/gqld/**/*
+app/checkout/echo-prompts/
+app/checkout/echo-prompts/**/*
+
+# ⛔ ENGINE TEST FOLDERS - DO NOT DEPLOY
+app/engines/
+app/engines/**/*
+
+# ⛔ LAB/TESTING FOLDERS - DO NOT DEPLOY
+app/lab/
+app/lab/**/*
+app/lab-wa/
+app/lab-wa/**/*
 
 # ⛔ HTML PREVIEW FILES - Development only
 *-preview.html

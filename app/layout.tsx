@@ -3,7 +3,7 @@ import HamburgerMenu from './components/HamburgerMenu'
 import EchoChat from './components/EchoChat'
 import BottomNav from './components/BottomNav'
 import ServiceWorkerRegistration from './components/ServiceWorkerRegistration'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   title: 'DealSense.nl – AI aankoop assistent',
@@ -11,9 +11,14 @@ export const metadata: Metadata = {
   verification: {
     google: 'NIjouinoYr-swaCTIe_LsUIWIIrUEVynpKyUObykIo',
   },
-  viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
-  themeColor: '#15803d',
   manifest: '/manifest.json',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  viewportFit: 'cover',
+  themeColor: '#15803d',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
