@@ -26,6 +26,7 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameId = useRef<number | null>(null)
+  const cameraStarted = useRef(false)
 
   const startCamera = async () => {
     setCameraError(null)
@@ -174,13 +175,16 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
   }
 
   useEffect(() => {
-    if (showBarcodeScanner) {
-      console.log('[Camera] Modal opened, starting camera immediately...')
+    if (showBarcodeScanner && !cameraStarted.current) {
+      console.log('[Camera] Modal opened, starting camera...')
+      cameraStarted.current = true
       startCamera()
     }
     
     return () => {
       if (showBarcodeScanner) {
+        console.log('[Camera] Cleaning up camera...')
+        cameraStarted.current = false
         stopCamera()
       }
     }
