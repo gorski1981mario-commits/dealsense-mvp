@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import jsQR from 'jsqr'
 
 interface SimpleScannerProps {
@@ -15,6 +15,7 @@ export default function SimpleScanner({ onScan, onClose }: SimpleScannerProps) {
   const [scanning, setScanning] = useState(false)
   const streamRef = useRef<MediaStream | null>(null)
   const scanningRef = useRef(false)
+  const startedRef = useRef(false)
 
   const startScanning = async () => {
     try {
@@ -84,9 +85,16 @@ export default function SimpleScanner({ onScan, onClose }: SimpleScannerProps) {
   }
 
   // Start camera when component mounts
-  if (!scanning && !error && !streamRef.current) {
-    startScanning()
-  }
+  useEffect(() => {
+    if (!startedRef.current) {
+      startedRef.current = true
+      startScanning()
+    }
+    
+    return () => {
+      stopCamera()
+    }
+  }, [])
 
   return (
     <div style={{
