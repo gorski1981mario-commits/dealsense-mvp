@@ -267,6 +267,7 @@
       streamStatus.textContent = '⏳ Starting camera...';
       
       try {
+        log('Requesting getUserMedia...');
         stream = await navigator.mediaDevices.getUserMedia({
           video: {
             facingMode: 'environment',
@@ -275,26 +276,49 @@
           }
         });
         
+        log('Stream obtained, setting srcObject...');
         video.srcObject = stream;
-        await video.play();
         
-        videoContainer.style.display = 'block';
-        startCameraBtn.style.display = 'none';
+        // Mobile fix: play() without await, use event listener
+        log('Attempting to play video...');
+        video.play().then(() => {
+          log('Video playing successfully!', 'success');
+          
+          videoContainer.style.display = 'block';
+          startCameraBtn.style.display = 'none';
+          
+          streamStatus.className = 'status success';
+          streamStatus.textContent = '✅ Camera active';
+          scanStatus.className = 'status pending';
+          scanStatus.textContent = '⏳ Scanning for barcodes...';
+          
+          log('Camera stream: ACTIVE', 'success');
+          
+          // Wait for video metadata
+          video.addEventListener('loadedmetadata', () => {
+            log(`Video dimensions: ${video.videoWidth}x${video.videoHeight}`);
+            // Start scanning
+            scanBarcode();
+          });
+        }).catch(playErr => {
+          log(`Video play error: ${playErr.message}`, 'error');
+          streamStatus.className = 'status error';
+          streamStatus.textContent = `❌ Play failed: ${playErr.message}`;
+        });
         
-        streamStatus.className = 'status success';
-        streamStatus.textContent = '✅ Camera active';
-        scanStatus.className = 'status pending';
-        scanStatus.textContent = '⏳ Scanning for barcodes...';
-        
-        log('Camera stream: ACTIVE', 'success');
-        log(`Video dimensions: ${video.videoWidth}x${video.videoHeight}`);
-        
-        // Start scanning
-        scanBarcode();
       } catch (err) {
         streamStatus.className = 'status error';
         streamStatus.textContent = `❌ Camera failed: ${err.message}`;
-        log(`Camera stream: FAILED - ${err.message}`, 'error');
+        log(`Camera stream: FAILED - ${err.name}: ${err.message}`, 'error');
+        
+        // Mobile-specific error details
+        if (err.name === 'NotAllowedError') {
+          log('Permission denied by user', 'error');
+        } else if (err.name === 'NotFoundError') {
+          log('No camera found on device', 'error');
+        } else if (err.name === 'NotReadableError') {
+          log('Camera already in use', 'error');
+        }
       }
     }
 
