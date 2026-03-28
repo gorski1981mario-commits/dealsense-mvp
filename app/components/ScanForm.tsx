@@ -29,6 +29,16 @@ function ScanForm({ packageType, scansRemaining = 999, onScanComplete }: ScanFor
 
   const startCamera = async () => {
     setCameraError(null)
+    
+    // Check if browser supports camera
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      const errorMsg = 'Je browser ondersteunt geen camera toegang. Gebruik Chrome, Safari of Firefox.'
+      console.error('[Camera] Browser not supported')
+      showToast(`⚠️ ${errorMsg}`)
+      setCameraError(errorMsg)
+      return
+    }
+    
     try {
       console.log('[Camera] Requesting getUserMedia...')
       

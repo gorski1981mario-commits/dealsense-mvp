@@ -45,6 +45,9 @@
     }
   },
   "categories": ["shopping", "utilities"],
+  "permissions": [
+    "camera"
+  ],
   "shortcuts": [
     {
       "name": "Scanner",
