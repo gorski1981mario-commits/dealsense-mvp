@@ -5,5 +5,67 @@ node_modules
 .env*.local
 .vercel
 
-# B2B Module backup - not ready for production
+# ⛔ BACKUP FOLDERS - DO NOT COMMIT/DEPLOY
 _BACKUP_B2B_MODULE/
+_BACKUP_PRO_FINANCE/
+_BACKUP_PRO_FINANCE_FEATURES/
+
+# ⛔ HTML PREVIEW FILES - Development only
+*-preview.html
+*-demo.html
+*-comparison.html
+*-test.html
+barcode-scanner-preview.html
+pwa-manifest-preview.html
+product-found-flow.html
+agent-echo-*.html
+all-icons-selector.html
+bar-comparison-*.html
+booking-*.html
+bottom-nav-*.html
+changes-preview.html
+color-*.html
+configurator-*.html
+create-png-icons.html
+demo-*.html
+gradient-*.html
+icon-preview*.html
+nav-*.html
+payment-*.html
+price-*.html
+results-*.html
+scan-*.html
+settings-*.html
+smart-*.html
+ui-*.html
+
+# ⛔ OLD HTML CONFIGURATORS - TSX versions exist
+*-configurator-FINAL.html
+*-configurator-full.html
+1-*.html
+2-*.html
+3-*.html
+4-*.html
+5-*.html
+6-*.html
+7-*.html
+8-*.html
+9-*.html
+
+# ⛔ DOCUMENTATION - Keep only essential
+*.md
+!README.md
+!DEPLOYMENT-GUIDE-COMPLETE.md
+
+# ⛔ SCRIPTS - Development only
+*.bat
+add-lock-to-configurators.js
+convert-icons.js
+count-chars.js
+
+# ⛔ TEST/TEMP FILES
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+SMOKE-TEST-RESULTS.txt

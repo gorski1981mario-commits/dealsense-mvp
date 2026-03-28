@@ -1,15 +1,15 @@
-# Exclude server-side crawler from Vercel build
-# This is a separate Node.js backend, not part of Next.js app
+# ⛔ CRITICAL: Server-side crawler - separate Node.js backend
+# This is NOT part of Next.js app - runs on Render.com
 server/
 server/**/*
 
-# ⚠️ EXCLUDE B2B MODULE - NOT READY FOR PRODUCTION
-# This is industrial B2B module (metals, grain, zakelijk) - DO NOT DEPLOY
+# ⛔ CRITICAL: B2B MODULE - FROZEN UNTIL Q3 2026
+# Industrial B2B module (metals, grain, zakelijk) - DO NOT DEPLOY
 _BACKUP_B2B_MODULE/
 _BACKUP_B2B_MODULE/**/*
 
-# ⚠️ EXCLUDE PRO/FINANCE BACKUP - TEMPORARILY DISABLED
-# PRO/FINANCE packages disabled - only SearchAPI.io available (no other APIs)
+# ⛔ CRITICAL: PRO/FINANCE BACKUP - ODPIĘTE
+# Old versions - only SearchAPI.io available (no other APIs yet)
 _BACKUP_PRO_FINANCE/
 _BACKUP_PRO_FINANCE/**/*
 _BACKUP_PRO_FINANCE_FEATURES/
@@ -74,10 +74,47 @@ app/telecom/**/*
 app/vacations/
 app/vacations/**/*
 
-# OLD HTML CONFIGURATORS - DO NOT DEPLOY (TSX versions in app/components/configurators/)
+# ⛔ HTML PREVIEW FILES - Development only
+*-preview.html
+*-demo.html
+*-comparison.html
+*-test.html
+barcode-scanner-preview.html
+pwa-manifest-preview.html
+product-found-flow.html
+agent-echo-*.html
+all-icons-selector.html
+bar-comparison-*.html
+booking-*.html
+bottom-nav-*.html
+changes-preview.html
+color-*.html
+configurator-*.html
+create-png-icons.html
+demo-*.html
+gradient-*.html
+icon-preview*.html
+nav-*.html
+payment-*.html
+price-*.html
+results-*.html
+scan-*.html
+settings-*.html
+smart-*.html
+ui-*.html
+
+# ⛔ OLD HTML CONFIGURATORS - TSX versions exist in app/
 *-configurator-FINAL.html
 *-configurator-full.html
-*-configurator-preview.html
+1-*.html
+2-*.html
+3-*.html
+4-*.html
+5-*.html
+6-*.html
+7-*.html
+8-*.html
+9-*.html
 vakantie-*.html
 vacation-*.html
 insurance-*.html
@@ -88,3 +125,21 @@ loan-*.html
 mortgage-*.html
 creditcard-*.html
 subscriptions-*.html
+
+# ⛔ DOCUMENTATION - Keep only essential
+*.md
+!README.md
+!DEPLOYMENT-GUIDE-COMPLETE.md
+
+# ⛔ SCRIPTS - Development only
+*.bat
+add-lock-to-configurators.js
+convert-icons.js
+count-chars.js
+
+# ⛔ TEST/TEMP FILES
+**/*.test.js
+**/*.test.ts
+**/*.spec.js
+**/*.spec.ts
+SMOKE-TEST-RESULTS.txt
