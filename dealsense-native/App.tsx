@@ -7,6 +7,7 @@ import UpgradeScreen from './src/screens/UpgradeScreen'
 import PaywallScreen from './src/screens/PaywallScreen'
 import EchoScreen from './src/screens/EchoScreen'
 import GhostModeScreen from './src/screens/GhostModeScreen'
+import PatternLockScreen from './src/screens/PatternLockScreen'
 import { storage } from './src/lib/storage'
 import { payment } from './src/lib/payment'
 import { ghostMode } from './src/lib/ghost-mode'
@@ -14,9 +15,10 @@ import type { GhostModeItem } from './src/lib/ghost-mode'
 import { COLORS } from './src/lib/constants'
 import type { ScanResult, UserProfile } from './src/types'
 
-type AppState = 'loading' | 'scanner' | 'results' | 'upgrade' | 'paywall' | 'echo' | 'ghostmode'
+type AppState = 'loading' | 'scanner' | 'results' | 'upgrade' | 'paywall' | 'echo' | 'ghostmode' | 'patternlock'
 
 export default function App() {
+  console.log('[App] Rendered - NEW VERSION')
   const [appState, setAppState] = useState<AppState>('loading')
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [scanResult, setScanResult] = useState<ScanResult | null>(null)
@@ -113,6 +115,21 @@ export default function App() {
     setAppState('scanner')
   }
 
+  const handleOpenEcho = () => {
+    if (userProfile?.packageType === 'plus') {
+      setAppState('echo')
+    } else {
+      Alert.alert(
+        '⚠️ PLUS vereist',
+        'Echo Agent is alleen beschikbaar voor PLUS abonnees. Upgrade naar PLUS!',
+        [
+          { text: 'Annuleren', style: 'cancel' },
+          { text: 'Upgrade', onPress: handleUpgradeClick },
+        ]
+      )
+    }
+  }
+
   const handleCloseEcho = () => {
     setAppState('scanner')
   }
@@ -144,22 +161,21 @@ export default function App() {
     const items = await ghostMode.getActive()
     setGhostModeItems(items)
     setAppState('ghostmode')
-  }ghostmode' && userProfile) {
-    return (
-      <View style={styles.container}>
-        <GhostModeScreen
-          items={ghostModeItems}
-          onClose={handleCloseGhostMode}
-          onActivate={handleActivateGhostMode}
-        />
-        <StatusBar style="dark" />
-      </View>
-    )
   }
 
-  if (appState === '
-
   const handleCloseGhostMode = () => {
+    setAppState('scanner')
+  }
+
+  const handleOpenPatternLock = () => {
+    setAppState('patternlock')
+  }
+
+  const handlePatternUnlockSuccess = () => {
+    setAppState('scanner')
+  }
+
+  const handlePatternLockCancel = () => {
     setAppState('scanner')
   }
 
@@ -189,6 +205,31 @@ export default function App() {
     return (
       <View style={styles.container}>
         <EchoScreen packageType={userProfile.packageType} onClose={handleCloseEcho} />
+        <StatusBar style="dark" />
+      </View>
+    )
+  }
+
+  if (appState === 'ghostmode' && userProfile) {
+    return (
+      <View style={styles.container}>
+        <GhostModeScreen
+          items={ghostModeItems}
+          onClose={handleCloseGhostMode}
+          onActivate={handleActivateGhostMode}
+        />
+        <StatusBar style="dark" />
+      </View>
+    )
+  }
+
+  if (appState === 'patternlock') {
+    return (
+      <View style={styles.container}>
+        <PatternLockScreen
+          onUnlockSuccess={handlePatternUnlockSuccess}
+          onCancel={handlePatternLockCancel}
+        />
         <StatusBar style="dark" />
       </View>
     )
@@ -226,6 +267,7 @@ export default function App() {
       <ScannerScreen
         onScanComplete={handleScanComplete}
         onOpenEcho={handleOpenEcho}
+        onOpenPatternLock={handleOpenPatternLock}
         packageType={userProfile?.packageType}
       />
       <StatusBar style="light" />

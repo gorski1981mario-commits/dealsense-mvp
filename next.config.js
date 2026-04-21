@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Disabled - causes double rendering in dev mode
   
   // PWA Security Headers (2025 Best Practices)
   async headers() {

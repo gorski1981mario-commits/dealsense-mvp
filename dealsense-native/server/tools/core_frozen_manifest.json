@@ -1,0 +1,12 @@
+{
+  "title": "Core frozen modules manifest (SHA256)",
+  "createdAt": "2026-02-17",
+  "files": {
+    "server.js": "",
+    "billing/codes.js": "",
+    "billing/applyPlan.js": "",
+    "billing/plans.js": "",
+    "billing/packages.js": "",
+    "vision-runner.js": ""
+  }
+}

@@ -57,6 +57,9 @@ ui-*.html
 !README.md
 !DEPLOYMENT-GUIDE-COMPLETE.md
 
+# ✅ ECHO LiveOS - Allow all documentation
+!echo-liveos/
+
 # ⛔ SCRIPTS - Development only
 *.bat
 add-lock-to-configurators.js

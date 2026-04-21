@@ -42,5 +42,6 @@
     "_BACKUP_PRO_FINANCE_FEATURES",
     "app/ocr-demo",
     "app/api/ocr"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }

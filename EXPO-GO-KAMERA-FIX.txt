@@ -1,0 +1,62 @@
+📱 EXPO GO KAMERA FIX - 5 MINUT
+
+=== PROBLEM ===
+❌ Kamera w Expo Go pokazuje placeholder
+❌ Brak uprawnień kamery
+❌ EAN scanner nie działa
+
+=== ROZWIĄZANIE ===
+
+🔧 KROK 1: Sprawdź uprawnienia w app.json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow DealSense to access your camera to scan product barcodes."
+        }
+      ]
+    ]
+  }
+}
+
+🔧 KROK 2: Dodaj requestPermissions w kodzie
+import { Camera } from 'expo-camera';
+
+const requestCameraPermission = async () => {
+  const { status } = await Camera.requestCameraPermissionsAsync();
+  if (status === 'granted') {
+    console.log('Camera permission granted');
+  } else {
+    console.log('Camera permission denied');
+  }
+};
+
+🔧 KROK 3: Popraw component skanera
+- Zamiast placeholder użyj prawdziwego Camera
+- Dodaj BarcodeScanner z expo-camera
+- Dodaj error handling
+
+🔧 KROK 4: Test na telefonie
+1. Uruchom expo start
+2. Zeskanuj QR kod telefonem
+3. Sprawdź uprawnienia kamery
+4. Test skanowania EAN
+
+=== CZAS REALIZACJI ===
+⏱️ 5 minut na poprawki
+⏱️ 2 minuty na testowanie
+TOTAL: 7 minut
+
+=== JEŚLI NIE DZIAŁA ===
+🔄 Fallback: użyj zewnętrznego skanera
+- react-native-camera
+- react-native-qrcode-scanner
+- lub web-based skaner
+
+📞 POTRZEBUJESZ:
+✅ Telefon z Expo Go
+❌ Nic więcej - mogę zrobić to sam
+
+🚀 GOTOWY DO POPRAWEK W 5 MINUT!

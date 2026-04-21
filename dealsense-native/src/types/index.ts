@@ -8,6 +8,8 @@ export interface ScanResult {
   basePrice: number
   offers: Offer[]
   savings: number
+  commission: number // Prowizja od oszczędności
+  finalPrice: number // Cena z prowizją
   timestamp: number
 }
 
@@ -17,6 +19,7 @@ export interface Offer {
   url: string
   shipping?: number
   inStock: boolean
+  _source?: 'base' | 'api'
 }
 
 export interface UserProfile {

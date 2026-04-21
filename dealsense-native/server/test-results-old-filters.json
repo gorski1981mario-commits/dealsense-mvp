@@ -1,0 +1,245 @@
+{
+  "filters": {
+    "rating": 4,
+    "reviews": 30
+  },
+  "products": [
+    {
+      "query": "iPhone 15 Pro 256GB",
+      "basePrice": 1329
+    },
+    {
+      "query": "Samsung QLED TV 55 inch",
+      "basePrice": 899
+    },
+    {
+      "query": "PlayStation 5 console",
+      "basePrice": 549
+    },
+    {
+      "query": "Nespresso Vertuo Next",
+      "basePrice": 149
+    },
+    {
+      "query": "AirPods Pro 2nd generation",
+      "basePrice": 279
+    },
+    {
+      "query": "DeLonghi Magnifica S espresso machine",
+      "basePrice": 399
+    },
+    {
+      "query": "Philips Hue White and Color starter kit",
+      "basePrice": 199
+    },
+    {
+      "query": "GoPro Hero 12 Black",
+      "basePrice": 449
+    },
+    {
+      "query": "Bose QuietComfort 45 headphones",
+      "basePrice": 329
+    },
+    {
+      "query": "Nintendo Switch OLED",
+      "basePrice": 349
+    },
+    {
+      "query": "Samsung Galaxy Watch 6 Classic",
+      "basePrice": 429
+    },
+    {
+      "query": "Kindle Paperwhite Signature Edition",
+      "basePrice": 189
+    },
+    {
+      "query": "Xbox Series X console",
+      "basePrice": 499
+    },
+    {
+      "query": "Fitbit Charge 6",
+      "basePrice": 159
+    },
+    {
+      "query": "Apple iPad Air 11 inch 256GB",
+      "basePrice": 899
+    }
+  ],
+  "results": [
+    {
+      "product": "iPhone 15 Pro 256GB",
+      "basePrice": 1329,
+      "bestPrice": 470,
+      "savings": 859,
+      "savingsPercent": 64.6,
+      "totalOffers": 40,
+      "filteredOffers": 21,
+      "eliminated": 19,
+      "fromCache": false
+    },
+    {
+      "product": "Samsung QLED TV 55 inch",
+      "basePrice": 899,
+      "bestPrice": 399,
+      "savings": 500,
+      "savingsPercent": 55.6,
+      "totalOffers": 40,
+      "filteredOffers": 11,
+      "eliminated": 29,
+      "fromCache": false
+    },
+    {
+      "product": "PlayStation 5 console",
+      "basePrice": 549,
+      "bestPrice": 229,
+      "savings": 320,
+      "savingsPercent": 58.3,
+      "totalOffers": 40,
+      "filteredOffers": 7,
+      "eliminated": 33,
+      "fromCache": false
+    },
+    {
+      "product": "Nespresso Vertuo Next",
+      "basePrice": 149,
+      "bestPrice": 61.05,
+      "savings": 87.95,
+      "savingsPercent": 59,
+      "totalOffers": 40,
+      "filteredOffers": 10,
+      "eliminated": 30,
+      "fromCache": false
+    },
+    {
+      "product": "AirPods Pro 2nd generation",
+      "basePrice": 279,
+      "bestPrice": 85.99,
+      "savings": 193.01,
+      "savingsPercent": 69.2,
+      "totalOffers": 40,
+      "filteredOffers": 21,
+      "eliminated": 19,
+      "fromCache": false
+    },
+    {
+      "product": "DeLonghi Magnifica S espresso machine",
+      "basePrice": 399,
+      "bestPrice": 174.42,
+      "savings": 224.58,
+      "savingsPercent": 56.3,
+      "totalOffers": 40,
+      "filteredOffers": 25,
+      "eliminated": 15,
+      "fromCache": false
+    },
+    {
+      "product": "Philips Hue White and Color starter kit",
+      "basePrice": 199,
+      "bestPrice": 77.35,
+      "savings": 121.65,
+      "savingsPercent": 61.1,
+      "totalOffers": 40,
+      "filteredOffers": 7,
+      "eliminated": 33,
+      "fromCache": false
+    },
+    {
+      "product": "GoPro Hero 12 Black",
+      "basePrice": 449,
+      "bestPrice": null,
+      "savings": 0,
+      "savingsPercent": 0,
+      "totalOffers": 9,
+      "filteredOffers": 0,
+      "eliminated": 9,
+      "fromCache": false
+    },
+    {
+      "product": "Bose QuietComfort 45 headphones",
+      "basePrice": 329,
+      "bestPrice": null,
+      "savings": 0,
+      "savingsPercent": 0,
+      "totalOffers": 10,
+      "filteredOffers": 0,
+      "eliminated": 10,
+      "fromCache": false
+    },
+    {
+      "product": "Nintendo Switch OLED",
+      "basePrice": 349,
+      "bestPrice": 179.99,
+      "savings": 169.01,
+      "savingsPercent": 48.4,
+      "totalOffers": 40,
+      "filteredOffers": 4,
+      "eliminated": 36,
+      "fromCache": false
+    },
+    {
+      "product": "Samsung Galaxy Watch 6 Classic",
+      "basePrice": 429,
+      "bestPrice": 164.87,
+      "savings": 264.13,
+      "savingsPercent": 61.6,
+      "totalOffers": 40,
+      "filteredOffers": 3,
+      "eliminated": 37,
+      "fromCache": false
+    },
+    {
+      "product": "Kindle Paperwhite Signature Edition",
+      "basePrice": 189,
+      "bestPrice": 95.9,
+      "savings": 93.1,
+      "savingsPercent": 49.3,
+      "totalOffers": 17,
+      "filteredOffers": 5,
+      "eliminated": 12,
+      "fromCache": false
+    },
+    {
+      "product": "Xbox Series X console",
+      "basePrice": 499,
+      "bestPrice": 484.99,
+      "savings": 14.009999999999991,
+      "savingsPercent": 2.8,
+      "totalOffers": 20,
+      "filteredOffers": 2,
+      "eliminated": 18,
+      "fromCache": false
+    },
+    {
+      "product": "Fitbit Charge 6",
+      "basePrice": 159,
+      "bestPrice": null,
+      "savings": 0,
+      "savingsPercent": 0,
+      "totalOffers": 34,
+      "filteredOffers": 0,
+      "eliminated": 34,
+      "fromCache": false
+    },
+    {
+      "product": "Apple iPad Air 11 inch 256GB",
+      "basePrice": 899,
+      "bestPrice": null,
+      "savings": 0,
+      "savingsPercent": 0,
+      "totalOffers": 5,
+      "filteredOffers": 0,
+      "eliminated": 5,
+      "fromCache": false
+    }
+  ],
+  "summary": {
+    "totalProducts": 15,
+    "totalOffers": 455,
+    "totalFiltered": 116,
+    "totalEliminated": 339,
+    "filterPassRate": "25.5",
+    "totalSavings": "2846.44",
+    "avgSavings": "189.76",
+    "avgSavingsPercent": "39.1"
+  }
+}

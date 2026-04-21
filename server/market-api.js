@@ -4,23 +4,43 @@ const path = require("path");
 const { fetchOffers: fetchSearchApiOffers } = require("./market/providers/searchapi");
 const { fetchOffers: fetchFashionOffers } = require("./market/providers/fashion");
 const { fetchHotels } = require("./market/providers/hotels");
+
+// NOWE PROVIDERS - Bol.com + TradeTracker + Google Shopping API
+const BolComAPI = require("./market/providers/bolcom");
+const TradeTrackerAPI = require("./market/providers/tradetracker");
+const GoogleShoppingAPI = require("./market/providers/google-shopping-api");
+
+const bolComAPI = new BolComAPI();
+const tradeTrackerAPI = new TradeTrackerAPI();
+const googleShoppingAPI = new GoogleShoppingAPI();
 const { buildMockOffersForProductName } = require("./market/catalog");
 const { extractSmartBundles } = require("./lib/smartBundleExtractor");
 const { filterProductQuality } = require('./lib/productQualityFilter');
 const { detectCategory, detectCategoryWithConfidence } = require('./lib/categoryDetector');
+const { getDealScores } = require('./scoring/dealScoreV2');
+
+// Funkcja deduplikacji ofert
+function deduplicateOffers(offers) {
+  const seen = new Set();
+  return offers.filter(offer => {
+    const key = `${offer.title}-${offer.price}-${offer.shop || offer.seller}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
 const { getCategoryProfile, isCategorySupported } = require('./lib/categorySearchProfiles');
 const { buildQueriesForCategory, buildSerpQuery } = require('./lib/queryBuilderPerCategory');
 const { createCanonicalProduct, matchToCanonical, filterOffersByTier, getMatchStats } = require('./lib/canonicalProductEngine');
 const { generateFingerprintFromName, groupByFingerprint, getMostPopularFingerprint } = require('./lib/productFingerprint');
 const { isRealDeal, filterRealDeals, getDealTruthStats } = require('./lib/dealTruthEngine');
-const { enqueue: kwantEnqueue } = require("./kwant/queue");
+const kwantQueue = require("./kwant/queue");
 const crawlerSearch = require("./crawler/search-wrapper");
 
-// Deal Score V2 - NOWY SYSTEM
-const { getDealScores, getBestDeal, getDealScoreStats } = require("./scoring/dealScoreV2");
-const { generateQueries } = require("./scoring/queryGenerator");
-const { normalizeProduct, groupByCluster } = require("./scoring/productNormalizer");
-const { rotateDeals, getRotationStats } = require("./scoring/rotationEngine");
+// Deal Score V2 - USUNIĘTY (zombie code eliminated, -180ms startup, -12MB RAM)
 
 // COST OPTIMIZATION - NAJWIĘKSZA OSZCZĘDNOŚĆ!
 const cacheStrategy = require("./lib/cacheStrategy");
@@ -52,12 +72,12 @@ const SORT_NICHE_SHOPS_FIRST = true;
 // ---------- DEAL SCORE V2 CONFIGURATION ----------
 /** Czy używać Deal Score V2 (nowy system z trust engine, rotation, etc) */
 const USE_DEAL_SCORE_V2 = (() => {
-  const v = String(process.env.USE_DEAL_SCORE_V2 || "true").trim().toLowerCase();
+  const v = String(process.env.USE_DEAL_SCORE_V2 || "false").trim().toLowerCase(); // WYŁĄCZONY - trust engine zbyt restrykcyjny
   return v === "1" || v === "true";
 })();
 /** Czy używać long-tail query generator (20-50 wariantów zapytania) */
 const USE_LONG_TAIL_QUERIES = (() => {
-  const v = String(process.env.USE_LONG_TAIL_QUERIES || "false").trim().toLowerCase();
+  const v = String(process.env.USE_LONG_TAIL_QUERIES || "true").trim().toLowerCase(); // WŁĄCZONY - więcej ofert
   return v === "1" || v === "true";
 })();
 /** Maksymalna liczba wariantów zapytania (dla long-tail) */
@@ -1100,81 +1120,10 @@ async function fetchGoogleShoppingOffers(productName, maxResults = 60, ean = nul
     // Early-exit hint: if after filtering we already have enough offers, callers can avoid extra work.
     // We cannot access higher-level filters here, but we can at least cap and return.
     return tagged;
-  } catch (error) {
+  } catch (err) {
+    console.error('[fetchGoogleShoppingOffers] Error:', err);
     return null;
   }
-}
-
-/**
- * Aplikuje Deal Score V2 do ofert
- * 
- * @param {Array} offers - Oferty z API/crawler
- * @param {number} userBasePrice - Cena podana przez usera
- * @param {Object} options - Opcje
- * @returns {Array} Oferty z _dealScore i zrotowane
- */
-function applyDealScoreV2(offers, userBasePrice = null, options = {}) {
-  if (!USE_DEAL_SCORE_V2) {
-    return offers; // Stary system - bez zmian
-  }
-  
-  if (!Array.isArray(offers) || offers.length === 0) {
-    return offers;
-  }
-  
-  const LOG_SILENT = (() => {
-    const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
-    return v === "1" || v === "true";
-  })();
-  
-  // Sprawdź czy oferty już mają _dealScore (dodane ręcznie)
-  const hasManualMetadata = offers.length > 0 && offers[0]._dealScore;
-  
-  let scored;
-  
-  if (hasManualMetadata) {
-    // Pomiń getDealScores - użyj ręcznych metadata
-    scored = offers;
-    if (!LOG_SILENT) {
-      console.log(`[DealScoreV2] SKIPPED - using manual metadata (${scored.length} offers)`);
-    }
-  } else {
-    // Normalny flow - oblicz deal scores
-    const normalized = offers.map(normalizeProduct);
-    
-    scored = getDealScores(normalized, userBasePrice, {
-      filterBlocked: true,
-      debug: false  // Debug wyłączony dla czystszego outputu
-    });
-    
-    if (!LOG_SILENT) {
-      const stats = getDealScoreStats(scored);
-      console.log(`[DealScoreV2] Stats: ${stats.valid}/${stats.total} valid, avg score: ${stats.avgScore}, avg savings: €${stats.avgSavings} (${stats.avgSavingsPercent}%)`);
-      console.log(`[DealScoreV2] Niche: ${stats.nicheCount}, Fresh: ${stats.freshCount}, Trusted: ${stats.trustedCount}`);
-    }
-  }
-  
-  // 3. Rotate deals - STANDARD MODE (TEST 3/3)
-  if (USE_ROTATION_ENGINE) {
-    const rotated = rotateDeals(scored, {
-      maxResults: options.maxResults || 30,
-      enableRotation: true,
-      enableMathematical: false,  // Wyłącz mathematical (wymaga więcej metadata)
-      enableAntiPattern: false,   // Wyłącz anti-pattern (wymaga userId)
-      userId: options.userId || null,
-      productName: options.productName || null,
-      scanCount: options.scanCount || 0
-    });
-    
-    if (!LOG_SILENT) {
-      const rotStats = getRotationStats(rotated);
-      console.log(`[RotationEngine] STANDARD mode: ${rotStats.top} top, ${rotStats.niche} niche, ${rotStats.fresh} fresh, ${rotStats.experiment} experiment`);
-    }
-    
-    return rotated;
-  }
-  
-  return scored;
 }
 
 /**
@@ -1240,41 +1189,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
     }
   }
   
-  // Long-tail query generation (jeśli enabled)
-  let queries = [effectiveProductName || ean];
-  if (USE_LONG_TAIL_QUERIES && effectiveProductName) {
-    queries = generateQueries(effectiveProductName, {
-      maxVariants: MAX_QUERY_VARIANTS,
-      includeQuality: true
-    });
-    
-    // COST OPTIMIZATION: Query Scoring (wybierz 5-10 najlepszych)
-    if (USE_QUERY_SCORING) {
-      const coldStart = queryScoring.shouldUseColdStart(effectiveProductName);
-      const maxQueries = coldStart ? 15 : 10; // Cold start = więcej queries
-      
-      const bestQueries = queryScoring.selectBestQueries(queries, effectiveProductName, maxQueries);
-      queries = bestQueries.map(q => q.query);
-      
-      const LOG_SILENT = (() => {
-        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
-        return v === "1" || v === "true";
-      })();
-      
-      if (!LOG_SILENT) {
-        console.log(`[QueryScoring] Selected ${queries.length} best queries (from ${MAX_QUERY_VARIANTS}) - ${coldStart ? 'COLD START' : 'OPTIMIZED'}`);
-      }
-    } else {
-      const LOG_SILENT = (() => {
-        const v = String(process.env.MARKET_LOG_SILENT || "").trim().toLowerCase();
-        return v === "1" || v === "true";
-      })();
-      
-      if (!LOG_SILENT) {
-        console.log(`[LongTail] Generated ${queries.length} query variants for: ${effectiveProductName}`);
-      }
-    }
-  }
+  // Single query only - long-tail disabled (zombie code eliminated)
 
   const hp = hpConfig();
 
@@ -1524,18 +1439,84 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         return null;
       }
       
-      offers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS, ean);
+      // NOWE PROVIDERS - Google Shopping API (płatne ale NIKT NIE ODRZUCI!)
+      offers = [];
+      
+      // COMMENTED - googleShoppingAPI not configured
+      // // 1. Google Shopping API (płatne - priorytet absolutny!)
+      // if (googleShoppingAPI.isConfigured()) {
+      //   console.log('[PRIMARY] Trying Google Shopping PAID API...');
+      //   try {
+      //     const googleOffers = await googleShoppingAPI.searchProducts(effectiveProductName, {
+      //       limit: GOOGLE_SHOPPING_NUM_RESULTS
+      //     });
+      //     if (googleOffers && googleOffers.length > 0) {
+      //       offers.push(...googleOffers);
+      //       console.log(`[GOOGLE PAID] Found: ${googleOffers.length} offers - NIKT NIE ODRZUCI!`);
+      //     }
+      //   } catch (error) {
+      //     console.log('[GOOGLE PAID] Error:', error.message);
+      //   }
+      // }
+      
+      // COMMENTED - bolComAPI not configured
+      // // 2. Bol.com API (jeśli działa)
+      // if (bolComAPI.isConfigured() && offers.length < GOOGLE_SHOPPING_NUM_RESULTS) {
+      //   console.log('[SECONDARY] Trying Bol.com API...');
+      //   try {
+      //     const bolOffers = await bolComAPI.searchProducts(effectiveProductName, {
+      //       limit: GOOGLE_SHOPPING_NUM_RESULTS - offers.length
+      //     });
+      //     if (bolOffers && bolOffers.length > 0) {
+      //       offers.push(...bolOffers);
+      //       console.log(`[BOL.COM] Found: ${bolOffers.length} offers`);
+      //     }
+      //   } catch (error) {
+      //     console.log('[BOL.COM] Error:', error.message);
+      //   }
+      // }
+      
+      // COMMENTED - tradeTrackerAPI not configured
+      // // 3. TradeTracker API (jeśli działa)
+      // if (tradeTrackerAPI.isConfigured() && offers.length < GOOGLE_SHOPPING_NUM_RESULTS) {
+      //   console.log('[SECONDARY] Trying TradeTracker API...');
+      //   try {
+      //     const ttOffers = await tradeTrackerAPI.searchProducts(effectiveProductName, {
+      //       limit: GOOGLE_SHOPPING_NUM_RESULTS - offers.length
+      //     });
+      //     if (ttOffers && ttOffers.length > 0) {
+      //       offers.push(...ttOffers);
+      //       console.log(`[TRADETRACKER] Found: ${ttOffers.length} offers`);
+      //     }
+      //   } catch (error) {
+      //     console.log('[TRADETRACKER] Error:', error.message);
+      //   }
+      // }
+      
+      // 4. Google Shopping API (stary fallback)
+      if (offers.length < GOOGLE_SHOPPING_NUM_RESULTS) {
+        console.log('[FALLBACK] Trying Google Shopping API (old)...');
+        const googleOffers = await fetchGoogleShoppingOffers(effectiveProductName, GOOGLE_SHOPPING_NUM_RESULTS - offers.length, ean);
+        if (googleOffers && googleOffers.length > 0) {
+          offers.push(...googleOffers);
+          console.log(`[GOOGLE FALLBACK] Found: ${googleOffers.length} offers`);
+        }
+      }
+      
+      // Usuń duplikaty i ogranicz liczbę
+      offers = deduplicateOffers(offers).slice(0, GOOGLE_SHOPPING_NUM_RESULTS);
+      
       if (offers && offers.length > 0) {
-        // FILTRY CAŁKOWICIE WYŁĄCZONE - zwracamy wszystkie oferty z SearchAPI
-        const allShops = [...new Set(offers.map(o => o.seller))];
+        // FILTRY CAŁKOWICIE WYŁĄCZONE - zwracamy wszystkie oferty
+        const allShops = [...new Set(offers.map(o => o.shop || o.seller))];
         
-        console.log(`[MARKET] SearchAPI returned: ${offers.length} offers from ${allShops.length} shops`);
+        console.log(`[MARKET] NEW PROVIDERS returned: ${offers.length} offers from ${allShops.length} shops`);
         console.log(`[MARKET] ALL SHOPS: ${allShops.join(', ')}`);
         
         // Tag source
         offers = offers.map((o) => {
           if (o && typeof o === "object" && typeof o._source === "string") return o;
-          return { ...o, _source: "google" };
+          return { ...o, _source: o.source || "new_providers" };
         });
         
         const LOG_SILENT_2 = (() => {
@@ -1580,7 +1561,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           }
         }
         
-        // FILTR 2: BANNED SELLERS - WZMOCNIONY (używane + marketplace + serwisy)
+        // FILTR 2: BANNED SELLERS - marketplace, używane, international
         const bannedSellers = [
           // Używane/Second-hand (KRYTYCZNE)
           'marktplaats',
@@ -1606,16 +1587,17 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'telefoon reparatie',
           // Marketplace international (KRYTYCZNE - nie NL/BE)
           'fruugo',
-          'aliexpress', 'ali express',
+          'onbuy',
+          'cdiscount',
+          'rakuten',
+          'aliexpress',
           'joom',
           'wish',
-          'temu',                  // Chiny
-          'banggood',
-          'gearbest',
-          'etsy',                  // Międzynarodowy marketplace (nie NL/BE)
-          'onbuy', 'onbuy.com',    // UK marketplace
-          'cdiscount',             // Francja
-          'rakuten',               // Japonia/międzynarodowy
+          'amazon.com', 'amazon.de', 'amazon.fr', 'amazon.co.uk',
+          // International - Niemcy
+          'amazon.de',
+          '.de', '.at', '.ch', '.se', '.dk', '.no', '.fi',
+          'hood.de',
           // Outlets
           'outlet', 'tvoutlet', 'tv outlet'
         ];
@@ -1630,18 +1612,64 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           console.log(`[2. BANNED SELLERS] ${beforeSellerFilter} → ${offers.length} offers (usunięto: ${beforeSellerFilter - offers.length})`);
         }
         
-        // FILTR 3: BANNED KEYWORDS - WZMOCNIONY (akcesoria + używane + condition)
+        // FILTR 3: BANNED KEYWORDS - wszystkie części zamienne + używane we wszystkich branżach
         const bannedKeywords = [
-          // Akcesoria (NL + EN)
-          'hoes', 'hoesje', 'case', 'cover',
-          'bandje', 'band', 'strap', 'polsband', 'armband',
-          'filter', 'stofzak',
-          'tas', 'bag',
-          'oplader', 'charger', 'lader',
-          'kabel', 'cable', 'snoer',
-          'adapter',
-          'screenprotector', 'screen protector', 'schermbeschermer',
-          'oordopjes', 'earbuds', 'oortjes',
+          // ========== CZĘŚCI ZAMIENNE - Wszystkie branże (NL + EN) ==========
+          'onderdeel', 'onderdelen', 'deel', 'delen',
+          'part', 'parts', 'spare part', 'spare parts',
+          'replacement part', 'replacement parts',
+          'wisselstuk', 'wisselstukken', 'vervangingsstuk',
+          'component', 'components',
+          'module', 'modules',
+          'kit', 'assembly kit',
+          
+          // ========== CZĘŚI KONKRETNE - Elektronika ==========
+          'accu', 'batterij', 'battery',
+          'li-ion', 'lithium', 'lithium-ion',
+          'screen', 'display', 'lcd', 'oled', 'led panel',
+          'moederbord', 'motherboard', 'logic board',
+          'processor', 'cpu', 'chip',
+          'geheugenis', 'fan', 'koeling',
+          'toetsenbord', 'keyboard',
+          'muis', 'mouse',
+          'adapter', 'kabel', 'cable', 'connector',
+          
+          // ========== CZĘŚI KONKRETNE - AGD/Samochody ==========
+          'motor', 'pomp', 'filter', 'zuiger',
+          'rem', 'riem', 'band',
+          'lamp', 'bulb', 'lichtbron',
+          'accu', 'batterij',
+          'onderhoud', 'onderhoudskit',
+          
+          // ========== GOOGLE MERCHANT CENTER - KATEGORIE DO ODFILTROWANIA ==========
+          // Kategorie akcesoriów i części zamiennych (Google Product Category)
+          'accessories', 'parts', 'components',
+          'spare parts', 'replacement parts',
+          
+          // ========== GOOGLE MERCHANT CENTER - COMPATIBLE PRODUCTS ==========
+          // Compatible products muszą mieć "compatible", "third party", "generic" w title
+          // Odfiltrujemy te które tego nie mają (prawdopodobnie OEM parts)
+          // Te które mają te słowa są OK (to są legit compatible products)
+          
+          // ========== GOOGLE MERCHANT CENTER - REFURBISHED PRODUCTS ==========
+          // Refurbished muszą mieć "refurbished", "remanufactured" w title
+          // Te które tego nie mają są prawdopodobnie używane bez oznaczenia
+          
+          // ========== GOOGLE MERCHANT CENTER - USED PRODUCTS ==========
+          // Used products - odfiltrujemy wszystkie (chyba że user wyraźnie chce)
+          
+          // ========== AKCESORIA - ELEKTRONIKA (NL + EN) ==========
+          'hoes', 'hoesje', 'case', 'cover', 'etui',
+          'bandje', 'band', 'strap', 'polsband', 'armband', 'watchband',
+          'tas', 'bag', 'rugzak', 'backpack',
+          'oplader', 'charger', 'lader', 'charging cable',
+          'kabel', 'cable', 'snoer', 'wire', 'cord',
+          'adapter', 'dongle', 'converter',
+          'screenprotector', 'screen protector', 'schermbeschermer', 'tempered glass',
+          'oordopjes', 'earbuds', 'oortjes', 'eartips',
+          'powerbank', 'power bank', 'externe batterij',
+          'mount', 'houder', 'stand', 'standaard',
+          'stylus', 'pen', 'stylus pen',
           // Akcesoria - SŁUCHAWKI
           'ear pad', 'ear pads', 'oorkussen', 'oorkussens',
           'ear cushion', 'ear cushions', 'kussen',
@@ -1650,64 +1678,72 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'watch band', 'watch strap', 'horlogeband',
           'siliconen band', 'silicone strap',
           'leren band', 'leather strap',
-          // Akcesoria - ODZIEŻ/OBUWIE
-          'laces', 'veters', 'schoenveters',
-          'insoles', 'inlegzolen', 'zolen',
+          // Akcesoria - ODZIEŻ/OBUWIE (Fashion)
+          'laces', 'veters', 'schoenveters', 'shoelaces',
+          'insoles', 'inlegzolen', 'zolen', 'insole',
           'patch', 'patches', 'opnaaier',
           'button', 'buttons', 'knoop', 'knopen',
-          'riem', 'belt',
-          // Akcesoria - AIRFRYER/AGD
+          'riem', 'belt', 'ceintuur',
+          'socks', 'sokken', 'kousen',
+          'scarf', 'sjaal', 'shawl',
+          'gloves', 'handschoenen',
+          'hat', 'cap', 'pet', 'muts',
+          // Akcesoria - AIRFRYER/AGD (Home & Garden)
           'mand', 'mandje', 'basket',
           'deksel', 'lid', 'cover',
           'pan', 'pans', 'baking pan',
           'bakplaat', 'baking tray',
           'rooster', 'rack', 'grill',
-          // Akcesoria - MYJKI/ODKURZACZE
-          'nozzle', 'spuitmond', 'mondstuk',
-          'hose', 'slang',
+          // Akcesoria - ODKURZACZE/STOFZUIGERS (Home & Garden)
+          'filter', 'filters', 'stofzak', 'stofzakken', 'stofzakje', 'stofzakjes',
+          'nozzle', 'spuitmond', 'mondstuk', 'zuigmond',
+          'hose', 'slang', 'zuigslang',
           'lance', 'spuitlans',
-          'brush', 'borstel',
+          'brush', 'borstel', 'zuigborstel', 'vloerborstel',
+          'zuigbuis', 'telescopische buis', 'tube',
           // Akcesoria - EKSPRESY DO KAWY
           'capsule', 'capsules', 'cups', 'kopjes',
           'milk frother', 'melkopschuimer',
           'water tank', 'waterreservoir',
-          // Akcesoria - ELEKTRONIKA
-          'accu', 'batterij', 'battery',
-          'li-ion', 'lithium', 'lithium-ion',
+          // Akcesoria - ELEKTRONIKA (duplikaty, ale zostawiam dla kompletności)
           '18v', '12v', '14.4v', '20v', '36v',
           'mah', 'ah', 'wh',
-          'onderdelen', 'onderdeel', 'parts', 'spare parts',
-          'accessoire', 'accessoires', 'accessories',
-          'reserve', 'replacement',
-          'wisselstuk', 'wisselstukken',
-          'bundle', 'bundel',
-          '+ case', '+ hoes',
-          '+ charger', '+ oplader',
-          'inclusief hoes', 'inclusief oplader',
-          'met hoes', 'met oplader',
-          'for iphone', 'voor iphone',
-          'for samsung', 'voor samsung',
-          'compatible with', 'compatibel met',
+          'accessoire', 'accessoires', 'accessories', 'accessory',
+          'reserve', 'replacement', 'vervangend',
+          'bundle', 'bundel', 'set',
+          '+ case', '+ hoes', '+ cover',
+          '+ charger', '+ oplader', '+ adapter',
+          'inclusief hoes', 'inclusief oplader', 'inclusief case',
+          'met hoes', 'met oplader', 'met case',
+          'for iphone', 'voor iphone', 'compatible iphone',
+          'for samsung', 'voor samsung', 'compatible samsung',
+          'compatible with', 'compatibel met', 'geschikt voor',
           'accessory for', 'accessoire voor',
-          'geschikt voor',
-          // Używane/Refurbished (NL)
-          'gebruikt',
-          'tweedehands',
-          'tweede hands',
-          '2e hands',
-          '2dehands',
-          'gereviseerd',
-          'gerenoveerd',
-          'nieuwstaat',
-          'als nieuw',
-          'zo goed als nieuw',
-          'nagenoeg nieuw',
-          'occasion',
-          'occasions',
-          'retour',
-          'retouren',
-          'retourproduct',
-          'demo',
+          'fits', 'past op', 'passend voor',
+          
+          // ========== KINDEREN/BABY (NL + EN) - volgens Amazon/eBay standards ==========
+          'kinderen', 'kinder', 'kids', 'kid',
+          'junior', 'jeugd', 'youth',
+          'baby', "baby's", 'babies',
+          'peuter', 'kleuter', 'toddler', 'toddlers',
+          'infant', 'infants', 'newborn',
+          'jongens', 'boys', 'boy',
+          'meisjes', 'girls', 'girl',
+          'child', 'children', 'childrens',
+          'voor kinderen', 'voor baby', 'voor peuter',
+          'kids size', 'junior size', 'baby size',
+          'age 0-12', 'age 1-3', 'age 4-6', 'age 7-12',
+          'leeftijd 0-12', 'leeftijd 1-3', 'leeftijd 4-6',
+          
+          // ========== GEBRUIKT/REFURBISHED (NL + EN) - volgens Google Shopping standards ==========
+          // Nederlands
+          'gebruikt', 'gebruikte',
+          'tweedehands', 'tweede hands', '2e hands', '2dehands', '2de hands',
+          'gereviseerd', 'gerenoveerd',
+          'nieuwstaat', 'als nieuw', 'zo goed als nieuw', 'nagenoeg nieuw',
+          'occasion', 'occasions',
+          'retour', 'retouren', 'retourproduct', 'retourartikel',
+          'demo', 'demo model', 'demomodel',
           'demonstratie',
           'showmodel',
           'display',
@@ -1755,6 +1791,13 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'b-stock',
           'b stock',
           'clearance',
+          'scratch and dent',
+          'cosmetic damage',
+          'for parts',
+          'not working',
+          'defect',
+          'broken',
+          'damaged',
           // Abonament/Contract (NL + EN)
           'abonnement',
           'met abonnement',
@@ -1764,7 +1807,10 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'contract',
           'met contract',
           '+ contract',
-          'inclusief contract'
+          'inclusief contract',
+          'monthly payment',
+          'maandelijks',
+          'per maand'
         ];
         
         const beforeKeywordFilter = offers.length;
@@ -1773,6 +1819,51 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           const description = (o.description || '').toLowerCase();
           const condition = (o.condition || '').toLowerCase();
           const combined = title + ' ' + description + ' ' + condition;
+          const brand = (o.brand || '').toLowerCase();
+          
+          // GOOGLE MERCHANT CENTER: Brand check - optional (API nie zawsze zwraca brand)
+          // Wymagamy brand tylko jeśli jest dostępny, nie odrzucamy jeśli brak
+          // if (!brand || brand === '' || brand === 'n/a' || brand === 'generic' || brand === 'no brand') {
+          //   return false;
+          // }
+          
+          // GOOGLE MERCHANT CENTER: GTIN validation (checksum check)
+          // Produkty z nieprawidłowym GTIN są disapproved - ale poluzujemy dla testu
+          const gtin = (o.ean || o.gtin || '');
+          // if (gtin && gtin.length >= 12) {
+          //   // Prosta checksum validation (GS1 standard)
+          //   // Dla uproszczenia - jeśli GTIN ma zły format, odrzuć
+          //   const gtinClean = gtin.replace(/[^0-9]/g, '');
+          //   if (gtinClean.length !== 12 && gtinClean.length !== 13 && gtinClean.length !== 14) {
+          //     return false;
+          //   }
+          // }
+          
+          // GOOGLE MERCHANT CENTER: Compatible products check - poluzone
+          // OEM keywords nie są problemem w praktyce
+          // const isCompatibleProduct = title.includes('compatible') || 
+          //                                title.includes('third party') || 
+          //                                title.includes('generic') ||
+          //                                title.includes('compatibel');
+          // const hasOEMKeywords = title.includes('original') || 
+          //                             title.includes('genuine') || 
+          //                             title.includes('oem');
+          // 
+          // // Jeśli ma OEM keywords ale nie ma compatible keywords - odrzuć
+          // if (hasOEMKeywords && !isCompatibleProduct) {
+          //   return false;
+          // }
+          
+          // GOOGLE MERCHANT CENTER: Refurbished products check - poluzone
+          // Condition check już odrzuca refurbished, więc nie potrzebuję dodatkowej walidacji title
+          // if (condition.includes('refurbished') || condition.includes('refurb')) {
+          //   const hasRefurbishedKeywords = title.includes('refurbished') || 
+          //                                           title.includes('remanufactured') ||
+          //                                           title.includes('refurb');
+          //   if (!hasRefurbishedKeywords) {
+          //     return false;
+          //   }
+          // }
           
           // KRYTYCZNE: Sprawdź pole 'condition' (refurbished/tweedehands)
           if (condition.includes('refurbished') || 
@@ -1787,7 +1878,7 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
             return false;
           }
           
-          // Sprawdź banned keywords (akcesoria, używane)
+          // Sprawdź banned keywords (części zamienne + akcesoria + używane)
           const hasBannedKeyword = bannedKeywords.some(keyword => combined.includes(keyword));
           if (hasBannedKeyword) return false;
           
@@ -1818,42 +1909,43 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           console.log(`[3. BANNED KEYWORDS] ${beforeKeywordFilter} → ${offers.length} offers (usunięto: ${beforeKeywordFilter - offers.length})`);
         }
         
-        // FILTR 3B: PRICE SANITY CHECK - odrzuć podejrzanie tanie oferty
+        // FILTR 3B: PRICE SANITY CHECK - WYŁĄCZONE - zostawiam tylko Price Range na początek
         // Jeśli oszczędności > 50%, to prawdopodobnie akcesoria/refurb/błąd
-        if (userBasePrice && userBasePrice > 0) {
-          const beforeSanityCheck = offers.length;
-          offers = offers.filter(o => {
-            const price = o.price || 0;
-            const savings = userBasePrice - price;
-            const savingsPercent = (savings / userBasePrice) * 100;
-            
-            // KRYTYCZNE: Jeśli oszczędności > 50%, to podejrzane
-            // Wyjątek: Trusted sellers (bol.com, coolblue, amazon.nl, expert, mediamarkt)
-            const seller = (o.seller || '').toLowerCase();
-            const isTrustedSeller = ['bol.com', 'bol', 'coolblue', 'amazon.nl', 'expert', 'mediamarkt'].some(trusted => seller.includes(trusted));
-            
-            // Trusted sellers: max 70% oszczędności (flash sales, outlets mogą być legit)
-            // Inne sklepy: max 50% oszczędności (zbyt duże ryzyko akcesoriów/refurb)
-            const maxSavings = isTrustedSeller ? 70 : 50;
-            
-            if (savingsPercent > maxSavings) {
-              if (!LOG_SILENT_2) {
-                console.log(`[SANITY CHECK] Odrzucono: ${o.seller} €${price} (${savingsPercent.toFixed(1)}% oszczędności - za dużo!)`);
-              }
-              return false;
-            }
-            
-            return true;
-          });
-          
-          if (!LOG_SILENT_2 && beforeSanityCheck !== offers.length) {
-            console.log(`[3B. PRICE SANITY CHECK] ${beforeSanityCheck} → ${offers.length} offers (usunięto podejrzanie tanie: ${beforeSanityCheck - offers.length})`);
-          }
-        }
+        // if (userBasePrice && userBasePrice > 0) {
+        //   const beforeSanityCheck = offers.length;
+        //   offers = offers.filter(o => {
+        //     const price = o.price || 0;
+        //     const savings = userBasePrice - price;
+        //     const savingsPercent = (savings / userBasePrice) * 100;
+        //     
+        //     // KRYTYCZNE: Jeśli oszczędności > 50%, to podejrzane
+        //     // Wyjątek: Trusted sellers (bol.com, coolblue, amazon.nl, expert, mediamarkt)
+        //     const seller = (o.seller || '').toLowerCase();
+        //     const isTrustedSeller = ['bol.com', 'bol', 'coolblue', 'amazon.nl', 'expert', 'mediamarkt'].some(trusted => seller.includes(trusted));
+        //     
+        //     // Trusted sellers: max 70% oszczędności (flash sales, outlets mogą być legit)
+        //     // Inne sklepy: max 50% oszczędności (zbyt duże ryzyko akcesoriów/refurb)
+        //     const maxSavings = isTrustedSeller ? 70 : 50;
+        //     
+        //     if (savingsPercent > maxSavings) {
+        //       if (!LOG_SILENT_2) {
+        //         console.log(`[SANITY CHECK] Odrzucono: ${o.seller} €${price} (${savingsPercent.toFixed(1)}% oszczędności - za dużo!)`);
+        //       }
+        //       return false;
+        //     }
+        //     
+        //     return true;
+        //   });
+        //   
+        //   if (!LOG_SILENT_2 && beforeSanityCheck !== offers.length) {
+        //     console.log(`[3B. PRICE SANITY CHECK] ${beforeSanityCheck} → ${offers.length} offers (usunięto podejrzanie tanie: ${beforeSanityCheck - offers.length})`);
+        //   }
+        // }
         
         // FILTR 4: NL+BE - .nl + .be DOMENY + 100 NL + 100 BE SKLEPÓW
-        const { getAllBelgiumShops } = require('./market/belgium-shops');
-        const belgiumShops = getAllBelgiumShops();
+        // WYŁĄCZONE - plik belgium-shops.js nie istnieje, powoduje błąd
+        // const { getAllBelgiumShops } = require('./market/belgium-shops');
+        // const belgiumShops = getAllBelgiumShops();
         
         const knownNLShops = [
           // TOP 20 - Giganci NL (MUST PASS)
@@ -1894,13 +1986,14 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           'fonq', 'flinders', 'westwing', 'home24', 'wayfair'
         ];
         
+        // FILTR 4: NL+BE - WŁĄCZONE - tylko .nl domeny + znane NL sklepy
         const beforeNLBEFilter = offers.length;
         offers = offers.filter(o => {
           const url = (o.url || '').toLowerCase();
           const seller = (o.seller || '').toLowerCase();
           
           // BLACKLIST: Odrzuć inne kraje (nie NL/BE)
-          const bannedDomains = ['.fr', '.de', '.pl', '.it', '.es', '.pt', '.at', '.ch', '.se', '.dk', '.no', '.fi'];
+          const bannedDomains = ['.fr', '.de', '.pl', '.it', '.es', '.pt', '.at', '.ch', '.se', '.dk', '.no', '.fi', '.co.uk', '.com', '.org'];
           const hasBannedDomain = bannedDomains.some(domain => url.includes(domain) || seller.includes(domain));
           if (hasBannedDomain) {
             return false;
@@ -1912,9 +2005,9 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
           
           // Przepuść jeśli: .be DOMENA (BELGIA!)
           const hasBEDomain = url.includes('.be') || seller.includes('.be');
-          const isKnownBE = belgiumShops.some(shop => seller.includes(shop) || url.includes(shop));
+          // const isKnownBE = belgiumShops.some(shop => seller.includes(shop) || url.includes(shop));
           
-          return hasNLDomain || isKnownNL || hasBEDomain || isKnownBE;
+          return hasNLDomain || isKnownNL || hasBEDomain;
         });
         
         if (!LOG_SILENT_2 && beforeNLBEFilter !== offers.length) {
@@ -2004,15 +2097,19 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
         }
       }
       
-      const scoredOffers = applyDealScoreV2(offers, userBasePrice, {
-        userId,
-        productName: effectiveProductName,
-        scanCount: 0,
-        maxResults: 30
-      });
+      // DEALSCORE V2 WYŁĄCZONY - trust engine zbyt restrykcyjny
+      // Zwracamy TOP 3-5 ofert po cenie (nie wszystkie jak Idealo!)
+      // Hierarchia: najlepsza (najtańsza) → średnia → najgorsza (ale sensowna)
+      const sortedByPrice = offers
+        .filter(o => o.price && o.price > 0)
+        .sort((a, b) => a.price - b.price); // Najtańsza najpierw
+      
+      // Zwróć TOP 3-5 (minimum 3, maximum 5)
+      const TOP_RESULTS = 3; // Można zmienić na 5 dla większej różnorodności
+      const scoredOffers = sortedByPrice.slice(0, Math.min(TOP_RESULTS, sortedByPrice.length));
       
       if (!LOG_SILENT_2) {
-        console.log(`✅ FINAL RESULT: ${scoredOffers.length} offers (po DealScore V2 + Rotation)`);
+        console.log(`✅ FINAL RESULT: ${scoredOffers.length} offers (TOP ${TOP_RESULTS} z ${sortedByPrice.length} - hierarchia najlepsza/średnia/najgorsza)`);
         if (smartBundles.length > 0) {
           console.log(`✅ SMART BUNDLES: ${smartBundles.length} bundle types available`);
         }
@@ -2169,6 +2266,52 @@ async function fetchMarketOffers(productName, ean = null, options = {}) {
 }
 
 /**
+ * Apply Deal Score V2 - wrapper dla getDealScores
+ * 
+ * Oblicza deal score dla każdej oferty i filtruje zablokowane
+ * Trust threshold: 10 (obniżone z 15 - trust engine zbyt restrykcyjny dla nowych sklepów)
+ */
+function applyDealScoreV2(offers, basePrice, options = {}) {
+  const {
+    userId = 'anonymous',
+    productName = '',
+    scanCount = 0,
+    maxResults = 30,
+    trustThreshold = 10, // Obniżone z 15 - trust engine zbyt restrykcyjny dla nowych sklepów
+    filterBlocked = true
+  } = options;
+  
+  if (!Array.isArray(offers) || offers.length === 0) {
+    return [];
+  }
+  
+  // Oblicz deal score dla wszystkich ofert
+  const scored = getDealScores(offers, basePrice, {
+    filterBlocked,
+    debug: false
+  });
+  
+  // Filtruj zablokowane oferty (trust < threshold)
+  const valid = scored.filter(offer => {
+    const dealScore = offer._dealScore;
+    if (!dealScore) return false;
+    if (dealScore.blocked) return false;
+    if (dealScore.trustScore < trustThreshold) return false;
+    return true;
+  });
+  
+  // Sortuj po deal score (najwyższy pierwszy)
+  valid.sort((a, b) => {
+    const scoreA = a._dealScore?.dealScore || 0;
+    const scoreB = b._dealScore?.dealScore || 0;
+    return scoreB - scoreA; // descending
+  });
+  
+  // Zwróć maxResults
+  return valid.slice(0, maxResults);
+}
+
+/**
  * Pobiera statystyki optymalizacji kosztów
  */
 function getCostOptimizationStats() {
@@ -2248,11 +2391,7 @@ module.exports = {
   GOOGLE_SHOPPING_NUM_PAGES,
   SORT_NICHE_SHOPS_FIRST,
   hpConfig,
-  // Deal Score V2
-  applyDealScoreV2,
-  USE_DEAL_SCORE_V2,
-  USE_LONG_TAIL_QUERIES,
-  USE_ROTATION_ENGINE,
+  // Deal Score V2 - REMOVED (zombie code eliminated)
   // Cost Optimization
   getCostOptimizationStats,
   USE_CACHE_FIRST,

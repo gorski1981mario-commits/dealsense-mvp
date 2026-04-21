@@ -1,0 +1,96 @@
+{
+  "category": "finance",
+  "description": "Financial services (Hypotheken, Leningen, Leasing, Creditcards)",
+  "subcategories": {
+    "hypotheken": {
+      "domains": [
+        {
+          "domain": "hypotheker.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 10
+        },
+        {
+          "domain": "dehypotheekshop.nl",
+          "priority": 1,
+          "hasParser": false,
+          "rateLimit": 10
+        },
+        {
+          "domain": "ing.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 10
+        },
+        {
+          "domain": "rabobank.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 10
+        }
+      ]
+    },
+    "leningen": {
+      "domains": [
+        {
+          "domain": "geldshop.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 10
+        },
+        {
+          "domain": "moneyou.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 10
+        },
+        {
+          "domain": "nn.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 10
+        }
+      ]
+    },
+    "leasing": {
+      "domains": [
+        {
+          "domain": "directlease.nl",
+          "priority": 1,
+          "hasParser": true,
+          "rateLimit": 15
+        },
+        {
+          "domain": "leaseplan.com",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 15
+        },
+        {
+          "domain": "alphabet.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 15
+        }
+      ]
+    },
+    "creditcards": {
+      "domains": [
+        {
+          "domain": "ics.nl",
+          "priority": 1,
+          "hasParser": false,
+          "rateLimit": 10
+        },
+        {
+          "domain": "americanexpress.nl",
+          "priority": 2,
+          "hasParser": false,
+          "rateLimit": 10
+        }
+      ]
+    }
+  },
+  "totalDomains": 13,
+  "coverage": "Complete for main providers"
+}

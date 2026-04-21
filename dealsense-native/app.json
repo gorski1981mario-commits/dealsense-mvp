@@ -12,7 +12,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "DealSense heeft camera toegang nodig om barcodes te scannen",
+        "NSPhotoLibraryUsageDescription": "DealSense heeft toegang nodig tot foto's om producten te scannen"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +25,14 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "CAMERA",
+        "CAMERA_ROLL",
+        "CAMERA",
+        "CAMERA_ROLL"
+      ],
+      "package": "com.anonymous.dealsensenative"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dealsense Test Report (Shopping API)</title>
+    <style>
+      :root { --bg:#ffffff; --text:#111827; --muted:#6b7280; --grid:#d1d5db; --head:#f3f4f6; }
+      * { box-sizing: border-box; }
+      html, body { height: auto; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 6px; }
+      .meta { color: var(--muted); font-size: 11px; margin-bottom: 8px; }
+      table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+      thead th { background: var(--head); font-size: 10px; font-weight: 600; color: var(--text); padding: 4px 5px; border: 1px solid var(--grid); text-align: left; }
+      tbody td { font-size: 10px; padding: 2px 5px; border: 1px solid var(--grid); vertical-align: middle; }
+      th { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+      td.base { padding-left: 4px; padding-right: 4px; }
+      td.good { background: rgba(34,197,94,.12); color: #166534; }
+      td.warn { background: rgba(245,158,11,.14); color: #92400e; }
+      td.bad { background: rgba(239,68,68,.12); color: #991b1b; }
+      td.ret { background: rgba(239,68,68,.08); color: #991b1b; font-weight: 600; }
+      th.resizable { position: relative; }
+      th.resizable .resizer { position: absolute; top: 0; right: 0; width: 10px; height: 100%; cursor: col-resize; user-select: none; z-index: 5; touch-action: none; pointer-events: auto; }
+      th.resizable .resizer::after { content: ""; position: absolute; top: 15%; bottom: 15%; right: 2px; width: 2px; background: rgba(107,114,128,.55); border-radius: 1px; }
+      th.resizable .resizer:hover { background: rgba(107,114,128,.12); }
+      .spacer { height: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="meta">Dealsense Test Report (Shopping API) · view=simple · set=bench10</div>
+
+      <table id="metricsTable">
+        <thead>
+          <tr>
+            <th style="width: 70%">metric</th>
+            <th class="num" style="width: 30%">value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>products_total</td><td class="num">10</td></tr><tr><td>products_with_price1</td><td class="num">10</td></tr><tr><td>server_returns_total</td><td class="num">30</td></tr><tr><td>coverage</td><td class="num">1</td></tr><tr><td>reducedToZero</td><td class="num">0</td></tr><tr><td>avg_%_diff (mean of per product %)</td><td class="num">50.649</td></tr><tr><td>weighted_%_diff (sum(base-price1)/sum(base))</td><td class="num">47.849</td></tr>
+        </tbody>
+      </table>
+
+      <div class="spacer"></div>
+
+      <table id="productsTable">
+        <thead>
+          <tr>
+            <th class="resizable" style="width: 34%">product<div class="resizer" data-col="0"></div></th>
+            <th class="num resizable" style="width: 11%">base<div class="resizer" data-col="1"></div></th>
+            <th class="resizable" style="width: 15%">1 (best)<div class="resizer" data-col="2"></div></th>
+            <th class="resizable" style="width: 15%">2 (mid)<div class="resizer" data-col="3"></div></th>
+            <th class="resizable" style="width: 15%">3 (worst)<div class="resizer" data-col="4"></div></th>
+            <th class="num" style="width: 10%">%_diff</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+        <td>Logitech MX Master 3S</td>
+        <td class="num base">99 €</td>
+        <td class="good">OnBuy.com 35.55 €</td>
+        <td class="warn">bol.com 74.9 €</td>
+        <td class="bad">Webshop IT-ForYou 94 €</td>
+        <td class="num">64.09</td>
+      </tr><tr>
+        <td>Apple Watch Series 9</td>
+        <td class="num base">449 €</td>
+        <td class="good">Refurb Phone EU 279.95 €</td>
+        <td class="warn">Microless.com 355.46 €</td>
+        <td class="bad">Microforce 428.99 €</td>
+        <td class="num">37.65</td>
+      </tr><tr>
+        <td>Google Pixel 8</td>
+        <td class="num base">699 €</td>
+        <td class="good">bol.com 149.8 €</td>
+        <td class="warn">Belsimpel 198 €</td>
+        <td class="bad">T&amp;W Online 499 €</td>
+        <td class="num">78.57</td>
+      </tr><tr>
+        <td>Nintendo Switch OLED</td>
+        <td class="num base">349 €</td>
+        <td class="good">Gameshopx.nl 219.99 €</td>
+        <td class="warn">Reway 269.95 €</td>
+        <td class="bad">iServices Nederlands 299 €</td>
+        <td class="num">36.97</td>
+      </tr><tr>
+        <td>PlayStation 5 Slim</td>
+        <td class="num base">549 €</td>
+        <td class="good">nl.nbb.com 409 €</td>
+        <td class="warn">Gameshop Twente 509 €</td>
+        <td class="bad">Videogiochi Per Passione 539.99 €</td>
+        <td class="num">25.5</td>
+      </tr><tr>
+        <td>Samsung Galaxy Tab S9</td>
+        <td class="num base">899 €</td>
+        <td class="good">Microless.com 597.59 €</td>
+        <td class="warn">tvoutlet.tv 611 €</td>
+        <td class="bad">Azerty 614.04 €</td>
+        <td class="num">33.53</td>
+      </tr><tr>
+        <td>Dyson V11</td>
+        <td class="num base">499 €</td>
+        <td class="good">Onderdelen winkel 109.95 €</td>
+        <td class="warn">Refurb Market 349.95 €</td>
+        <td class="bad">JM24 425 €</td>
+        <td class="num">77.97</td>
+      </tr><tr>
+        <td>Philips Airfryer XXL</td>
+        <td class="num base">249 €</td>
+        <td class="good">Lidl.nl 69 €</td>
+        <td class="warn">bol.com 98.99 €</td>
+        <td class="bad">Amazon.nl - Retail 219.95 €</td>
+        <td class="num">72.29</td>
+      </tr><tr>
+        <td>DeLonghi Magnifica S</td>
+        <td class="num base">349 €</td>
+        <td class="good">coffeeone.com.ua 213 €</td>
+        <td class="warn">bol.com 340.76 €</td>
+        <td class="bad">www.galaxus.nl 346.62 €</td>
+        <td class="num">38.97</td>
+      </tr><tr>
+        <td>MacBook Air M2 256GB</td>
+        <td class="num base">1099 €</td>
+        <td class="good">MacTastic 649 €</td>
+        <td class="warn">Elmer Enterprise B.V. 649 €</td>
+        <td class="bad">BestBuyPhone 719 €</td>
+        <td class="num">40.95</td>
+      </tr>
+        </tbody>
+      </table>
+
+      <script>
+        (function () {
+          var table = document.getElementById('productsTable');
+          if (!table) return;
+          var ths = table.querySelectorAll('thead th');
+          var active = null;
+
+          function setThWidthPx(th, px) {
+            if (!th) return;
+            var v = Math.max(60, px);
+            th.style.width = v + 'px';
+          }
+
+          function onPointerMove(e) {
+            if (!active) return;
+            var dx = e.clientX - active.startX;
+            setThWidthPx(active.th, active.startW + dx);
+          }
+
+          function onPointerUp(e) {
+            if (!active) return;
+            try {
+              if (active.handle && active.pointerId != null) {
+                active.handle.releasePointerCapture(active.pointerId);
+              }
+            } catch (_) {}
+            if (active.handle) {
+              active.handle.removeEventListener('pointermove', onPointerMove);
+              active.handle.removeEventListener('pointerup', onPointerUp);
+              active.handle.removeEventListener('pointercancel', onPointerUp);
+            }
+            active = null;
+          }
+
+          table.querySelectorAll('.resizer').forEach(function (h) {
+            h.addEventListener('pointerdown', function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              var col = Number(h.getAttribute('data-col'));
+              var th = ths[col];
+              if (!th) return;
+              var rect = th.getBoundingClientRect();
+              active = { th: th, startX: e.clientX, startW: rect.width, handle: h, pointerId: e.pointerId };
+              try { h.setPointerCapture(e.pointerId); } catch (_) {}
+              h.addEventListener('pointermove', onPointerMove);
+              h.addEventListener('pointerup', onPointerUp);
+              h.addEventListener('pointercancel', onPointerUp);
+            });
+          });
+        })();
+      </script>
+    </div>
+  </body>
+</html>

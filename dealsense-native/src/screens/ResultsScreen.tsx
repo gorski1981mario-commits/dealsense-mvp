@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert, Share } from 'react-native'
 import { COLORS } from '../lib/constants'
 import type { ScanResult } from '../types'
 
@@ -12,6 +12,10 @@ interface ResultsScreenProps {
 }
 
 export default function ResultsScreen({ result, packageType, onNewScan, onUpgrade, onActivateGhostMode }: ResultsScreenProps) {
+  console.log('[ResultsScreen] Result:', result)
+  console.log('[ResultsScreen] PackageType:', packageType)
+  console.log('[ResultsScreen] Offers count:', result.offers?.length)
+
   const handleOpenShop = (url: string) => {
     Linking.openURL(url).catch(err => console.error('Failed to open URL:', err))
   }
@@ -20,7 +24,32 @@ export default function ResultsScreen({ result, packageType, onNewScan, onUpgrad
     return `€${price.toFixed(2)}`
   }
 
+  const handleShare = async () => {
+    const bestOffer = result.offers[0]
+    const savingsText = result.savings > 0 
+      ? `Besparing: €${result.savings.toFixed(2)} (${((result.savings / result.basePrice) * 100).toFixed(0)}%)`
+      : ''
+
+    const shareMessage = `💰 DealSense gevonden!\n\n${result.productName}\nEAN: ${result.ean}\n\nBeste deal: ${bestOffer.shop}\nPrijs: €${bestOffer.price.toFixed(2)}\n\n${savingsText}\n\nScan nu zelf en bespaar geld!`
+
+    try {
+      await Share.share({
+        message: shareMessage,
+        url: bestOffer.url
+      })
+    } catch (error) {
+      console.error('Failed to share:', error)
+      Alert.alert('Fout', 'Kon niet delen')
+    }
+  }
+
   const bestOffer = result.offers[0]
+  // Base offer is the first one with _source='base'
+  const baseOffer = result.offers.find(o => o._source === 'base') || result.offers[0] || { shop: 'Unknown', price: result.basePrice || 0 }
+  const comparisonOffers = result.offers ? result.offers.filter(o => o._source !== 'base').slice(0, 3) : []
+
+  // Sprawdź czy to są pierwsze 3 skany dla FREE
+  const isFirstThreeScans = packageType === 'free' && result.savings > 0
 
   return (
     <ScrollView style={styles.container}>
@@ -29,60 +58,101 @@ export default function ResultsScreen({ result, packageType, onNewScan, onUpgrad
         <Text style={styles.ean}>EAN: {result.ean}</Text>
       </View>
 
+      {/* Base Offer - oddzielona na górze */}
+      <View style={styles.baseOfferCard}>
+        <Text style={styles.baseOfferLabel}>Basisprijs</Text>
+        <View style={styles.baseOfferContent}>
+          <View style={styles.baseOfferInfo}>
+            <Text style={styles.baseOfferPrice}>{formatPrice(result.basePrice)}</Text>
+            <Text style={styles.baseOfferShop}>{baseOffer.shop}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Prowizja i końcowa cena */}
       {result.savings > 0 && (
-        <View style={styles.savingsCard}>
-          <Text style={styles.savingsLabel}>💰 Besparing</Text>
-          <Text style={styles.savingsAmount}>{formatPrice(result.savings)}</Text>
-          <Text style={styles.savingsPercent}>
-            {((result.savings / result.basePrice) * 100).toFixed(0)}% goedkoper
-          </Text>
+        <View style={styles.commissionCard}>
+          <Text style={styles.commissionLabel}>💰 SAMENVATTING</Text>
+          <View style={styles.commissionContent}>
+            <Text style={styles.commissionRow}>
+              Besparing: {formatPrice(result.savings)}
+            </Text>
+            <Text style={styles.commissionRow}>
+              Commissie (10%): {formatPrice(result.commission)}
+            </Text>
+            <Text style={styles.commissionRow}>
+              Eindprijs: {formatPrice(result.finalPrice)}
+            </Text>
+          </View>
         </View>
       )}
 
-      <View style={styles.offersSection}>
-        <Text style={styles.sectionTitle}>
-          {result.offers.length} {result.offers.length === 1 ? 'aanbieding' : 'aanbiedingen'} gevonden
-        </Text>
+      {/* Comparison Offers - dynamicznie ile zwróci backend */}
+      {comparisonOffers.length > 0 && (
+        <View style={styles.offersSection}>
+          <Text style={styles.sectionTitle}>
+            {comparisonOffers.length} alternatiew{comparisonOffers.length === 1 ? 'e' : comparisonOffers.length > 1 ? 'e' : ''}
+          </Text>
 
-        {result.offers.map((offer, index) => (
-          <View key={index} style={styles.offerCard}>
-            <View style={styles.offerHeader}>
-              {index === 0 && (
-                <View style={styles.bestBadge}>
-                  <Text style={styles.bestBadgeText}>🥇 Beste deal</Text>
+          {comparisonOffers.map((offer, index) => {
+            return (
+              <View key={index} style={styles.offerCard}>
+                <View style={styles.offerHeader}>
+                  <View style={styles.rankBadge}>
+                    <Text style={styles.rankBadgeText}>{index + 1}</Text>
+                  </View>
                 </View>
-              )}
-            </View>
 
-            <View style={styles.offerContent}>
-              <View style={styles.offerInfo}>
-                <Text style={styles.offerPrice}>{formatPrice(offer.price)}</Text>
-                {offer.shipping && offer.shipping > 0 && (
-                  <Text style={styles.shippingText}>
-                    + {formatPrice(offer.shipping)} verzending
-                  </Text>
-                )}
-                {packageType === 'plus' && (
-                  <Text style={styles.shopName}>{offer.shop}</Text>
-                )}
+                <View style={styles.offerContent}>
+                  <View style={styles.offerInfo}>
+                    <Text style={styles.offerPrice}>{formatPrice(offer.price)}</Text>
+                    {isFirstThreeScans && packageType === 'free' && (
+                      <Text style={styles.shopName}>{offer.shop}</Text>
+                    )}
+                    {!isFirstThreeScans && packageType === 'free' && (
+                      <Text style={styles.shopName}>{offer.shop}</Text>
+                    )}
+                    {packageType === 'plus' && (
+                      <Text style={styles.shopName}>Winkel verborgen</Text>
+                    )}
+                    <Text style={styles.savingsText}>
+                      Besparing: {formatPrice(result.basePrice - offer.price)} ({((result.basePrice - offer.price) / result.basePrice * 100).toFixed(0)}%)
+                    </Text>
+                  </View>
+
+                  {packageType === 'plus' ? (
+                    <TouchableOpacity
+                      style={styles.payCommissionButton}
+                      onPress={() => {
+                        Alert.alert(
+                          'Betaal commissie',
+                          `Commissie: ${formatPrice(result.commission)}\n\nWil je betalen en de winkelnaam zien?`,
+                          [
+                            { text: 'Annuleren', style: 'cancel' },
+                            {
+                              text: 'Betalen',
+                              onPress: () => handleOpenShop(offer.url)
+                            }
+                          ]
+                        )
+                      }}
+                    >
+                      <Text style={styles.payCommissionButtonText}>Betaal commissie</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.shopButton}
+                      onPress={() => handleOpenShop(offer.url)}
+                    >
+                      <Text style={styles.shopButtonText}>Naar winkel →</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
-
-              {packageType === 'plus' ? (
-                <TouchableOpacity
-                  style={styles.shopButton}
-                  onPress={() => handleOpenShop(offer.url)}
-                >
-                  <Text style={styles.shopButtonText}>Naar winkel →</Text>
-                </TouchableOpacity>
-              ) : (
-                <View style={styles.lockedBadge}>
-                  <Text style={styles.lockedText}>🔒 PLUS</Text>
-                </View>
-              )}
-            </View>
-          </View>
-        ))}
-      </View>
+            )
+          })}
+        </View>
+      )}
 
       {packageType === 'free' && (
         <View style={styles.upgradeCard}>
@@ -98,7 +168,7 @@ export default function ResultsScreen({ result, packageType, onNewScan, onUpgrad
 
       {packageType === 'plus' && result.savings < 10 && onActivateGhostMode && (
         <View style={styles.ghostModeCard}>
-          <Text style={styles.ghostModeTitle}>👻 Ghost Mode</Text>
+          <Text style={styles.ghostModeTitle}>Ghost Mode</Text>
           <Text style={styles.ghostModeText}>
             Niet tevreden met deze prijs? Activeer Ghost Mode en we monitoren
             automatisch de prijs voor 24 uur. Je krijgt een notificatie als we een
@@ -110,9 +180,14 @@ export default function ResultsScreen({ result, packageType, onNewScan, onUpgrad
         </View>
       )}
 
-      <TouchableOpacity style={styles.newScanButton} onPress={onNewScan}>
-        <Text style={styles.newScanButtonText}>📱 Nieuwe scan</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
+          <Text style={styles.shareButtonText}>Deel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.newScanButton} onPress={onNewScan}>
+          <Text style={styles.newScanButtonText}>Nieuwe scan</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.spacer} />
     </ScrollView>
@@ -139,6 +214,57 @@ const styles = StyleSheet.create({
   ean: {
     fontSize: 14,
     color: COLORS.textSecondary,
+  },
+  baseOfferCard: {
+    margin: 20,
+    padding: 24,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: COLORS.text,
+  },
+  baseOfferLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: COLORS.text,
+    marginBottom: 12,
+  },
+  baseOfferContent: {
+    alignItems: 'center',
+  },
+  baseOfferInfo: {
+    alignItems: 'center',
+  },
+  baseOfferPrice: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: COLORS.text,
+    marginBottom: 4,
+  },
+  baseOfferShop: {
+    fontSize: 16,
+    color: COLORS.textSecondary,
+  },
+  commissionCard: {
+    margin: 20,
+    padding: 24,
+    backgroundColor: '#fef9c3',
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#fde047',
+  },
+  commissionLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#ca8a04',
+    marginBottom: 12,
+  },
+  commissionContent: {
+    gap: 8,
+  },
+  commissionRow: {
+    fontSize: 16,
+    color: COLORS.text,
   },
   savingsCard: {
     margin: 20,
@@ -195,6 +321,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#92400e',
   },
+  rankBadge: {
+    backgroundColor: '#e5e7eb',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  rankBadgeText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#374151',
+  },
   offerContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -219,6 +357,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: COLORS.primary,
   },
+  savingsText: {
+    fontSize: 14,
+    color: COLORS.primary,
+    marginTop: 4,
+  },
   shopButton: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: 20,
@@ -226,6 +369,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   shopButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  payCommissionButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  payCommissionButtonText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#fff',
@@ -309,8 +463,26 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
+    flex: 1,
   },
   newScanButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    gap: 10,
+  },
+  shareButton: {
+    backgroundColor: COLORS.text,
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    flex: 1,
+  },
+  shareButtonText: {
     fontSize: 18,
     fontWeight: '600',
     color: '#fff',

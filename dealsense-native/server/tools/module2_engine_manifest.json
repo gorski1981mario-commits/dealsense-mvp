@@ -1,0 +1,18 @@
+{
+  "title": "Module2 engine baseline (SHA256)",
+  "createdAt": "2026-02-20T07:01:26.171Z",
+  "files": {
+    "packages/package_2_next/index.js": "aff4c1fa122affe5a9bdcc5e16e773d80103fcb15dd03f3ed4d08d77a92b1639",
+    "packages/package_2_next/travel.js": "81193e9a14b8674062fe265df1054ebe661cebc59fb353e19229624b833fb007",
+    "packages/package_2_next/vacations.js": "969b8fc5a1d588d61936d7f28dd803ccd60796018b9ff93abe62416ea42ace49",
+    "packages/package_2_next/insurance.js": "0921e884dcb9d25c96bdf4ce11c5059750e8d8c125c6beb0c2a587fa09e70f1b",
+    "packages/package_2/index.js": "056a1c7c494e146ffb24be323756fbf368f05925b31b85b28336305fb3a059a2",
+    "packages/package_2/travel.js": "c1745f823a02057f5e7a83edcd05aa7557fcaccddf73c670e832b7519fa6aab6",
+    "packages/package_2/vacations.js": "b61c78727caeb61503479760041f924da43d760d6d19eeb0924f8e6e67c31881",
+    "packages/package_2/insurance.js": "117fdc815fc64116bcabddac216a14d25d312fda5dfccc368d9088a9437e29c2",
+    "packages/package_2_travel/index.js": "fe459386e7a8501d64d03aec3552dc4a1954974d13ff373eaafe4a76c1b10794",
+    "packages/package_2_insurance_vacations/index.js": "d1ba79ba60f52e8474894fd8cc07fa9e22abd901f080210523e6efefb03ad438",
+    "tools/test-module2-maxpayload-1.js": "103092ac101f52ac9bff9d92fca905b1a66a01af1fb2f2619c4503d1e99d3d99",
+    "tools/test-module2-travel-maxpayload-1.js": "85a55c28bb50445591534e9f63ed1f8ad5f72bb95d0073e7fa756b1f7def9399"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "0622233667878": {
+    "name": "Philips Sonicare ProtectiveClean 6100 Electric Toothbrush",
+    "category": "personal_care",
+    "brand": "Philips",
+    "base_price": 89.99
+  },
+  "8801643873524": {
+    "name": "Samsung Galaxy S24 5G 256GB Smartphone",
+    "category": "electronics",
+    "brand": "Samsung",
+    "base_price": 899.00
+  },
+  "8806094825480": {
+    "name": "Samsung Galaxy S24 Ultra 5G 256GB Smartphone",
+    "category": "electronics",
+    "brand": "Samsung",
+    "base_price": 1299.00
+  },
+  "194252381609": {
+    "name": "Apple iPhone 15 Pro 256GB Smartphone",
+    "category": "electronics",
+    "brand": "Apple",
+    "base_price": 1199.00
+  },
+  "5017161525387": {
+    "name": "Dyson V12 Detect Slim Cordless Vacuum Cleaner",
+    "category": "home_appliances",
+    "brand": "Dyson",
+    "base_price": 549.00
+  },
+  "7537522362342": {
+    "name": "Garmin Forerunner 265 GPS Running Watch",
+    "category": "sports",
+    "brand": "Garmin",
+    "base_price": 449.00
+  }
+}

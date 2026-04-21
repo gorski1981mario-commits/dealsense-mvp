@@ -1,0 +1,1157 @@
+{
+  "provider": "searchapi",
+  "cacheBypass": true,
+  "summary": {
+    "products": 15,
+    "coveragePctDiff": 0.3333333333333333,
+    "avgPctDiff": 39.036944349874986,
+    "reducedToZero": 10,
+    "usedFallback15Count": 0,
+    "droppedTotals": {
+      "droppedInvalid": 0,
+      "droppedAboveOrEqualQuery": 128,
+      "droppedRelevanceRatio": 109,
+      "droppedTitleMatch": 6,
+      "droppedMinReviewsAbs": 56
+    }
+  },
+  "results": [
+    {
+      "product": "MacBook Air M2 256GB",
+      "base_price": 1099,
+      "durationMs": 9268,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Bose QuietComfort Ultra Headphones",
+      "base_price": 399,
+      "durationMs": 6380,
+      "marketOffers": 19,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 1,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 7,
+          "droppedRelevanceRatio": 5,
+          "droppedTitleMatch": 1,
+          "droppedMinReviewsAbs": 4
+        },
+        "shortfall": 1,
+        "inputOffers": 19,
+        "mappedOffers": 2,
+        "qualityOffers": 0,
+        "underQueryPrice": 2,
+        "usedFallback15": false,
+        "strictShortfall": 1,
+        "relaxedShortfall": 1,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 2,
+          "qualityOffers": 0,
+          "underQueryPrice": 2,
+          "shortfall": 1,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 7,
+            "droppedRelevanceRatio": 5,
+            "droppedTitleMatch": 1,
+            "droppedMinReviewsAbs": 4
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 2,
+          "qualityOffers": 0,
+          "underQueryPrice": 2,
+          "shortfall": 1,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 7,
+            "droppedRelevanceRatio": 4,
+            "droppedTitleMatch": 1,
+            "droppedMinReviewsAbs": 5
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Nintendo Switch OLED",
+      "base_price": 349,
+      "durationMs": 9322,
+      "marketOffers": 40,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 179.99,
+      "savings": 169.01,
+      "pctDiffBaseVsLowest": 48.426934097421196,
+      "usedFallback15": false,
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 17,
+          "droppedRelevanceRatio": 4,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 6
+        },
+        "shortfall": 0,
+        "inputOffers": 40,
+        "mappedOffers": 13,
+        "qualityOffers": 0,
+        "underQueryPrice": 13,
+        "usedFallback15": false,
+        "usedPass": "strict",
+        "strict": {
+          "mappedOffers": 13,
+          "qualityOffers": 0,
+          "underQueryPrice": 13,
+          "shortfall": 0,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 17,
+            "droppedRelevanceRatio": 4,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 6
+          }
+        }
+      },
+      "offers": [
+        {
+          "seller": "Gameshopx.nl",
+          "price": 179.99,
+          "reviewScore": 4.7,
+          "reviewCount": 26000,
+          "url": "https://www.google.com/search?q=Nintendo+Switch+OLED&oq=Nintendo+Switch+OLED&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:5650573422579939301,iid:15628123517778152724,rds:UENfMTYzOTYzNDAxMDQ1NTkyNTI5OTV8UFJPRF9QQ18xNjM5NjM0MDEwNDU1OTI1Mjk5NQ==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Refurbished Nintendo Switch Blauw Rood Neon Kleuren",
+          "_source": "google"
+        },
+        {
+          "seller": "eBay",
+          "price": 244.31,
+          "reviewScore": 4.8,
+          "reviewCount": 55000,
+          "url": "https://www.google.com/search?q=Nintendo+Switch+OLED&oq=Nintendo+Switch+OLED&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:11927739076847837420,iid:9784859369852095933,rds:UENfMTM2NDIzNzQyOTYwNDM0NDY5NjN8UFJPRF9QQ18xMzY0MjM3NDI5NjA0MzQ0Njk2Mw==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Nintendo Switch Oled 64gb White Console + ️ Screen Protector & Sd",
+          "_source": "google"
+        },
+        {
+          "seller": "AliExpress",
+          "price": 259.84,
+          "reviewScore": 4.8,
+          "reviewCount": 55000,
+          "url": "https://www.google.com/search?q=Nintendo+Switch+OLED&oq=Nintendo+Switch+OLED&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:11120031416555565678,iid:536718065728371429,rds:UENfMTM2NDIzNzQyOTYwNDM0NDY5NjN8UFJPRF9QQ18xMzY0MjM3NDI5NjA0MzQ0Njk2Mw==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Nintendo Switch OLED Model Console 64GB",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Makita boormachine 18V",
+      "base_price": 159,
+      "durationMs": 9399,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "LG OLED 55 inch",
+      "base_price": 1199,
+      "durationMs": 9583,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Lenovo ThinkPad X1 Carbon",
+      "base_price": 1799,
+      "durationMs": 8293,
+      "marketOffers": 40,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 5,
+          "droppedRelevanceRatio": 25,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 10
+        },
+        "shortfall": 3,
+        "inputOffers": 40,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 5,
+            "droppedRelevanceRatio": 25,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 10
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 5,
+            "droppedRelevanceRatio": 25,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 10
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "LEGO Star Wars Millennium Falcon",
+      "base_price": 159,
+      "durationMs": 8008,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "PlayStation 5 Slim",
+      "base_price": 549,
+      "durationMs": 5921,
+      "marketOffers": 40,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 409.99,
+      "savings": 139.01,
+      "pctDiffBaseVsLowest": 25.320582877959925,
+      "usedFallback15": false,
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 9,
+          "droppedRelevanceRatio": 18,
+          "droppedTitleMatch": 3,
+          "droppedMinReviewsAbs": 6
+        },
+        "shortfall": 0,
+        "inputOffers": 40,
+        "mappedOffers": 4,
+        "qualityOffers": 0,
+        "underQueryPrice": 4,
+        "usedFallback15": false,
+        "usedPass": "strict",
+        "strict": {
+          "mappedOffers": 4,
+          "qualityOffers": 0,
+          "underQueryPrice": 4,
+          "shortfall": 0,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 9,
+            "droppedRelevanceRatio": 18,
+            "droppedTitleMatch": 3,
+            "droppedMinReviewsAbs": 6
+          }
+        }
+      },
+      "offers": [
+        {
+          "seller": "rebuy.nl",
+          "price": 409.99,
+          "reviewScore": 4.7,
+          "reviewCount": 33000,
+          "url": "https://www.google.com/search?q=PlayStation+5+Slim&oq=PlayStation+5+Slim&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:13079817424240340345,gid:1616130161730219116,mid:576462537351813929,oid:13723001403298154955,iid:8254898501718202620,rds:UENfMTYxNjEzMDE2MTczMDIxOTExNnxQUk9EX1BDXzE2MTYxMzAxNjE3MzAyMTkxMTY=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Sony PlayStation 5 Slim Digital Edition",
+          "_source": "google"
+        },
+        {
+          "seller": "Marktplaats",
+          "price": 450,
+          "reviewScore": 4.7,
+          "reviewCount": 33000,
+          "url": "https://www.google.com/search?q=PlayStation+5+Slim&oq=PlayStation+5+Slim&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:13459681842700273483,iid:6325068539608494036,rds:UENfMTYxNjEzMDE2MTczMDIxOTExNnxQUk9EX1BDXzE2MTYxMzAxNjE3MzAyMTkxMTY=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Playstation 5 Digital Edition Slim + 2 Controllers - Nieuw",
+          "_source": "google"
+        },
+        {
+          "seller": "GooHoo.nl",
+          "price": 414,
+          "reviewScore": 4.7,
+          "reviewCount": 40000,
+          "url": "https://www.google.com/search?q=PlayStation+5+Slim&oq=PlayStation+5+Slim&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:9249614321279631010,gid:3650167314523607553,mid:576462833544872584,oid:11571318030249121215,iid:53844008881994284,rds:UENfMzY1MDE2NzMxNDUyMzYwNzU1M3xQUk9EX1BDXzM2NTAxNjczMTQ1MjM2MDc1NTM=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Sony PlayStation 5 Slim",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Logitech MX Master 3S",
+      "base_price": 99,
+      "durationMs": 7758,
+      "marketOffers": 22,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 74.9,
+      "savings": 24.1,
+      "pctDiffBaseVsLowest": 24.343434343434335,
+      "usedFallback15": false,
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 11,
+          "droppedRelevanceRatio": 5,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 1
+        },
+        "shortfall": 0,
+        "inputOffers": 22,
+        "mappedOffers": 5,
+        "qualityOffers": 0,
+        "underQueryPrice": 5,
+        "usedFallback15": false,
+        "usedPass": "strict",
+        "strict": {
+          "mappedOffers": 5,
+          "qualityOffers": 0,
+          "underQueryPrice": 5,
+          "shortfall": 0,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 11,
+            "droppedRelevanceRatio": 5,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 1
+          }
+        }
+      },
+      "offers": [
+        {
+          "seller": "bol.com",
+          "price": 74.9,
+          "reviewScore": 4.7,
+          "reviewCount": 16000,
+          "url": "https://www.google.com/search?q=Logitech+MX+Master+3S&oq=Logitech+MX+Master+3S&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:10123656297506881016,gid:7078668786207219211,mid:576462459886691213,oid:14879002061903009223,iid:3450161299407856515,rds:UENfNzA3ODY2ODc4NjIwNzIxOTIxMXxQUk9EX1BDXzcwNzg2Njg3ODYyMDcyMTkyMTE=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Logitech MX Master 3S muis",
+          "_source": "google"
+        },
+        {
+          "seller": "AliExpress",
+          "price": 77.69,
+          "reviewScore": 4.7,
+          "reviewCount": 16000,
+          "url": "https://www.google.com/search?q=Logitech+MX+Master+3S&oq=Logitech+MX+Master+3S&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:15453613505522509679,iid:4455737572157872274,rds:UENfNzA3ODY2ODc4NjIwNzIxOTIxMXxQUk9EX1BDXzcwNzg2Njg3ODYyMDcyMTkyMTE=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Logitech MX Master 3S / MX Master 3 draadloze muis 8000 DPI Auto-Shift scrollwiel Draadloze",
+          "_source": "google"
+        },
+        {
+          "seller": "Back Market",
+          "price": 79,
+          "reviewScore": 4.7,
+          "reviewCount": 16000,
+          "url": "https://www.google.com/search?q=Logitech+MX+Master+3S&oq=Logitech+MX+Master+3S&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:8810700600053088582,iid:12934680374750254617,rds:UENfNzA3ODY2ODc4NjIwNzIxOTIxMXxQUk9EX1BDXzcwNzg2Njg3ODYyMDcyMTkyMTE=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Logitech MX Master 3S Muis Draadloos",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Bosch accuboormachine 18V",
+      "base_price": 129,
+      "durationMs": 8009,
+      "marketOffers": 80,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 67.99,
+      "savings": 61.01,
+      "pctDiffBaseVsLowest": 47.29457364341086,
+      "usedFallback15": false,
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 61,
+          "droppedRelevanceRatio": 6,
+          "droppedTitleMatch": 2,
+          "droppedMinReviewsAbs": 2
+        },
+        "shortfall": 0,
+        "inputOffers": 80,
+        "mappedOffers": 9,
+        "qualityOffers": 0,
+        "underQueryPrice": 9,
+        "usedFallback15": false,
+        "usedPass": "strict",
+        "strict": {
+          "mappedOffers": 9,
+          "qualityOffers": 0,
+          "underQueryPrice": 9,
+          "shortfall": 0,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 61,
+            "droppedRelevanceRatio": 6,
+            "droppedTitleMatch": 2,
+            "droppedMinReviewsAbs": 2
+          }
+        }
+      },
+      "offers": [
+        {
+          "seller": "bol.com",
+          "price": 67.99,
+          "reviewScore": 4.7,
+          "reviewCount": 536,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:12577038643896945939,gid:298682727985743381,mid:576462803941684760,oid:5833834661728519161,iid:8731339266398364458,rds:UENfMjk4NjgyNzI3OTg1NzQzMzgxfFBST0RfUENfMjk4NjgyNzI3OTg1NzQzMzgx,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch UniversalImpact 18V-60 boormachine",
+          "_source": "google"
+        },
+        {
+          "seller": "Amazon.nl - Retail",
+          "price": 119.88,
+          "reviewScore": 4.8,
+          "reviewCount": 77,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:12646980815645681252,gid:103023026076346836,mid:576462447135153205,oid:5701447448928015206,iid:17445894474894182145,rds:UENfMTAzMDIzMDI2MDc2MzQ2ODM2fFBST0RfUENfMTAzMDIzMDI2MDc2MzQ2ODM2,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch GSR 18V-45 Accu-schroefboormachine 06019k",
+          "_source": "google"
+        },
+        {
+          "seller": "Coolblue",
+          "price": 98,
+          "reviewScore": 4.8,
+          "reviewCount": 63,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:9034884289229706613,gid:14330207128660323111,mid:576462852325312895,oid:11692034699322356598,iid:2169781048765413146,rds:UENfMTQzMzAyMDcxMjg2NjAzMjMxMTF8UFJPRF9QQ18xNDMzMDIwNzEyODY2MDMyMzExMQ==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch AdvancedImpact 18V-80 QuickSnap",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Adidas Ultraboost",
+      "base_price": 179,
+      "durationMs": 8008,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Herman Miller Aeron",
+      "base_price": 1299,
+      "durationMs": 4280,
+      "marketOffers": 60,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 1,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 14,
+          "droppedRelevanceRatio": 25,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 19
+        },
+        "shortfall": 1,
+        "inputOffers": 60,
+        "mappedOffers": 2,
+        "qualityOffers": 0,
+        "underQueryPrice": 2,
+        "usedFallback15": false,
+        "strictShortfall": 1,
+        "relaxedShortfall": 1,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 2,
+          "qualityOffers": 0,
+          "underQueryPrice": 2,
+          "shortfall": 1,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 14,
+            "droppedRelevanceRatio": 25,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 19
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 2,
+          "qualityOffers": 0,
+          "underQueryPrice": 2,
+          "shortfall": 1,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 14,
+            "droppedRelevanceRatio": 19,
+            "droppedTitleMatch": 1,
+            "droppedMinReviewsAbs": 24
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Samsung 55 inch QLED TV",
+      "base_price": 799,
+      "durationMs": 9353,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Google Pixel 8",
+      "base_price": 699,
+      "durationMs": 10133,
+      "marketOffers": 0,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "pctDiffBaseVsLowest": null,
+      "usedFallback15": false,
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough shops from market provider",
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 0,
+          "droppedRelevanceRatio": 0,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 0,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0,
+        "usedFallback15": false,
+        "strictShortfall": 3,
+        "relaxedShortfall": 3,
+        "usedPass": "none",
+        "strict": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        },
+        "fallback15": {
+          "mappedOffers": 0,
+          "qualityOffers": 0,
+          "underQueryPrice": 0,
+          "shortfall": 3,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 0,
+            "droppedRelevanceRatio": 0,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 0
+          }
+        }
+      },
+      "offers": []
+    },
+    {
+      "product": "Philips Airfryer XXL",
+      "base_price": 249,
+      "durationMs": 5773,
+      "marketOffers": 40,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 125,
+      "savings": 124,
+      "pctDiffBaseVsLowest": 49.79919678714859,
+      "usedFallback15": false,
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 4,
+          "droppedRelevanceRatio": 21,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 8
+        },
+        "shortfall": 0,
+        "inputOffers": 40,
+        "mappedOffers": 7,
+        "qualityOffers": 0,
+        "underQueryPrice": 7,
+        "usedFallback15": false,
+        "usedPass": "strict",
+        "strict": {
+          "mappedOffers": 7,
+          "qualityOffers": 0,
+          "underQueryPrice": 7,
+          "shortfall": 0,
+          "counters": {
+            "droppedInvalid": 0,
+            "droppedAboveOrEqualQuery": 4,
+            "droppedRelevanceRatio": 21,
+            "droppedTitleMatch": 0,
+            "droppedMinReviewsAbs": 8
+          }
+        }
+      },
+      "offers": [
+        {
+          "seller": "bol.com",
+          "price": 125,
+          "reviewScore": 4.5,
+          "reviewCount": 224,
+          "url": "https://www.google.com/search?q=Philips+Airfryer+XXL&oq=Philips+Airfryer+XXL&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:5635184738083935840,gid:8753417595939061181,oid:3351766045500481853,iid:14162633772110132122,rds:UENfODc1MzQxNzU5NTkzOTA2MTE4MXxQUk9EX1BDXzg3NTM0MTc1OTU5MzkwNjExODE=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Philips Airfryer XL HD9257/88",
+          "_source": "google"
+        },
+        {
+          "seller": "Coolblue",
+          "price": 156,
+          "reviewScore": 4.7,
+          "reviewCount": 720,
+          "url": "https://www.google.com/search?q=Philips+Airfryer+XXL&oq=Philips+Airfryer+XXL&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:14737895342887042105,gid:5563028318626455806,mid:576462491832013975,oid:2705202905821759038,iid:18241312051069352669,rds:UENfNTU2MzAyODMxODYyNjQ1NTgwNnxQUk9EX1BDXzU1NjMwMjgzMTg2MjY0NTU4MDY=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Philips NA342/00 3000 Series Airfryer",
+          "_source": "google"
+        },
+        {
+          "seller": "Microless.com",
+          "price": 227.36,
+          "reviewScore": 4.7,
+          "reviewCount": 398,
+          "url": "https://www.google.com/search?q=Philips+Airfryer+XXL&oq=Philips+Airfryer+XXL&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:10797258550105951344,gid:12848562508927464890,mid:576462810923640433,oid:2607164242676792126,iid:5570641756443081845,rds:UENfMTI4NDg1NjI1MDg5Mjc0NjQ4OTB8UFJPRF9QQ18xMjg0ODU2MjUwODkyNzQ2NDg5MA==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Philips - Premium XXL Airfryer HD9863/91 - Black",
+          "_source": "google"
+        }
+      ]
+    }
+  ]
+}

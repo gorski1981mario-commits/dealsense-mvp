@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dealsense-kwant-backend
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install
+    startCommand: node server-simple.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: USE_MOCK_FALLBACK
+        value: false
+      - key: MARKET_LOG_SILENT
+        value: 1
+      - key: MARKET_DISK_CACHE_ENABLED
+        value: 1
+      - key: GOOGLE_SHOPPING_API_KEY
+        value: TxZ91oHM53qcbiMvcWpD8vVQ
+    healthCheckPath: /health

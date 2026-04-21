@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expo QR Code - DealSense Native</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        #qrcode {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+        #qrcode img {
+            max-width: 100%;
+            height: auto;
+        }
+        .url {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            color: #333;
+            word-break: break-all;
+            font-size: 14px;
+        }
+        .instructions {
+            text-align: left;
+            color: #333;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge">📱 React Native App</div>
+        <h1>DealSense Native</h1>
+        <p class="subtitle">Zeskanuj QR code w Expo Go</p>
+        
+        <div id="qrcode"></div>
+        
+        <div class="url">
+            <strong>URL:</strong><br>
+            exp://10.184.218.182:8081
+        </div>
+        
+        <div class="instructions">
+            <strong>📱 Jak połączyć:</strong>
+            <ol>
+                <li>Otwórz <strong>Expo Go</strong> na telefonie</li>
+                <li>Kliknij <strong>"Scan QR code"</strong></li>
+                <li>Zeskanuj kod powyżej</li>
+            </ol>
+            
+            <strong>Alternatywnie:</strong>
+            <ol>
+                <li>W Expo Go kliknij <strong>"Enter URL manually"</strong></li>
+                <li>Wpisz: <code>exp://10.184.218.182:8081</code></li>
+                <li>Kliknij <strong>"Connect"</strong></li>
+            </ol>
+            
+            <p style="margin-top: 15px; color: #e74c3c;">
+                <strong>⚠️ Ważne:</strong> Telefon i komputer muszą być na tym samym WiFi!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR code using Google Charts API
+        const url = 'exp://10.184.218.182:8081';
+        const qrSize = 300;
+        const qrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=${qrSize}x${qrSize}&chl=${encodeURIComponent(url)}`;
+        
+        const img = document.createElement('img');
+        img.src = qrUrl;
+        img.alt = 'QR Code';
+        img.style.width = '300px';
+        img.style.height = '300px';
+        
+        document.getElementById('qrcode').appendChild(img);
+    </script>
+</body>
+</html>

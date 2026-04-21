@@ -19,7 +19,7 @@ export const PACKAGES = {
   },
 } as const
 
-export const API_BASE_URL = 'https://dealsense-aplikacja.onrender.com'
+export const API_BASE_URL = 'http://10.16.41.182:10000'
 
 export const COLORS = {
   primary: '#15803d',

@@ -89,18 +89,18 @@ async function fetchOffers({ query, ean, maxResults, pages, apiKey }) {
   
   if (!q) return null;
 
-  for (let page = 1; page <= numPages; page++) {
+  for (let page = 1; page <= 1; page++) { // TYLKO PAGE 1 - timeout fix
     if (allOffers.length >= want) break;
     
-    // ADAPTIVE PAGES: page 2 tylko jeśli page 1 zwróciło >= 40 wyników
-    if (page === 2) {
-      const page1Results = allOffers.length;
-      if (page1Results < 40) {
-        console.log(`[SearchAPI] ADAPTIVE: Skipping page 2 (page 1 had only ${page1Results} results, < 40)`);
-        break;
-      }
-      console.log(`[SearchAPI] ADAPTIVE: Fetching page 2 (page 1 had ${page1Results} results >= 40)`);
-    }
+    // ADAPTIVE PAGES: WYŁĄCZONE - tylko page 1 dla szybkości
+    // if (page === 2) {
+    //   const page1Results = allOffers.length;
+    //   if (page1Results < 40) {
+    //     console.log(`[SearchAPI] ADAPTIVE: Skipping page 2 (page 1 had only ${page1Results} results, < 40)`);
+    //     break;
+    //   }
+    //   console.log(`[SearchAPI] ADAPTIVE: Fetching page 2 (page 1 had ${page1Results} results >= 40)`);
+    // }
     
     let response;
     try {

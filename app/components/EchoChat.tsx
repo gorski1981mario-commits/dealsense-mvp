@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { MessageCircle, X, Mic, Send } from 'lucide-react'
+import { FEATURE_FLAGS } from '../_lib/feature-flags'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -95,14 +96,16 @@ export default function EchoChat() {
   }, [isOpen, messages])
 
   const handleSend = async () => {
-    if (!input.trim()) return
+    if (!input.trim() || isLoading) return // Prevent double send
 
-    if (userPackage === 'free') {
+    // Check paywall (skip if PAYWALL_ENABLED = false for testing)
+    if (FEATURE_FLAGS.PAYWALL_ENABLED && userPackage === 'free') {
       alert('⚠️ Agent Echo is alleen beschikbaar voor PLUS abonnees. Upgrade naar PLUS om Echo te gebruiken!')
       return
     }
 
-    if (messagesLeft <= 0) {
+    // Check daily limit (skip if PAYWALL_ENABLED = false for testing)
+    if (FEATURE_FLAGS.PAYWALL_ENABLED && messagesLeft <= 0) {
       alert(`⚠️ Je hebt je dagelijkse limiet bereikt (${dailyLimit}/${dailyLimit} berichten). Probeer morgen opnieuw!`)
       return
     }
@@ -121,17 +124,67 @@ export default function EchoChat() {
       localStorage.setItem('dealsense_echo_usage', JSON.stringify({ date: today, count: count + 1 }))
     }
 
-    // Process user input and generate intelligent response
-    const response = await processUserInput(input.toLowerCase(), context)
-    
-    setTimeout(() => {
-      setMessages(prev => [...prev, response])
-      setIsLoading(false)
-    }, 800)
+    // Call new ECHO API endpoint with conversation history
+    try {
+      const response = await fetch('/api/echo/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: input,
+          userId: 'user-' + Date.now(),
+          sessionId: 'session-' + Date.now(),
+          conversationHistory: messages, // Send full conversation history for context
+          context: {
+            timestamp: Date.now(),
+            source: 'dealsense_chat',
+            package: userPackage
+          }
+        })
+      });
+
+      const data = await response.json();
+      
+      console.log('🤖 ECHO API Response:', {
+        success: data.success,
+        scope: data.scope,
+        response: data.response,
+        suggestions: data.suggestions
+      });
+
+      if (data.success) {
+        const assistantMessage: Message = {
+          role: 'assistant',
+          content: data.response,
+          suggestions: data.suggestions || []
+        };
+        console.log('✅ Adding message to UI:', assistantMessage);
+        setMessages(prev => [...prev, assistantMessage]);
+      } else {
+        const errorMessage: Message = {
+          role: 'assistant',
+          content: data.fallbackResponse || 'Sorry, er is een fout opgetreden. Probeer het opnieuw.',
+          suggestions: []
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
+    } catch (error) {
+      console.error('ECHO API Error:', error);
+      const errorMessage: Message = {
+        role: 'assistant',
+        content: 'Sorry, er is een verbindingsfout. Probeer het opnieuw.',
+        suggestions: []
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  // Intelligent conversation processing
-  const processUserInput = async (userInput: string, ctx: ConversationContext): Promise<Message> => {
+  // OLD LOGIC - NOT USED ANYMORE (using /api/echo/chat instead)
+  // Keeping for reference only - can be deleted
+  const processUserInput_OLD = async (userInput: string, ctx: ConversationContext): Promise<Message> => {
     // SYSTEM PROMPT: Echo only helps with financial products and app usage
     const offTopicKeywords = /koken|recept|huiswerk|essay|schrijven|vertalen|gedicht|verhaal|game|sport|weer|nieuws/i
     
@@ -273,24 +326,68 @@ export default function EchoChat() {
   }
 
   const handleVoiceInput = () => {
-    if (!('webkitSpeechRecognition' in window)) {
-      alert('Voice input niet ondersteund in deze browser')
+    // Check browser support
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('⚠️ Spraakherkenning wordt niet ondersteund in deze browser.\n\nProbeer Chrome, Edge of Safari.')
       return
     }
 
-    const recognition = new (window as any).webkitSpeechRecognition()
-    recognition.lang = 'nl-NL'
-    recognition.continuous = false
+    try {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition
+      const recognition = new SpeechRecognition()
+      
+      recognition.lang = 'nl-NL'
+      recognition.continuous = false
+      recognition.interimResults = false
+      recognition.maxAlternatives = 1
 
-    recognition.onstart = () => setIsListening(true)
-    recognition.onend = () => setIsListening(false)
-    
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript
-      setInput(transcript)
+      recognition.onstart = () => {
+        setIsListening(true)
+        console.log('🎤 Spraakherkenning gestart')
+      }
+      
+      recognition.onend = () => {
+        setIsListening(false)
+        console.log('🎤 Spraakherkenning gestopt')
+      }
+      
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript
+        console.log('🎤 Herkend:', transcript)
+        setInput(transcript)
+        setIsListening(false)
+      }
+
+      recognition.onerror = (event: any) => {
+        console.error('🎤 Spraakherkenning fout:', event.error)
+        setIsListening(false)
+        
+        let errorMessage = '⚠️ Spraakherkenning fout: '
+        switch (event.error) {
+          case 'no-speech':
+            errorMessage += 'Geen spraak gedetecteerd. Probeer opnieuw.'
+            break
+          case 'audio-capture':
+            errorMessage += 'Geen microfoon gevonden. Controleer je microfoon.'
+            break
+          case 'not-allowed':
+            errorMessage += 'Microfoon toegang geweigerd. Sta microfoon toegang toe in je browser instellingen.'
+            break
+          case 'network':
+            errorMessage += 'Netwerkfout. Controleer je internetverbinding.'
+            break
+          default:
+            errorMessage += event.error
+        }
+        alert(errorMessage)
+      }
+
+      recognition.start()
+    } catch (error) {
+      console.error('🎤 Fout bij starten spraakherkenning:', error)
+      alert('⚠️ Kon spraakherkenning niet starten. Probeer opnieuw.')
+      setIsListening(false)
     }
-
-    recognition.start()
   }
 
   return (

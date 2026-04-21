@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dealsense Test Report (Module 2)</title>
+    <style>
+      :root { --bg:#ffffff; --text:#111827; --muted:#6b7280; --grid:#d1d5db; --head:#f3f4f6; }
+      * { box-sizing: border-box; }
+      html, body { height: auto; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 6px; }
+      .meta { color: var(--muted); font-size: 11px; margin-bottom: 8px; }
+      table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+      thead th { background: var(--head); font-size: 10px; font-weight: 600; color: var(--text); padding: 4px 5px; border: 1px solid var(--grid); text-align: left; }
+      tbody td { font-size: 10px; padding: 2px 5px; border: 1px solid var(--grid); vertical-align: middle; }
+      th { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+      td.good { background: rgba(34,197,94,.12); color: #166534; }
+      td.warn { background: rgba(245,158,11,.14); color: #92400e; }
+      td.bad { background: rgba(239,68,68,.12); color: #991b1b; }
+      th.resizable { position: relative; }
+      th.resizable .resizer { position: absolute; top: 0; right: 0; width: 10px; height: 100%; cursor: col-resize; user-select: none; z-index: 5; touch-action: none; pointer-events: auto; }
+      th.resizable .resizer::after { content: ""; position: absolute; top: 15%; bottom: 15%; right: 2px; width: 2px; background: rgba(107,114,128,.55); border-radius: 1px; }
+      th.resizable .resizer:hover { background: rgba(107,114,128,.12); }
+      .spacer { height: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="meta">Dealsense Test Report (Module 2) · view=simple · set=module2x10</div>
+
+      <table id="metricsTable">
+        <thead>
+          <tr>
+            <th style="width: 70%">metric</th>
+            <th class="num" style="width: 30%">value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>tests_total</td><td class="num">10</td></tr><tr><td>passed</td><td class="num">10</td></tr><tr><td>failed</td><td class="num"></td></tr><tr><td>duration_ms</td><td class="num">5</td></tr>
+        </tbody>
+      </table>
+
+      <div class="spacer"></div>
+
+      <table id="productsTable">
+        <thead>
+          <tr>
+            <th class="resizable" style="width: 30%">test<div class="resizer" data-col="0"></div></th>
+            <th class="resizable" style="width: 10%">status<div class="resizer" data-col="1"></div></th>
+            <th class="num resizable" style="width: 8%">http<div class="resizer" data-col="2"></div></th>
+            <th class="resizable" style="width: 30%">detail_1<div class="resizer" data-col="3"></div></th>
+            <th class="resizable" style="width: 10%">detail_2<div class="resizer" data-col="4"></div></th>
+            <th class="resizable" style="width: 4%">detail_3<div class="resizer" data-col="5"></div></th>
+            <th class="num" style="width: 8%">ms</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>insurance: missing base</td><td class="good">pass</td><td class="num">400</td><td>http=400 error=base_monthly_required</td><td></td><td></td><td class="num">2</td></tr><tr><td>insurance: missing dates</td><td class="good">pass</td><td class="num">400</td><td>http=400 error=start_date_required</td><td></td><td></td><td class="num"></td></tr><tr><td>insurance: invalid window</td><td class="good">pass</td><td class="num">400</td><td>http=400 error=end_date_must_be_after_start_date</td><td></td><td></td><td class="num"></td></tr><tr><td>insurance: valid</td><td class="good">pass</td><td class="num">200</td><td>http=200 quotes=3</td><td></td><td></td><td class="num">1</td></tr><tr><td>vacations: gated when vacations=false</td><td class="good">pass</td><td class="num">402</td><td>http=402 cap=vacations</td><td></td><td></td><td class="num"></td></tr><tr><td>vacations: missing destination/query</td><td class="good">pass</td><td class="num">400</td><td>http=400 error=depart_at_required</td><td></td><td></td><td class="num">1</td></tr><tr><td>vacations: valid</td><td class="good">pass</td><td class="num">200</td><td>http=200 offers=3</td><td></td><td></td><td class="num"></td></tr><tr><td>travel: gated when travel=false</td><td class="good">pass</td><td class="num">402</td><td>http=402 cap=travel</td><td></td><td></td><td class="num"></td></tr><tr><td>travel: missing destination/query</td><td class="good">pass</td><td class="num">400</td><td>http=400 error=destination_or_query_required</td><td></td><td></td><td class="num"></td></tr><tr><td>travel: valid</td><td class="good">pass</td><td class="num">200</td><td>http=200 quotes=3</td><td></td><td></td><td class="num">1</td></tr>
+        </tbody>
+      </table>
+
+      <script>
+        (function () {
+          function ensureResizers(tableId) {
+            var table = document.getElementById(tableId);
+            if (!table) return;
+            var ths = Array.prototype.slice.call(table.querySelectorAll('thead th'));
+            ths.forEach(function (th, idx) {
+              if (idx >= ths.length - 1) return;
+              if (th.querySelector('.resizer')) return;
+              th.classList.add('resizable');
+              var h = document.createElement('div');
+              h.className = 'resizer';
+              h.setAttribute('data-col', String(idx));
+              th.appendChild(h);
+            });
+          }
+
+          function initResize(tableId) {
+            var table = document.getElementById(tableId);
+            if (!table) return;
+            var ths = table.querySelectorAll('thead th');
+            var active = null;
+
+            function setThWidthPx(th, px) {
+              if (!th) return;
+              var v = Math.max(60, px);
+              th.style.width = v + 'px';
+            }
+
+            function onPointerMove(e) {
+              if (!active) return;
+              var dx = e.clientX - active.startX;
+              setThWidthPx(active.th, active.startW + dx);
+            }
+
+            function onPointerUp() {
+              if (!active) return;
+              try {
+                if (active.handle && active.pointerId != null) {
+                  active.handle.releasePointerCapture(active.pointerId);
+                }
+              } catch (_) {}
+              if (active.handle) {
+                active.handle.removeEventListener('pointermove', onPointerMove);
+                active.handle.removeEventListener('pointerup', onPointerUp);
+                active.handle.removeEventListener('pointercancel', onPointerUp);
+              }
+              active = null;
+            }
+
+            table.querySelectorAll('.resizer').forEach(function (h) {
+              h.addEventListener('pointerdown', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var col = Number(h.getAttribute('data-col'));
+                var th = ths[col];
+                if (!th) return;
+                var rect = th.getBoundingClientRect();
+                active = { th: th, startX: e.clientX, startW: rect.width, handle: h, pointerId: e.pointerId };
+                try { h.setPointerCapture(e.pointerId); } catch (_) {}
+                h.addEventListener('pointermove', onPointerMove);
+                h.addEventListener('pointerup', onPointerUp);
+                h.addEventListener('pointercancel', onPointerUp);
+              });
+            });
+          }
+
+          ensureResizers('metricsTable');
+          ensureResizers('productsTable');
+          initResize('metricsTable');
+          initResize('productsTable');
+        })();
+      </script>
+    </div>
+  </body>
+</html>

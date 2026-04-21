@@ -1,0 +1,11 @@
+{
+  "title": "Finance engine baseline (SHA256)",
+  "createdAt": "2026-02-20T07:09:10.162Z",
+  "files": {
+    "packages/package_3/index.js": "97d98bee02bed2a43be845fd7bf96cc69c125582abb9079a0bd16f23d1f34ffc",
+    "packages/package_3/loans.js": "3d3a88f31e595e0ae18e0d7721a20b48b69c4a4548a89e99d9027f45fd6f9777",
+    "packages/package_3/subscriptions.js": "15d2de5c47c06879df05b7d651f61d61ee1ff2e5788a3eed51367d801100a1e0",
+    "tools/test-finance-loans-v2-1.js": "e016ce54a561ee1302b26609954ed60cd0fc33431975749e7feadaa8db2dd65c",
+    "tools/test-finance-subscriptions-v2-1.js": "6a47dc91607a2ab44dfa1bfbb1840733b10d8af7a27d02d79d80c9f7578d8fb7"
+  }
+}

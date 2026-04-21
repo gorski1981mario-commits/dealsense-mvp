@@ -4,22 +4,29 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^3.0.2",
-    "expo": "55.0.10-canary-20260328-2049187",
-    "expo-camera": "^55.0.12-canary-20260328-2049187",
-    "expo-linear-gradient": "^55.0.10-canary-20260328-2049187",
-    "expo-status-bar": "55.0.5-canary-20260328-2049187",
-    "react": "19.2.0",
-    "react-native": "0.83.4",
-    "react-native-gesture-handler": "^2.30.1"
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "eas-cli": "^18.7.0",
+    "expo": "~54.0.0",
+    "expo-camera": "~17.0.10",
+    "expo-image-manipulator": "~14.0.8",
+    "expo-linear-gradient": "~15.0.8",
+    "expo-local-authentication": "~17.0.8",
+    "expo-sharing": "~14.0.8",
+    "expo-status-bar": "~3.0.9",
+    "getenv": "^2.0.0",
+    "qrcode": "^1.5.4",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
-    "@types/react": "~19.2.2",
+    "@types/react": "~19.1.10",
     "typescript": "~5.9.2"
   },
   "private": true

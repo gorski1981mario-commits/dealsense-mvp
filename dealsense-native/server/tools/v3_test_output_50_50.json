@@ -1,0 +1,336 @@
+{
+  "hasGoogleShoppingAPI": true,
+  "provider": "searchapi",
+  "results": [
+    {
+      "product": "Apple iPhone 13 128GB",
+      "base_price": 699,
+      "durationMs": 120,
+      "marketOffers": 40,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 350,
+      "savings": 349,
+      "dealScore": 9,
+      "dealConfidence": "hoog",
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 3,
+          "droppedRelevanceRatio": 23,
+          "droppedTitleMatch": 2,
+          "droppedMinReviewsAbs": 5
+        },
+        "shortfall": 0,
+        "inputOffers": 40,
+        "mappedOffers": 7,
+        "qualityOffers": 0,
+        "underQueryPrice": 7
+      },
+      "offers": [
+        {
+          "seller": "Back Market",
+          "price": 350,
+          "currency": "EUR",
+          "reviewScore": 4.5,
+          "reviewCount": 16000,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Apple+iPhone+13+128GB&oq=Apple+iPhone+13+128GB&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:526601273828557408,iid:1961689575016617011,rds:UENfODYyMzU0NDYxMjE5NjcxMDI0OXxQUk9EX1BDXzg2MjM1NDQ2MTIxOTY3MTAyNDk=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "iPhone 13 Pro 128GB - Zilver - Simlockvrij",
+          "_source": "google"
+        },
+        {
+          "seller": "ComputerWinkelNissewaard.nl",
+          "price": 389.99,
+          "currency": "EUR",
+          "reviewScore": 4.6,
+          "reviewCount": 92000,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Apple+iPhone+13+128GB&oq=Apple+iPhone+13+128GB&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:11027435401648731367,iid:15589619860065001421,rds:UENfODk3MTY1MDgwNDc4NTg1NzI2OHxQUk9EX1BDXzg5NzE2NTA4MDQ3ODU4NTcyNjg=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Nieuwstaat Apple iPhone 13 roze 128GB 6,1\" + 12 maanden garantie op=op",
+          "_source": "google"
+        },
+        {
+          "seller": "Coolblue",
+          "price": 549,
+          "currency": "EUR",
+          "reviewScore": 4.6,
+          "reviewCount": 92000,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Apple+iPhone+13+128GB&oq=Apple+iPhone+13+128GB&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:13536812278053012065,gid:8971650804785857268,mid:576462624134816700,oid:10622346814124447724,iid:8411088202120584916,rds:UENfODk3MTY1MDgwNDc4NTg1NzI2OHxQUk9EX1BDXzg5NzE2NTA4MDQ3ODU4NTcyNjg=,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Apple iPhone 13",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Sony WH-1000XM5",
+      "base_price": 299,
+      "durationMs": 26,
+      "marketOffers": 17,
+      "marketError": null,
+      "selectedOffers": 0,
+      "lowestSelectedPrice": null,
+      "savings": 0,
+      "dealScore": 3,
+      "dealConfidence": "laag",
+      "shortfall": 3,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 2,
+          "droppedRelevanceRatio": 10,
+          "droppedTitleMatch": 5,
+          "droppedMinReviewsAbs": 0
+        },
+        "shortfall": 3,
+        "inputOffers": 17,
+        "mappedOffers": 0,
+        "qualityOffers": 0,
+        "underQueryPrice": 0
+      },
+      "offers": []
+    },
+    {
+      "product": "Samsung QE55 4K TV",
+      "base_price": 799,
+      "durationMs": 39,
+      "marketOffers": 35,
+      "marketError": null,
+      "selectedOffers": 2,
+      "lowestSelectedPrice": 489,
+      "savings": 310,
+      "dealScore": 9,
+      "dealConfidence": "medium",
+      "shortfall": 1,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 11,
+          "droppedRelevanceRatio": 1,
+          "droppedTitleMatch": 17,
+          "droppedMinReviewsAbs": 3
+        },
+        "shortfall": 1,
+        "inputOffers": 35,
+        "mappedOffers": 3,
+        "qualityOffers": 0,
+        "underQueryPrice": 3
+      },
+      "offers": [
+        {
+          "seller": "Mr. Speazy",
+          "price": 489,
+          "currency": "EUR",
+          "reviewScore": 4.4,
+          "reviewCount": 127,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Samsung+QE55+4K+TV&oq=Samsung+QE55+4K+TV&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:15720921822669455134,gid:492558426198547183,oid:11079915249200477889,iid:660271162099062548,rds:UENfNDkyNTU4NDI2MTk4NTQ3MTgzfFBST0RfUENfNDkyNTU4NDI2MTk4NTQ3MTgz,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Samsung QE55Q67A 55 inch",
+          "_source": "google"
+        },
+        {
+          "seller": "EP.nl",
+          "price": 699,
+          "currency": "EUR",
+          "reviewScore": 4.6,
+          "reviewCount": 12000,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Samsung+QE55+4K+TV&oq=Samsung+QE55+4K+TV&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=oid:12888708453185835157,iid:953857399971260067,rds:UENfNjgwMDE2NjQ0MDg0MTIwODc1fFBST0RfUENfNjgwMDE2NjQ0MDg0MTIwODc1,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Samsung QLED 4K QE55Q7F2 TV (2025) | 55 inch | 50 Hz | Tizen Smart TV",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Bosch accuboormachine 18V",
+      "base_price": 129,
+      "durationMs": 43,
+      "marketOffers": 80,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 92.99,
+      "savings": 36.01,
+      "dealScore": 9,
+      "dealConfidence": "hoog",
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 58,
+          "droppedRelevanceRatio": 7,
+          "droppedTitleMatch": 3,
+          "droppedMinReviewsAbs": 5
+        },
+        "shortfall": 0,
+        "inputOffers": 80,
+        "mappedOffers": 7,
+        "qualityOffers": 0,
+        "underQueryPrice": 7
+      },
+      "offers": [
+        {
+          "seller": "bol.com",
+          "price": 92.99,
+          "currency": "EUR",
+          "reviewScore": 4.6,
+          "reviewCount": 52,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=40&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:12444179559458473835,gid:14425095070941144793,mid:576462874597823214,oid:16819557693427156568,iid:14431121919021051377,rds:UENfMTQ0MjUwOTUwNzA5NDExNDQ3OTN8UFJPRF9QQ18xNDQyNTA5NTA3MDk0MTE0NDc5Mw==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch UniversalImpactDrive 18V-350",
+          "_source": "google"
+        },
+        {
+          "seller": "Coolblue",
+          "price": 113,
+          "currency": "EUR",
+          "reviewScore": 4.7,
+          "reviewCount": 536,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:16829034362234334741,gid:298682727985743381,mid:576462803941684760,oid:4003177759098341146,iid:14075460817184567063,rds:UENfMjk4NjgyNzI3OTg1NzQzMzgxfFBST0RfUENfMjk4NjgyNzI3OTg1NzQzMzgx,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch UniversalImpact 18V-60 boormachine",
+          "_source": "google"
+        },
+        {
+          "seller": "Used Products Groningen",
+          "price": 119.99,
+          "currency": "EUR",
+          "reviewScore": 4.7,
+          "reviewCount": 566,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Bosch+accuboormachine+18V&oq=Bosch+accuboormachine+18V&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:17753253306378635874,gid:11328344446302103787,mid:576462877987582018,oid:4406471074765901366,iid:12907898874522852789,rds:UENfMTEzMjgzNDQ0NDYzMDIxMDM3ODd8UFJPRF9QQ18xMTMyODM0NDQ0NjMwMjEwMzc4Nw==,pvt:hg,pvo:3&oshop=apv&pvs=0",
+          "title": "Bosch Professional GBH 18V-21 Accu boorhamer",
+          "_source": "google"
+        }
+      ]
+    },
+    {
+      "product": "Nike Air Max 90",
+      "base_price": 149,
+      "durationMs": 49,
+      "marketOffers": 80,
+      "marketError": null,
+      "selectedOffers": 3,
+      "lowestSelectedPrice": 120,
+      "savings": 29,
+      "dealScore": 9,
+      "dealConfidence": "hoog",
+      "shortfall": 0,
+      "v3meta": {
+        "config": {
+          "MIN_SHOPS": 15,
+          "MIN_RATING": 3.8,
+          "MAX_RATING": 4.2,
+          "MIN_REVIEWS_TOTAL": 50,
+          "MIN_TITLE_MATCH_SCORE": 0.6,
+          "MIN_RELEVANCE_RATIO": 0.5,
+          "MIN_REVIEWS_ABS": 30,
+          "NICHE_MAX_REVIEWS": 200
+        },
+        "warnings": [
+          "Not enough quality shops after filtering"
+        ],
+        "counters": {
+          "droppedInvalid": 0,
+          "droppedAboveOrEqualQuery": 65,
+          "droppedRelevanceRatio": 1,
+          "droppedTitleMatch": 0,
+          "droppedMinReviewsAbs": 7
+        },
+        "shortfall": 0,
+        "inputOffers": 80,
+        "mappedOffers": 7,
+        "qualityOffers": 0,
+        "underQueryPrice": 7
+      },
+      "offers": [
+        {
+          "seller": "Hypeboost",
+          "price": 120,
+          "currency": "EUR",
+          "reviewScore": 3.8,
+          "reviewCount": 37,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Nike+Air+Max+90&oq=Nike+Air+Max+90&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:1100948547694280686,gid:12631382442638158016,mid:576462832849759396,oid:1195567710409399248,iid:2323268840553029637,rds:UENfMTI2MzEzODI0NDI2MzgxNTgwMTZ8UFJPRF9QQ18xMjYzMTM4MjQ0MjYzODE1ODAxNg==,pvt:a,pvo:3&oshop=apv&pvs=0",
+          "title": "Nike Air Max 90 Heren ESS+ Cave Stone",
+          "_source": "google"
+        },
+        {
+          "seller": "Voetbalshop.nl",
+          "price": 134.99,
+          "currency": "EUR",
+          "reviewScore": 4.7,
+          "reviewCount": 604,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Nike+Air+Max+90&oq=Nike+Air+Max+90&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:9039081089131412893,gid:3778068761987180602,mid:576462543145410887,oid:29252303533044039,iid:15593147832545572511,rds:UENfMzc3ODA2ODc2MTk4NzE4MDYwMnxQUk9EX1BDXzM3NzgwNjg3NjE5ODcxODA2MDI=,pvt:a,pvo:3&oshop=apv&pvs=0",
+          "title": "Nike Air Max 90 Premium Sneakers Grijsgroen",
+          "_source": "google"
+        },
+        {
+          "seller": "bol.com",
+          "price": 148,
+          "currency": "EUR",
+          "reviewScore": 4.6,
+          "reviewCount": 922,
+          "deliveryTime": null,
+          "url": "https://www.google.com/search?q=Nike+Air+Max+90&oq=Nike+Air+Max+90&gl=nl&hl=nl&udm=28&start=0&uule=w+CAIQICILTmV0aGVybGFuZHM#oshopproduct=cid:12335318944203264521,gid:3926622533329434741,mid:576462876733699598,oid:7803039990046970607,iid:12390385730215589508,rds:UENfMzkyNjYyMjUzMzMyOTQzNDc0MXxQUk9EX1BDXzM5MjY2MjI1MzMzMjk0MzQ3NDE=,pvt:a,pvo:3&oshop=apv&pvs=0",
+          "title": "Nike Air Max 90",
+          "_source": "google"
+        }
+      ]
+    }
+  ]
+}

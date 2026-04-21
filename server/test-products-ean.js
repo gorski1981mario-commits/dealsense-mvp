@@ -27,42 +27,42 @@ if (fs.existsSync(envTestPath)) {
 
 const { fetchMarketOffers, getCostOptimizationStats } = require('./market-api');
 
-// Test products - RÓŻNORODNOŚĆ KATEGORII
+// Test products - RÓŻNORODNOŚĆ KATEGORII (karuzela nowych produktów)
 const TEST_PRODUCTS = [
   {
-    name: 'Dyson V15 Detect',
-    ean: '5025155049464',
-    basePrice: 649,
-    category: 'AGD (odkurzacze)',
-    description: 'Popularny odkurzacz - test cache first'
+    name: 'Levi\'s 501 Original Jeans',
+    ean: '737247293916',
+    category: 'Moda - Jeans',
+    basePrice: 99.00,
+    description: 'Klasyczne jeans Levi\'s'
   },
   {
-    name: 'Philips Hue White Starter Kit',
-    ean: '8718696449578',
-    basePrice: 89,
-    category: 'Oświetlenie Smart Home',
-    description: 'Popularne oświetlenie - test query scoring'
+    name: 'Nivea Men Creme',
+    ean: '4005800133948',
+    category: 'Kosmetyki',
+    basePrice: 8.99,
+    description: 'Krem do twarzy dla mężczyzn'
   },
   {
-    name: 'Nike Air Max 90',
-    ean: '0195866171657',
-    basePrice: 139,
-    category: 'Obuwie sportowe',
-    description: 'Popularne buty - test rotation'
+    name: 'Adidas 3kg Dumbbell Set',
+    ean: '4055740205874',
+    category: 'Sport - Fitness',
+    basePrice: 39.99,
+    description: 'Zestaw hantli Adidas'
   },
   {
-    name: 'LEGO Technic Lamborghini',
-    ean: '5702017153209',
-    basePrice: 379,
-    category: 'Zabawki',
-    description: 'Popularne LEGO - test niche boost'
+    name: 'Samsung 55" TU8500 Crystal UHD',
+    ean: '8806090142545',
+    category: 'Elektronika - TV',
+    basePrice: 599.00,
+    description: 'Telewizor Samsung 55" 4K'
   },
   {
-    name: 'Oral-B iO Series 9',
-    ean: '4210201307891',
-    basePrice: 299,
-    category: 'Higiena osobista',
-    description: 'Szczoteczka elektryczna - test adaptive fetch'
+    name: 'Philips Airfryer XXL HD9255',
+    ean: '8710103636579',
+    category: 'AGD - Frytkownice',
+    basePrice: 229.00,
+    description: 'Airfryer Philips XXL'
   }
 ];
 
@@ -101,12 +101,15 @@ async function testProduct(product, index) {
     const startTime = Date.now();
     
     // Fetch offers
-    const offers = await fetchMarketOffers(product.name, product.ean, {
+    const result = await fetchMarketOffers(product.name, product.ean, {
       basePrice: product.basePrice,
       location: 'nl'
     });
     
     const duration = Date.now() - startTime;
+    
+    // fetchMarketOffers zwraca obiekt { offers: [...], smartBundles: [...] }
+    const offers = result?.offers || [];
     
     console.log(`\n⏱️  Czas wyszukiwania: ${duration}ms`);
     console.log(`📦 Znaleziono ofert: ${offers.length}`);
@@ -126,50 +129,42 @@ async function testProduct(product, index) {
       return;
     }
     
-    // Statystyki
+    // Statystyki cen
     const prices = sorted.map(o => o.price);
-    const avgPrice = prices.reduce((sum, p) => sum + p, 0) / prices.length;
+    const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
+    const maxSavings = product.basePrice - minPrice;
+    const maxSavingsPercent = maxSavings > 0 ? (maxSavings / product.basePrice * 100) : 0;
     
     console.log('\n📊 STATYSTYKI:');
-    console.log(`   Średnia cena: ${formatPrice(avgPrice)}`);
+    console.log(`   Średnia cena: €${avgPrice.toFixed(2)}`);
     console.log(`   Najtańsza: ${formatPrice(minPrice)}`);
     console.log(`   Najdroższa: ${formatPrice(maxPrice)}`);
-    console.log(`   Maksymalne przebicie: ${formatSavings(minPrice, product.basePrice)}`);
+    console.log(`   Maksymalne przebicie: ${formatPrice(maxSavings)} (${maxSavingsPercent.toFixed(1)}%)`);
     
-    // TOP 10 ofert
-    console.log('\n🏆 TOP 10 OFERT:');
-    console.log('-'.repeat(80));
-    console.log('Nr | Sklep                    | Cena      | Oszczędność      | Score | Trust | Source');
-    console.log('-'.repeat(80));
+    console.log('\n🏆 WSZYSTKIE OFERTY:');
+    console.log('─'.repeat(80));
+    console.log('Nr | Sklep                    | Cena      | Oszczędność      | Source');
+    console.log('─'.repeat(80));
     
-    sorted.slice(0, 10).forEach((offer, i) => {
-      const shop = (offer.seller || 'Unknown').substring(0, 24).padEnd(24);
-      const price = formatPrice(offer.price).padEnd(9);
-      const savings = formatSavings(offer.price, product.basePrice).padEnd(16);
-      const score = offer._dealScore?.dealScore 
-        ? offer._dealScore.dealScore.toFixed(1).padStart(5) 
-        : 'N/A  ';
-      const trust = offer._dealScore?.trustScore 
-        ? Math.round(offer._dealScore.trustScore).toString().padStart(5)
-        : 'N/A  ';
-      const source = (offer._source || 'unknown').padEnd(10);
+    sorted.forEach((offer, i) => {
+      const savings = product.basePrice - offer.price;
+      const savingsPercent = savings > 0 ? (savings / product.basePrice * 100).toFixed(1) : 'Brak';
+      const savingsText = savings > 0 ? `${formatPrice(savings)} (${savingsPercent}%)` : 'Brak';
+      const shopName = offer.shop || offer.seller || 'Unknown';
       
-      console.log(`${String(i + 1).padStart(2)} | ${shop} | ${price} | ${savings} | ${score} | ${trust} | ${source}`);
-    });
-    
-    // Źródła danych
-    const sources = {};
-    offers.forEach(o => {
-      const src = o._source || 'unknown';
-      sources[src] = (sources[src] || 0) + 1;
+      console.log(`${(i + 1).toString().padEnd(3)} | ${shopName.substring(0, 24).padEnd(24)} | ${formatPrice(offer.price).padEnd(10)} | ${savingsText.padEnd(17)} | ${offer._source || 'google'}`);
     });
     
     console.log('\n📍 ŹRÓDŁA DANYCH:');
-    Object.entries(sources).forEach(([src, count]) => {
-      const percent = ((count / offers.length) * 100).toFixed(1);
-      console.log(`   ${src}: ${count} ofert (${percent}%)`);
+    const sources = {};
+    offers.forEach(o => {
+      const source = o._source || 'google';
+      sources[source] = (sources[source] || 0) + 1;
+    });
+    Object.entries(sources).forEach(([source, count]) => {
+      console.log(`   ${source}: ${count} ofert (${(count / offers.length * 100).toFixed(1)}%)`);
     });
     
     // Deal Score statistics

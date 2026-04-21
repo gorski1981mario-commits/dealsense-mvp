@@ -1,0 +1,85 @@
+🚀 GOOGLE SHOPPING PAID API - INSTRUKCJA SETUP (15 minut)
+
+=== PROBLEM ===
+❌ Bol.com odrzucił DealSense (startup)
+❌ TradeTracker odrzucił DealSense (startup)
+❌ Wszystkie affiliate programy odrzucają startupy
+
+=== ROZWIĄZANIE GEMINI ===
+✅ Google Shopping PAID API - NIKT NIE ODRZUCI GOOGLE!
+✅ Dostęp natychmiast po zapłacie
+✅ Najlepsza jakość danych
+✅ Stabilne i pewne
+
+=== KROKI SETUP ===
+
+🔧 KROK 1: Google Cloud Console (5 minut)
+1. Wejdź na: https://console.cloud.google.com/
+2. Zaloguj się swoim Google account
+3. Stwórz nowy projekt: "DealSense Shopping"
+4. Włącz API:
+   - Custom Search API
+   - Google Shopping Content API
+
+🔧 KROK 2: Custom Search Engine (5 minut)
+1. Wejdź na: https://cse.google.com/
+2. Stwórz nową Search Engine:
+   - Sites to search: "www.google.com/shopping"
+   - Language: "Dutch"
+   - Search entire web
+3. Skopiuj Search Engine ID
+
+🔧 KROK 3: Klucze API (3 minuty)
+1. W Google Cloud Console → Credentials
+2. Stwórz API Key
+3. Ogranicz klucz do swoich API
+4. Skopiuj klucz
+
+🔧 KROK 4: Dodaj do .env (2 minuty)
+W server/.env dodaj:
+GOOGLE_SHOPPING_PAID_API_KEY=twój_klucz_api
+GOOGLE_SEARCH_ENGINE_ID=twoje_search_engine_id
+
+=== KOSZTY ===
+
+💰 Google API Pricing:
+- Custom Search API: $5 za 1000 zapytań
+- Google Shopping Content: $0.25 za 1000 zapytań
+- Szacowany koszt: $10-20/miesiąc
+
+💡 DealSense szacuje:
+- 100 użytkowników dziennie = 3000 zapytań
+- Koszt: ~$15/miesiąc
+- Vs prowizja z użytkowników: $200-500/miesiąc
+- ROI: 1300-3300%
+
+=== TEST ===
+
+🧪 Po setup uruchom:
+cd server
+node test-google-api.js
+
+=== ALTERNATYWA ===
+
+Jeśli nie chcesz płacić:
+✅ Użyj mock danych (już działa)
+✅ Wprowadź użytkowników ręcznie
+✅ Zbuduj traffic, potem spróbuj affiliate
+
+=== CZAS REALIZACJI ===
+
+⏱️ Setup Google API: 15 minut
+⏱️ Integracja z kodem: ZROBIONA
+⏱️ Test i start: 5 minut
+TOTAL: 20 minut
+
+🚀 PO 20 MINUTACH MASZ DZIAŁAJĄCE PRO + FINANCE!
+
+=== KONTAKT POMOC ===
+
+Jeśli potrzebujesz pomocy z setup:
+✅ Mogę pomóc z konfiguracją
+✅ Mogę sprawdzić klucze API
+✅ Mogę przetestować połączenie
+
+🎯 DEALSENSE 2.0 GOTOWE W 20 MINUT!

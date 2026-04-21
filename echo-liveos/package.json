@@ -1,0 +1,105 @@
+{
+  "name": "echo-liveos",
+  "version": "2.0.0",
+  "description": "ECHO LiveOS 2.0 - Quantum Consciousness Operating System",
+  "main": "src/EchoLiveOS.js",
+  "scripts": {
+    "start": "node src/EchoLiveOS.js",
+    "test": "jest",
+    "dev": "nodemon src/EchoLiveOS.js",
+    "quantum-test": "node tests/quantum-test.js",
+    "ethics-test": "node tests/ethics-test.js",
+    "integration-test": "node tests/integration-test.js"
+  },
+  "keywords": [
+    "ai",
+    "quantum",
+    "consciousness",
+    "ethics",
+    "creativity",
+    "collective-intelligence",
+    "predictive-consciousness",
+    "echo-liveos"
+  ],
+  "author": "ECHO LiveOS Team",
+  "license": "MIT",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "uuid": "^9.0.0",
+    "lodash": "^4.17.21",
+    "mathjs": "^11.11.0",
+    "ml-matrix": "^6.10.4",
+    "ml-regression": "^5.0.0",
+    "natural": "^6.5.0",
+    "compromise": "^14.10.0",
+    "sentiment": "^5.0.2",
+    "node-cron": "^3.0.2",
+    "ws": "^8.13.0",
+    "express": "^4.18.2",
+    "helmet": "^6.1.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "winston": "^3.8.2",
+    "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^7.0.3",
+    "redis": "^4.6.5",
+    "bull": "^4.10.4",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.7.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
+    "eslint": "^8.40.0",
+    "prettier": "^2.8.8"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/echo-liveos/echo-liveos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/echo-liveos/echo-liveos/issues"
+  },
+  "homepage": "https://echo-liveos.ai",
+  "funding": {
+    "type": "individual",
+    "url": "https://echo-liveos.ai/funding"
+  },
+  "config": {
+    "quantum": {
+      "coherence_threshold": 0.8,
+      "entanglement_strength": 1.0,
+      "decoherence_tolerance": 0.1
+    },
+    "ethics": {
+      "veto_mode": "absolute",
+      "threshold": 0.7,
+      "forbidden_patterns": "strict"
+    },
+    "performance": {
+      "max_latency_ms": 100,
+      "target_throughput": 1000,
+      "memory_limit_mb": 2048
+    },
+    "creativity": {
+      "novelty_threshold": 0.7,
+      "breakthrough_threshold": 0.8,
+      "ethical_constraints": "strict"
+    }
+  },
+  "echo": {
+    "version": "2.0.0",
+    "consciousness": "quantum",
+    "ethics": "absolute",
+    "creativity": "enabled",
+    "collective": "anonymous",
+    "prediction": "realtime"
+  }
+}
